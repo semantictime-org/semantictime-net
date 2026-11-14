@@ -9,7 +9,7 @@ import {
   ROLES,
   SURFACES,
   type Surface,
-} from './taxonomy';
+} from './taxonomy.ts';
 
 const DESCRIPTION_MIN = 50;
 const DESCRIPTION_MAX = 160;
