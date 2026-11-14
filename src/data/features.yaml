@@ -1,8 +1,336 @@
-# 機能レジストリ。初版（30〜50件）は Task 2.3 で作る。
+# 機能レジストリ（機能のステータスと日付の唯一の情報源）
+#
+# 初版: 2026-11-15。出典は code.claude.com/docs/llms.txt、claude.com/docs/llms.txt、
+# code.claude.com/docs/en/feature-availability。
+#
+# status の付け方:
+# - beta / removed: 公式ドキュメントに beta・experimental・removed の表記があるもの（experimental は beta 扱い）
+# - ga: 公式に beta などの表記がないもの（2026-11-15 時点。正式版と明記されているとは限らない）
+#
+# aliases: 上流の変更（changelog など）との照合に使う。一般的すぎる語（hooks、skills など）は入れず、
+#          その機能だけを指す語（イベント名、コマンド、ファイル名、製品名）にする。
+# since: 公式の資料で確かめられた日付だけを書く（初版では空）。
+
+# --- Claude Code: 実行環境とプラットフォーム ---
 - id: remote-control
   name: Remote Control
   surface: claude-code
   status: ga
   docs: https://code.claude.com/docs/en/remote-control
-  aliases:
-    - Remote Control
+  aliases: [Remote Control, remoteControlAtStartup]
+- id: cloud-sessions
+  name: Claude Code on the web（クラウドセッション）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/claude-code-on-the-web
+  aliases: [Claude Code on the web, --teleport]
+- id: routines
+  name: クラウドのスケジュール実行（Routines）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/routines
+  aliases: [/schedule, routines]
+- id: scheduled-tasks-loop
+  name: セッション内の定期実行（/loop）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/scheduled-tasks
+  aliases: [/loop]
+- id: desktop-app
+  name: Claude Code Desktop
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/desktop
+  aliases: [Claude Code Desktop]
+- id: desktop-linux
+  name: Claude Desktop on Linux
+  surface: claude-code
+  status: beta
+  docs: https://code.claude.com/docs/en/desktop-linux
+  aliases: [Claude Desktop on Linux]
+- id: mobile
+  name: Claude Code on mobile
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/mobile
+  aliases: [Claude Code on mobile]
+- id: chrome-extension
+  name: Claude in Chrome（Chrome 連携）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/chrome
+  aliases: [Claude in Chrome]
+- id: computer-use-cli
+  name: CLI からのコンピューター操作（Computer use）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/computer-use
+  aliases: [computer use]
+- id: vs-code
+  name: VS Code 拡張機能
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/vs-code
+  aliases: [VS Code extension]
+- id: jetbrains
+  name: JetBrains IDE 連携
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/jetbrains
+  aliases: [JetBrains]
+- id: slack
+  name: Claude Code in Slack
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/slack
+  aliases: [Claude Code in Slack]
+- id: claude-tag
+  name: Claude Tag
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/claude-tag
+  aliases: [Claude Tag]
+
+# --- Claude Code: レビューと CI ---
+- id: code-review
+  name: Code Review（GitHub の PR レビュー）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/code-review
+  aliases: []
+- id: ultrareview
+  name: ultrareview
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/ultrareview
+  aliases: [ultrareview, /ultrareview]
+- id: github-actions
+  name: Claude Code GitHub Actions
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/github-actions
+  aliases: [claude-code-action]
+- id: gitlab-ci
+  name: Claude Code GitLab CI/CD
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/gitlab-ci-cd
+  aliases: [GitLab CI/CD]
+
+# --- Claude Code: エージェントと並列作業 ---
+- id: subagents
+  name: サブエージェント（Subagents）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/sub-agents
+  aliases: []
+- id: agent-view
+  name: Agent view
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/agent-view
+  aliases: [agent view]
+- id: agent-teams
+  name: Agent teams
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/agent-teams
+  aliases: [agent teams]
+- id: cross-session-messaging
+  name: セッション間メッセージ（Cross-session messaging）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/cross-session-messaging
+  aliases: [cross-session messaging, /peers, /list-agents]
+- id: workflows
+  name: Workflows（動的ワークフロー）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/workflows
+  aliases: [dynamic workflows, ultracode]
+- id: worktrees
+  name: Worktrees による並列セッション
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/worktrees
+  aliases: [--worktree]
+
+# --- Claude Code: 自動化と設定 ---
+- id: hooks
+  name: Hooks
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/hooks-guide
+  aliases: [PreToolUse, PostToolUse, SessionStart, UserPromptSubmit]
+- id: channels
+  name: Channels
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/channels
+  aliases: [--channels]
+- id: goal
+  name: Goal（目標に向けて作業を続ける）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/goal
+  aliases: [/goal]
+- id: headless
+  name: プログラムからの実行（ヘッドレス）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/headless
+  aliases: [claude -p]
+- id: memory
+  name: CLAUDE.md によるメモリ
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/memory
+  aliases: [CLAUDE.md]
+- id: checkpointing
+  name: チェックポイント
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/checkpointing
+  aliases: [/rewind]
+- id: sandboxing
+  name: Bash のサンドボックス
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/sandboxing
+  aliases: [autoAllowBashIfSandboxed]
+- id: permission-modes
+  name: 権限モード（auto mode を含む）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/permission-modes
+  aliases: [auto mode]
+- id: fast-mode
+  name: Fast mode
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/fast-mode
+  aliases: [fast mode, /fast]
+- id: advisor
+  name: Advisor ツール
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/advisor
+  aliases: [advisor tool]
+- id: code-mode
+  name: Code Mode
+  surface: claude-code
+  status: beta
+  docs: https://code.claude.com/docs/en/code-mode
+  aliases: [Code Mode]
+- id: output-styles
+  name: Output styles
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/output-styles
+  aliases: [output styles]
+- id: statusline
+  name: ステータスライン
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/statusline
+  aliases: [statusLine]
+- id: voice-dictation
+  name: 音声入力（Voice dictation）
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/voice-dictation
+  aliases: [/voice]
+- id: plugins
+  name: プラグイン
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/plugins/overview
+  aliases: [/plugin, marketplace.json]
+- id: mods
+  name: Mods
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/plugins/mods/overview
+  aliases: [mods API]
+
+# --- Skills ---
+- id: skills
+  name: Agent Skills
+  surface: skills
+  status: ga
+  docs: https://code.claude.com/docs/en/skills
+  aliases: [SKILL.md, Agent Skills]
+
+# --- MCP とコネクタ ---
+- id: mcp-claude-code
+  name: Claude Code の MCP 接続
+  surface: mcp
+  status: ga
+  docs: https://code.claude.com/docs/en/mcp
+  aliases: [.mcp.json, claude mcp add]
+- id: connectors
+  name: コネクタ（Connectors directory）
+  surface: mcp
+  status: ga
+  docs: https://claude.com/docs/connectors/getting-started
+  aliases: [Connectors directory, custom connector]
+- id: mcp-tunnels
+  name: MCP tunnels
+  surface: mcp
+  status: ga
+  docs: https://claude.com/docs/connectors/mcp-tunnels/overview
+  aliases: [MCP tunnel]
+- id: mcp-apps
+  name: MCP Apps
+  surface: mcp
+  status: ga
+  docs: https://claude.com/docs/connectors/building/mcp-apps/getting-started
+  aliases: [MCP Apps]
+
+# --- Cowork ---
+- id: cowork
+  name: Cowork
+  surface: cowork
+  status: ga
+  docs: https://claude.com/docs/cowork/overview
+  aliases: [Cowork]
+- id: dispatch
+  name: Dispatch（バックグラウンドでのタスク実行）
+  surface: cowork
+  status: ga
+  docs: https://claude.com/docs/cowork/guide/dispatch
+  aliases: [Dispatch]
+- id: cowork-projects
+  name: Cowork のプロジェクト
+  surface: cowork
+  status: ga
+  docs: https://claude.com/docs/cowork/guide/projects
+  aliases: []
+- id: cowork-plugins
+  name: Cowork のプラグイン
+  surface: cowork
+  status: ga
+  docs: https://claude.com/docs/cowork/guide/plugins
+  aliases: []
+
+# --- Artifacts / Design ---
+- id: artifacts-claude-code
+  name: Claude Code のアーティファクト共有
+  surface: artifacts-design
+  status: ga
+  docs: https://code.claude.com/docs/en/artifacts
+  aliases: []
+
+# --- Agent SDK ---
+- id: agent-sdk
+  name: Claude Agent SDK
+  surface: agent-sdk
+  status: ga
+  docs: https://code.claude.com/docs/en/agent-sdk/overview
+  aliases: [Claude Agent SDK]
+- id: agent-sdk-ts-v2-session
+  name: TypeScript SDK V2 session API
+  surface: agent-sdk
+  status: removed
+  docs: https://code.claude.com/docs/en/agent-sdk/typescript-v2-preview
+  aliases: [V2 session API]
