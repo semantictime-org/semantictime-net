@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# 実名と雇用先のアカウント名が、push するコミットやファイルに含まれていないかを確かめる。
+# 検索パターンはリポジトリの外（~/.config/semantictime/real-name-patterns、1行1パターン）に置く。
+# 有効化: git config core.hooksPath .githooks
+set -euo pipefail
+
+patterns="${REAL_NAME_PATTERNS_FILE:-$HOME/.config/semantictime/real-name-patterns}"
+if [ ! -s "$patterns" ]; then
+  echo "pre-push: パターンファイルがありません: $patterns" >&2
+  echo "pre-push: 実名・雇用先のアカウント名を1行1つで書いてから、もう一度 push してください。" >&2
+  exit 1
+fi
+
+found=0
+
+# 1. 追跡しているファイルの中身（大文字小文字を区別しない、バイナリは除く）
+if git grep -I -i -n -F -f "$patterns" -- . >/dev/null 2>&1; then
+  echo "pre-push: 追跡しているファイルに、禁止パターンが含まれています（該当ファイル）:" >&2
+  git grep -I -i -l -F -f "$patterns" -- . >&2
+  found=1
+fi
+
+# 2. push するコミットの作成者・コミッター・メッセージ
+zero=0000000000000000000000000000000000000000
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue
+  if [ "$remote_sha" = "$zero" ]; then range="$local_sha"; else range="$remote_sha..$local_sha"; fi
+  if git log --format='%an%n%ae%n%cn%n%ce%n%B' "$range" | grep -i -q -F -f "$patterns"; then
+    echo "pre-push: push するコミットの作成者・メッセージに、禁止パターンが含まれています。" >&2
+    found=1
+  fi
+done
+
+if [ "$found" -ne 0 ]; then
+  echo "pre-push: push を中止しました。" >&2
+  exit 1
+fi

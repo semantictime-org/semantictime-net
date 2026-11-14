@@ -1,0 +1,6 @@
+[tools]
+node = "24"
+
+[env]
+# このプロジェクトの中だけ、gh の認証情報を semantictime の push 専用 PAT に切り替える
+GH_CONFIG_DIR = "{{env.HOME}}/.config/gh-semantictime"

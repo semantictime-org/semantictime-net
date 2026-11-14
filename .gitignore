@@ -1,0 +1,9 @@
+.tmp/
+reports/
+research_notes/
+.env*
+.claude/settings.local.json
+node_modules/
+dist/
+.astro/
+coverage/

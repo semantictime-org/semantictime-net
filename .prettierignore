@@ -1,0 +1,6 @@
+dist/
+.astro/
+.tmp/
+reports/
+research_notes/
+package-lock.json
