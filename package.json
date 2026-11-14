@@ -17,7 +17,8 @@
     "check": "npm run lint && npm run typecheck && npm run test && npm run build",
     "check:publish-cap": "node scripts/check-publish-cap.ts",
     "check:verification-gate": "node scripts/check-verification-gate.ts",
-    "reset-verification": "node scripts/reset-verification.ts"
+    "reset-verification": "node scripts/reset-verification.ts",
+    "stale-report": "node scripts/stale-report.ts"
   },
   "dependencies": {
     "astro": "^7.4.12"

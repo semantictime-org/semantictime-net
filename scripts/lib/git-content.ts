@@ -2,6 +2,7 @@
 import { execFileSync } from 'node:child_process';
 import { z } from 'astro/zod';
 import { parse } from 'yaml';
+import { CONTENT_TYPES, SURFACES } from '../../src/lib/taxonomy.ts';
 
 export const ARTICLES_DIR = 'src/content/articles';
 const ARTICLE_FILE = /\.(md|mdx)$/;
@@ -29,11 +30,27 @@ export const isArticle = (path: string): boolean => {
   return path.startsWith(`${ARTICLES_DIR}/`) && ARTICLE_FILE.test(name) && !name.startsWith('_');
 };
 
-export const readFrontmatter = (ref: string, path: string): ArticleFrontmatter => {
+const rawFrontmatter = (ref: string, path: string): string => {
   const match = FRONTMATTER.exec(git(['show', `${ref}:${path}`]));
   if (!match?.[1]) throw new Error(`${path}: frontmatter が見つからない`);
-  return frontmatterSchema.parse(parse(match[1]));
+  return match[1];
 };
+
+export const readFrontmatter = (ref: string, path: string): ArticleFrontmatter =>
+  frontmatterSchema.parse(parse(rawFrontmatter(ref, path)));
+
+const metaSchema = z.object({
+  title: z.string(),
+  type: z.enum(CONTENT_TYPES),
+  surfaces: z.array(z.enum(SURFACES)).min(1),
+  verifiedAt: z.coerce.date(),
+  draft: z.boolean().default(false),
+});
+export type ArticleMeta = z.infer<typeof metaSchema>;
+
+/** 期限切れの判定に使う項目を読む */
+export const readArticleMeta = (ref: string, path: string): ArticleMeta =>
+  metaSchema.parse(parse(rawFrontmatter(ref, path)));
 
 export const listArticles = (ref: string): readonly string[] =>
   git(['ls-tree', '-r', '--name-only', ref, '--', ARTICLES_DIR]).split('\n').filter(isArticle);
