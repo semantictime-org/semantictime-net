@@ -1,10 +1,8 @@
 // 公開上限のチェック。git の2つの版（base と head）の記事を読み、判定は src/lib/publish-cap.ts に任せる。
 // 使い方: node scripts/check-publish-cap.ts --base <ref> --head <ref> [--mode pull-request|deploy]
 // 違反があれば内容を出力して exit 1。
-import { execFileSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import { z } from 'astro/zod';
-import { parse } from 'yaml';
 import { SITE } from '../site.config.ts';
 import {
   findPublishViolations,
@@ -12,49 +10,20 @@ import {
   type PublishEntry,
   type PublishViolation,
 } from '../src/lib/publish-cap.ts';
-
-const ARTICLES_DIR = 'src/content/articles';
-const ARTICLE_FILE = /\.(md|mdx)$/;
-const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---/;
-
-const frontmatterSchema = z.object({
-  publishedAt: z.coerce.date(),
-  draft: z.boolean().default(false),
-});
-
-const git = (args: readonly string[]): string =>
-  execFileSync('git', [...args], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
-
-const toId = (path: string): string =>
-  path.slice(ARTICLES_DIR.length + 1).replace(ARTICLE_FILE, '');
-
-const isArticle = (path: string): boolean => {
-  const name = path.split('/').pop() ?? '';
-  return ARTICLE_FILE.test(name) && !name.startsWith('_');
-};
+import { diffArticles, isArticle, listArticles, readFrontmatter, toId } from './lib/git-content.ts';
 
 const readEntries = (ref: string): readonly PublishEntry[] =>
-  git(['ls-tree', '-r', '--name-only', ref, '--', ARTICLES_DIR])
-    .split('\n')
-    .filter(isArticle)
-    .map((path) => {
-      const match = FRONTMATTER.exec(git(['show', `${ref}:${path}`]));
-      if (!match?.[1]) throw new Error(`${path}: frontmatter が見つからない`);
-      const fm = frontmatterSchema.parse(parse(match[1]));
-      return { id: toId(path), publishedAt: fm.publishedAt, draft: fm.draft };
-    });
+  listArticles(ref).map((path) => {
+    const fm = readFrontmatter(ref, path);
+    return { id: toId(path), publishedAt: fm.publishedAt, draft: fm.draft };
+  });
 
-// "R100\told\tnew" の行から、新しい ID → 古い ID の対応を作る
+// リネームされた記事について、新しい ID → 古い ID の対応を作る
 const readRenames = (base: string, head: string): ReadonlyMap<string, string> =>
   new Map(
-    git(['diff', '--name-status', '-M', base, head, '--', ARTICLES_DIR])
-      .split('\n')
-      .map((line) => line.split('\t'))
-      .filter(
-        (cols): cols is [string, string, string] => cols.length === 3 && /^R/.test(cols[0] ?? ''),
-      )
-      .filter(([, from, to]) => isArticle(from) && isArticle(to))
-      .map(([, from, to]) => [toId(to), toId(from)]),
+    diffArticles(base, head)
+      .filter((c) => c.status === 'R' && c.from !== undefined && isArticle(c.from))
+      .map((c) => [toId(c.path), toId(c.from ?? '')]),
   );
 
 const describe = (v: PublishViolation): string => {

@@ -15,7 +15,9 @@
     "format:check": "prettier --check .",
     "test": "vitest run --coverage",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build",
-    "check:publish-cap": "node scripts/check-publish-cap.ts"
+    "check:publish-cap": "node scripts/check-publish-cap.ts",
+    "check:verification-gate": "node scripts/check-verification-gate.ts",
+    "reset-verification": "node scripts/reset-verification.ts"
   },
   "dependencies": {
     "astro": "^7.4.12"
