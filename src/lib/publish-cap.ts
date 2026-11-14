@@ -1,5 +1,6 @@
 // 公開上限（1日あたりの本数）の判定。副作用を持たない純粋関数だけを置く。
 // git からの読み込みは scripts/check-publish-cap.ts で行う。
+import { toJstDate } from './dates.ts';
 
 export interface PublishEntry {
   readonly id: string;
@@ -37,15 +38,7 @@ export interface PublishCheckResult {
   readonly newlyPublished: readonly string[];
 }
 
-const JST_DATE = new Intl.DateTimeFormat('en-CA', {
-  timeZone: 'Asia/Tokyo',
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-});
-
-/** 日時を JST の 'YYYY-MM-DD' にする（en-CA の書式は YYYY-MM-DD） */
-export const toJstDate = (date: Date): string => JST_DATE.format(date);
+export { toJstDate };
 
 const isPublished = (e: PublishEntry): boolean => !e.draft;
 

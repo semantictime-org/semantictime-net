@@ -18,7 +18,8 @@
     "check:publish-cap": "node scripts/check-publish-cap.ts",
     "check:verification-gate": "node scripts/check-verification-gate.ts",
     "reset-verification": "node scripts/reset-verification.ts",
-    "lint:content": "node scripts/lint-content.ts"
+    "lint:content": "node scripts/lint-content.ts",
+    "stale-report": "node scripts/stale-report.ts"
   },
   "dependencies": {
     "astro": "^7.4.12"
