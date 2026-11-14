@@ -1,0 +1,8 @@
+# 機能レジストリ。初版（30〜50件）は Task 2.3 で作る。
+- id: remote-control
+  name: Remote Control
+  surface: claude-code
+  status: ga
+  docs: https://code.claude.com/docs/en/remote-control
+  aliases:
+    - Remote Control
