@@ -329,3 +329,19 @@ describe('連載（series）', () => {
     expect(parse({ series: undefined }).success).toBe(true);
   });
 });
+
+describe('検証の履歴（history）', () => {
+  test('日付と内容の組を書ける', () => {
+    expect(parse({ history: [{ date: '2026-11-15', note: '手元で再検証した。' }] }).success).toBe(
+      true,
+    );
+  });
+  test('いちばん新しい履歴の日付は verifiedAt と同じにする', () => {
+    expect(parse({ history: [{ date: '2026-11-10', note: '手元で再検証した。' }] }).success).toBe(
+      false,
+    );
+  });
+  test('内容が空なら失敗する', () => {
+    expect(parse({ history: [{ date: '2026-11-15', note: '' }] }).success).toBe(false);
+  });
+});

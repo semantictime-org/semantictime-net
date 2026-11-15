@@ -91,12 +91,28 @@ export interface HistoryRow {
 }
 
 /** 検証の履歴（新しい順）。フェーズ1は frontmatter の公開日と検証日から作る */
+/** 記事の frontmatter の history（確かめ直した日と、そのとき何をしたか） */
+export interface HistoryEntry {
+  readonly date: Date;
+  readonly note: string;
+}
+
 export const historyOf = (
   verification: Verification,
   publishedAt: Date,
   verifiedAt: Date,
+  entries: readonly HistoryEntry[] = [],
 ): readonly HistoryRow[] => {
   const published = toJstDate(publishedAt);
+  // 記事に履歴が書いてあれば、それを新しい順に並べ、最後に公開の行を置く
+  if (entries.length > 0) {
+    return [
+      ...entries
+        .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+        .map((e) => ({ date: toJstDate(e.date), text: e.note })),
+      { date: published, text: '公開した。' },
+    ];
+  }
   const verified = toJstDate(verifiedAt);
   if (verification === 'sources') {
     return [{ date: published, text: '一次情報の出典を確かめて公開した。' }];

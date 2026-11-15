@@ -65,6 +65,19 @@ describe('historyOf（検証の履歴）', () => {
     ]);
   });
 
+  test('記事に履歴があれば、新しい順に並べ、最後に公開の行を置く', () => {
+    expect(
+      historyOf('hands-on', published, new Date('2026-12-20T00:00:00+09:00'), [
+        { date: new Date('2026-11-20T00:00:00+09:00'), note: 'v2.2 で手順 3 を直した。' },
+        { date: new Date('2026-12-20T00:00:00+09:00'), note: '手元で再検証した。変更なし。' },
+      ]),
+    ).toEqual([
+      { date: '2026-12-20', text: '手元で再検証した。変更なし。' },
+      { date: '2026-11-20', text: 'v2.2 で手順 3 を直した。' },
+      { date: '2026-10-02', text: '公開した。' },
+    ]);
+  });
+
   test('出典で確かめた記事は「出典を確かめた」と書く', () => {
     expect(historyOf('sources', published, published)).toEqual([
       { date: '2026-10-02', text: '一次情報の出典を確かめて公開した。' },

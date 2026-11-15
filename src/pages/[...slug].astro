@@ -144,7 +144,7 @@ const page: ArticlePage = {
     status: banner,
     features: features.filter((f) => f.data.status === banner).map((f) => f.data.name),
   },
-  history: historyOf(data.verification, data.publishedAt, data.verifiedAt),
+  history: historyOf(data.verification, data.publishedAt, data.verifiedAt, data.history),
   sources: data.sources,
   nav: {
     prev: navOf(nav.prev),
