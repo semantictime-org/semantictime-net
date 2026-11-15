@@ -20,3 +20,22 @@ test('公開済みの記事がない連載のページは作らない', async ({
   const res = await page.goto('/series/ai-glossary/');
   expect(res?.status()).toBe(404);
 });
+
+test('記事の最後に、連載の前後の回へのリンクを出す', async ({ page }) => {
+  await page.goto('/claude-code/hooks-format/');
+  const nav = page.getByRole('navigation', { name: '次に読む' });
+  await expect(
+    nav.getByRole('link', { name: /前の回.*settings\.json の設定項目/ }),
+  ).toHaveAttribute('href', '/claude-code/settings-reference/');
+  await expect(nav.getByRole('link', { name: /次の回/ })).toHaveCount(0);
+
+  await page.goto('/claude-code/settings-reference/');
+  await expect(
+    page.getByRole('navigation', { name: '次に読む' }).getByRole('link', { name: /次の回.*Hooks/ }),
+  ).toHaveAttribute('href', '/claude-code/hooks-format/');
+});
+
+test('案内する記事がなければ、案内の欄を出さない', async ({ page }) => {
+  await page.goto('/codex/setup/');
+  await expect(page.getByRole('navigation', { name: '次に読む' })).toHaveCount(0);
+});

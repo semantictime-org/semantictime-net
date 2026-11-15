@@ -2,6 +2,7 @@
 // 記事・現行仕様・比較の3つのテンプレートが共有する枠：冒頭の帯（検証票つき）、状態のバナー、
 // 本文（default の slot）、検証の履歴・出典・開示欄。本文の段組みは variant で切り替える。
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleNext from '../article/ArticleNext.astro';
 import DisclosureBox from '../disclosure/DisclosureBox.astro';
 import StatusBanner from '../status/StatusBanner.astro';
 import VerificationBadge from '../verification/VerificationBadge.astro';
@@ -95,6 +96,7 @@ const hasAside = Astro.slots.has('aside');
           </div>
           <DisclosureBox disclosure={page.disclosure} />
         </section>
+        <ArticleNext nav={page.nav} series={page.series} />
       </article>
       <slot name="end" />
     </div>

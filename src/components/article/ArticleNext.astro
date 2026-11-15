@@ -1,0 +1,148 @@
+---
+// 記事の最後の案内：連載の前後の回と、同じ製品の記事。どちらもなければ何も出さない。
+import type { ArticlePage, NavLink } from '../../lib/article-page';
+
+interface Props {
+  nav: ArticlePage['nav'];
+  series: ArticlePage['series'];
+}
+
+const { nav, series } = Astro.props;
+const steps = [
+  ...(nav.prev ? [{ dir: 'prev', label: '← 前の回', link: nav.prev }] : []),
+  ...(nav.next ? [{ dir: 'next', label: '次の回 →', link: nav.next }] : []),
+] satisfies { dir: string; label: string; link: NavLink }[];
+const isEmpty = steps.length === 0 && nav.related.length === 0;
+---
+
+{!isEmpty && (
+  <nav class="next" aria-label="次に読む" data-pagefind-ignore>
+    {steps.length > 0 && (
+      <div class="series">
+        {series && (
+          <p class="caption">
+            <a href={series.href}>連載「{series.name}」</a>
+          </p>
+        )}
+        <ul class="steps">
+          {steps.map((s) => (
+            <li class={s.dir}>
+              <a href={s.link.href}>
+                <span class="dir">{s.label}</span>
+                <span class="title">{s.link.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    {nav.related.length > 0 && (
+      <div class="related">
+        <p class="caption">同じ製品の記事</p>
+        <ul>
+          {nav.related.map((r) => (
+            <li>
+              <a href={r.href}>
+                {r.station && <span class="station">{r.station}</span>}
+                <span class="title">{r.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </nav>
+)}
+
+<style>
+  .next {
+    display: grid;
+    gap: var(--space-8);
+    margin-block-start: var(--space-10);
+  }
+
+  .caption {
+    margin: 0 0 var(--space-3);
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .caption a {
+    color: inherit;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .steps .next {
+    grid-column: 2;
+    text-align: end;
+  }
+
+  .steps a {
+    display: grid;
+    gap: var(--space-1);
+    height: 100%;
+    padding: var(--space-4);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-control);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .steps a:hover {
+    border-color: var(--color-key);
+  }
+
+  .dir {
+    color: var(--color-key);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .title {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+  }
+
+  .related a {
+    display: grid;
+    grid-template-columns: 4em minmax(0, 1fr);
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-block-start: 1px solid var(--color-rule);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .related a:hover .title {
+    color: var(--color-key);
+  }
+
+  .station {
+    color: var(--color-key);
+    font: 400 1.1em / 1.2 var(--font-display);
+    letter-spacing: var(--tracking-display);
+  }
+
+  @media (max-width: 700px) {
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .steps .next {
+      grid-column: 1;
+    }
+  }
+</style>
