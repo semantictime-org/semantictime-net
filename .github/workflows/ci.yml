@@ -38,6 +38,9 @@ jobs:
           path: node_modules/.astro/fonts
           key: astro-fonts-${{ hashFiles('astro.config.ts') }}
       - run: npm run check
+      # 画面の崩れ・アクセシビリティ・導線を Playwright で確かめる（単体テストでは見つからない、変更の組み合わせによる崩れを拾う）
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
 
   trusted-checks:
     runs-on: ubuntu-latest
