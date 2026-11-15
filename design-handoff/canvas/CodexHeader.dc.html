@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>共通ヘッダー</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Noto+Sans+JP:wght@400;500;600;700;800;900&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>.ch :focus-visible{outline:3px solid #244ddd;outline-offset:5px}.ch a:hover{text-decoration:underline!important}@container ch (max-width:700px){.ch .ch-inner{padding:16px 22px!important;gap:16px}.ch .ch-nav{order:3;width:100%;margin-left:0!important;gap:22px!important}.ch .ch-search{margin-left:auto}}</style>
+</helmet>
+<header class="ch" style="container:ch / inline-size;background:white;border-bottom:1px solid #dce3ed;font-family:'Noto Sans JP',sans-serif;color:#142331">
+<div class="ch-inner" style="max-width:1200px;margin:auto;display:flex;align-items:center;flex-wrap:wrap;gap:12px 36px;padding:20px 48px;box-sizing:border-box">
+<a href="CodexMain.dc.html" style="display:inline-flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;color:#142331;text-decoration:none;letter-spacing:-.06em"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M3 22V15L14 4H25M3 22H14L25 11" fill="none" stroke="#244ddd" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="14" cy="4" r="3" fill="white" stroke="#244ddd" stroke-width="2"></circle><circle cx="14" cy="22" r="3" fill="white" stroke="#244ddd" stroke-width="2"></circle></svg>semantictime<span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#536272;letter-spacing:0">.net</span></a>
+<nav class="ch-nav" aria-label="メインナビゲーション" style="display:flex;gap:24px;flex-wrap:wrap;font-size:13px;margin-left:auto"><a href="CodexMain.dc.html#guides" style="color:#142331;text-decoration:none">使い方を探す</a><a href="Digest.dc.html" style="color:#142331;text-decoration:none">変更の記録</a><a href="About.dc.html" style="color:#142331;text-decoration:none">検証について</a></nav>
+<a class="ch-search" href="Search.dc.html" style="display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border:1px solid #c9d3e0;border-radius:5px;color:#142331;text-decoration:none;font-size:12px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 6 6"></path></svg>検索</a>
+</div></header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":130}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

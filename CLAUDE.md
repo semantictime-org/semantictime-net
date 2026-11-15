@@ -1,6 +1,6 @@
 # semantictime.net
 
-日本語圏で最も整理された、Claude の非公式情報サイト。Astro 7（静的出力）を Cloudflare Workers で配信する。
+日本語圏で最も整理された、AI の使い方の非公式情報サイト（Claude・ChatGPT・Gemini などを同じ扱いで載せる）。Astro 7（静的出力）を Cloudflare Workers で配信する。
 
 ## 作業の流れ（必ず守る）
 

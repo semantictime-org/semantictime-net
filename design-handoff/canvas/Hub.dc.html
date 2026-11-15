@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>製品（Claude Code）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700;900&amp;family=Anton&amp;display=swap">
+<style>
+body{margin:0}
+.fx{container-type:inline-size;color:#172343;background:#fff;font:15px/1.8 'BIZ UDPGothic','Hiragino Sans',sans-serif;overflow-wrap:anywhere}
+.fx *{box-sizing:border-box}
+.fx a{color:#1A3CFF;text-underline-offset:3px}
+.fx a:focus-visible,.fx button:focus-visible{outline:3px solid #1A3CFF;outline-offset:4px}
+.fx h1,.fx h2,.fx h3,.fx p{margin:0}
+.fx h1,.fx h2,.fx h3{font-family:'Zen Kaku Gothic New',sans-serif}
+.fx-wrap{max-width:1184px;margin:0 auto;padding-inline:clamp(20px,4cqi,48px)}
+.fx-band{position:relative;isolation:isolate;overflow:hidden;background:#0B0D12;color:#fff;padding:32px 0 64px}
+.fx-band a{color:#8095FF}
+.fx-band a:focus-visible{outline-color:#8095FF}
+.fx-crumbs{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:#9AA3B5}
+.fx-en{display:block;margin-top:32px;font:400 clamp(52px,9cqi,128px)/.9 'Anton',Impact,sans-serif;color:#8095FF;white-space:nowrap;letter-spacing:.005em}
+.fx-h1{margin-top:16px!important;font-weight:900;font-size:clamp(28px,4cqi,48px);line-height:1.3;letter-spacing:-.03em;color:#fff}
+.fx-lead{margin-top:16px!important;max-width:34em;color:#C5CBD8;font-size:15px;line-height:1.9}
+.fx-wm{position:absolute;right:-.03em;bottom:-.24em;font:400 clamp(170px,30cqi,380px)/1 'Anton',Impact,sans-serif;color:rgba(255,255,255,.04);z-index:-1;white-space:nowrap;pointer-events:none}
+.fx-checked{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:24px!important;font-size:13px;color:#C5CBD8}
+.fx-dot{position:relative;width:8px;height:8px;border-radius:50%;background:#3DDC84;flex:0 0 auto}
+.fx-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:fxr 2.4s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes fxr{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.4);opacity:0}}
+.fx-sec{padding-top:80px}
+.fx-sec-en{display:block;font:400 clamp(44px,6.6cqi,88px)/.92 'Anton',Impact,sans-serif;color:#1A3CFF;white-space:nowrap}
+.fx-h2{margin-top:10px!important;font-weight:900;font-size:22px;letter-spacing:-.02em;line-height:1.5}
+.fx-anton{font-family:'Anton',Impact,sans-serif;font-weight:400;letter-spacing:.01em}
+.fx-mono{font-family:'IBM Plex Mono',monospace}
+.fx-muted{color:#59637A}
+.fx-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;font-size:11px;font-weight:700;line-height:1.4;white-space:nowrap}
+.fx-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.ok{background:#ECF8F0;color:#15803D}.rev{background:#FFF4E0;color:#B45309}.stale{background:#F8E8E1;color:#9B3D17}.fx-hide{display:none}
+.fx-row{border-top:1px solid #DDE2EF}
+.fx-arrow{font-family:'IBM Plex Mono',monospace;font-size:20px;color:#1A3CFF}
+.fx-end{padding:72px 0 96px}
+@media (prefers-reduced-motion:reduce){.fx-dot::after{animation:none}.fx *{transition:none!important}}
+
+.hb-stats{display:flex;flex-wrap:wrap;gap:20px 48px;margin-top:36px}
+.hb-stat dt{font-size:12px;color:#9AA3B5}.hb-stat dd{margin:6px 0 0;font:400 clamp(30px,4cqi,44px)/1 'Anton',Impact,sans-serif;color:#fff;white-space:nowrap}
+.hb-stat dd.rv{color:#FFC46B}
+.hb-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding-bottom:96px}
+.hb-notes{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 24px;font-size:13px;color:#59637A}
+.hb-sec-name{margin:28px 0 0!important;padding-left:40px;font-size:13px;font-weight:700;color:#59637A;font-family:'BIZ UDPGothic',sans-serif!important}
+.hb-route{list-style:none;margin:0;padding:0;position:relative}
+.hb-route::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:4px;background:#1A3CFF}
+.hb-st{position:relative;padding-left:40px}
+.hb-st::before{content:'';position:absolute;left:4px;top:24px;width:20px;height:20px;border-radius:50%;background:#fff;border:4px solid #1A3CFF;box-sizing:border-box}
+.hb-link{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:16px 0;border-bottom:1px solid #DDE2EF;color:#172343!important;text-decoration:none}
+.hb-id{font:400 24px/1 'Anton',Impact,sans-serif;color:#1A3CFF;white-space:nowrap}
+.hb-title{display:block;font-weight:700;font-size:16px;line-height:1.6}
+.hb-meta{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:12px;color:#59637A}
+.hb-date{font:500 12px 'IBM Plex Mono',monospace;color:#59637A;white-space:nowrap;text-align:right;display:grid;gap:6px;justify-items:end}
+@media (hover:hover){.hb-link:hover .hb-title{color:#1A3CFF}}
+.hb-feat{position:sticky;top:24px}
+.hb-feat table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14px;border-top:2px solid #172343}
+.hb-feat th{padding:10px 8px 10px 0;text-align:left;font-weight:400}
+.hb-feat td{padding:10px 0;text-align:right}
+.hb-feat tr{border-bottom:1px solid #DDE2EF}
+@container(max-width:900px){.hb-grid{grid-template-columns:1fr}.hb-feat{position:static}}
+@container(max-width:520px){.hb-link{grid-template-columns:56px minmax(0,1fr)}.hb-date{grid-column:2;justify-items:start;text-align:left}.hb-id{font-size:20px}}
+</style>
+</helmet>
+<div class="fx">
+<dc-import name="FreshHeader" hint-size="100%,80px"></dc-import>
+<main>
+<section class="fx-band" aria-labelledby="page-title">
+<div class="fx-wm" aria-hidden="true">CC</div>
+<div class="fx-wrap">
+<nav class="fx-crumbs" aria-label="パンくずリスト"><a href="FreshMain.dc.html">ホーム</a><span aria-hidden="true">/</span><span>Anthropic</span><span aria-hidden="true">/</span><span>Claude Code</span></nav>
+<span class="fx-en" aria-hidden="true">CLAUDE CODE</span>
+<h1 class="fx-h1" id="page-title">Claude Code の使い方</h1>
+<p class="fx-lead">ターミナルでコードを書く Claude（Anthropic）。はじめての設定から、設定項目の一覧まで。</p>
+<p class="fx-checked"><span class="fx-dot" aria-hidden="true"></span><span>公式の変更を確認 <span class="fx-mono">2026-11-15 06:00</span></span></p>
+<dl class="hb-stats">
+<div class="hb-stat"><dt>記事</dt><dd>24</dd></div>
+<div class="hb-stat"><dt>検証した最新の版</dt><dd>2.1.325</dd></div>
+<div class="hb-stat"><dt>見直し中の記事</dt><dd class="rv">2</dd></div>
+</dl>
+</div>
+</section>
+<div class="fx-wrap">
+<div class="hb-grid">
+<section class="fx-sec" aria-labelledby="route-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">ROUTE</span><h2 class="fx-h2" id="route-title">読む順</h2></div></div>
+<ul class="hb-notes"><li>上から読めば、はじめてでも使える</li><li>記事番号は固定。読む順を変えても同じ</li><li>読む順を見直した日 <span class="fx-mono">2026-11-15</span></li></ul>
+<sc-for list="{{sections}}" as="sec" hint-placeholder-count="4">
+<div>
+<h3 class="hb-sec-name">{{sec.name}}</h3>
+<ol class="hb-route">
+<sc-for list="{{sec.stations}}" as="s" hint-placeholder-count="3">
+<li class="hb-st"><a class="hb-link" href="FreshArticle.dc.html">
+<span class="hb-id">{{s.no}}</span>
+<span><span class="hb-title">{{s.title}}</span><span class="hb-meta"><span>{{s.level}}</span><span>{{s.xfer}}</span></span></span>
+<span class="hb-date"><span>検証 {{s.date}}</span><span class="{{s.pill}}">見直し中</span></span>
+</a></li>
+</sc-for>
+</ol>
+</div>
+</sc-for>
+</section>
+<aside class="fx-sec" aria-labelledby="feat-title">
+<div class="hb-feat">
+<h2 class="fx-h2" id="feat-title" style="margin-top:0!important">機能の状態</h2>
+<table><tbody>
+<sc-for list="{{features}}" as="f" hint-placeholder-count="7">
+<tr><th scope="row">{{f.name}}</th><td><span class="{{f.cls}}">{{f.status}}</span></td></tr>
+</sc-for>
+</tbody></table>
+<p class="fx-muted" style="margin-top:10px;font-size:12px">毎朝、公式の記載と照合しています。</p>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<dc-import name="FreshFooter" hint-size="100%,260px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const LEVEL = { CC01: '入門', CC02: '入門', CC03: '入門', CC04: '入門', CC07: '中級', CC08: '中級', CC15: '中級', CC18: '中級', CC20: '中級', CC12: '上級', CC13: '上級' };
+    const s = (no, title, date, xfer, review) => ({ no, title, date, xfer: xfer ? '関連：' + xfer : '', level: LEVEL[no] || '中級', pill: review ? 'fx-pill rev' : 'fx-hide' });
+    const sections = [
+      { name: 'はじめる', stations: [s('CC01', 'インストールと最初の依頼', '11-09'), s('CC02', '権限の考え方と許可の設定', '11-02'), s('CC03', 'CLAUDE.md で手順を覚えさせる', '11-06')] },
+      { name: '使いこなす', stations: [s('CC07', 'Hooks で保存のたびに整形する', '11-01', 'Skills'), s('CC08', 'サブエージェントに調べものを任せる', '11-05'), s('CC15', 'スマートフォンから作業を続ける', '11-08')] },
+      { name: '設定を調べる', stations: [s('CC12', 'settings.json の設定項目', '11-03', '', true), s('CC13', 'Hooks のイベント', '11-02', 'Agent SDK'), s('CC18', 'MCP の設定', '11-09', 'MCP')] },
+      { name: '選ぶ・理解する', stations: [s('CC04', '権限モードの違い', '10-30'), s('CC20', 'モデルの選び方', '10-24', 'Claude API', true)] },
+    ];
+    const CLS = { GA: 'fx-muted', beta: 'fx-pill rev', '廃止予定': 'fx-pill stale' };
+    const f = (name, status) => ({ name, status, cls: CLS[status] });
+    const features = [f('Hooks', 'GA'), f('Skills', 'GA'), f('サブエージェント', 'GA'), f('プラグイン', 'GA'), f('Remote Control', 'GA'), f('Code Mode', 'beta'), f('旧セッション API', '廃止予定')];
+    return { sections, features };
+  }
+}
+</script>
+</body>
+</html>

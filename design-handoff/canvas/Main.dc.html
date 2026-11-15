@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ホーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+JP:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}a{color:#1D4ED8;text-underline-offset:3px;text-decoration-thickness:1px;transition:color 150ms ease-out}@media (hover:hover){a:hover{color:#1E3A8A}}::selection{background:#DBE4FF;color:#111418}:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px;border-radius:4px}h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}button:active{transform:scale(0.97)}.card{transition:transform 200ms cubic-bezier(.16,1,.3,1)}@media (hover:hover){.card:hover{transform:translateY(-2px)}.card:hover .card-title{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}}@media (prefers-reduced-motion:reduce){.card{transition:none}}
+.rm-line{stroke-dasharray:var(--len);animation:rm-draw 900ms cubic-bezier(0.16,1,0.3,1) both}@keyframes rm-draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}.rm-station{animation:rm-in 240ms ease-out 760ms both}@keyframes rm-in{from{opacity:0}to{opacity:1}}@media (prefers-reduced-motion:reduce){.rm-line,.rm-station{animation:none}}
+.mascot .eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}@keyframes mjump{30%{transform:translateY(-12px) scale(1.06,.94)}55%{transform:translateY(0) scale(.94,1.06)}75%{transform:translateY(-3px)}}@keyframes ripple{0%{transform:scale(1);opacity:.55}100%{transform:scale(3.2);opacity:0}}.live{position:relative;display:inline-block;width:7px;height:7px;border-radius:50%;background:#15803D;margin-right:8px;vertical-align:1px}.live::after{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:ripple 2.4s cubic-bezier(.16,1,.3,1) infinite}@keyframes pop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}@media (prefers-reduced-motion:reduce){.mascot .eyes,.live::after{animation:none}.mascot{animation:none!important}.demo *{transition:none!important}.train{display:none}}
+</style>
+</helmet>
+<div style="width: 100%; background: #FFFFFF; color: #111418; font-family: 'IBM Plex Sans JP', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="Header" hint-size="100%,65px"></dc-import>
+  <sc-if value="{{showSince}}" hint-placeholder-val="{{ true }}">
+    <div role="status" style="border-bottom: 1px solid #E6E8EC">
+      <div style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 14px; line-height: 1.5; color: #5B616E">
+        <span><span class="live" aria-hidden="true" style="background: #1D4ED8"></span>前回の訪問（<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace">11-10</span>）から、記事 <span style="color: #111418; font-weight: 500">5 本</span>とニュース <span style="color: #111418; font-weight: 500">3 件</span>が更新されました</span>
+        <a href="Digest.dc.html">変わったところを見る</a>
+        <button type="button" onClick="{{hideSince}}" aria-label="このお知らせを閉じる" style="margin-left: auto; width: 28px; height: 28px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 6px; color: #8A909C; cursor: pointer"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+      </div>
+    </div>
+  </sc-if>
+  <main>
+    <section aria-labelledby="title" style="container-type: inline-size; max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 96px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px 64px">
+      <div style="flex: 1.4 1 520px; min-width: 0">
+        <h1 id="title" style="margin: 0; font-weight: 700; font-size: clamp(30px, 8.5cqi, 64px); line-height: 1.15; letter-spacing: -0.03em"><span style="display: inline-block">その手順、</span><span style="display: inline-block">いま動きますか。</span></h1>
+        <p style="margin: 24px 0 0; max-width: 30em; font-size: 18px; line-height: 1.8; color: #5B616E">AI の使い方を、手元で動かした日と版をつけて公開しています。公式の変更は毎朝たどり、影響があれば確かめ直します。</p>
+        <p style="margin: 32px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+          <a href="Start.dc.html" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 10px; background: #111418; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">はじめての方へ<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a>
+          <a href="About.dc.html" style="font-size: 15px; color: #111418; text-decoration: none">検証のしかた →</a>
+        </p>
+      </div>
+      <figure style="flex: 1 1 360px; min-width: 0; max-width: 520px; margin: 0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" width="560" height="360" style="width: 100%; height: auto; display: block" role="img" aria-label="各社の製品を路線、記事を駅として描いた路線図">
+<path id="t-cg" class="rm-line" style="--len:190;animation-delay:350ms" d="M24 212L68 212Q80 212 88.49 220.49L119.51 251.51Q128 260 140 260L196 260" fill="none" stroke="#3F3F46" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-gm" class="rm-line" style="--len:208;animation-delay:280ms" d="M438 24L438 54Q438 66 429.51 74.49L388.6 115.4Q382 122 382 131.33L382 210" fill="none" stroke="#0369A1" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-mj" class="rm-line" style="--len:318;animation-delay:210ms" d="M240 336L240 317.33Q240 308 246.6 301.4L259.51 288.49Q268 280 280 280L520 280" fill="none" stroke="#6D28D9" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-cc" class="rm-line" style="--len:531;animation-delay:140ms" d="M54 60L148 60Q160 60 168.49 68.49L271.51 171.51Q280 180 292 180L388 180Q400 180 408.49 188.49L473.87 253.87Q480 260 488.67 260L506 260" fill="none" stroke="#C2410C" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:606;animation-delay:70ms" d="M54 120L128 120Q140 120 148.49 128.49L191.51 171.51Q200 180 200 192L200 248Q200 260 212 260L308 260Q320 260 328.49 251.51L451.51 128.49Q460 120 472 120L506 120" fill="none" stroke="#9D174D" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:663;animation-delay:0ms" d="M120 316L120 272Q120 260 128.49 251.51L271.51 108.49Q280 100 292 100L328 100Q340 100 340 112L340 228Q340 240 352 240L428 240Q440 240 448.49 248.49L506 306" fill="none" stroke="#854D0E" stroke-width="6" stroke-linecap="round"></path>
+<circle class="rm-station" cx="56" cy="212" r="5" fill="white" stroke="#3F3F46" stroke-width="3"></circle>
+<circle class="rm-station" cx="156" cy="260" r="5" fill="white" stroke="#3F3F46" stroke-width="3"></circle>
+<circle class="rm-station" cx="438" cy="48" r="5" fill="white" stroke="#0369A1" stroke-width="3"></circle>
+<circle class="rm-station" cx="408" cy="96" r="5" fill="white" stroke="#0369A1" stroke-width="3"></circle>
+<circle class="rm-station" cx="296" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="420" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="504" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="100" cy="60" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="200" cy="100" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="300" cy="180" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="440" cy="220" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="100" cy="120" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="200" cy="220" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="272" cy="260" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="452" cy="128" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="120" cy="290" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="168" cy="212" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="300" cy="100" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="340" cy="136" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="384" cy="240" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="474" cy="274" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="382" cy="210" r="5" fill="white" stroke="#0369A1" stroke-width="3"></circle>
+<circle class="rm-station" cx="240" cy="334" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="506" cy="260" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="54" cy="120" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="504" cy="304" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<rect x="186" y="250" width="24" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="232" y="130" width="16" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="332" y="170" width="16" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="374" y="170" width="36" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="8" y="202" width="28" height="20" rx="2" fill="#3F3F46"></rect><text x="22" y="216" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CG</text>
+<rect x="426" y="8" width="28" height="20" rx="2" fill="#0369A1"></rect><text x="440" y="22" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">GM</text>
+<rect x="522" y="270" width="28" height="20" rx="2" fill="#6D28D9"></rect><text x="536" y="284" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MJ</text>
+<rect x="24" y="50" width="28" height="20" rx="2" fill="#C2410C"></rect><text x="38" y="64" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CC</text>
+<rect x="508" y="110" width="28" height="20" rx="2" fill="#9D174D"></rect><text x="522" y="124" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">AP</text>
+<rect x="108" y="318" width="28" height="20" rx="2" fill="#854D0E"></rect><text x="122" y="332" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MC</text>
+<g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="1.2s"></set><animateMotion dur="18s" begin="1.2s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-cc"></mpath></animateMotion></g><g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="1.6s"></set><animateMotion dur="12s" begin="1.6s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-cg"></mpath></animateMotion></g><g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="2.0s"></set><animateMotion dur="13.0s" begin="2.0s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-gm"></mpath></animateMotion></g><g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="2.4000000000000004s"></set><animateMotion dur="15.0s" begin="2.4000000000000004s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-mj"></mpath></animateMotion></g></svg>
+      <section aria-labelledby="proof-title" class="proof" style="position: relative; z-index: 1; width: min(100%, 340px); margin: -56px 0 0 auto; background: #FFFFFF; border: 1px solid #E6E8EC; border-radius: 16px; box-shadow: 0 1px 2px rgba(17,20,24,0.04), 0 12px 32px -12px rgba(17,20,24,0.18); overflow: hidden">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #E6E8EC">
+            <h2 id="proof-title" style="margin: 0; font-size: 13px; font-weight: 600"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #C2410C; margin-right: 8px">CC07</span>検証の軌跡</h2>
+            <span role="status" style="{{proofPill}}">{{proofLabel}}</span>
+          </div>
+          <ol aria-label="{{proofAria}}" style="list-style: none; margin: 0; padding: 16px 16px 4px; position: relative">
+            <span aria-hidden="true" style="position: absolute; left: 22px; top: 26px; bottom: 30px; width: 2px; background: #E6E8EC"></span>
+            <li style="position: relative; padding: 0 0 14px 26px"><span aria-hidden="true" style="position: absolute; left: 0; top: 4px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #15803D; background: #FFFFFF"></span><span style="display: block; font-size: 14px; font-weight: 600; line-height: 1.5">公式の変更を読む</span><span style="display: block; font-size: 13px; line-height: 1.6; color: #5B616E">毎朝、各社の変更履歴を確かめる</span></li>
+            <li style="position: relative; padding: 0 0 14px 26px"><span aria-hidden="true" style="position: absolute; left: 0; top: 4px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #15803D; background: #FFFFFF"></span><span style="display: block; font-size: 14px; font-weight: 600; line-height: 1.5">記事への影響を調べる</span><span style="display: block; font-size: 13px; line-height: 1.6; color: #5B616E">{{proofDetail}}</span></li>
+            <li style="position: relative; padding: 0 0 14px 26px"><span aria-hidden="true" style="{{proofDot}}"></span><span style="display: block; font-size: 14px; font-weight: 600; line-height: 1.5">{{proofFinal}}</span><span style="display: block; font-size: 13px; line-height: 1.6; color: #5B616E">{{proofFinalSub}}</span></li>
+          </ol>
+          <div style="padding: 0 16px 16px"><button type="button" onClick="{{advanceProof}}" style="width: 100%; height: 38px; background: #111418; color: #FFFFFF; border: 0; border-radius: 10px; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">{{proofButton}}</button></div>
+        </section>
+      </figure>
+    </section>
+
+    <section aria-labelledby="run-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 0 96px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="run-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">直近の変更と対応</h2><a href="Digest.dc.html" class="more" style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #111418; text-decoration: none">変更の記録をすべて見る<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #5B616E"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a></div>
+      <sc-if value="{{noRun}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 24px 0; border-top: 1px solid #E6E8EC; color: #5B616E">今週はまだ公式の変更がありません。毎朝 6 時に確かめています。</p></sc-if>
+      <ol style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #E6E8EC">
+        <sc-for list="{{run}}" as="r" hint-placeholder-count="3">
+          <li style="display: grid; grid-template-columns: 96px 120px minmax(0, 1fr); gap: 4px 24px; padding: 18px 0; border-bottom: 1px solid #E6E8EC; align-items: baseline">
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #5B616E">{{r.date}}</span>
+            <span style="font-size: 13px; color: #5B616E">{{r.label}}</span>
+            <span style="font-size: 16px; line-height: 1.7; overflow-wrap: anywhere">{{r.text}}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </section>
+
+    <section aria-labelledby="latest-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 0 96px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="latest-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">新しい記事</h2><div role="group" aria-label="絞り込み" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid #E6E8EC; border-radius: 999px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button></sc-for></div></div>
+      <sc-if value="{{noCards}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 24px 0; color: #5B616E">この条件に合う記事はまだありません。</p></sc-if>
+      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 48px 32px">
+        <sc-for list="{{cards}}" as="a" hint-placeholder-count="6">
+          <li style="min-width: 0"><a href="Article.dc.html" class="card" style="display: block; color: #111418; text-decoration: none">
+            <span aria-hidden="true" style="display: block; aspect-ratio: 16 / 9; border-radius: 12px; border: 1px solid #E6E8EC; {{a.cover}}"></span>
+            <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-top: 16px"><span style="{{a.numStyle}}">{{a.no}}</span><span style="font-size: 13px; color: #5B616E; overflow-wrap: anywhere; text-align: right">{{a.product}}</span></span>
+            <span class="card-title" style="display: block; margin-top: 6px; font-size: 18px; line-height: 1.55; font-weight: 600; overflow-wrap: anywhere">{{a.title}}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font-size: 13px; color: #5B616E"><span>{{a.level}}</span><span>検証 <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace">{{a.date}}</span></span><span style="{{a.flagStyle2}}">{{a.flag}}</span></span>
+          </a></li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="goal-title" style="background: #F6F7F9; border-block: 1px solid #E6E8EC">
+      <div style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 80px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="goal-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">やりたいことから探す</h2><p style="margin: 0; font-size: 14px; color: #5B616E">製品名が分からなくても大丈夫です</p></div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px"><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">文章や資料をまとめたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Claude アプリ・ChatGPT・Gemini · 14 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M5 15h38M11 11h2m4 0h2m-3 11-6 6 6 6m16-12 6 6-6 6m-6-14-4 16"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">コードを書かせたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Claude Code・Codex・Gemini CLI · 31 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M24 6v6m0 24v6M6 24h6m24 0h6"></path><circle cx="24" cy="24" r="10"></circle><path d="m20 24 3 3 5-6"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">決まった作業を自動にしたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Claude Code・Agent SDK・MCP · 17 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">画像を作りたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Midjourney・FLUX ほか · 4 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M12 7v34M36 7v34M5 17h7M5 31h7m24-14h7m-7 14h7m-23-7V18l9 6-9 6v-6Z"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">動画を作りたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Sora・Veo ほか · 2 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M6 20v8m8-14v20M24 6v36m10-28v20m8-14v8"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">音声を作る・文字に起こしたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">ElevenLabs ほか · 2 本</span></span></a></li></ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="index-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 96px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="index-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">会社と製品</h2><p style="margin: 0; font-size: 14px; color: #5B616E">手元で検証した記事 <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #111418">{{total}}</span> 本 · <a href="#">RSS</a></p></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px 32px">
+        <sc-for list="{{index}}" as="c" hint-placeholder-count="4">
+          <section aria-label="{{c.name}}" style="min-width: 0">
+            <h3 style="margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #111418; font-size: 16px; font-weight: 600"><span style="overflow-wrap: anywhere">{{c.name}}</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; color: #5B616E">{{c.count}}</span></h3>
+            <sc-if value="{{c.isEmpty}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 12px 0; font-size: 14px; color: #5B616E">まだ記事がありません</p></sc-if>
+            <ul style="list-style: none; margin: 0; padding: 0">
+              <sc-for list="{{c.products}}" as="p" hint-placeholder-count="3">
+                <li><a href="Hub.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #E6E8EC; color: #111418; text-decoration: none; font-size: 15px"><span style="{{p.dot}}"></span><span style="flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere">{{p.name}}</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #8A909C">{{p.count}}</span></a></li>
+              </sc-for>
+            </ul>
+          </section>
+        </sc-for>
+      </div>
+    </section>
+
+    <section aria-labelledby="news-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 0 112px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="news-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">ニュース</h2><p style="margin: 0; font-size: 14px; color: #5B616E">各社の公式発表を確かめたものだけ</p></div>
+      <sc-if value="{{noNews}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 24px 0; border-top: 1px solid #E6E8EC; color: #5B616E">まだニュースはありません。</p></sc-if>
+      <ul style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #E6E8EC">
+        <sc-for list="{{news}}" as="n" hint-placeholder-count="4">
+          <li style="border-bottom: 1px solid #E6E8EC"><a href="NewsArticle.dc.html" class="card" style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 24px; padding: 20px 0; color: #111418; text-decoration: none">
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.9; color: #5B616E">{{n.date}}</span>
+            <span style="min-width: 0">
+              <span class="card-title" style="display: block; font-size: 17px; line-height: 1.6; font-weight: 600; overflow-wrap: anywhere">{{n.title}}</span>
+              <span style="display: flex; flex-wrap: wrap; gap: 2px 16px; margin-top: 6px; font-size: 14px; line-height: 1.6; color: #5B616E">
+                <sc-if value="{{n.hasWho}}" hint-placeholder-val="{{ true }}"><span>対象：{{n.target}}</span></sc-if>
+                <sc-if value="{{n.needsAction}}" hint-placeholder-val="{{ true }}"><span style="color: #B45309; font-weight: 500">要対応：{{n.todo}}</span></sc-if>
+                <sc-if value="{{n.noAction}}" hint-placeholder-val="{{ false }}"><span>対応は不要</span></sc-if>
+                <span style="color: #8A909C; overflow-wrap: anywhere">{{n.product}} · {{n.source}}</span>
+              </span>
+            </span>
+          </a></li>
+        </sc-for>
+      </ul>
+    </section>
+  </main>
+  <dc-import name="Footer" hint-size="100%,320px"></dc-import>
+  <div role="group" aria-label="データの切り替え（検証用）" style="position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 10; display: flex; gap: 2px; padding: 3px; background: #E5E5E5; border-radius: 999px">
+    <sc-for list="{{toggle}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button></sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ds: 'demo', role: 'すべて', level: 'すべて', since: true, tab: 'すべて', proof: 0 };
+  }
+  renderVals() {
+    const ds = this.state.ds;
+    const cover = (seed, color, opts) => {
+      const o = opts || {};
+      let h = 2166136261;
+      for (const ch of seed) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+      const rnd = () => { h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0; h = Math.imul(h ^ (h >>> 13), 3266489909) >>> 0; return ((h ^= h >>> 16) >>> 0) / 4294967296; };
+      const W = o.wide ? 1100 : 480, H = o.wide ? 367 : (o.tall ? 270 : 240), rows = [0.22, 0.38, 0.54, 0.7, 0.86].map((r) => Math.round(r * H));
+      const bg = o.dark ? '#0E1116' : '#F4F5F7', grey = o.dark ? '#262B33' : '#DCDFE5';
+      const route = () => {
+        let r = Math.floor(rnd() * rows.length), x = -20, y = rows[r];
+        const pts = [[x, y]];
+        while (x < W + 20) {
+          x += 50 + Math.floor(rnd() * 90); pts.push([x, y]);
+          if (rnd() < 0.55) { const nr = Math.max(0, Math.min(rows.length - 1, r + (rnd() < 0.5 ? -1 : 1) * (1 + Math.floor(rnd() * 2)))); const dy = rows[nr] - y; x += Math.abs(dy); y = rows[nr]; r = nr; pts.push([x, y]); }
+        }
+        return pts;
+      };
+      const d = (pts) => 'M' + pts.map((p) => p.join(' ')).join('L');
+      let svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid slice"><rect width="100%" height="100%" fill="' + bg + '"/>';
+      for (let i = 0; i < 3; i++) svg += '<path d="' + d(route()) + '" fill="none" stroke="' + grey + '" stroke-width="3" stroke-linejoin="round"/>';
+      const main = route();
+      svg += '<path d="' + d(main) + '" fill="none" stroke="' + color + '" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>';
+      main.filter((p, i) => i > 0 && i % 2 === 1 && p[0] > 20 && p[0] < W - 20).slice(0, 4).forEach((p) => { svg += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="' + bg + '" stroke="' + color + '" stroke-width="4"/>'; });
+      svg += '</svg>';
+      return "background-color: " + bg + "; background-image: url('data:image/svg+xml;utf8," + encodeURIComponent(svg) + "'); background-size: cover; background-position: center";
+    };
+
+    const code = (color) => "display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: " + color + "; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; flex: 0 0 auto";
+    const RUN_DEMO = [
+      ['11-14', '公式の変更', 'Claude Code のステータス行の設定の書き方が変わった（公式の変更履歴）'],
+      ['11-14', '影響の判定', 'CC12「settings.json の設定項目」の 1 行に影響'],
+      ['11-16', '対応', '手元で再検証し、表を直す予定（いまは見直し中と表示）'],
+    ];
+    const RUN_WORST = [
+      ['11-14', '公式の変更', 'Claude Code 2.1.326-beta.3 で、mcp__claude_ai_Google_Drive__download_file_content のようなツール名の許可の書き方が変わった（公式の変更履歴）'],
+      ['11-14', '影響の判定', 'CC12・CC13・CC18・MC05・SK02・SD04 の 6 本に影響'],
+      ['11-21', '対応', '手元で再検証し、6 本を順に直す予定。それまでは各記事に見直し中と表示する'],
+    ];
+    const RUN = { demo: RUN_DEMO, worst: RUN_WORST, empty: [], one: [RUN_DEMO[0]] }[ds];
+    const run = RUN.map(([date, label, text], i) => ({
+      date, label, text, isChange: label === '公式の変更', isJudge: label === '影響の判定', isFix: label === '対応',
+      line: i === RUN.length - 1 ? 'display: none' : 'position: absolute; left: 6px; top: 19px; bottom: 0; width: 2px; background: #12161D',
+    }));
+    const line = (color, i, n) => 'position: absolute; left: 6px; width: 4px; background: ' + color + '; top: ' + (i === 0 ? '19px' : '0') + '; bottom: ' + (i === n - 1 ? 'calc(100% - 19px)' : '0');
+    const dot = (color) => 'position: absolute; left: 0; top: 12px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 3px solid ' + color + '; background: #FFFFFF';
+    const FLAG = { review: '見直し中', stale: '期限切れ' };
+    const META = { CC01: ['入門', 'all'], CC03: ['入門', 'dev'], CC07: ['中級', 'dev'], CC12: ['上級', 'dev'], AP01: ['入門', 'dev'], AP03: ['中級', 'dev'], AP06: ['上級', 'dev'], MC01: ['入門', 'dev'], MC03: ['上級', 'dev'], MC05: ['中級', 'dev'], CA01: ['入門', 'all'], CA02: ['入門', 'all'], CG01: ['入門', 'all'], CG02: ['中級', 'all'], CG04: ['入門', 'all'], CX01: ['入門', 'dev'], CX03: ['中級', 'dev'], SO01: ['入門', 'all'], GM01: ['入門', 'all'], GM03: ['入門', 'all'], GC01: ['入門', 'dev'], GC02: ['上級', 'dev'], MJ01: ['入門', 'all'], MJ03: ['中級', 'all'], FX01: ['中級', 'all'] };
+    const st = this.state;
+    const keep = ([no]) => { const m = META[no] || ['中級', 'dev']; return (st.level === 'すべて' || m[0] === st.level) && (st.role === 'すべて' || (st.role === '開発者' ? true : m[1] === 'all')); };
+    const LINES = {
+      CC: ['Claude Code', '#C2410C'], AP: ['Claude API', '#9D174D'], MC: ['MCP', '#854D0E'], CA: ['Claude アプリ', '#BE123C'], CR: ['Claude for Chrome（ブラウザ拡張）', '#7C2D12'],
+      CG: ['ChatGPT', '#3F3F46'], CX: ['Codex', '#1E293B'], SO: ['Sora', '#52525B'],
+      GM: ['Gemini', '#0369A1'], GC: ['Gemini CLI', '#047857'], GA: ['Gemini Code Assist for GitHub', '#047857'],
+      MJ: ['Midjourney', '#6D28D9'], FX: ['FLUX.1 Kontext [pro]', '#7E22CE'],
+    };
+    const VENDOR = { FX: 'Black Forest Labs' };
+    const SHOW = 2;
+    const route = (id, count, all) => { const list = all.filter(keep).slice(0, SHOW); const [name, color] = LINES[id]; return {
+      id, name, count, color, code: code(color), vendor: VENDOR[id] || '',
+      vendorStyle: VENDOR[id] ? 'display: block; font-size: 12px; font-weight: 400; color: #4D5562' : 'display: none',
+      moreLabel: 'すべて見る（' + count + ' 本）',
+      moreStyle: count > list.length && list.length > 0 ? 'display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; font-size: 13px; line-height: 1.5' : 'display: none',
+      stations: list.map(([no, title, date, flag], i) => ({
+        no, title, date,
+        flag: flag ? '　' + FLAG[flag] : '',
+        flagStyle: flag ? 'font-weight: 700; color: ' + (flag === 'stale' ? '#B91C1C' : '#B45309') : 'display: none',
+        level: (META[no] || ['中級'])[0],
+        track: line(color, i, list.length), dot: dot(color),
+      })),
+    }; };
+    const COMPANY = [['anthropic', 'Anthropic'], ['openai', 'OpenAI'], ['google', 'Google'], ['media', '画像・動画・音声']];
+    const DATA_DEMO = {
+      anthropic: [
+        route('CC', 24, [['CC01', 'インストールと最初の依頼', '11-09'], ['CC03', 'CLAUDE.md で手順を覚えさせる', '11-06'], ['CC07', 'Hooks で保存のたびに整形する', '11-01'], ['CC12', 'settings.json の設定項目', '11-03', 'review']]),
+        route('AP', 12, [['AP01', 'はじめての API 呼び出し', '11-11'], ['AP03', 'ツール使用の基本', '11-02'], ['AP06', 'プロンプトキャッシュで料金を減らす', '11-15']]),
+        route('MC', 9, [['MC01', 'はじめての MCP サーバーをつなぐ', '10-20', 'review'], ['MC05', 'MCP の設定ファイル', '11-09'], ['MC03', 'リモート MCP サーバーの認証', '11-04']]),
+        route('CA', 7, [['CA01', 'プランの選び方', '11-13'], ['CA02', 'プロジェクトで資料を共有する', '11-05']]),
+      ],
+      openai: [
+        route('CG', 5, [['CG01', 'ChatGPT のはじめかた', '11-10'], ['CG02', 'GPT を自分用に作る', '11-03'], ['CG04', 'ChatGPT と Claude の使い分け', '11-07']]),
+        route('CX', 3, [['CX01', 'Codex CLI を入れて最初の依頼', '11-08'], ['CX03', 'Codex と Claude Code の比較', '09-30', 'stale']]),
+        route('SO', 1, [['SO01', 'Sora で短い動画を作る', '11-12']]),
+      ],
+      google: [
+        route('GM', 4, [['GM01', 'Gemini のはじめかた', '11-11'], ['GM03', 'Gemini と Claude の使い分け', '11-07']]),
+        route('GC', 3, [['GC01', 'Gemini CLI を入れて最初の依頼', '11-06'], ['GC02', 'Gemini CLI の設定ファイル', '10-29']]),
+      ],
+      media: [
+        route('MJ', 4, [['MJ01', 'Midjourney で最初の画像を作る', '11-09'], ['MJ03', '画像の縦横比と画風を指定する', '11-02']]),
+        route('FX', 2, [['FX01', 'FLUX で商品写真の背景を差し替える', '11-05']]),
+      ],
+    };
+    const DATA_WORST = {
+      anthropic: [
+        route('CC', 3, [['CC31', 'PreToolUse と PostToolUse を組み合わせ、保存のたびに整形・型検査・テストを順に走らせて、失敗したときだけ止める', '11-15'], ['CC32', 'mcp__claude_ai_Google_Drive__download_file_content を許可リストに入れる', '10-24', 'stale'], ['CC33', 'MCP', '11-14', 'review']]),
+        route('CR', 1, [['CR01', 'Claude for Chrome で、ログインが必要なページの表を読み取って要約する', '11-12']]),
+        route('AP', 0, []),
+      ],
+      openai: [],
+      google: [route('GA', 1, [['GA01', 'Gemini Code Assist for GitHub でプルリクエストの自動レビューを有効にする', '11-14', 'review']])],
+      media: [route('FX', 1, [['FX01', 'FLUX.1 Kontext [pro] で、商品写真の背景だけを差し替えて、影と反射を自然に残す', '11-13']])],
+    };
+    const DATA_ONE = { anthropic: [route('CC', 1, [['CC01', 'インストールと最初の依頼', '11-09']])], openai: [], google: [], media: [] };
+    const DATA = { demo: DATA_DEMO, worst: DATA_WORST, empty: { anthropic: [], openai: [], google: [], media: [] }, one: DATA_ONE }[ds];
+    const companies = COMPANY.map(([key, name]) => {
+      const routes = DATA[key].filter((r) => r.stations.length > 0);
+      const count = DATA[key].reduce((n, r) => n + r.count, 0);
+      const filtered = count > 0 && routes.length === 0;
+      return { name, count, routes, isEmpty: routes.length === 0, emptyText: filtered ? 'この条件に合う記事はありません。' : 'まだ公開した記事がありません。' };
+    });
+    const total = companies.reduce((n, c) => n + c.count, 0);
+
+    const TABS = [['すべて', 'すべて', 'すべて'], ['入門', 'すべて', '入門'], ['開発者向け', '開発者', 'すべて'], ['ビジネス職向け', 'ビジネス職', 'すべて']];
+    const tabs = TABS.map(([label, role, level]) => ({ label, pressed: st.tab === label ? 'true' : 'false', pick: () => this.setState({ tab: label, role, level }),
+      style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; cursor: pointer; ' + (st.tab === label ? 'background: #111418; color: #FFFFFF' : 'background: transparent; color: #5B616E') }));
+    const lanes = companies.map((c) => c.routes.flatMap((r) => r.stations.map((s) => ({ ...s, product: r.name, color: r.color, vendor: c.name }))));
+    const latest = [];
+    for (let i = 0; latest.length < 6 && i < 6; i++) lanes.forEach((l) => { if (l[i] && latest.length < 6) latest.push(l[i]); });
+    const cards = latest.map((s, i) => ({ ...s, numStyle: "font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: " + s.color, cover: cover(s.no + s.title, s.color, { dark: i === 0 }), dotStyle: 'display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: ' + s.color,
+      flagStyle2: s.flag ? 'font-weight: 500; color: ' + (s.flag.includes('期限切れ') ? '#B91C1C' : '#B45309') : 'display: none' }));
+    const index = COMPANY.map(([key, name]) => ({ name, count: DATA[key].reduce((n, r) => n + r.count, 0),
+      products: DATA[key].filter((r) => r.count > 0).map((r) => ({ name: r.name, count: r.count, dot: 'display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: ' + r.color })) }))
+      .map((c) => ({ ...c, isEmpty: c.products.length === 0 }));
+    const S = (id, name, color, vendor, state, detail) => ({
+      id, name, vendor, state, detail, code: code(color),
+      stateStyle: 'padding: 8px 16px; white-space: nowrap; ' + (state === '見直し中' ? 'font-weight: 700; color: #B45309' : state === '期限切れあり' ? 'font-weight: 700; color: #B91C1C' : 'color: #4D5562'),
+    });
+    const STATUS_DEMO = [
+      S('CC', 'Claude Code', '#C2410C', 'Anthropic', '見直し中', '11-14 の公式の変更で 1 本を見直し中'),
+      S('MC', 'MCP', '#854D0E', 'Anthropic', '見直し中', '登録画面の変更で 1 本を見直し中'),
+      S('CX', 'Codex', '#1E293B', 'OpenAI', '期限切れあり', '見直しの期限を過ぎた 1 本を再検証予定'),
+      S('AP', 'Claude API', '#9D174D', 'Anthropic', '期限内', '—'),
+      S('CA', 'Claude アプリ', '#BE123C', 'Anthropic', '期限内', '—'),
+      S('CG', 'ChatGPT', '#3F3F46', 'OpenAI', '期限内', '—'),
+      S('GM', 'Gemini', '#0369A1', 'Google', '期限内', '—'),
+      S('MJ', 'Midjourney', '#6D28D9', 'Midjourney', '期限内', '—'),
+    ];
+    const STATUS_WORST = [
+      S('CR', 'Claude for Chrome（ブラウザ拡張）', '#7C2D12', 'Anthropic', '期限切れあり', '11-14 の公式の変更（mcp__claude_ai_Google_Drive__download_file_content の許可の書き方）で 6 本に影響。うち 1 本は見直しの期限も過ぎている'),
+      S('GC', 'Gemini Code Assist for GitHub', '#047857', 'Google', '見直し中', '—'),
+    ];
+    const status = { demo: STATUS_DEMO, worst: STATUS_WORST, empty: [], one: [STATUS_DEMO[0]] }[ds];
+    const NEWS_DEMO = [
+      { date: '11-15', target: 'Gemini アプリの利用者', todo: '', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
+      { date: '11-14', target: 'ステータス行を設定している人', todo: '設定を新しい書き方に直す', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
+      { date: '11-13', target: '無料プランの人', todo: '', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
+      { date: '11-12', target: '日本から使いたい人', todo: '提供地域を確認する', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
+    ];
+    const NEWS_WORST = [
+      { date: '11-15', title: 'Anthropic が Claude の新しいモデルを公開し、API・アプリ・Claude Code のすべてで既定のモデルが切り替わった（例）', product: 'Claude API・Claude アプリ・Claude Code', source: 'https://platform.claude.com/docs/en/release-notes/overview' },
+      { date: '11-14', title: 'AI', product: 'FLUX.1 Kontext [pro]', source: 'Black Forest Labs 公式ブログ（英語）' },
+    ];
+    NEWS_WORST.forEach((n) => { n.target = n.target || ''; n.todo = n.todo || ''; });
+    const news = { demo: NEWS_DEMO, worst: NEWS_WORST, empty: [], one: [NEWS_DEMO[0]] }[ds];
+    const needs = status.filter((x) => x.state !== '期限内');
+    const flags = {
+      noRun: RUN.length === 0, noNews: news.length === 0,
+      hasNeeds: needs.length > 0, noNeeds: needs.length === 0, needCount: needs.length, needNames: needs.map((x) => x.name).join('・'), total,
+    };
+    const optStyle = (on) => 'border: 1px solid ' + (on ? '#12161D' : '#D9DDE3') + '; background: ' + (on ? '#12161D' : '#FFFFFF') + '; color: ' + (on ? '#FFFFFF' : '#12161D') + '; border-radius: 4px; padding: 4px 12px; font: inherit; font-size: 14px; cursor: pointer';
+    const opts = (key, names) => names.map((n) => ({ name: n, pressed: st[key] === n ? 'true' : 'false', pick: () => this.setState({ [key]: n }), style: optStyle(st[key] === n) }));
+    const filters = [{ label: '対象', options: opts('role', ['すべて', '開発者', 'ビジネス職']) }, { label: '難易度', options: opts('level', ['すべて', '入門', '中級', '上級']) }];
+    const DS = [['demo', 'デモ'], ['worst', '最悪'], ['empty', '空'], ['one', '1件']];
+    const newsShown = news.map((n) => ({ ...n, hasWho: !!n.target, needsAction: !!n.todo, noAction: !!n.target && !n.todo }));
+    const toggle = DS.map(([key, label]) => ({ label, pick: () => this.setState({ ds: key }), style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (ds === key ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
+    
+    const PROOF = [
+      ['検証した版を記録した', '検証して公開', '日付と製品の版を、記事に残す', '検証済み', '公式の変更が届いたら？', 'ok'],
+      ['この記事の手順に影響がある', '見直し中と表示', '確かめ直すまで、読者に知らせる', '見直し中', '再検証が終わったら？', 'rev'],
+      ['変更後の手順を、手元で確かめた', '手順を直して再公開', '新しい検証日と版を残す', '再検証済み', 'はじめから見る', 'ok'],
+    ];
+    const pr = PROOF[st.proof || 0], isRev = pr[5] === 'rev';
+    const proofVals = { proofDetail: pr[0], proofFinal: pr[1], proofFinalSub: pr[2], proofLabel: pr[3], proofButton: pr[4],
+      proofAria: '公式の変更を読み、記事への影響を調べ、' + pr[1] + 'までの流れ',
+      proofPill: 'display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; transition: background 250ms ease, color 250ms ease; ' + (isRev ? 'background: #FFF4E0; color: #B45309' : 'background: #ECF8F0; color: #15803D'),
+      proofDot: 'position: absolute; left: 0; top: 4px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid ' + (isRev ? '#B45309' : '#15803D') + '; background: ' + (isRev ? '#B45309' : '#FFFFFF') + '; transition: background 250ms ease, border-color 250ms ease, transform 350ms cubic-bezier(.34,1.56,.64,1); transform: scale(' + (isRev ? 1.2 : 1) + ')',
+      advanceProof: () => this.setState({ proof: ((st.proof || 0) + 1) % 3 }) };
+    return { ...proofVals, tabs, cards, noCards: cards.length === 0, index, filters, showSince: st.since, hideSince: () => this.setState({ since: false }), run, companies, status, news: newsShown, toggle, ...flags };
+  }
+}
+</script>
+</body>
+</html>
