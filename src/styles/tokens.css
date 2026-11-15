@@ -42,6 +42,11 @@
   --tracking-headline: -0.04em;
   --text-body: 15px;
   --text-data: 12px;
+  --text-small: 11px;
+  --text-nav: 12px;
+  --text-brand: 25px;
+  --text-brand-narrow: 21px;
+  --tracking-brand: -0.06em;
   --text-section-ja: 22px;
   --text-section-en: clamp(52px, 7.6cqi, 104px);
   --leading-body: 1.9;
@@ -55,6 +60,8 @@
 
   /* 余白と幅 */
   --page-max: 1184px;
+  --header-height: 80px;
+  --header-height-narrow: 72px;
   --gutter-narrow: 20px;
   --gutter-wide: 48px;
   --space-section: 64px;
@@ -65,6 +72,7 @@
   --space-4: 16px;
   --space-6: 24px;
   --space-8: 32px;
+  --space-10: 44px;
   --measure: 40em;
 
   /* 動き */

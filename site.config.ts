@@ -4,6 +4,10 @@ import type { Category, ContentType } from './src/lib/taxonomy';
 export const SITE = {
   url: 'https://semantictime.net',
   name: 'semantictime.net',
+  description:
+    '手元で動かした日と版をつけて公開し、公式の変更を毎朝たどる、AI の使い方の非公式ガイド。Claude・ChatGPT・Gemini などを同じ扱いで載せる。',
+  // Cloudflare Web Analytics のトークン（公開値）。Task 4.4 で設定するまでは計測しない
+  analyticsToken: undefined,
   timezone: 'Asia/Tokyo',
   // 検証期限（日数）。手順が変わりやすい分野ほど短くする
   reviewIntervalDaysByCategory: {

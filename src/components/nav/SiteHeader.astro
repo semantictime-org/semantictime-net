@@ -1,0 +1,126 @@
+---
+// サイトのヘッダー（DESIGN.md v11、キャンバスの FreshHeader）。黒い帯に記号・名前・ナビを置く。
+const NAV = [
+  { label: '使い方を探す', href: '/#articles', narrow: false },
+  { label: '変更を追う', href: '/news/', narrow: false },
+  { label: '記事検索 ↗', href: '/search/', narrow: true },
+] as const;
+---
+
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="/" aria-label="semantictime ホーム">
+      <span class="symbol" aria-hidden="true"></span>
+      <span>
+        semantic<span class="time">time</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="メイン">
+      {NAV.map((item) => (
+        <a class:list={['link', { wide: !item.narrow, search: item.narrow }]} href={item.href}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    container-type: inline-size;
+    background: var(--color-band);
+    color: var(--color-on-band);
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gutter-narrow);
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    height: var(--header-height);
+    margin-inline: auto;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-on-band);
+    font: 600 var(--text-brand) var(--font-data);
+    letter-spacing: var(--tracking-brand);
+    text-decoration: none;
+  }
+
+  .symbol {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 0.96em;
+    height: 1.12em;
+    background: var(--color-key-on-band);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 23%,
+      35% 23%,
+      35% 42%,
+      85% 42%,
+      85% 65%,
+      35% 65%,
+      35% 100%,
+      0 100%
+    );
+  }
+
+  .time {
+    color: var(--color-key-on-band);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .link {
+    padding-block: var(--space-2);
+    color: var(--color-on-band);
+    font-size: var(--text-nav);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .link:hover {
+    color: var(--color-key-on-band);
+  }
+
+  .search {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-pill);
+    background: var(--color-band-rule);
+  }
+
+  .brand:focus-visible,
+  .link:focus-visible {
+    outline-color: var(--color-key-on-band);
+    outline-offset: var(--space-1);
+  }
+
+  @container (max-width: 700px) {
+    .inner {
+      width: calc(100% - 2 * var(--gutter-narrow));
+      height: var(--header-height-narrow);
+      gap: var(--space-3);
+    }
+
+    .brand {
+      gap: var(--space-2);
+      font-size: var(--text-brand-narrow);
+    }
+
+    .wide {
+      display: none;
+    }
+  }
+</style>
