@@ -1,0 +1,61 @@
+---
+title: トークンとは：AI が文章を数える単位
+description: トークンは、AI が文章を読み書きするときの単位です。文字数とは一致しないこと、料金や上限がトークンで決まること、数え方は会社やモデルで違うことを、表で整理します。
+type: explanation
+products: [claude-models]
+stationNo: 2
+series: { id: ai-glossary, no: 4 }
+verification: sources
+roles: [developer, business]
+level: beginner
+draft: true
+publishedAt: 2026-11-15
+verifiedAt: 2026-11-15
+sources:
+  - https://aistudio.google.com/docs/tokens
+  - https://platform.claude.com/docs/en/build-with-claude/token-counting
+  - https://platform.claude.com/docs/en/build-with-claude/context-windows
+owner: shizukukai
+aiAssisted: draft
+---
+
+- **ひとことで**：AI が文章を読み書きするときの数え方の単位
+- **読んだあと**：料金や「上限に達しました」の意味が分かる
+- **前提**：なし（3分で読める）
+
+## 文字数とは一致しない
+
+| 文章       | トークンの分かれ方（イメージ）                             |
+| ---------- | ---------------------------------------------------------- |
+| 短い英単語 | 1語で1トークンのことが多い                                 |
+| 長い英単語 | いくつかのトークンに分かれる                               |
+| 日本語     | 分かれ方は数え方しだい。下の「正確に数えるには」で確かめる |
+
+正確な数は、会社やモデルの数え方（トークナイザー）で変わります。Google は、英語なら1トークンがおよそ4文字と説明しています。
+
+## トークンで決まるもの
+
+- **料金**：API の料金は、入力と出力のトークン数で決まる
+- **上限**：一度に扱える量（[コンテキストウィンドウ](/claude-models/what-is-context-window/)）もトークンで決まる
+- **速さの制限**：1分あたりに使える量もトークンで決まることがある
+
+## 文章以外も数える
+
+| 種類 | 数え方の例（Gemini）                       |
+| ---- | ------------------------------------------ |
+| 画像 | 大きさに応じて、決まった数のトークンになる |
+| 音声 | 1秒あたりの数で数える                      |
+| 動画 | 1秒あたりの数で数える                      |
+
+細かい数は会社ごとの説明を見てください。値は変わることがあります。
+
+## 正確に数えるには
+
+| 会社      | 方法                                                                                                         |
+| --------- | ------------------------------------------------------------------------------------------------------------ |
+| Anthropic | [トークンを数える API](https://platform.claude.com/docs/en/build-with-claude/token-counting)（無料で使える） |
+| Google    | [count_tokens](https://aistudio.google.com/docs/tokens) で送る前に数える                                     |
+
+- 同じ文章でも、モデルが変わると数も変わることがある
+- Anthropic によると、新しいモデルでは同じ文章のトークン数が増えた
+- 費用を見積もるときは、使うモデルで数え直す
