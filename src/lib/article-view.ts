@@ -5,6 +5,7 @@ import type {
   ContentType,
   FeatureStatus,
   Level,
+  Role,
   Verification,
 } from './taxonomy.ts';
 
@@ -29,6 +30,11 @@ export const TYPE_EN: Readonly<Record<ContentType, string>> = {
   comparison: 'COMPARE',
   news: 'NEWS',
   landing: 'GUIDE',
+};
+
+export const ROLE_LABEL: Readonly<Record<Role, string>> = {
+  developer: '開発者',
+  business: 'ビジネス',
 };
 
 export const LEVEL_LABEL: Readonly<Record<Level, string>> = {

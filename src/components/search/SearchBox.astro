@@ -1,0 +1,76 @@
+---
+// サイト内検索（Pagefind の Component UI）。索引はビルドのあとに pagefind --site dist で作る。
+// ?q=検索語 で開くと、その語で検索した状態から始める。JS が動かないときは、その旨だけを出す。
+---
+
+<div class="search">
+  <pagefind-config lang="ja" excerpt-length="40"></pagefind-config>
+  <pagefind-input placeholder="記事名・製品名・やりたいことで検索" autofocus></pagefind-input>
+  <div class="layout">
+    <aside class="filters" aria-label="絞り込み">
+      <pagefind-filter-pane expanded></pagefind-filter-pane>
+    </aside>
+    <div class="results">
+      <pagefind-summary></pagefind-summary>
+      <pagefind-results></pagefind-results>
+    </div>
+  </div>
+  <noscript>
+    <p class="noscript">
+      検索には JavaScript が必要です。ホームの「会社と製品から探す」から記事をたどれます。
+    </p>
+  </noscript>
+</div>
+
+<link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
+
+<script>
+  // Pagefind の部品はビルドのあとに作られるので、実行時に読み込む
+  const COMPONENT_UI = '/pagefind/pagefind-component-ui.js';
+  await import(/* @vite-ignore */ COMPONENT_UI);
+
+  const query = new URLSearchParams(window.location.search).get('q');
+  const input = document.querySelector('pagefind-input input');
+  if (query && input instanceof HTMLInputElement) {
+    input.value = query;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+</script>
+
+<style>
+  .search {
+    --pf-text: var(--color-ink);
+    --pf-text-secondary: var(--color-ink-muted);
+    --pf-text-muted: var(--color-ink-muted);
+    --pf-background: var(--color-surface);
+    --pf-border: var(--color-rule);
+    --pf-border-focus: var(--color-key);
+    --pf-hover: var(--color-surface-soft);
+    --pf-mark: var(--color-ink);
+    --pf-outline-focus: var(--color-key);
+    --pf-font: var(--font-body);
+    --pf-border-radius: var(--radius-control);
+    --pf-result-title-font-size: 1rem;
+    --pf-result-excerpt-font-size: var(--text-nav);
+
+    container-type: inline-size;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: var(--toc-width) minmax(0, 1fr);
+    gap: var(--space-10);
+    margin-block-start: var(--space-6);
+  }
+
+  .noscript {
+    color: var(--color-ink-muted);
+  }
+
+  @container (max-width: 700px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+  }
+</style>

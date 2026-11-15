@@ -18,6 +18,8 @@ export interface ArticlePage {
   /** 冒頭の帯の透かし（記事番号、ニュースは日付） */
   readonly watermark: string | undefined;
   readonly levelLabel: string;
+  /** 検索の絞り込み（Pagefind の filter）。キーは表示名 */
+  readonly searchFilters: readonly { readonly key: string; readonly value: string }[];
   readonly publishedDate: string;
   readonly crumbs: readonly Crumb[];
   readonly record: VerificationRecord;

@@ -1,0 +1,32 @@
+---
+// 検索ページ（/search/）
+import PageHero from '../components/page/PageHero.astro';
+import SearchBox from '../components/search/SearchBox.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const TITLE = '記事を検索';
+const LEAD = '記事の題・本文・製品名から探せます。製品・記事の種類・読む人で絞り込めます。';
+const crumbs = [{ label: 'ホーム', href: '/' }, { label: TITLE }];
+---
+
+<BaseLayout title={TITLE} description={LEAD}>
+  <PageHero crumbs={crumbs} en="SEARCH" title={TITLE} lead={LEAD} />
+  <div class="body">
+    <SearchBox />
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+  }
+</style>

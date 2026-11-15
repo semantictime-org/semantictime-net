@@ -26,6 +26,7 @@ const hasAside = Astro.slots.has('aside');
     title={page.title}
     lead={page.description}
     watermark={page.watermark}
+    indexed
   >
     <p class="meta" slot="meta">
       {page.stationLabel && <span class="station">{page.stationLabel}</span>}
@@ -54,7 +55,10 @@ const hasAside = Astro.slots.has('aside');
           <slot name="aside" />
         </div>
       )}
-      <article class="content">
+      <article class="content" data-pagefind-body>
+        {page.searchFilters.map((f) => (
+          <span hidden data-pagefind-filter={`${f.key}:${f.value}`} />
+        ))}
         {page.banner && (
           <StatusBanner status={page.banner.status} features={page.banner.features} />
         )}
@@ -62,7 +66,7 @@ const hasAside = Astro.slots.has('aside');
         <div class="prose">
           <slot />
         </div>
-        <section class="history" id="history" aria-labelledby="history-title">
+        <section class="history" id="history" aria-labelledby="history-title" data-pagefind-ignore>
           <h2 id="history-title">検証の履歴</h2>
           <ol>
             {page.history.map((row) => (
