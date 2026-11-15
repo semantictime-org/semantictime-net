@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" role="img" aria-label="各社の製品を路線、記事を駅として描いた路線図">
+<path class="rm-line" style="--len:190;animation-delay:350ms" d="M24 212L68 212Q80 212 88.49 220.49L119.51 251.51Q128 260 140 260L196 260" fill="none" stroke="#3F3F46" stroke-width="6" stroke-linecap="round"/>
+<path class="rm-line" style="--len:208;animation-delay:280ms" d="M438 24L438 54Q438 66 429.51 74.49L388.6 115.4Q382 122 382 131.33L382 210" fill="none" stroke="#0369A1" stroke-width="6" stroke-linecap="round"/>
+<path class="rm-line" style="--len:318;animation-delay:210ms" d="M240 336L240 317.33Q240 308 246.6 301.4L259.51 288.49Q268 280 280 280L520 280" fill="none" stroke="#6D28D9" stroke-width="6" stroke-linecap="round"/>
+<path class="rm-line" style="--len:531;animation-delay:140ms" d="M54 60L148 60Q160 60 168.49 68.49L271.51 171.51Q280 180 292 180L388 180Q400 180 408.49 188.49L473.87 253.87Q480 260 488.67 260L506 260" fill="none" stroke="#C2410C" stroke-width="6" stroke-linecap="round"/>
+<path class="rm-line" style="--len:606;animation-delay:70ms" d="M54 120L128 120Q140 120 148.49 128.49L191.51 171.51Q200 180 200 192L200 248Q200 260 212 260L308 260Q320 260 328.49 251.51L451.51 128.49Q460 120 472 120L506 120" fill="none" stroke="#9D174D" stroke-width="6" stroke-linecap="round"/>
+<path class="rm-line" style="--len:663;animation-delay:0ms" d="M120 316L120 272Q120 260 128.49 251.51L271.51 108.49Q280 100 292 100L328 100Q340 100 340 112L340 228Q340 240 352 240L428 240Q440 240 448.49 248.49L506 306" fill="none" stroke="#854D0E" stroke-width="6" stroke-linecap="round"/>
+<circle class="rm-station" cx="56" cy="212" r="5" fill="white" stroke="#3F3F46" stroke-width="3"/>
+<circle class="rm-station" cx="156" cy="260" r="5" fill="white" stroke="#3F3F46" stroke-width="3"/>
+<circle class="rm-station" cx="438" cy="48" r="5" fill="white" stroke="#0369A1" stroke-width="3"/>
+<circle class="rm-station" cx="408" cy="96" r="5" fill="white" stroke="#0369A1" stroke-width="3"/>
+<circle class="rm-station" cx="296" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"/>
+<circle class="rm-station" cx="420" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"/>
+<circle class="rm-station" cx="504" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"/>
+<circle class="rm-station" cx="100" cy="60" r="5" fill="white" stroke="#C2410C" stroke-width="3"/>
+<circle class="rm-station" cx="200" cy="100" r="5" fill="white" stroke="#C2410C" stroke-width="3"/>
+<circle class="rm-station" cx="300" cy="180" r="5" fill="white" stroke="#C2410C" stroke-width="3"/>
+<circle class="rm-station" cx="440" cy="220" r="5" fill="white" stroke="#C2410C" stroke-width="3"/>
+<circle class="rm-station" cx="100" cy="120" r="5" fill="white" stroke="#9D174D" stroke-width="3"/>
+<circle class="rm-station" cx="200" cy="220" r="5" fill="white" stroke="#9D174D" stroke-width="3"/>
+<circle class="rm-station" cx="272" cy="260" r="5" fill="white" stroke="#9D174D" stroke-width="3"/>
+<circle class="rm-station" cx="452" cy="128" r="5" fill="white" stroke="#9D174D" stroke-width="3"/>
+<circle class="rm-station" cx="120" cy="290" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<circle class="rm-station" cx="168" cy="212" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<circle class="rm-station" cx="300" cy="100" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<circle class="rm-station" cx="340" cy="136" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<circle class="rm-station" cx="384" cy="240" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<circle class="rm-station" cx="474" cy="274" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<circle class="rm-station" cx="382" cy="210" r="5" fill="white" stroke="#0369A1" stroke-width="3"/>
+<circle class="rm-station" cx="240" cy="334" r="5" fill="white" stroke="#6D28D9" stroke-width="3"/>
+<circle class="rm-station" cx="506" cy="260" r="5" fill="white" stroke="#C2410C" stroke-width="3"/>
+<circle class="rm-station" cx="54" cy="120" r="5" fill="white" stroke="#9D174D" stroke-width="3"/>
+<circle class="rm-station" cx="504" cy="304" r="5" fill="white" stroke="#854D0E" stroke-width="3"/>
+<rect x="186" y="250" width="24" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"/>
+<rect x="232" y="130" width="16" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"/>
+<rect x="332" y="170" width="16" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"/>
+<rect x="374" y="170" width="36" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"/>
+<rect x="8" y="202" width="28" height="20" rx="2" fill="#3F3F46"/><text x="22" y="216" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CG</text>
+<rect x="426" y="8" width="28" height="20" rx="2" fill="#0369A1"/><text x="440" y="22" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">GM</text>
+<rect x="522" y="270" width="28" height="20" rx="2" fill="#6D28D9"/><text x="536" y="284" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MJ</text>
+<rect x="24" y="50" width="28" height="20" rx="2" fill="#C2410C"/><text x="38" y="64" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CC</text>
+<rect x="508" y="110" width="28" height="20" rx="2" fill="#9D174D"/><text x="522" y="124" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">AP</text>
+<rect x="108" y="318" width="28" height="20" rx="2" fill="#854D0E"/><text x="122" y="332" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MC</text>
+</svg>

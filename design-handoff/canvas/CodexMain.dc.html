@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>semantictime — 確かめて、使う。</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Noto+Sans+JP:wght@400;500;600;700;800;900&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#fff} .cx,.cx *{box-sizing:border-box}.cx{container:cx / inline-size;font-family:'Noto Sans JP',sans-serif;color:#142331;font-size:16px;line-height:1.8;background:#fff;overflow-wrap:anywhere}.cx a{color:inherit;text-underline-offset:5px}.cx a:hover{text-decoration:underline}.cx button{font:inherit;cursor:pointer}.cx :focus-visible{outline:3px solid #244ddd;outline-offset:5px}.cx h1,.cx h2,.cx h3,.cx p,.cx figure{margin:0}.cx h1,.cx h2,.cx h3{line-height:1.4;letter-spacing:-.045em}.cx button:disabled{cursor:wait}.cx ::selection{background:#c8daff}.cx .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:-.025em}.cx .wrap{max-width:1200px;margin:auto;padding-inline:48px}.cx .muted{color:#536272}.cx .eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em}.cx .btn{display:inline-flex;justify-content:center;align-items:center;gap:12px;min-height:46px;padding:10px 20px;border:1px solid #244ddd;border-radius:5px;background:#244ddd;color:white;text-decoration:none;font-size:14px;font-weight:600}.cx .secondary{background:white;color:#244ddd}.cx .section{padding-block:72px}.cx .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:30px}.cx .section-head h2{font-size:28px}.cx .section-head a{font-size:13px}.cx .hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:64px;align-items:center}.cx .hero-title{font-size:66px;font-weight:900;line-height:1.32;letter-spacing:-.065em}.cx .hero-title span{display:block}.cx .passport{border-radius:10px;background:#fff;border:1px solid #cdd9ec;box-shadow:0 14px 32px #2037660b;overflow:hidden;min-width:0}.cx .rail-stop{position:relative;padding:0 0 26px 31px;border-left:2px solid #bcd4c9;margin-left:8px}.cx .rail-stop:last-child{padding-bottom:0;border-color:transparent}.cx .rail-stop:before{content:'';position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid #116344}.cx .rail-stop.pending:before{border-color:#855000}.cx .rail-stop p{font-size:13px;color:#536272;margin-top:4px}.cx .goal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.cx .goal{display:block;text-decoration:none;border-top:3px solid #244ddd;padding-top:17px}.cx .goal h3{font-size:19px;letter-spacing:-.025em}.cx .goal p{font-size:13px;color:#536272;margin-top:8px}.cx .guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:42px 34px;list-style:none;margin:0;padding:0}.cx .guide{min-width:0}.cx .guide-link{display:flex;flex-direction:column;height:100%;text-decoration:none;border-top:1px solid #cad4df;padding-top:18px}.cx .guide-title{font-size:21px;font-weight:700;line-height:1.6;margin-top:14px}.cx .station-num{font-size:33px;line-height:1.3;font-family:'Space Grotesk',sans-serif;letter-spacing:-.06em}.cx .company-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}.cx .company{min-width:0;border-top:2px solid #142331;padding-top:16px}.cx .record{display:grid;grid-template-columns:90px 120px minmax(0,1fr);gap:20px;padding:22px 0;border-top:1px solid #ccd7e5}.cx .article-grid{display:grid;grid-template-columns:minmax(0,740px) minmax(0,220px);gap:88px}.cx .article-title{font-size:48px;font-weight:800;line-height:1.45}.cx .article-body{min-width:0;font-size:16px;line-height:1.95}.cx .article-body h2{font-size:27px;margin:60px 0 20px;scroll-margin-top:24px}.cx .article-body p{margin:14px 0}.cx .article-body code{font-family:'IBM Plex Mono',monospace;font-size:.85em;overflow-wrap:anywhere}.cx .article-body pre{font-family:'IBM Plex Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.9;margin:0}.cx .lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px}.cx .lab-node{padding:10px 12px;border-left:3px solid #c8d3e2;transition:background .2s,border-color .2s;margin-bottom:8px;font-size:13px}.cx .lab-node[data-active="true"]{border-color:#244ddd;background:#e4edff}.cx .code-line{display:block;min-height:25px;transition:padding .5s,background .5s}.cx .toc{position:sticky;top:28px;align-self:start;font-size:13px}.cx .toc a{display:block;padding:10px 0;text-decoration:none}.cx .meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:24px 0;border-block:1px solid #d4dce6}.cx .meta-grid dt{font-size:12px;color:#536272}.cx .meta-grid dd{margin:5px 0 0;font-size:15px;font-weight:600}.cx .flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.cx .flow>div{padding:18px;background:#edf3ff;border-radius:5px}.cx .flow p{font-size:13px}.cx .lab-icon{display:inline-block;transition:transform .3s}.cx .lab-cta:hover .lab-icon{transform:translateX(5px)}
+@container cx (max-width:950px){.cx .wrap{padding-inline:28px}.cx .hero-grid{gap:32px}.cx .hero-title{font-size:48px}.cx .article-grid{gap:40px;grid-template-columns:minmax(0,1fr) 180px}.cx .article-title{font-size:38px}.cx .company-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container cx (max-width:650px){.cx .wrap{padding-inline:22px}.cx .section{padding-block:46px}.cx .hero-grid{grid-template-columns:minmax(0,1fr);gap:34px}.cx .hero-title{font-size:43px}.cx .goal-grid{grid-template-columns:minmax(0,1fr);gap:24px}.cx .guide-grid{grid-template-columns:minmax(0,1fr);gap:30px}.cx .guide-link{display:grid;grid-template-columns:72px minmax(0,1fr);gap:0 16px}.cx .guide-top{grid-row:span 3;display:block!important}.cx .station-num{font-size:26px}.cx .guide-title{margin-top:0;font-size:19px}.cx .guide-product{font-size:11px!important;margin-top:8px}.cx .section-head h2{font-size:25px}.cx .record{grid-template-columns:70px minmax(0,1fr);gap:5px 16px}.cx .record-text{grid-column:1/-1}.cx .article-grid{display:flex;flex-direction:column;gap:32px}.cx .toc{position:static;order:-1;border-block:1px solid #d4dce6;padding-block:14px}.cx .toc nav{display:flex;flex-wrap:wrap;gap:0 18px}.cx .toc-extra{display:none}.cx .article-title{font-size:34px}.cx .lab-grid{grid-template-columns:minmax(0,1fr);gap:14px}.cx .meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cx .flow{grid-template-columns:minmax(0,1fr)}.cx .article-body h2{font-size:24px;margin-top:44px}.cx .company-grid{gap:30px 18px}.cx .home-hero{padding-top:42px!important;padding-bottom:44px!important}.cx .article-hero{padding-top:32px!important;padding-bottom:36px!important}.cx .hero-intro{font-size:15px!important}}
+@media(prefers-reduced-motion:reduce){.cx *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+<div class="cx">
+<dc-import name="CodexHeader" hint-size="100%,86px"></dc-import>
+<main id="main">
+<section class="home-hero" style="background:#edf3ff;padding:70px 0 64px">
+<div class="wrap hero-grid">
+<div><p class="eyebrow" style="color:#244ddd;margin-bottom:22px">確かめて、使う。AI の実践ガイド</p><h1 class="hero-title"><span>その手順、</span><span style="color:#244ddd">いま動きますか。</span></h1><p class="hero-intro" style="max-width:30em;font-size:16px;line-height:2;margin-top:24px">手元で動かし、日付と版を添えて公開。<br>公式の変更を追い、影響があれば確かめ直します。</p><div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:28px"><a class="btn" href="#guides">使い方を探す <span aria-hidden="true">↓</span></a><a href="About.dc.html" style="font-size:13px;color:#244ddd">検証のしかた</a></div><p style="font-size:11px;color:#536272;margin-top:24px">ChatGPT / Gemini / Claude / 画像・動画・音声</p></div>
+<div class="passport">
+<div style="padding:19px 24px;border-bottom:1px solid #dce3ed;display:flex;justify-content:space-between;gap:12px;align-items:center"><span class="eyebrow">検証の軌跡</span><span class="mono" style="font-size:11px;color:#536272">仕組みのデモ</span></div>
+<div style="padding:24px 28px 28px"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px"><span class="mono" style="font-size:12px;border:1px solid #c9d3e0;padding:1px 7px;border-radius:3px">ガイド</span><span style="font-size:14px;font-weight:600">公開してからも、確かめる。</span></div>
+<div role="img" aria-label="{{proofAria}}"><div class="rail-stop"><strong style="font-size:14px">公式の変更を読む</strong><p>毎朝、各社の変更履歴を確認します。</p></div><div class="rail-stop"><strong style="font-size:14px">記事への影響を調べる</strong><p>{{proofDetail}}</p></div><div class="rail-stop {{proofPending}}"><strong style="font-size:14px">{{proofFinal}}</strong><p>{{proofFinalSub}}</p></div></div>
+<div role="status" style="{{proofStyle}}">{{proofLabel}}</div><button type="button" class="btn secondary" onClick="{{advanceProof}}" style="width:100%;margin-top:14px;font-size:12px">{{proofButton}}</button><p style="font-size:10px;color:#536272;margin-top:10px">操作はデモです。実際の対応状況は下の記録をご覧ください。</p></div>
+</div></div></section>
+<section class="wrap" style="padding-top:36px;padding-bottom:42px"><div class="goal-grid"><a class="goal" href="Hub.dc.html"><h3>仕事に AI を取り入れる <span aria-hidden="true">↗</span></h3><p>文章・資料・調べもの。最初の一歩から。</p></a><a class="goal" href="Hub.dc.html"><h3>開発の流れを変える <span aria-hidden="true">↗</span></h3><p>コード・CLI・API。手を動かして学びます。</p></a><a class="goal" href="Hub.dc.html"><h3>画像・動画・音声をつくる <span aria-hidden="true">↗</span></h3><p>生成から仕上げまで、操作を確かめます。</p></a></div></section>
+<section id="guides" class="wrap section" style="border-top:1px solid #dce3ed">
+<div class="section-head"><div><p class="eyebrow muted" style="margin-bottom:8px">日付から、確かさをたどる</p><h2>いま読みたい、実践ガイド</h2></div><a href="#products">製品別の一覧へ <span aria-hidden="true">↗</span></a></div>
+<div role="group" aria-label="読者別の絞り込み" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button></sc-for></div>
+<sc-if value="{{noCards}}" hint-placeholder-val="{{ false }}"><div style="padding:30px;background:#edf3ff;border-radius:6px"><h3 style="font-size:20px">この条件の記事は、まだありません。</h3><p style="font-size:14px;margin-top:10px">別の読者区分を選ぶか、製品別の一覧からお探しください。</p><a href="#products" style="display:inline-block;margin-top:12px;color:#244ddd;font-size:14px">製品別の一覧を見る</a></div></sc-if>
+<ul class="guide-grid"><sc-for list="{{cards}}" as="a" hint-placeholder-count="6"><li class="guide"><a href="{{a.href}}" class="guide-link"><div class="guide-top" style="display:flex;justify-content:space-between;gap:12px;align-items:center"><span class="station-num" style="{{a.numberStyle}}">{{a.no}}</span><span class="guide-product muted" style="font-size:12px">{{a.product}}</span></div><h3 class="guide-title">{{a.title}}</h3><div style="font-size:11px;color:#536272;margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 14px"><span>{{a.level}}</span><span class="mono">検証 {{a.date}}</span><span style="{{a.flagStyle2}}">{{a.flag}}</span></div></a></li></sc-for></ul>
+</section>
+<section class="wrap" style="padding-bottom:72px"><a class="lab-cta" href="CodexArticle.dc.html#lab" style="display:grid;grid-template-columns:68px minmax(0,1fr);gap:18px;align-items:center;padding:28px;background:#edf3ff;border-radius:7px;text-decoration:none"><span class="mono" style="font-size:23px;color:#244ddd">CC07</span><div><p class="eyebrow" style="color:#244ddd;font-size:11px">触ってわかる、手順のしくみ</p><h3 style="font-size:23px;margin-top:8px">「保存する」のあと、何が起きる？ <span class="lab-icon" aria-hidden="true">→</span></h3><p style="font-size:13px;color:#536272;margin-top:8px">Hooks と整形の流れを、記事の中で試せます。</p></div></a></section>
+<section style="background:#f5f8fc;border-block:1px solid #dce3ed"><div class="wrap section"><div class="section-head"><div><p class="eyebrow muted" style="margin-bottom:8px">変更を、記事の手順までつなぐ</p><h2>直近の変更と対応</h2></div><a href="Digest.dc.html">記録をすべて見る <span aria-hidden="true">↗</span></a></div><p style="font-size:12px;color:#536272;margin-bottom:22px">表示用データです。公開前の公式情報の照合 ［要確認］</p><sc-if value="{{noRun}}" hint-placeholder-val="{{ false }}"><p style="padding:24px;background:white;border:1px solid #dce3ed;font-size:14px">表示できる変更記録はありません。更新がないことや、全記事の検証完了を示すものではありません。</p></sc-if><ol style="list-style:none;margin:0;padding:0"><sc-for list="{{run}}" as="r" hint-placeholder-count="3"><li class="record"><time class="mono muted" style="font-size:13px">{{r.date}}</time><strong style="font-size:13px;color:#244ddd">{{r.label}}</strong><span class="record-text" style="font-size:14px">{{r.text}}</span></li></sc-for></ol></div></section>
+<section id="products" class="wrap section"><div class="section-head"><h2>製品から、次の一駅へ。</h2><span class="muted" style="font-size:12px">番号は変わりません。手順は更新します。</span></div><div class="company-grid"><sc-for list="{{index}}" as="c" hint-placeholder-count="4"><section class="company"><h3 style="font-size:17px;letter-spacing:-.02em">{{c.name}}</h3><p class="mono muted" style="font-size:11px;margin-top:6px">{{c.count}} 記事</p><sc-if value="{{c.isEmpty}}" hint-placeholder-val="{{ false }}"><p class="muted" style="font-size:12px;margin-top:20px">公開記事はまだありません。</p></sc-if><ul style="list-style:none;padding:0;margin:16px 0 0;display:grid;gap:13px"><sc-for list="{{c.products}}" as="p" hint-placeholder-count="3"><li><a href="Hub.dc.html" style="display:flex;gap:9px;align-items:baseline;text-decoration:none;font-size:13px"><span aria-hidden="true" style="{{p.dot}}"></span><span style="min-width:0">{{p.name}}</span><span class="mono muted" style="font-size:10px;margin-left:auto">{{p.count}}</span></a></li></sc-for></ul></section></sc-for></div></section>
+</main><dc-import name="CodexFooter" hint-size="100%,320px"></dc-import>
+<div style="padding:18px 22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;background:white;border-top:1px solid #dce3ed"><span class="muted" style="font-size:11px">表示検証用データ</span><div role="group" aria-label="データの切り替え（検証用）" style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{toggle}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button></sc-for></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2800}}'>
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ds: 'demo', role: 'すべて', level: 'すべて', since: true, tab: 'すべて', proof: 0 };
+  }
+  renderVals() {
+    const ds = this.state.ds;
+    const code = (color) => "display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: " + color + "; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; flex: 0 0 auto";
+    const RUN_DEMO = [
+      ['11-14', '公式の変更', 'Claude Code のステータス行の設定の書き方が変わった（公式の変更履歴）'],
+      ['11-14', '影響の判定', 'CC12「settings.json の設定項目」の 1 行に影響'],
+      ['11-16', '対応', '手元で再検証し、表を直す予定（いまは見直し中と表示）'],
+    ];
+    const RUN_WORST = [
+      ['11-14', '公式の変更', 'Claude Code 2.1.326-beta.3 で、mcp__claude_ai_Google_Drive__download_file_content のようなツール名の許可の書き方が変わった（公式の変更履歴）'],
+      ['11-14', '影響の判定', 'CC12・CC13・CC18・MC05・SK02・SD04 の 6 本に影響'],
+      ['11-21', '対応', '手元で再検証し、6 本を順に直す予定。それまでは各記事に見直し中と表示する'],
+    ];
+    const RUN = { demo: RUN_DEMO, worst: RUN_WORST, empty: [], one: [RUN_DEMO[0]] }[ds];
+    const run = RUN.map(([date, label, text], i) => ({
+      date, label, text, isChange: label === '公式の変更', isJudge: label === '影響の判定', isFix: label === '対応',
+      line: i === RUN.length - 1 ? 'display: none' : 'position: absolute; left: 6px; top: 19px; bottom: 0; width: 2px; background: #12161D',
+    }));
+    const line = (color, i, n) => 'position: absolute; left: 6px; width: 4px; background: ' + color + '; top: ' + (i === 0 ? '19px' : '0') + '; bottom: ' + (i === n - 1 ? 'calc(100% - 19px)' : '0');
+    const dot = (color) => 'position: absolute; left: 0; top: 12px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 3px solid ' + color + '; background: #FFFFFF';
+    const FLAG = { review: '見直し中', stale: '期限切れ' };
+    const META = { CC01: ['入門', 'all'], CC03: ['入門', 'dev'], CC07: ['中級', 'dev'], CC12: ['上級', 'dev'], AP01: ['入門', 'dev'], AP03: ['中級', 'dev'], AP06: ['上級', 'dev'], MC01: ['入門', 'dev'], MC03: ['上級', 'dev'], MC05: ['中級', 'dev'], CA01: ['入門', 'all'], CA02: ['入門', 'all'], CG01: ['入門', 'all'], CG02: ['中級', 'all'], CG04: ['入門', 'all'], CX01: ['入門', 'dev'], CX03: ['中級', 'dev'], SO01: ['入門', 'all'], GM01: ['入門', 'all'], GM03: ['入門', 'all'], GC01: ['入門', 'dev'], GC02: ['上級', 'dev'], MJ01: ['入門', 'all'], MJ03: ['中級', 'all'], FX01: ['中級', 'all'] };
+    const st = this.state;
+    const keep = ([no]) => { const m = META[no] || ['中級', 'dev']; return (st.level === 'すべて' || m[0] === st.level) && (st.role === 'すべて' || (st.role === '開発者' ? true : m[1] === 'all')); };
+    const LINES = {
+      CC: ['Claude Code', '#C2410C'], AP: ['Claude API', '#9D174D'], MC: ['MCP', '#854D0E'], CA: ['Claude アプリ', '#BE123C'], CR: ['Claude for Chrome（ブラウザ拡張）', '#7C2D12'],
+      CG: ['ChatGPT', '#3F3F46'], CX: ['Codex', '#1E293B'], SO: ['Sora', '#52525B'],
+      GM: ['Gemini', '#0369A1'], GC: ['Gemini CLI', '#047857'], GA: ['Gemini Code Assist for GitHub', '#047857'],
+      MJ: ['Midjourney', '#6D28D9'], FX: ['FLUX.1 Kontext [pro]', '#7E22CE'],
+    };
+    const VENDOR = { FX: 'Black Forest Labs' };
+    const SHOW = 2;
+    const route = (id, count, all) => { const list = all.filter(keep).slice(0, SHOW); const [name, color] = LINES[id]; return {
+      id, name, count, color, code: code(color), vendor: VENDOR[id] || '',
+      vendorStyle: VENDOR[id] ? 'display: block; font-size: 12px; font-weight: 400; color: #4D5562' : 'display: none',
+      moreLabel: 'すべて見る（' + count + ' 本）',
+      moreStyle: count > list.length && list.length > 0 ? 'display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; font-size: 13px; line-height: 1.5' : 'display: none',
+      stations: list.map(([no, title, date, flag], i) => ({
+        no, title, date,
+        flag: flag ? '　' + FLAG[flag] : '',
+        flagStyle: flag ? 'font-weight: 700; color: ' + (flag === 'stale' ? '#B91C1C' : '#B45309') : 'display: none',
+        level: (META[no] || ['中級'])[0],
+        track: line(color, i, list.length), dot: dot(color),
+      })),
+    }; };
+    const COMPANY = [['openai', 'OpenAI'], ['google', 'Google'], ['anthropic', 'Anthropic'], ['media', '画像・動画・音声']];
+    const DATA_DEMO = {
+      anthropic: [
+        route('CC', 24, [['CC01', 'インストールと最初の依頼', '11-09'], ['CC03', 'CLAUDE.md で手順を覚えさせる', '11-06'], ['CC07', 'Hooks で保存のたびに整形する', '11-01'], ['CC12', 'settings.json の設定項目', '11-03', 'review']]),
+        route('AP', 12, [['AP01', 'はじめての API 呼び出し', '11-11'], ['AP03', 'ツール使用の基本', '11-02'], ['AP06', 'プロンプトキャッシュで料金を減らす', '11-15']]),
+        route('MC', 9, [['MC01', 'はじめての MCP サーバーをつなぐ', '10-20', 'review'], ['MC05', 'MCP の設定ファイル', '11-09'], ['MC03', 'リモート MCP サーバーの認証', '11-04']]),
+        route('CA', 7, [['CA01', 'プランの選び方', '11-13'], ['CA02', 'プロジェクトで資料を共有する', '11-05']]),
+      ],
+      openai: [
+        route('CG', 5, [['CG01', 'ChatGPT のはじめかた', '11-10'], ['CG02', 'GPT を自分用に作る', '11-03'], ['CG04', 'ChatGPT と Claude の使い分け', '11-07']]),
+        route('CX', 3, [['CX01', 'Codex CLI を入れて最初の依頼', '11-08'], ['CX03', 'Codex と Claude Code の比較', '09-30', 'stale']]),
+        route('SO', 1, [['SO01', 'Sora で短い動画を作る', '11-12']]),
+      ],
+      google: [
+        route('GM', 4, [['GM01', 'Gemini のはじめかた', '11-11'], ['GM03', 'Gemini と Claude の使い分け', '11-07']]),
+        route('GC', 3, [['GC01', 'Gemini CLI を入れて最初の依頼', '11-06'], ['GC02', 'Gemini CLI の設定ファイル', '10-29']]),
+      ],
+      media: [
+        route('MJ', 4, [['MJ01', 'Midjourney で最初の画像を作る', '11-09'], ['MJ03', '画像の縦横比と画風を指定する', '11-02']]),
+        route('FX', 2, [['FX01', 'FLUX で商品写真の背景を差し替える', '11-05']]),
+      ],
+    };
+    const DATA_WORST = {
+      anthropic: [
+        route('CC', 3, [['CC31', 'PreToolUse と PostToolUse を組み合わせ、保存のたびに整形・型検査・テストを順に走らせて、失敗したときだけ止める', '11-15'], ['CC32', 'mcp__claude_ai_Google_Drive__download_file_content を許可リストに入れる', '10-24', 'stale'], ['CC33', 'MCP', '11-14', 'review']]),
+        route('CR', 1, [['CR01', 'Claude for Chrome で、ログインが必要なページの表を読み取って要約する', '11-12']]),
+        route('AP', 0, []),
+      ],
+      openai: [],
+      google: [route('GA', 1, [['GA01', 'Gemini Code Assist for GitHub でプルリクエストの自動レビューを有効にする', '11-14', 'review']])],
+      media: [route('FX', 1, [['FX01', 'FLUX.1 Kontext [pro] で、商品写真の背景だけを差し替えて、影と反射を自然に残す', '11-13']])],
+    };
+    const DATA_ONE = { anthropic: [route('CC', 1, [['CC01', 'インストールと最初の依頼', '11-09']])], openai: [], google: [], media: [] };
+    const DATA = { demo: DATA_DEMO, worst: DATA_WORST, empty: { anthropic: [], openai: [], google: [], media: [] }, one: DATA_ONE }[ds];
+    const companies = COMPANY.map(([key, name]) => {
+      const routes = DATA[key].filter((r) => r.stations.length > 0);
+      const count = DATA[key].reduce((n, r) => n + r.count, 0);
+      const filtered = count > 0 && routes.length === 0;
+      return { name, count, routes, isEmpty: routes.length === 0, emptyText: filtered ? 'この条件に合う記事はありません。' : 'まだ公開した記事がありません。' };
+    });
+    const total = companies.reduce((n, c) => n + c.count, 0);
+
+    const TABS = [['すべて', 'すべて', 'すべて'], ['入門', 'すべて', '入門'], ['開発者向け', '開発者', 'すべて'], ['ビジネス職向け', 'ビジネス職', 'すべて']];
+    const tabs = TABS.map(([label, role, level]) => ({ label, pressed: st.tab === label ? 'true' : 'false', pick: () => this.setState({ tab: label, role, level }),
+      style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; cursor: pointer; ' + (st.tab === label ? 'background: #111418; color: #FFFFFF' : 'background: transparent; color: #5B616E') }));
+    const lanes = companies.map((c) => c.routes.flatMap((r) => r.stations.map((s) => ({ ...s, product: r.name, color: r.color, vendor: c.name }))));
+    const latest = [];
+    for (let i = 0; latest.length < 6 && i < 6; i++) lanes.forEach((l) => { if (l[i] && latest.length < 6) latest.push(l[i]); });
+    const cards = latest.map((s, i) => ({ ...s, href: s.no === 'CC07' ? 'CodexArticle.dc.html' : 'Article.dc.html', numberStyle: 'color:' + s.color, dotStyle: 'display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: ' + s.color,
+      flagStyle2: s.flag ? 'font-weight: 500; color: ' + (s.flag.includes('期限切れ') ? '#B91C1C' : '#B45309') : 'display: none' }));
+    const index = COMPANY.map(([key, name]) => ({ name, count: DATA[key].reduce((n, r) => n + r.count, 0),
+      products: DATA[key].filter((r) => r.count > 0).map((r) => ({ name: r.name, count: r.count, dot: 'display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: ' + r.color })) }))
+      .map((c) => ({ ...c, isEmpty: c.products.length === 0 }));
+    const S = (id, name, color, vendor, state, detail) => ({
+      id, name, vendor, state, detail, code: code(color),
+      stateStyle: 'padding: 8px 16px; white-space: nowrap; ' + (state === '見直し中' ? 'font-weight: 700; color: #B45309' : state === '期限切れあり' ? 'font-weight: 700; color: #B91C1C' : 'color: #4D5562'),
+    });
+    const STATUS_DEMO = [
+      S('CC', 'Claude Code', '#C2410C', 'Anthropic', '見直し中', '11-14 の公式の変更で 1 本を見直し中'),
+      S('MC', 'MCP', '#854D0E', 'Anthropic', '見直し中', '登録画面の変更で 1 本を見直し中'),
+      S('CX', 'Codex', '#1E293B', 'OpenAI', '期限切れあり', '見直しの期限を過ぎた 1 本を再検証予定'),
+      S('AP', 'Claude API', '#9D174D', 'Anthropic', '期限内', '—'),
+      S('CA', 'Claude アプリ', '#BE123C', 'Anthropic', '期限内', '—'),
+      S('CG', 'ChatGPT', '#3F3F46', 'OpenAI', '期限内', '—'),
+      S('GM', 'Gemini', '#0369A1', 'Google', '期限内', '—'),
+      S('MJ', 'Midjourney', '#6D28D9', 'Midjourney', '期限内', '—'),
+    ];
+    const STATUS_WORST = [
+      S('CR', 'Claude for Chrome（ブラウザ拡張）', '#7C2D12', 'Anthropic', '期限切れあり', '11-14 の公式の変更（mcp__claude_ai_Google_Drive__download_file_content の許可の書き方）で 6 本に影響。うち 1 本は見直しの期限も過ぎている'),
+      S('GC', 'Gemini Code Assist for GitHub', '#047857', 'Google', '見直し中', '—'),
+    ];
+    const status = { demo: STATUS_DEMO, worst: STATUS_WORST, empty: [], one: [STATUS_DEMO[0]] }[ds];
+    const NEWS_DEMO = [
+      { date: '11-15', target: 'Gemini アプリの利用者', todo: '', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
+      { date: '11-14', target: 'ステータス行を設定している人', todo: '設定を新しい書き方に直す', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
+      { date: '11-13', target: '無料プランの人', todo: '', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
+      { date: '11-12', target: '日本から使いたい人', todo: '提供地域を確認する', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
+    ];
+    const NEWS_WORST = [
+      { date: '11-15', title: 'Anthropic が Claude の新しいモデルを公開し、API・アプリ・Claude Code のすべてで既定のモデルが切り替わった（例）', product: 'Claude API・Claude アプリ・Claude Code', source: 'https://platform.claude.com/docs/en/release-notes/overview' },
+      { date: '11-14', title: 'AI', product: 'FLUX.1 Kontext [pro]', source: 'Black Forest Labs 公式ブログ（英語）' },
+    ];
+    NEWS_WORST.forEach((n) => { n.target = n.target || ''; n.todo = n.todo || ''; });
+    const news = { demo: NEWS_DEMO, worst: NEWS_WORST, empty: [], one: [NEWS_DEMO[0]] }[ds];
+    const needs = status.filter((x) => x.state !== '期限内');
+    const flags = {
+      noRun: RUN.length === 0, noNews: news.length === 0,
+      hasNeeds: needs.length > 0, noNeeds: needs.length === 0, needCount: needs.length, needNames: needs.map((x) => x.name).join('・'), total,
+    };
+    const optStyle = (on) => 'border: 1px solid ' + (on ? '#12161D' : '#D9DDE3') + '; background: ' + (on ? '#12161D' : '#FFFFFF') + '; color: ' + (on ? '#FFFFFF' : '#12161D') + '; border-radius: 4px; padding: 4px 12px; font: inherit; font-size: 14px; cursor: pointer';
+    const opts = (key, names) => names.map((n) => ({ name: n, pressed: st[key] === n ? 'true' : 'false', pick: () => this.setState({ [key]: n }), style: optStyle(st[key] === n) }));
+    const filters = [{ label: '対象', options: opts('role', ['すべて', '開発者', 'ビジネス職']) }, { label: '難易度', options: opts('level', ['すべて', '入門', '中級', '上級']) }];
+    const DS = [['demo', 'デモ'], ['worst', '最悪'], ['empty', '空'], ['one', '1件']];
+    const newsShown = news.map((n) => ({ ...n, hasWho: !!n.target, needsAction: !!n.todo, noAction: !!n.target && !n.todo }));
+    const toggle = DS.map(([key, label]) => ({ label, pressed: ds === key ? 'true' : 'false', pick: () => this.setState({ ds: key }), style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (ds === key ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
+    const proof = [
+      ['検証した版を記録します。', '検証して公開', '日付と製品の版を、記事に残します。', '検証済み', '公式変更が届いたら？'],
+      ['この記事の手順に、変更の影響があります。', '見直し中と表示', '確かめ直すまで、読者に状態を知らせます。', '見直し中', '再検証が終わったら？'],
+      ['変更後の手順を、手元で確かめました。', '手順を直して再公開', '新しい検証日と版を、記事に残します。', '再検証済み', 'はじめから見る']
+    ][st.proof];
+    return { proofPending: st.proof === 1 ? 'pending' : '', proofDetail: proof[0], proofFinal: proof[1], proofFinalSub: proof[2], proofLabel: proof[3], proofButton: proof[4], proofAria: '公式の変更から影響を判定し、' + proof[1] + '。' + proof[2],
+      proofStyle: 'margin-top:24px;padding:12px 16px;border-radius:4px;font-size:13px;font-weight:700;background:' + (st.proof === 1 ? '#fff0d8;color:#855000' : '#dff7ed;color:#116344'),
+      advanceProof: () => this.setState({proof: (st.proof + 1) % 3}), tabs, cards, noCards: cards.length === 0, index, filters, showSince: st.since, hideSince: () => this.setState({ since: false }), run, companies, status, news: newsShown, toggle, ...flags };
+  }
+}
+
+</script>
+</body>
+</html>
