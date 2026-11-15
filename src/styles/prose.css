@@ -1,0 +1,76 @@
+/* 記事の本文（Markdown から出力される要素）の組み方。.prose の中だけに効かせる。 */
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > * + * {
+  margin-block-start: var(--space-4);
+}
+
+.prose h2 {
+  margin-block: var(--space-section) var(--space-4);
+  font-size: var(--text-section-ja);
+}
+
+.prose h3 {
+  margin-block: var(--space-8) var(--space-3);
+  font-size: 1.15em;
+}
+
+.prose p,
+.prose li {
+  overflow-wrap: anywhere;
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: 1.4em;
+}
+
+.prose li + li {
+  margin-block-start: var(--space-1);
+}
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-control);
+  background: var(--color-surface-soft);
+  font-size: 0.9em;
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--color-band);
+  color: var(--color-on-band);
+  font-size: var(--text-data);
+  line-height: 1.7;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.93em;
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2) var(--space-3);
+  border-block-end: 1px solid var(--color-rule);
+  text-align: start;
+  vertical-align: top;
+}
+
+.prose th {
+  font-family: var(--font-headline);
+  font-weight: var(--weight-headline);
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--space-4);
+  border-inline-start: 3px solid var(--color-rule);
+  color: var(--color-ink-muted);
+}

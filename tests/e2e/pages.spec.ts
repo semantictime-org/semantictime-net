@@ -24,3 +24,19 @@ for (const path of PAGES) {
     });
   }
 }
+
+test('書体は外部の /fonts.css から読み込み、見出しと本文に DESIGN.md の書体を使う', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const families = await page.evaluate(() => ({
+    heading: getComputedStyle(document.querySelector('h1') ?? document.body).fontFamily,
+    body: getComputedStyle(document.body).fontFamily,
+    inlineFontFaces: [...document.querySelectorAll('style')].filter((s) =>
+      s.textContent.includes('@font-face'),
+    ).length,
+  }));
+  expect(families.heading).toContain('Zen Kaku Gothic New');
+  expect(families.body).toContain('BIZ UDPGothic');
+  expect(families.inlineFontFaces).toBe(0);
+});
