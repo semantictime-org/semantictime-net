@@ -1,0 +1,2 @@
+# Cloudflare Workers Static Assets のリダイレクト（T063）。恒久的な移動だけを「元 先 301」の形で書く。
+# 記事の slug を変えたら、ここに古い URL を残す（記事番号 stationNo は変えない）。

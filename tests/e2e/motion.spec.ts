@@ -1,13 +1,15 @@
 import { expect, test } from '@playwright/test';
 
 // T085: 動きを減らす設定では、トランジションとアニメーションを止める（DESIGN.md の Motion）
-const MOVING_STYLE = 'transition: opacity 1s; animation: none 2s';
+// CSP（style-src のハッシュ）はインラインの style 属性を止めるので、CSSOM で指定する
+const MOVING_STYLE = { transition: 'opacity 1s', animation: 'none 2s' };
 const MAX_REDUCED_SECONDS = 0.001;
 
 const durationsOf = async (page: import('@playwright/test').Page) =>
   page.evaluate((style) => {
     const probe = document.createElement('div');
-    probe.setAttribute('style', style);
+    probe.style.transition = style.transition;
+    probe.style.animation = style.animation;
     document.body.append(probe);
     const computed = getComputedStyle(probe);
     return [
