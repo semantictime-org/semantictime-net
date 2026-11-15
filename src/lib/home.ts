@@ -45,3 +45,23 @@ export const groupByMonth = <T extends Dated>(items: readonly T[]): readonly Mon
     return { year, month, items: list };
   });
 };
+
+export interface VerificationStats {
+  readonly count: number;
+  /** 状態が「検証済み」以外（まもなく見直し・期限切れ）の本数 */
+  readonly needsReview: number;
+  /** いちばん新しい検証日（YYYY-MM-DD） */
+  readonly latest: string | undefined;
+}
+
+/** ホームの帯と製品のハブに出す数字の段 */
+export const verificationStats = (
+  items: readonly { readonly state: string; readonly verifiedDate: string }[],
+): VerificationStats => ({
+  count: items.length,
+  needsReview: items.filter((i) => i.state !== 'ok').length,
+  latest: items
+    .map((i) => i.verifiedDate)
+    .toSorted()
+    .at(-1),
+});

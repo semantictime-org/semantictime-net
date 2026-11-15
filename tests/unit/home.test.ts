@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { isChangeVisible } from '../../src/lib/change-filter';
-import { buildFrontPage, groupByMonth } from '../../src/lib/home';
+import { buildFrontPage, groupByMonth, verificationStats } from '../../src/lib/home';
 
 describe('isChangeVisible（T078 の絞り込み）', () => {
   const row = { product: 'claude-code', breaking: false } as const;
@@ -76,5 +76,22 @@ describe('groupByMonth（月ごとの一覧）', () => {
 
   test('記事が 0 本なら空', () => {
     expect(groupByMonth([])).toEqual([]);
+  });
+});
+
+describe('verificationStats（数字の段）', () => {
+  test('本数・見直しが必要な本数・最新の検証日', () => {
+    expect(
+      verificationStats([
+        { state: 'ok', verifiedDate: '2026-11-10' },
+        { state: 'review', verifiedDate: '2026-09-20' },
+        { state: 'stale', verifiedDate: '2026-08-01' },
+        { state: 'ok', verifiedDate: '2026-11-15' },
+      ]),
+    ).toEqual({ count: 4, needsReview: 2, latest: '2026-11-15' });
+  });
+
+  test('0 本なら最新の検証日はない', () => {
+    expect(verificationStats([])).toEqual({ count: 0, needsReview: 0, latest: undefined });
   });
 });
