@@ -52,8 +52,10 @@ export const buildHub = (productId: string, catalog: Catalog): HubView => {
       ...(vendor ? [{ label: vendor.data.name }] : []),
       { label: product.data.name },
     ],
-    en: product.data.name.toUpperCase(),
-    title: `${product.data.name} の使い方`,
+    // 英字の見出しは Anton で組むので、日本語を含みうる製品名ではなく ID から作る（claude-app → CLAUDE APP）
+    en: product.id.replaceAll('-', ' ').toUpperCase(),
+    // 会社のない路線（AI の基本）は「の使い方」を付けない
+    title: vendor ? `${product.data.name} の使い方` : product.data.name,
     lead: vendor
       ? `${vendor.data.name} の ${product.data.name}。手元で動かして確かめた手順と、現行仕様をまとめています。`
       : `${product.data.name}。会社を問わず使う言葉と考え方を、一次情報で確かめてまとめています。`,
