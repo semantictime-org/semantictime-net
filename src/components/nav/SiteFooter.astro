@@ -1,0 +1,103 @@
+---
+// サイトのフッター（DESIGN.md v11、キャンバスの FreshFooter）
+const YEAR = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="inner">
+    <div class="top">
+      <div>
+        <a class="logo" href="/">
+          semantictime.net
+        </a>
+        <p class="copy">AIの使い方を、確かめて、書きつづける。</p>
+      </div>
+      <p class="credit">
+        運営・検証・執筆：shizukukai
+        <br />
+        各社から独立した、個人の非公式ガイド。
+        <br />
+        <a class="link" href="/news/">
+          毎朝 6:00、公式の変更を確認 ↗
+        </a>
+      </p>
+    </div>
+    <div class="bottom">
+      <span>© {YEAR} shizukukai</span>
+      <span>昨日の手順を、今日も使える手順に。</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    container-type: inline-size;
+    background: var(--color-surface-tint);
+    color: var(--color-ink);
+    font-size: var(--text-nav);
+  }
+
+  .inner {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-8);
+  }
+
+  .top {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .logo {
+    color: var(--color-key);
+    font: 500 var(--text-brand) var(--font-data);
+    letter-spacing: var(--tracking-brand);
+    text-decoration: none;
+  }
+
+  .copy {
+    margin: var(--space-3) 0 0;
+  }
+
+  .credit {
+    margin: 0;
+    text-align: end;
+  }
+
+  .link {
+    text-decoration: none;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--gutter-narrow);
+    margin-block-start: var(--space-8);
+    padding-block-start: var(--gutter-narrow);
+    border-block-start: 1px solid var(--color-rule);
+    color: var(--color-ink-muted);
+    font: var(--text-small) var(--font-data);
+  }
+
+  @container (max-width: 700px) {
+    .inner {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+
+    .top {
+      display: block;
+    }
+
+    .credit {
+      margin-block-start: var(--space-6);
+      text-align: start;
+    }
+
+    .bottom {
+      flex-wrap: wrap;
+    }
+  }
+</style>

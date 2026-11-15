@@ -1,22 +1,18 @@
 ---
-import '../styles/tokens.css';
-import '../styles/base.css';
-import '../styles/prose.css';
-
-const title = 'semantictime.net';
+import { SITE } from '../../site.config';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <link rel="stylesheet" href="/fonts.css" />
-  </head>
-  <body>
-    <main class="prose">
-      <h1>{title}</h1>
-      <p>準備中です。</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title={SITE.name} description={SITE.description}>
+  <div class="prose placeholder">
+    <h1>{SITE.name}</h1>
+    <p>準備中です。</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    margin-inline: auto;
+    padding: var(--space-section) var(--gutter-narrow);
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+// すべてのページの土台：<head>、ヘッダー、本文、フッター。
+import SeoHead from '../components/seo/SeoHead.astro';
+import SiteFooter from '../components/nav/SiteFooter.astro';
+import SiteHeader from '../components/nav/SiteHeader.astro';
+import type { SeoArticle } from '../lib/seo';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/prose.css';
+
+interface Props {
+  title: string;
+  description: string;
+  article?: SeoArticle | undefined;
+}
+
+const { title, description, article } = Astro.props;
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/fonts.css" />
+    <SeoHead title={title} description={description} article={article} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      本文へ移動
+    </a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--space-4);
+    inset-block-start: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-control);
+    background: var(--color-surface);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus-visible {
+    transform: none;
+  }
+</style>

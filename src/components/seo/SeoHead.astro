@@ -1,0 +1,47 @@
+---
+// <head> のメタ情報。何を出すかは src/lib/seo.ts の buildSeo が決める。
+import { SITE } from '../../../site.config';
+import { buildSeo, parseDeployEnv, type SeoArticle } from '../../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  article?: SeoArticle | undefined;
+}
+
+const { title, description, article } = Astro.props;
+const BEACON_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
+
+const seo = buildSeo({
+  siteUrl: SITE.url,
+  siteName: SITE.name,
+  title,
+  description,
+  path: Astro.url.pathname,
+  analyticsToken: SITE.analyticsToken,
+  env: parseDeployEnv(import.meta.env.PUBLIC_DEPLOY_ENV),
+  ...(article ? { article } : {}),
+});
+// </script> で JSON-LD の外に出られないように < を逃がす
+const jsonLd = JSON.stringify(seo.jsonLd).replaceAll('<', '\\u003c');
+---
+
+<title>{seo.documentTitle}</title>
+<meta name="description" content={seo.description} />
+<link rel="canonical" href={seo.canonical} />
+{seo.robots && <meta name="robots" content={seo.robots} />}
+<meta property="og:type" content={seo.og.type} />
+<meta property="og:url" content={seo.og.url} />
+<meta property="og:title" content={seo.og.title} />
+<meta property="og:description" content={seo.og.description} />
+<meta property="og:site_name" content={seo.og.siteName} />
+<meta property="og:locale" content="ja_JP" />
+<script type="application/ld+json" is:inline set:html={jsonLd} />
+{seo.analyticsToken && (
+  <script
+    is:inline
+    defer
+    src={BEACON_SRC}
+    data-cf-beacon={JSON.stringify({ token: seo.analyticsToken })}
+  />
+)}
