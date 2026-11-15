@@ -35,8 +35,10 @@ export interface OgCardInput {
   /** 記事番号（CC07）、ニュースは NEWS、サイト共通は空でよい */
   readonly mark: string;
   readonly title: string;
-  /** 製品名・検証日など */
+  /** 製品名など */
   readonly sub: string;
+  /** 右下に大きく出す確かめ方と日付（このサイトの強み）。サイト共通の画像では省く */
+  readonly verified?: { readonly label: string; readonly date: string };
 }
 
 /** 記事の OGP 画像の置き場所 */
@@ -86,7 +88,35 @@ export const ogCard = (
           input.title,
         ),
       ]),
-      el('div', { display: 'flex', fontSize: 30, color: colors.onBandFaint }, input.sub),
+      el(
+        'div',
+        { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 32 },
+        [
+          el('div', { display: 'flex', fontSize: 30, color: colors.onBandFaint }, input.sub),
+          ...(input.verified
+            ? [
+                el('div', { display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }, [
+                  el(
+                    'div',
+                    { display: 'flex', fontSize: 26, color: colors.onBand },
+                    input.verified.label,
+                  ),
+                  el(
+                    'div',
+                    {
+                      display: 'flex',
+                      fontFamily: families.display,
+                      fontSize: 72,
+                      lineHeight: 1,
+                      color: colors.keyOnBand,
+                    },
+                    input.verified.date,
+                  ),
+                ]),
+              ]
+            : []),
+        ],
+      ),
     ],
   );
 

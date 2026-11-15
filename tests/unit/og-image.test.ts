@@ -30,6 +30,22 @@ describe('ogCard', () => {
     expect(text).toContain('semantictime.net');
   });
 
+  test('検証の種類と日付を、補足とは別に大きく載せる', () => {
+    const text = textOf(
+      ogCard(
+        {
+          mark: 'CC07',
+          title: 't',
+          sub: 'Claude Code',
+          verified: { label: '手元で検証', date: '2026.11.01' },
+        },
+        COLORS,
+      ),
+    );
+    expect(text).toContain('手元で検証');
+    expect(text).toContain('2026.11.01');
+  });
+
   test('地の色はトークンの帯の色', () => {
     expect(
       ogCard({ mark: 'NEWS', title: 't', sub: 's' }, COLORS).props.style?.['backgroundColor'],
