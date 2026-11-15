@@ -1,0 +1,117 @@
+---
+// 製品の一覧（/products/）。会社ごとに全製品を並べ、記事のある製品はハブへリンクする。
+// 記事のない製品も載せる（このサイトが扱う範囲を示すため）。
+import PageHero from '../../components/page/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ROUTES } from '../../lib/article-view';
+import { loadCatalog } from '../../queries/catalog';
+import { productDirectory } from '../../queries/directory';
+
+const TITLE = '製品から探す';
+const LEAD =
+  '各社の AI 製品を、同じ扱いで並べています。記事のある製品から、使い方と現行仕様をたどれます。';
+
+const groups = productDirectory(await loadCatalog());
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: '製品' }];
+---
+
+<BaseLayout title={TITLE} description={LEAD}>
+  <PageHero crumbs={crumbs} en="PRODUCTS" title={TITLE} lead={LEAD} />
+  <div class="body">
+    {groups.map((g) => (
+      <section
+        class="vendor"
+        data-vendor={g.id ?? 'common'}
+        aria-labelledby={`v-${g.id ?? 'common'}`}
+      >
+        <h2 id={`v-${g.id ?? 'common'}`}>{g.name}</h2>
+        <ul>
+          {g.products.map((p) => (
+            <li>
+              {p.href ? (
+                <a href={p.href}>
+                  <span class="name">{p.name}</span>
+                  <span class="count">{p.count} 本</span>
+                </a>
+              ) : (
+                <span class="pending">
+                  <span class="name">{p.name}</span>
+                  <span class="count">準備中</span>
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    display: grid;
+    gap: var(--space-8);
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  h2 {
+    margin: 0 0 var(--space-3);
+    padding-block-end: var(--space-2);
+    border-block-end: 2px solid var(--color-ink);
+    font-size: var(--text-nav);
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a,
+  .pending {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-control);
+    text-decoration: none;
+  }
+
+  a {
+    color: var(--color-ink);
+    transition: border-color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  a:hover {
+    border-color: var(--color-key);
+  }
+
+  a .name {
+    color: var(--color-key);
+    font-weight: 700;
+  }
+
+  .pending {
+    border-style: dashed;
+    color: var(--color-ink-muted);
+  }
+
+  .count {
+    color: var(--color-ink-muted);
+    font: var(--text-small) var(--font-data);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+  }
+</style>

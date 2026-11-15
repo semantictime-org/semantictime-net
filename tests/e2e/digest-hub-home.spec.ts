@@ -43,7 +43,7 @@ test('T317: 記事のある会社は order の順に並び、製品はハブへ�
   await page.goto('/');
   // 記事のある会社だけを order の順に。記事のない製品は「準備中」に 1 行でたたむ
   await expect(page.locator('#vendors h3')).toHaveText(['Anthropic', 'OpenAI']);
-  await expect(page.locator('#vendors .pending summary')).toContainText('製品は準備中');
+  await expect(page.locator('#vendors .pending')).toContainText('製品は準備中');
   const vendors = page.locator('#vendors');
   await expect(vendors.getByRole('link', { name: /Claude Code/ })).toHaveAttribute(
     'href',
