@@ -5,7 +5,6 @@ export const SITE = {
   url: 'https://semantictime.net',
   name: 'semantictime.net',
   timezone: 'Asia/Tokyo',
-  publishCapPerDay: 1,
   reviewIntervalDaysBySurface: {
     'claude-code': 30,
     cowork: 30,

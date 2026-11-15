@@ -13,7 +13,7 @@ export default defineConfig({
         branches: 80,
         functions: 80,
         statements: 80,
-        'src/lib/publish-cap.ts': { branches: 100, lines: 100, functions: 100, statements: 100 },
+        'src/lib/publish-dates.ts': { branches: 100, lines: 100, functions: 100, statements: 100 },
         'src/lib/verification-gate.ts': {
           branches: 100,
           lines: 100,

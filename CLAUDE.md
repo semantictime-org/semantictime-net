@@ -6,13 +6,13 @@
 
 - 作業は `content/<slug>`（記事）か `fix/<topic>`（それ以外）のブランチで行い、push する。PR は GitHub Actions（open-pr.yml）が GitHub App の名前で作る。自分で PR を作らない。
 - main へ直接 push しない。承認・マージ・PR 本文の編集・ワークフローファイルの変更は人が行う（Claude の資格情報ではできない設計になっている）。
-- 記事の公開は1日1本まで（`site.config.ts` の `publishCapPerDay`）。実機で検証していない記事は公開しない。
+- 記事の公開は1日1本を目標にする（上限は設けない）。実機で検証していない記事は公開しない。
 - 各タスクの終わりに `npm run check`（lint → typecheck → test → build）を実行する。
 
 ## コード
 
 - TypeScript は strict。`any`・`unknown`・`class` は使わない（ESLint で禁止）。
-- 判定のロジック（公開上限、検証ゲート、上流の分類）はテストを先に書く。
+- 判定のロジック（公開日、検証ゲート、上流の分類）はテストを先に書く。
 - 色や余白をハードコードしない。デザイントークンは `src/styles/tokens.css` に置く。
 - TypeScript は 6.0 系に固定している（typescript-eslint と @astrojs/check が 7 系に未対応のため）。
 
