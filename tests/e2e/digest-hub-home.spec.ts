@@ -79,3 +79,10 @@ test('ニュースの一覧は新しい順で、破壊的な変更を示す', as
     '破壊的な変更を含む',
   );
 });
+
+test('製品のハブの英字見出しは製品 ID から作る（日本語を英字の書体で出さない）', async ({
+  page,
+}) => {
+  await page.goto('/claude-app/');
+  await expect(page.locator('p.en').first()).toHaveText('CLAUDE APP');
+});
