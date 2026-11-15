@@ -1,0 +1,77 @@
+---
+title: Claude Code を入れて、最初の作業を頼む
+description: Claude Code をパソコンに入れ、ログインして、最初の作業を頼むまでを、macOS と Windows の手順で追います。入ったかの確かめ方と、つまずいたときに見るところもまとめます。
+type: tutorial
+products: [claude-code]
+stationNo: 1
+series: { id: claude-code-first-steps, no: 1 }
+verification: hands-on
+roles: [developer]
+level: beginner
+draft: true
+publishedAt: 2026-11-16
+verifiedAt: 2026-11-16
+verifiedWith:
+  claudeCode: 2.1.325
+  version: macOS 26.7.2
+sources:
+  - https://code.claude.com/docs/en/setup
+  - https://code.claude.com/docs/en/quickstart
+owner: shizukukai
+aiAssisted: draft
+---
+
+import Callout from '../../../components/mdx/Callout.astro';
+
+- **ゴール**：ターミナルで `claude` を動かし、作業を1つ頼める
+- **所要時間**：10分
+- **必要なプラン**：Pro・Max・Ultra・Team・Enterprise のどれか、または Console のアカウント（無料プランでは使えない）
+- **手順の全体**：1. 入れる → 2. 確かめる → 3. ログインする → 4. 頼む
+
+## 1. 入れる
+
+| 使っている環境        | ターミナルで実行するコマンド                      |
+| --------------------- | ------------------------------------------------- |
+| macOS・Linux・WSL     | `curl -fsSL https://claude.ai/install.sh \| bash` |
+| Windows（PowerShell） | `irm https://claude.ai/install.ps1 \| iex`        |
+
+- 入れている間、進み具合は表示されない
+- 終わったら、ターミナルを開き直す
+
+<Callout>
+  Homebrew・WinGet・npm でも入れられます。ただし、上の方法と違って自動では更新されません。
+</Callout>
+
+## 2. 確かめる
+
+```bash
+claude --version
+```
+
+- `2.1.325 (Claude Code)` のように版が出れば入っている
+- 設定まで詳しく見るときは `claude doctor` を使う
+
+## 3. ログインする
+
+1. 作業したいフォルダーに移動する
+2. `claude` と入力して起動する
+3. ブラウザーが開くので、Claude のアカウントでログインする
+
+## 4. 最初の作業を頼む
+
+```text
+> このフォルダーに何があるか、ざっと説明して
+```
+
+- ファイルを書き換える前には、許してよいかを聞かれる
+- 内容を確かめてから許す
+
+## 困ったとき
+
+| 症状                    | 見るところ                                                            |
+| ----------------------- | --------------------------------------------------------------------- |
+| `claude` が見つからない | ターミナルを開き直す。直らなければ公式の「Troubleshoot installation」 |
+| `irm` が見つからない    | PowerShell ではなく CMD で打っている。PowerShell を開き直す           |
+| 版が古いまま            | `claude update` で今すぐ更新する                                      |
+
+次は、作業の決まりを覚えさせる [CLAUDE.md の書き方](/claude-code/claude-md/)です。

@@ -1,0 +1,82 @@
+---
+title: Hooks で、ファイルを書き換えるたびに整形を走らせる
+description: Claude Code がファイルを書き換えたあとに、Prettier を自動で動かす Hooks の設定です。設定を書く場所、動いたかの確かめ方、うまく動かないときに見るところをまとめます。
+type: how-to
+products: [claude-code]
+stationNo: 3
+series: { id: claude-code-first-steps, no: 3 }
+verification: hands-on
+roles: [developer]
+level: intermediate
+features: [hooks]
+draft: true
+publishedAt: 2026-11-16
+verifiedAt: 2026-11-16
+verifiedWith:
+  claudeCode: 2.1.325
+  version: macOS 26.7.2
+sources:
+  - https://code.claude.com/docs/en/hooks-guide
+  - https://code.claude.com/docs/en/hooks
+owner: shizukukai
+aiAssisted: draft
+---
+
+import Callout from '../../../components/mdx/Callout.astro';
+
+- **ゴール**：Claude Code の書き換えたファイルを、毎回自動で整形する
+- **所要時間**：10分
+- **用意するもの**：Prettier が入ったプロジェクト、`jq` コマンド
+- **手順の全体**：1. 設定を書く → 2. 試す → 3. 動いたか確かめる
+
+## 1. 設定を書く
+
+プロジェクトの `.claude/settings.json` に、次を足します。
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path') && npx prettier --write --ignore-unknown \"$f\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+| 項目                            | 意味                                                  |
+| ------------------------------- | ----------------------------------------------------- |
+| `PostToolUse`                   | Claude Code が道具を使ったあとに動く                  |
+| `matcher`                       | ファイルを書き換える道具（Edit・Write）のときだけ動く |
+| `jq -r '.tool_input.file_path'` | 書き換えたファイルの名前を取り出す                    |
+
+## 2. 試す
+
+```text
+> src/sample.js に、シングルクォートの文字列を1行足して
+```
+
+## 3. 動いたか確かめる
+
+- 開いたファイルの `'...'` が `"..."` に変わっていれば動いている
+- うまくいったときは、会話には何も表示されない
+
+<Callout>
+  Bash のコマンドで書き換えたファイルは、この設定では整形されません。必要なら FileChanged の Hooks
+  を使います。
+</Callout>
+
+## 困ったとき
+
+| 症状                         | 見るところ                                 |
+| ---------------------------- | ------------------------------------------ |
+| 何も変わらない               | `jq` が入っているか（`jq --version`）      |
+| 一部のファイルだけ変わらない | Prettier が扱えない種類のファイルか        |
+| 設定が読まれていない         | `/hooks` で、登録された Hooks の一覧を見る |
