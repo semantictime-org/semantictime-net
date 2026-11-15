@@ -11,3 +11,6 @@ coverage/
 # Playwright
 test-results/
 playwright-report/
+
+# wrangler の作業用フォルダ
+.wrangler/
