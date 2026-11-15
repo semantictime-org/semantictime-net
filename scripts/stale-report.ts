@@ -4,6 +4,7 @@
 // 必要なもの: GH_TOKEN（Issue を作成・編集できる権限）。
 import { parseArgs } from 'node:util';
 import { z } from 'astro/zod';
+import { tracksFreshness } from '../src/lib/freshness.ts';
 import { buildStaleReport, type StaleCandidate } from '../src/lib/stale-report.ts';
 import { listArticles, readArticleMeta, run, toId } from './lib/git-content.ts';
 import { readProducts } from './lib/products.ts';
@@ -29,10 +30,9 @@ const args = z
 
 const categoriesOf = new Map(readProducts().map((p) => [p.id, p.categories]));
 
-// 鮮度を判定するのは、手元で検証した記事だけ（出典で確かめたニュースは日付つきの記録として残す）
 const candidates: readonly StaleCandidate[] = listArticles(args.ref)
   .map((path) => ({ id: toId(path), meta: readArticleMeta(args.ref, path) }))
-  .filter(({ meta }) => !meta.draft && meta.verification === 'hands-on')
+  .filter(({ meta }) => !meta.draft && tracksFreshness(meta.verification))
   .map(({ id, meta }) => ({
     id,
     title: meta.title,

@@ -1,9 +1,16 @@
 // 検証期限（記事をいつまでに再検証するか）の判定。
 import { SITE } from '../../site.config.ts';
 import { daysBetween } from './dates.ts';
-import type { Category, ContentType } from './taxonomy.ts';
+import type { Category, ContentType, Verification } from './taxonomy.ts';
 
 export type Freshness = 'fresh' | 'due-soon' | 'stale';
+
+/**
+ * 鮮度（再検証の期限）を判定する記事か。実機で検証した記事だけが対象。
+ * 出典で確かめた記事（ニュース）は、その日付の記録として残し、期限切れにしない（T312）。
+ */
+export const tracksFreshness = (verification: Verification): boolean =>
+  verification === 'hands-on';
 
 /** 期限まで残りこの日数以下なら「まもなく期限」 */
 export const DUE_SOON_DAYS = 7;
