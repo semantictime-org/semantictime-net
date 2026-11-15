@@ -39,16 +39,11 @@ test('ホームは新しい順：トップに 3 本、残りは公開日ごと�
   );
 });
 
-test('T317: 会社は order の順に並び、記事のある製品だけハブへリンクする', async ({ page }) => {
+test('T317: 記事のある会社は order の順に並び、製品はハブへリンクする', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('#vendors h3')).toHaveText([
-    '共通',
-    'Anthropic',
-    'OpenAI',
-    'Google',
-    'Midjourney',
-    'Black Forest Labs',
-  ]);
+  // 記事のある会社だけを order の順に。記事のない製品は「準備中」に 1 行でたたむ
+  await expect(page.locator('#vendors h3')).toHaveText(['Anthropic', 'OpenAI']);
+  await expect(page.locator('#vendors .pending summary')).toContainText('製品は準備中');
   const vendors = page.locator('#vendors');
   await expect(vendors.getByRole('link', { name: /Claude Code/ })).toHaveAttribute(
     'href',
@@ -85,4 +80,13 @@ test('製品のハブの英字見出しは製品 ID から作る（日本語を�
 }) => {
   await page.goto('/claude-app/');
   await expect(page.locator('p.en').first()).toHaveText('CLAUDE APP');
+});
+
+test('ホームは検証日と状態を見せる（公開日ではなく）', async ({ page }) => {
+  await page.goto('/');
+  const first = page.locator('[data-top] li').first();
+  await expect(first).toContainText('出典確認 2026-11-14');
+  await expect(page.locator('[data-top] li').nth(1)).toContainText('検証');
+  await expect(page.locator('[data-top] li').nth(1).locator('.pill')).toBeVisible();
+  await expect(page.getByRole('list', { name: '検証の状況' })).toContainText('見直しが必要');
 });
