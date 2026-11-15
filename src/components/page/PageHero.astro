@@ -11,9 +11,11 @@ interface Props {
   title: string;
   lead: string;
   watermark?: string | undefined;
+  /** 題と説明をサイト内検索の索引に入れるか（記事とハブだけ） */
+  indexed?: boolean;
 }
 
-const { crumbs, en, title, lead, watermark } = Astro.props;
+const { crumbs, en, title, lead, watermark, indexed = false } = Astro.props;
 const hasSide = Astro.slots.has('side');
 ---
 
@@ -25,8 +27,12 @@ const hasSide = Astro.slots.has('side');
         {en}
       </p>
       <slot name="meta" />
-      <h1>{title}</h1>
-      <p class="lead">{lead}</p>
+      <h1 data-pagefind-meta="title" data-pagefind-body={indexed ? '' : undefined}>
+        {title}
+      </h1>
+      <p class="lead" data-pagefind-body={indexed ? '' : undefined}>
+        {lead}
+      </p>
       <slot name="facts" />
     </div>
     {hasSide && (

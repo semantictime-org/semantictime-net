@@ -23,6 +23,7 @@ import {
   CHANGE_LABEL,
   historyOf,
   LEVEL_LABEL,
+  ROLE_LABEL,
   TYPE_EN,
   TYPE_LABEL,
 } from '../lib/article-view';
@@ -74,6 +75,11 @@ const page: ArticlePage = {
   stationLabel: station,
   watermark: isNews ? newsDate : station,
   levelLabel: LEVEL_LABEL[data.level],
+  searchFilters: [
+    ...(product ? [{ key: '製品', value: product.data.name }] : []),
+    { key: '種類', value: TYPE_LABEL[data.type] },
+    ...data.roles.map((r) => ({ key: '読む人', value: ROLE_LABEL[r] })),
+  ],
   publishedDate: toJstDate(data.publishedAt),
   crumbs: isNews
     ? [{ label: 'ホーム', href: '/' }, { label: 'ニュース', href: '/news/' }, { label: newsDate }]

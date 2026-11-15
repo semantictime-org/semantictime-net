@@ -37,7 +37,7 @@ const {
 ---
 
 <BaseLayout title={title} description={lead} article={article}>
-  <PageHero crumbs={crumbs} en={en} title={title} lead={lead} watermark={watermark}>
+  <PageHero crumbs={crumbs} en={en} title={title} lead={lead} watermark={watermark} indexed>
     <ul class="stats" slot="facts">
       {stats.map((s) => (
         <li>
@@ -50,13 +50,14 @@ const {
 
   <div class="body">
     <div class="grid">
-      <div class="main">
+      <div class="main" data-pagefind-body>
+        <span hidden data-pagefind-filter="種類:製品のまとめ" />
         {Astro.slots.has('default') && (
           <div class="prose intro">
             <slot />
           </div>
         )}
-        <section aria-labelledby="route-title">
+        <section aria-labelledby="route-title" data-pagefind-ignore>
           <p class="en" aria-hidden="true">
             ROUTE
           </p>
