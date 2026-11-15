@@ -1,0 +1,72 @@
+---
+name: write-article
+description: semantictime.net の記事を下書きするときの手順と決まり。記事を書く、下書きを作る、記事を直す、新しいページを追加する、といった依頼のときに使う。置き場所、frontmatter、書き方、検証との分担、push までを扱う。
+---
+
+# 記事を書く（semantictime.net）
+
+記事は「人が実機で確かめたこと」を載せる場所。Claude は下書きと整理を担い、検証と公開の判断は人（shizukukai）が行う。
+
+## 1. 始める前に
+
+- ブランチは `content/<slug>` を main から作る。PR は push すると GitHub App が作るので、自分では作らない。
+- 1日1本は目標で、上限ではない。急がせない。
+- 扱う機能が `src/data/features.yaml` にあるか確かめる。なければ、記事より先に機能を追加する（別の `fix/` ブランチ）。
+
+## 2. 置き場所
+
+`src/content/articles/<surface>/<slug>.mdx`
+
+- `<surface>` は frontmatter の `surfaces` の先頭と同じにする。値は `apps` `cowork` `claude-code` `api` `agent-sdk` `mcp` `skills` `artifacts-design` `models`。
+- `<slug>` は英小文字・数字・ハイフンだけ（例 `hooks-format-on-save`）。
+
+## 3. frontmatter
+
+```yaml
+---
+title: Hooks で、保存のたびに整形を走らせる # 80 字まで
+description: ファイルを書き換えたあとに… # 50〜160 字。検索結果に出る文
+type: how-to # tutorial / how-to / reference / explanation / troubleshooting / comparison / news / landing
+surfaces: [claude-code]
+roles: [developer] # developer / business
+level: intermediate # beginner / intermediate / advanced
+features: [hooks] # features.yaml の id
+draft: true # 人が実機で確かめるまでは true のまま
+publishedAt: 2026-11-15 # 公開する日（JST）。未来の日付や、既存の記事より前の日付は CI で失敗する
+verifiedAt: 2026-11-15 # 人が実機で確かめた日。publishedAt 以降
+verifiedWith:
+  claudeCode: 2.1.325 # 確かめた版。model や apiVersion でもよい（最低1つ）
+sources:
+  - https://code.claude.com/docs/en/hooks
+owner: shizukukai
+aiAssisted: draft # Claude が下書きしたら draft。人が大きく書き直したら draft-and-edit
+---
+```
+
+- `changes` は `type: news` のときだけ書く。
+- `verifiedAt` と `verifiedWith` は、人が確かめた結果を書く欄。Claude が自分で動かしていない内容を「検証した」と書かない。分からないときは人に聞く。
+
+## 4. 書き方
+
+- **公式の文章を転載しない。** 自分の言葉で書き直す。引用は必要最小限にし、出典を `sources` と本文の両方に示す。
+- 文体はですます調。一文は短く、読点は3つまで。`npm run lint:text`（textlint の技術文書向けの規則）を通す。
+- 結論を先に書く。手順は番号つきの箇条書きにし、1つの手順で1つの操作にする。
+- 版や日付で変わる値（料金、上限、モデル名）は、本文に固定で書かず、出典にリンクする。
+- 使えるコンポーネントは `<Callout>` だけ。それ以外の JSX や生の HTML（`<script>` など）は、本文の検査で失敗する。
+- 内部リンクは `/claude-code/hooks/` の形で書く。存在しないページへのリンクは失敗する。
+- 実名、雇用先の名前、社内の情報、顧客の事例は書かない。著者は shizukukai。
+
+## 5. 人との分担
+
+1. Claude：`draft: true` で下書きし、push する。
+2. 人：手元で手順を動かして確かめる。結果（確かめた日、版、直すべき点）を Claude に伝える。
+3. Claude：結果を反映し、`verifiedAt`・`verifiedWith` を更新し、公開するときは `draft: false` にして push する。
+4. 人：PR 本文の「実機で検証した」に印を付け、Squash でマージする。push のたびに印は自動で外れる。
+
+## 6. 終える前に
+
+```bash
+npm run check   # lint → 本文の検査 → 文章の検査 → 型 → テスト → ビルド
+```
+
+失敗したら直してから push する。push したら、PR の番号と、人に確かめてほしい点を伝える。

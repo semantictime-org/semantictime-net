@@ -5,3 +5,9 @@ reports/
 research_notes/
 package-lock.json
 .github/
+
+# 外部から取り込んだスキル（原文のまま保つ）
+.claude/skills/impeccable/
+.claude/skills/emil-design-eng/
+.claude/skills/break-ui/
+.claude/skills/learn-taste/
