@@ -90,9 +90,6 @@ export const buildArticleSchema = <F extends z.ZodType, O extends z.ZodType, P e
     .superRefine((a, ctx) => {
       const issue = (path: string, message: string) =>
         ctx.addIssue({ code: 'custom', path: [path], message });
-      if (a.verifiedAt < a.publishedAt) {
-        issue('verifiedAt', 'verifiedAt は publishedAt 以降の日付にする');
-      }
       if (a.type === 'news') {
         if (!a.changes) issue('changes', 'news には changes が必要');
         if (a.verification !== 'sources') {

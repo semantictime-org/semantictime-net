@@ -36,7 +36,7 @@ level: intermediate # beginner / intermediate / advanced
 features: [hooks] # features.yaml の id
 draft: true # 人が実機で確かめるまでは true のまま
 publishedAt: 2026-11-15 # 公開する日（JST）。未来の日付や、既存の記事より前の日付は CI で失敗する
-verifiedAt: 2026-11-15 # 人が実機で確かめた日。publishedAt 以降
+verifiedAt: 2026-11-15 # 人が実機で確かめた日。公開前に確かめたなら publishedAt より前でよい
 verifiedWith: # hands-on のときは必須
   claudeCode: 2.1.325 # 確かめた版。model・apiVersion・version（ほかの製品の版）でもよい（最低1つ）
 sources:
@@ -73,6 +73,13 @@ aiAssisted: draft # Claude が下書きしたら draft。人が大きく書き�
 2. 人：手元で手順を動かして確かめる。結果（確かめた日、版、直すべき点）を Claude に伝える。
 3. Claude：結果を反映し、`verifiedAt`・`verifiedWith` を更新し、公開するときは `draft: false` にして push する。
 4. 人：PR 本文の検証の節で、記事の verification に合う印（hands-on は「実機で検証した」、sources は「一次情報の出典を確かめた」）を付け、Squash でマージする。push のたびに印は自動で外れる。
+
+### まとめて公開するとき（サイトの公開前など）
+
+- 下書き（`draft: true`）は、製品ごとにまとめて1つの PR にしてよい。記事番号と route の更新が1つの PR の中で決まるので、PR どうしでぶつからない。
+- 下書きだけの PR は検証ゲートの対象外なので、人の印なしでマージしてよい。
+- 検証が済んだ記事は、`verifiedAt` に実際に確かめた日を書く。公開日より前でよい。
+- 公開する日には「公開する PR」を1本作る。検証が済んだ記事だけを `draft: false` にし、`publishedAt` をその日にする。公開する記事の一覧と各記事の検証日をコミットのメッセージに書く（PR の本文は Claude からは編集できない）。人は、その PR で印を付ける。
 
 ## 6. 終える前に
 
