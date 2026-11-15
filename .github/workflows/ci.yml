@@ -31,6 +31,12 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      # 書体（Google Fonts の約 360 ファイル）を毎回取りに行くと、通信の失敗でビルドが落ちやすい。
+      # 取得したものを残して使い回す。npm ci が node_modules を作り直すので、復元はその後に置く
+      - uses: actions/cache@v6
+        with:
+          path: node_modules/.astro/fonts
+          key: astro-fonts-${{ hashFiles('astro.config.ts') }}
       - run: npm run check
 
   trusted-checks:
