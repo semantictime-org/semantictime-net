@@ -9,7 +9,7 @@ import StatePill from '../components/status/StatePill.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ROUTES, seriesHref, TYPE_LABEL } from '../lib/article-view';
 import { toJstDate } from '../lib/dates';
-import { buildFrontPage, EMPTY_VENDOR } from '../lib/home';
+import { buildFrontPage, EMPTY_VENDOR, verificationStats } from '../lib/home';
 import { loadCatalog, type ArticleSummary } from '../queries/catalog';
 
 const TOP_COUNT = 3;
@@ -32,10 +32,18 @@ const tileOf = (a: ArticleSummary) =>
   a.entry.data.type === 'news'
     ? { mark: 'NEWS', sub: toJstDate(a.entry.data.publishedAt).slice(5).replace('-', '.') }
     : { mark: a.station ?? a.productName ?? '', sub: a.productName };
+// 日付は公開日ではなく検証日（このサイトの強み）。出典で確かめた記事は「出典確認」
 const metaOf = (a: ArticleSummary) =>
-  [a.productName, TYPE_LABEL[a.entry.data.type], toJstDate(a.entry.data.publishedAt)]
+  [
+    a.productName,
+    TYPE_LABEL[a.entry.data.type],
+    `${a.entry.data.verification === 'hands-on' ? '検証' : '出典確認'} ${a.verifiedDate}`,
+  ]
     .filter(Boolean)
     .join(' · ');
+const stats = verificationStats(
+  listed.map((a) => ({ state: a.record.state, verifiedDate: a.verifiedDate })),
+);
 
 // 右の列：会社ごとの製品。記事のある製品だけハブへリンクする
 const countByProduct = Map.groupBy(
@@ -59,7 +67,12 @@ const vendors = [
         href: catalog.hubProductIds.has(p.id) ? `/${p.id}/` : undefined,
       })),
   }))
+  .map((g) => ({ ...g, products: g.products.filter((p) => p.count > 0) }))
   .filter((g) => g.products.length > 0);
+// 記事のない製品は、右の列で 1 行にたたむ（同じ「準備中」を並べない）
+const pending = catalog.products
+  .filter((p) => !catalog.hubProductIds.has(p.id))
+  .map((p) => p.data.name);
 
 // 右の列：連載。公開済みの回がある連載だけリンクする
 const series = seriesList
@@ -68,18 +81,6 @@ const series = seriesList
     const count = catalog.articles.filter((a) => a.data.series?.id.id === s.id).length;
     return { name: s.data.name, count, href: count > 0 ? seriesHref(s.id) : undefined };
   });
-
-const vendorOrder = new Map(catalog.vendors.map((v) => [v.id, v.data.order]));
-const credits = catalog.products
-  .toSorted(
-    (a, b) =>
-      (vendorOrder.get(a.data.vendor?.id ?? '') ?? 0) -
-      (vendorOrder.get(b.data.vendor?.id ?? '') ?? 0),
-  )
-  .map((p) => ({
-    name: p.data.name,
-    href: catalog.hubProductIds.has(p.id) ? `/${p.id}/` : undefined,
-  }));
 ---
 
 <BaseLayout title={SITE.tagline} description={SITE.description}>
@@ -89,11 +90,24 @@ const credits = catalog.products
       <p class="lead">
         手元で動かした日と版をつけて公開しています。公式が変われば、確かめ直します。
       </p>
-      <ul class="credits" aria-label="扱う製品">
-        {credits.map((c) => (
-          <li>{c.href ? <a href={c.href}>{c.name}</a> : c.name}</li>
-        ))}
-      </ul>
+      {stats.count > 0 && (
+        <ul class="stats" aria-label="検証の状況">
+          <li>
+            <span>記事</span>
+            <strong>{stats.count}</strong>
+          </li>
+          <li>
+            <span>見直しが必要</span>
+            <strong>{stats.needsReview}</strong>
+          </li>
+          {stats.latest && (
+            <li>
+              <span>最新の検証</span>
+              <strong>{stats.latest}</strong>
+            </li>
+          )}
+        </ul>
+      )}
     </div>
   </section>
 
@@ -115,6 +129,7 @@ const credits = catalog.products
                     <span class="title">{a.title}</span>
                     {i === 0 && <span class="desc">{a.entry.data.description}</span>}
                     <span class="meta">{metaOf(a)}</span>
+                    <StatePill state={a.record.state} label={a.record.stateLabel} />
                   </span>
                 </a>
               </li>
@@ -179,12 +194,18 @@ const credits = catalog.products
               {v.products.map((p) => (
                 <li>
                   {p.href ? <a href={p.href}>{p.name}</a> : <span>{p.name}</span>}
-                  <span class="count">{p.count > 0 ? `${p.count} 本` : '準備中'}</span>
+                  <span class="count">{p.count} 本</span>
                 </li>
               ))}
             </ul>
           </section>
         ))}
+        {pending.length > 0 && (
+          <details class="pending">
+            <summary>ほか {pending.length} 製品は準備中</summary>
+            <p>{pending.join('、')}</p>
+          </details>
+        )}
       </section>
 
       <ul class="more">
@@ -226,24 +247,28 @@ const credits = catalog.products
     font-size: var(--text-nav);
   }
 
-  .credits {
+  .stats {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
+    gap: var(--space-2) var(--space-8);
     margin: var(--space-6) 0 0;
     padding: var(--space-4) 0 0;
     border-block-start: 1px solid var(--color-band-rule);
-    color: var(--color-on-band-faint);
-    font-size: var(--text-small);
     list-style: none;
   }
 
-  .credits a {
-    color: var(--color-on-band);
+  .stats li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    color: var(--color-on-band-muted);
+    font-size: var(--text-nav);
   }
 
-  .credits a:hover {
+  .stats strong {
     color: var(--color-key-on-band);
+    font: 400 var(--text-station) / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
   }
 
   .body {
@@ -292,6 +317,11 @@ const credits = catalog.products
     font-family: var(--font-headline);
     font-weight: var(--weight-headline);
     line-height: var(--leading-heading);
+  }
+
+  /* 状態の札は文字の幅だけにする（grid の中で横に伸ばさない） */
+  .top .text > :global(:last-child) {
+    justify-self: start;
   }
 
   .desc {
@@ -380,6 +410,20 @@ const credits = catalog.products
 
   .plain span:not(.count) {
     color: var(--color-ink-muted);
+  }
+
+  .pending {
+    margin-block-start: var(--space-4);
+    color: var(--color-ink-muted);
+    font-size: var(--text-nav);
+  }
+
+  .pending summary {
+    cursor: pointer;
+  }
+
+  .pending p {
+    margin: var(--space-2) 0 0;
   }
 
   .more {
