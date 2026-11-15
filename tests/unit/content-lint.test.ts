@@ -5,7 +5,8 @@ const ROUTES = new Set(['/', '/about/editorial-policy/', '/claude-code/remote-co
 
 const target = (body: string, id = 'claude-code/hooks'): LintTarget => ({
   id,
-  surfaces: ['claude-code'],
+  type: 'how-to',
+  products: ['claude-code'],
   body,
 });
 
@@ -75,7 +76,7 @@ describe('.md 版で扱えない JSX（T151）', () => {
 });
 
 describe('置き場所（T128・T129）', () => {
-  test('ディレクトリと surfaces の先頭が違えば違反', () => {
+  test('ディレクトリと products の先頭が違えば違反', () => {
     expect(rules('本文', 'api/hooks')).toEqual(['article-path']);
   });
 

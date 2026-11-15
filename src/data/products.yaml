@@ -1,0 +1,93 @@
+# 製品（路線）。id は記事の置き場所（src/content/articles/<id>/）と URL（/<id>/<slug>/）になる。
+# code は記事番号の記号（CC07 の CC）。全製品で重複させない（重複するとビルドが失敗する）。
+# categories は検証期限と絞り込みに使う分野（chat / coding / agent / api / image / video / audio）。
+# route は読む順。記事を書いたら slug を足す。載せ忘れた記事は「そのほか」に番号順で並ぶ。
+# routeUpdated は読む順を入れ替えた日（製品のページに表示する）。
+
+# --- Anthropic ---
+- id: claude-app
+  name: Claude アプリ
+  vendor: anthropic
+  code: CA
+  categories: [chat]
+- id: claude-code
+  name: Claude Code
+  vendor: anthropic
+  code: CC
+  categories: [coding, agent]
+- id: cowork
+  name: Cowork
+  vendor: anthropic
+  code: CW
+  categories: [agent]
+- id: claude-api
+  name: Claude API
+  vendor: anthropic
+  code: AP
+  categories: [api]
+- id: agent-sdk
+  name: Agent SDK
+  vendor: anthropic
+  code: SD
+  categories: [agent, api]
+- id: mcp
+  name: MCP
+  vendor: anthropic
+  code: MC
+  categories: [agent]
+- id: skills
+  name: Skills
+  vendor: anthropic
+  code: SK
+  categories: [agent]
+- id: artifacts-design
+  name: Artifacts と Design
+  vendor: anthropic
+  code: AD
+  categories: [chat]
+- id: claude-models
+  name: Claude のモデル
+  vendor: anthropic
+  code: CM
+  categories: [api, chat]
+
+# --- OpenAI ---
+- id: chatgpt
+  name: ChatGPT
+  vendor: openai
+  code: CG
+  categories: [chat]
+- id: codex
+  name: Codex
+  vendor: openai
+  code: CX
+  categories: [coding, agent]
+- id: sora
+  name: Sora
+  vendor: openai
+  code: SO
+  categories: [video]
+
+# --- Google ---
+- id: gemini
+  name: Gemini
+  vendor: google
+  code: GM
+  categories: [chat]
+- id: gemini-cli
+  name: Gemini CLI
+  vendor: google
+  code: GC
+  categories: [coding, agent]
+
+# --- 画像・動画・音声 ---
+- id: midjourney
+  name: Midjourney
+  vendor: midjourney
+  code: MJ
+  categories: [image]
+- id: flux
+  name: FLUX
+  vendor: black-forest-labs
+  code: FX
+  categories: [image]

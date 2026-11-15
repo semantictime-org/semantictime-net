@@ -1,21 +1,20 @@
-import type { ContentType, Surface } from './src/lib/taxonomy';
+import type { Category, ContentType } from './src/lib/taxonomy';
 
 // サイトの定数はここだけで定義する。
 export const SITE = {
   url: 'https://semantictime.net',
   name: 'semantictime.net',
   timezone: 'Asia/Tokyo',
-  reviewIntervalDaysBySurface: {
-    'claude-code': 30,
-    cowork: 30,
-    skills: 30,
-    mcp: 30,
+  // 検証期限（日数）。手順が変わりやすい分野ほど短くする
+  reviewIntervalDaysByCategory: {
+    coding: 30,
+    agent: 30,
     api: 60,
-    'agent-sdk': 60,
-    apps: 60,
-    'artifacts-design': 60,
-    models: 60,
-  } satisfies Record<Surface, number>,
+    chat: 60,
+    image: 60,
+    video: 60,
+    audio: 60,
+  } satisfies Record<Category, number>,
   reviewIntervalDaysByType: { explanation: 180 } satisfies Partial<Record<ContentType, number>>,
   reportEmail: 'semantictime@gmail.com',
   // 検証ゲートで比べるログイン名。.github/CODEOWNERS と同じ値にする（CI で一致を確かめる）

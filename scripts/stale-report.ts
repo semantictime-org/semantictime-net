@@ -6,6 +6,7 @@ import { parseArgs } from 'node:util';
 import { z } from 'astro/zod';
 import { buildStaleReport, type StaleCandidate } from '../src/lib/stale-report.ts';
 import { listArticles, readArticleMeta, run, toId } from './lib/git-content.ts';
+import { readProducts } from './lib/products.ts';
 
 const LABEL = 'stale-content';
 const TITLE = '再検証が必要な記事';
@@ -26,10 +27,19 @@ const args = z
     }).values,
   );
 
+const categoriesOf = new Map(readProducts().map((p) => [p.id, p.categories]));
+
+// 鮮度を判定するのは、手元で検証した記事だけ（出典で確かめたニュースは日付つきの記録として残す）
 const candidates: readonly StaleCandidate[] = listArticles(args.ref)
   .map((path) => ({ id: toId(path), meta: readArticleMeta(args.ref, path) }))
-  .filter(({ meta }) => !meta.draft)
-  .map(({ id, meta }) => ({ id, ...meta }));
+  .filter(({ meta }) => !meta.draft && meta.verification === 'hands-on')
+  .map(({ id, meta }) => ({
+    id,
+    title: meta.title,
+    type: meta.type,
+    verifiedAt: meta.verifiedAt,
+    categories: meta.products.flatMap((p) => categoriesOf.get(p) ?? []),
+  }));
 
 const report = buildStaleReport(candidates, new Date());
 console.log(`対象の記事: ${candidates.length} 本、再検証が必要: ${report.items.length} 本`);
