@@ -1,0 +1,152 @@
+---
+title: 第46週（11月9日〜15日）の公式の変更
+description: 2026年11月9日〜15日に各社が公式に発表した変更のうち、知っておきたい17件を一次情報で確かめてまとめました。対応が必要なのは、Claude API・Claude Code・Cowork・Codex の5件です。
+type: news
+verification: sources
+roles: [developer, business]
+level: beginner
+draft: true
+publishedAt: 2026-11-16
+verifiedAt: 2026-11-16
+sources:
+  - https://www.anthropic.com/news/claude-fable-and-mythos-5-2
+  - https://platform.claude.com/docs/en/release-notes/overview.md
+  - https://code.claude.com/docs/en/changelog/rss.xml
+  - https://claude.com/docs/cowork/changelog.md
+  - https://claude.com/resources/articles/sheets-whiteboards-data
+  - https://claude.com/resources/articles/interactive-connectors-full-tool
+  - https://claude.com/resources/articles/claude-meetings
+  - https://openai.com/news/rss.xml
+  - https://github.com/openai/codex/releases.atom
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/
+  - https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/
+  - https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/
+  - https://aistudio.google.com/docs/changelog.md
+  - https://github.com/google-gemini/gemini-cli/releases.atom
+owner: shizukukai
+aiAssisted: draft
+changes:
+  - date: 2026-11-09
+    product: claude-models
+    breaking: false
+    category: feature
+    title: Claude Fable 5.2 と Mythos 5.2 が登場した
+    url: https://www.anthropic.com/news/claude-fable-and-mythos-5-2
+  - date: 2026-11-09
+    product: claude-api
+    breaking: true
+    category: change
+    title: Fable・Mythos 5.2 では古い computer tool などが 400 エラーになる
+    url: https://platform.claude.com/docs/en/release-notes/overview.md
+  - date: 2026-11-09
+    product: claude-code
+    breaking: false
+    category: change
+    title: 既定の Fable が 5.2 になった
+    url: https://code.claude.com/docs/en/changelog/rss.xml
+  - date: 2026-11-10
+    product: artifacts-design
+    breaking: false
+    category: feature
+    title: Sheets と Whiteboards がベータ、Claude Data が正式版に
+    url: https://claude.com/resources/articles/sheets-whiteboards-data
+  - date: 2026-11-10
+    product: claude-app
+    breaking: false
+    category: feature
+    title: 連携アプリを横や全画面に開いて操作できるようになった
+    url: https://claude.com/resources/articles/interactive-connectors-full-tool
+  - date: 2026-11-12
+    product: claude-app
+    breaking: false
+    category: feature
+    title: Claude が Google Meet の会議に参加できる（ベータ）
+    url: https://claude.com/resources/articles/claude-meetings
+  - date: 2026-11-12
+    product: claude-api
+    breaking: false
+    category: feature
+    title: Managed Agents を自社の環境で動かせるようになった
+    url: https://platform.claude.com/docs/en/release-notes/overview.md
+  - date: 2026-11-12
+    product: cowork
+    breaking: true
+    category: change
+    title: ネットワークを制限したタスクで git push ができなくなった
+    url: https://claude.com/docs/cowork/changelog.md
+  - date: 2026-11-13
+    product: claude-code
+    breaking: true
+    category: change
+    title: サンドボックス内の Bash も、既定で許可を確認するようになった
+    url: https://code.claude.com/docs/en/changelog/rss.xml
+  - date: 2026-11-13
+    product: claude-code
+    breaking: true
+    category: change
+    title: 未登録のモデル ID は、コンテキストを 1M とみなすようになった
+    url: https://code.claude.com/docs/en/changelog/rss.xml
+  - date: 2026-11-10
+    product: chatgpt
+    breaking: false
+    category: feature
+    title: Businesses in ChatGPT がベータで公開された
+    url: https://openai.com/news/rss.xml
+  - date: 2026-11-13
+    product: chatgpt
+    breaking: false
+    category: feature
+    title: エージェントが承認つきで買い物できる ChatGPT Wallet
+    url: https://openai.com/news/rss.xml
+  - date: 2026-11-13
+    product: codex
+    breaking: true
+    category: change
+    title: 信頼していないフォルダの codex exec は、設定と MCP を読まない
+    url: https://github.com/openai/codex/releases.atom
+  - date: 2026-11-10
+    product: gemini
+    breaking: false
+    category: feature
+    title: Gemini 4 Carbon が一般提供になった
+    url: https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/
+  - date: 2026-11-11
+    product: gemini
+    breaking: false
+    category: feature
+    title: 選択肢の判定に特化した Decisions API が登場した
+    url: https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/
+  - date: 2026-11-12
+    product: gemini
+    breaking: false
+    category: feature
+    title: 軽量モデル Gemini 4 Hydrogen が使えるようになった
+    url: https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/
+  - date: 2026-11-10
+    product: gemini-cli
+    breaking: false
+    category: feature
+    title: v0.68.0 で拡張機能を検証するコマンドなどが加わった
+    url: https://github.com/google-gemini/gemini-cli/releases.atom
+---
+
+## 3行でいうと
+
+1. 新しいモデルが3社から出た（Claude Fable・Mythos 5.2、Gemini 4 Carbon の一般提供、Gemini 4 Hydrogen）
+2. 対応が必要なのは5件。Claude API・Claude Code・Cowork・Codex を、仕事の自動化に使っている人が中心
+3. Midjourney と FLUX、Sora には、この週の公式の変更は見つからなかった
+
+## 対応が必要な人
+
+| 使い方                                                         | すること                                                                                                        |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Claude API で Fable・Mythos 5.2 に切り替える                   | 古い computer tool（`computer_20251124`）を新しいものに移す。thinking を返す前に system や tools を書き換えない |
+| Claude Code のサンドボックスで、確認なしに Bash を動かしていた | 確認なしに戻すなら、設定に `sandbox.autoAllowBashIfSandboxed: true` を書く                                      |
+| Claude Code で、未登録のモデル ID を使っている                 | コンテキストが小さいモデルなら、`CLAUDE_CODE_DISABLE_1M_CONTEXT=1` を設定する                                   |
+| Cowork のネットワーク制限つきタスクで git push をしていた      | push・Git LFS・SSH のリモートは使えない。手元で push する                                                       |
+| CI などで `codex exec` を使っている                            | プロジェクトの設定と MCP を使うなら、`--trust` を付ける                                                         |
+
+## 日付の見方
+
+- 日付は、各社の発表に書かれた日付（多くは米国時間）。日本時間では翌日のことがある
+- 各変更の詳しい条件は、表の行からたどれる公式のページで確かめる
