@@ -102,3 +102,10 @@ test('製品のハブは読者向けの言葉で書き、作る側の決まり�
   await expect(page.locator('main')).not.toContainText('記事番号は固定');
   await expect(page.getByRole('heading', { name: '読む順に並べた記事' })).toBeVisible();
 });
+
+test('ニュースは本文（要点）を先に、変更の一覧を後に置く', async ({ page }) => {
+  await page.goto('/news/week-46/');
+  const summaryY = (await page.getByRole('heading', { name: '要するに' }).boundingBox())?.y ?? 0;
+  const tableY = (await page.locator('[data-change-table]').boundingBox())?.y ?? 0;
+  expect(summaryY).toBeLessThan(tableY);
+});

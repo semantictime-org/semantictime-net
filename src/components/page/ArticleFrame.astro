@@ -73,6 +73,7 @@ const hasAside = Astro.slots.has('aside');
         <div class="prose">
           <slot />
         </div>
+        <slot name="after-body" />
         <section class="history" id="history" aria-labelledby="history-title" data-pagefind-ignore>
           <h2 id="history-title">検証の履歴</h2>
           <ol>

@@ -21,6 +21,7 @@ const { page, changes } = Astro.props;
 ---
 
 <ArticleFrame page={page} variant="digest">
-  <ChangeTable slot="before-body" changes={changes} />
+  <!-- 結論（3行でいうと・対応が必要な人）を先に読ませ、変更の一覧はその後に置く -->
+  <ChangeTable slot="after-body" changes={changes} />
   <slot />
 </ArticleFrame>
