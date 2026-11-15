@@ -5,14 +5,15 @@
 // - 置き場所と slug の規則
 // - 段落の長さ（文字を減らし、図で見せる。DESIGN.md）
 import { checkArticlePath } from './schemas.ts';
-import type { Surface } from './taxonomy.ts';
+import type { ContentType } from './taxonomy.ts';
 
 /** .md 版で対応する Markdown に置き換えられるコンポーネント */
 export const ALLOWED_COMPONENTS: readonly string[] = ['Callout'];
 
 export interface LintTarget {
   readonly id: string;
-  readonly surfaces: readonly Surface[];
+  readonly type: ContentType;
+  readonly products: readonly string[];
   readonly body: string;
 }
 
@@ -138,7 +139,7 @@ export const lintArticle = (
   target: LintTarget,
   routes: ReadonlySet<string>,
 ): readonly LintViolation[] => {
-  const pathViolations = checkArticlePath(target.id, target.surfaces).map(
+  const pathViolations = checkArticlePath(target.id, target.products, target.type).map(
     (message): LintViolation => ({ id: target.id, rule: 'article-path', message }),
   );
   const lines = maskCode(target.body).split('\n');

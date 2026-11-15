@@ -15,9 +15,10 @@ description: semantictime.net の記事を下書きするときの手順と決�
 
 ## 2. 置き場所
 
-`src/content/articles/<surface>/<slug>.mdx`
+`src/content/articles/<product>/<slug>.mdx`（ニュースは `src/content/articles/news/<slug>.mdx`）
 
-- `<surface>` は frontmatter の `surfaces` の先頭と同じにする。値は `apps` `cowork` `claude-code` `api` `agent-sdk` `mcp` `skills` `artifacts-design` `models`。
+- `<product>` は frontmatter の `products` の先頭と同じにする。値は `src/data/products.yaml` の `id`（例 `claude-code` `claude-api` `chatgpt` `codex` `gemini` `midjourney`）。
+- 新しい製品を扱うときは、先に `products.yaml` に製品（`id`・`name`・`vendor`・2 文字の `code`・`categories`）を足す。
 - `<slug>` は英小文字・数字・ハイフンだけ（例 `hooks-format-on-save`）。
 
 ## 3. frontmatter
@@ -27,15 +28,17 @@ description: semantictime.net の記事を下書きするときの手順と決�
 title: Hooks で、保存のたびに整形を走らせる # 80 字まで
 description: ファイルを書き換えたあとに… # 50〜160 字。検索結果に出る文
 type: how-to # tutorial / how-to / reference / explanation / troubleshooting / comparison / news / landing
-surfaces: [claude-code]
+products: [claude-code] # 先頭がその記事の路線（置き場所）。ニュースは [] でもよい
+stationNo: 7 # 記事番号（CC07 の 07）。その製品の最大の番号 + 1 を一度だけ付け、以後変えない。ニュースは書かない
+verification: hands-on # hands-on（手元で検証）か sources（一次情報の出典で確認。ニュースは必ずこれ）
 roles: [developer] # developer / business
 level: intermediate # beginner / intermediate / advanced
 features: [hooks] # features.yaml の id
 draft: true # 人が実機で確かめるまでは true のまま
 publishedAt: 2026-11-15 # 公開する日（JST）。未来の日付や、既存の記事より前の日付は CI で失敗する
 verifiedAt: 2026-11-15 # 人が実機で確かめた日。publishedAt 以降
-verifiedWith:
-  claudeCode: 2.1.325 # 確かめた版。model や apiVersion でもよい（最低1つ）
+verifiedWith: # hands-on のときは必須
+  claudeCode: 2.1.325 # 確かめた版。model・apiVersion・version（ほかの製品の版）でもよい（最低1つ）
 sources:
   - https://code.claude.com/docs/en/hooks
 owner: shizukukai
@@ -43,7 +46,8 @@ aiAssisted: draft # Claude が下書きしたら draft。人が大きく書き�
 ---
 ```
 
-- `changes` は `type: news` のときだけ書く。
+- `changes` は `type: news` のときだけ書く。各項目の `product` は products.yaml の `id`。
+- 読む順は記事ではなく `products.yaml` の `route` に slug を足して決める。入れ替えても `stationNo` と URL は変えない（入れ替えた日を `routeUpdated` に書く）。
 - `verifiedAt` と `verifiedWith` は、人が確かめた結果を書く欄。Claude が自分で動かしていない内容を「検証した」と書かない。分からないときは人に聞く。
 
 ## 4. 書き方

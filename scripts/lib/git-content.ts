@@ -2,7 +2,7 @@
 import { execFileSync } from 'node:child_process';
 import { z } from 'astro/zod';
 import { parse } from 'yaml';
-import { CONTENT_TYPES, SURFACES } from '../../src/lib/taxonomy.ts';
+import { CONTENT_TYPES, VERIFICATION } from '../../src/lib/taxonomy.ts';
 
 export const ARTICLES_DIR = 'src/content/articles';
 const ARTICLE_FILE = /\.(md|mdx)$/;
@@ -20,7 +20,7 @@ export const run = (command: string, args: readonly string[]): string =>
 
 export const git = (args: readonly string[]): string => run('git', args);
 
-/** 記事のパスから ID（`<surface>/<slug>`）を作る */
+/** 記事のパスから ID（`<product>/<slug>`）を作る */
 export const toId = (path: string): string =>
   path.slice(ARTICLES_DIR.length + 1).replace(ARTICLE_FILE, '');
 
@@ -42,7 +42,8 @@ export const readFrontmatter = (ref: string, path: string): ArticleFrontmatter =
 const metaSchema = z.object({
   title: z.string(),
   type: z.enum(CONTENT_TYPES),
-  surfaces: z.array(z.enum(SURFACES)).min(1),
+  products: z.array(z.string()).default([]),
+  verification: z.enum(VERIFICATION),
   verifiedAt: z.coerce.date(),
   draft: z.boolean().default(false),
 });

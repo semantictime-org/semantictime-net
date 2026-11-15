@@ -6,15 +6,18 @@ const NOW = new Date('2026-11-15T03:00:00+09:00');
 // 今日（JST 11-15）から n 日前の日付
 const daysAgo = (n: number): Date => new Date(Date.UTC(2026, 10, 15 - n));
 
-describe('reviewIntervalFor', () => {
-  test('T031: サーフェスの期限（claude-code は 30 日）', () => {
-    expect(reviewIntervalFor('how-to', ['claude-code'])).toBe(30);
+describe('reviewIntervalFor（T313）', () => {
+  test('T031: 分野の期限（coding は 30 日）', () => {
+    expect(reviewIntervalFor('how-to', ['coding'])).toBe(30);
+  });
+  test('分野 api は 60 日', () => {
+    expect(reviewIntervalFor('how-to', ['api'])).toBe(60);
   });
   test('T032: 型の期限が優先される（explanation は 180 日）', () => {
-    expect(reviewIntervalFor('explanation', ['claude-code'])).toBe(180);
+    expect(reviewIntervalFor('explanation', ['coding'])).toBe(180);
   });
-  test('T033: 複数のサーフェスでは最も短い期限を使う', () => {
-    expect(reviewIntervalFor('reference', ['api', 'claude-code'])).toBe(30);
+  test('T033: 複数の分野では最も短い期限を使う', () => {
+    expect(reviewIntervalFor('reference', ['api', 'coding'])).toBe(30);
   });
 });
 
@@ -43,7 +46,7 @@ const candidate = (id: string, verifiedDaysAgo: number): StaleCandidate => ({
   id,
   title: `記事 ${id}`,
   type: 'how-to',
-  surfaces: ['claude-code'],
+  categories: ['coding'],
   verifiedAt: daysAgo(verifiedDaysAgo),
 });
 

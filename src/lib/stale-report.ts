@@ -2,13 +2,14 @@
 // Issue の作成・更新・クローズは scripts/stale-report.ts で行う。
 import { addDays } from './dates.ts';
 import { freshnessOf, reviewIntervalFor } from './freshness.ts';
-import type { ContentType, Surface } from './taxonomy.ts';
+import type { Category, ContentType } from './taxonomy.ts';
 
 export interface StaleCandidate {
   readonly id: string;
   readonly title: string;
   readonly type: ContentType;
-  readonly surfaces: readonly Surface[];
+  /** 記事の製品の分野（products.yaml から引いたもの） */
+  readonly categories: readonly Category[];
   readonly verifiedAt: Date;
 }
 
@@ -33,7 +34,7 @@ const LABEL: Record<StaleItem['state'], string> = {
 export const buildStaleReport = (candidates: readonly StaleCandidate[], now: Date): StaleReport => {
   const items = candidates
     .map((c) => {
-      const interval = reviewIntervalFor(c.type, c.surfaces);
+      const interval = reviewIntervalFor(c.type, c.categories);
       return {
         id: c.id,
         title: c.title,

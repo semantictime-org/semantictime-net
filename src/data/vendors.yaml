@@ -1,0 +1,17 @@
+# 会社（鉄道会社）。order はナビとホームで並べる固定の順。会社による特別扱いはしない。
+# changelogs（公式の変更履歴）は、上流の追跡（Task 2.11）で一次情報を確かめてから書く。
+- id: anthropic
+  name: Anthropic
+  order: 1
+- id: openai
+  name: OpenAI
+  order: 2
+- id: google
+  name: Google
+  order: 3
+- id: midjourney
+  name: Midjourney
+  order: 4
+- id: black-forest-labs
+  name: Black Forest Labs
+  order: 5

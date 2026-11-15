@@ -1,17 +1,13 @@
 // サイト全体で使う分類の定義。値を増やすときはここだけを変える。
 
-export const SURFACES = [
-  'apps',
-  'cowork',
-  'claude-code',
-  'api',
-  'agent-sdk',
-  'mcp',
-  'skills',
-  'artifacts-design',
-  'models',
-] as const;
-export type Surface = (typeof SURFACES)[number];
+// 製品（路線）の一覧は src/data/products.yaml、会社は src/data/vendors.yaml に置く。
+// ここには、製品に付ける分野だけを定義する（検証期限と絞り込みに使う）。
+export const CATEGORIES = ['chat', 'coding', 'agent', 'api', 'image', 'video', 'audio'] as const;
+export type Category = (typeof CATEGORIES)[number];
+
+// 記事の確かめ方。hands-on は手元で動かして検証、sources は一次情報の出典で確認（ニュース）
+export const VERIFICATION = ['hands-on', 'sources'] as const;
+export type Verification = (typeof VERIFICATION)[number];
 
 // Diátaxis の4型に、troubleshooting・comparison・news・landing を加えた8型
 export const CONTENT_TYPES = [
