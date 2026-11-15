@@ -17,6 +17,9 @@ const FEATURES_FILE = 'src/data/features.yaml';
 const VENDORS_FILE = 'src/data/vendors.yaml';
 const PRODUCTS_FILE = 'src/data/products.yaml';
 const AUTHORS_DIR = 'src/content/authors';
+// CONTENT_FIXTURES=1 のときは、テスト用の記事（tests/fixtures/articles）を読む。本番のビルドには入らない
+const ARTICLES_DIR =
+  process.env['CONTENT_FIXTURES'] === '1' ? './tests/fixtures/articles' : './src/content/articles';
 
 const readIds = (path: string): readonly string[] =>
   z
@@ -66,7 +69,7 @@ const authors = defineCollection({
 });
 
 const articles = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/articles' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: ARTICLES_DIR }),
   schema: buildArticleSchema(
     existingId(featureIds, '機能 ID').pipe(reference('features')),
     existingId(authorIds, '著者').pipe(reference('authors')),

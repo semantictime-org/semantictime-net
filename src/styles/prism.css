@@ -1,0 +1,28 @@
+/* コードの色付け（Prism のクラス）。黒い地（.prose pre）の上で読める色にする。 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--color-code-comment);
+}
+
+.token.punctuation,
+.token.operator {
+  color: var(--color-code-punctuation);
+}
+
+.token.keyword,
+.token.boolean,
+.token.number,
+.token.property,
+.token.tag,
+.token.function {
+  color: var(--color-code-keyword);
+}
+
+.token.string,
+.token.attr-value,
+.token.char,
+.token.regex {
+  color: var(--color-code-string);
+}

@@ -1,0 +1,226 @@
+---
+// 記事・現行仕様・比較の3つのテンプレートが共有する枠：冒頭の帯（検証票つき）、状態のバナー、
+// 本文（default の slot）、検証の履歴・出典・開示欄。本文の段組みは variant で切り替える。
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DisclosureBox from '../disclosure/DisclosureBox.astro';
+import StatusBanner from '../status/StatusBanner.astro';
+import VerificationBadge from '../verification/VerificationBadge.astro';
+import PageHero from './PageHero.astro';
+import type { ArticlePage } from '../../lib/article-page';
+import '../../styles/prism.css';
+
+interface Props {
+  page: ArticlePage;
+  /** article：目次＋本文／reference：一覧＋本文＋目次／comparison：1段（表を広く） */
+  variant: 'article' | 'reference' | 'comparison';
+}
+
+const { page, variant } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<BaseLayout title={page.title} description={page.description} article={page.seo}>
+  <PageHero
+    crumbs={page.crumbs}
+    en={page.typeEn}
+    title={page.title}
+    lead={page.description}
+    watermark={page.stationLabel}
+  >
+    <p class="meta" slot="meta">
+      {page.stationLabel && <span class="station">{page.stationLabel}</span>}
+      <span>{[page.productName, page.typeLabel].filter(Boolean).join(' / ')}</span>
+    </p>
+    <p class="facts" slot="facts">
+      <span>
+        レベル <strong>{page.levelLabel}</strong>
+      </span>
+      <span>
+        公開 <span class="mono">{page.publishedDate}</span>
+      </span>
+    </p>
+    <VerificationBadge
+      slot="side"
+      record={page.record}
+      versions={page.versions}
+      historyHref="#history"
+    />
+  </PageHero>
+
+  <div class="body">
+    <div class:list={['grid', variant, { 'with-aside': hasAside }]}>
+      {hasAside && (
+        <div class="aside">
+          <slot name="aside" />
+        </div>
+      )}
+      <article class="content">
+        {page.banner && (
+          <StatusBanner status={page.banner.status} features={page.banner.features} />
+        )}
+        <div class="prose">
+          <slot />
+        </div>
+        <section class="history" id="history" aria-labelledby="history-title">
+          <h2 id="history-title">検証の履歴</h2>
+          <ol>
+            {page.history.map((row) => (
+              <li>
+                <time datetime={row.date}>{row.date}</time>
+                <span>{row.text}</span>
+              </li>
+            ))}
+          </ol>
+          <div class="sources">
+            <p class="sources-title">一次情報</p>
+            <ul>
+              {page.sources.map((url) => (
+                <li>
+                  <a href={url} rel="noopener noreferrer">
+                    {url}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <DisclosureBox disclosure={page.disclosure} />
+        </section>
+      </article>
+      <slot name="end" />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+    margin: var(--space-4) 0 0;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-nav);
+  }
+
+  .station {
+    color: var(--color-key-on-band);
+    font: 400 var(--text-station) / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin: var(--space-6) 0 0;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-small);
+  }
+
+  .facts strong {
+    color: var(--color-on-band);
+  }
+
+  .mono {
+    font-family: var(--font-data);
+  }
+
+  .body {
+    container-type: inline-size;
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .with-aside {
+    display: grid;
+    grid-template-columns: var(--toc-width) minmax(0, 1fr);
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .aside {
+    position: sticky;
+    inset-block-start: var(--space-6);
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    min-width: 0;
+  }
+
+  .comparison .prose {
+    max-width: none;
+  }
+
+  .history h2 {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-section-ja);
+  }
+
+  .history ol,
+  .sources ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .history > ol > li {
+    display: grid;
+    grid-template-columns: 7.5em minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+    border-block-start: 1px solid var(--color-rule);
+    font-size: var(--text-small);
+  }
+
+  .history time {
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+  }
+
+  .sources {
+    margin-block: var(--space-6);
+    padding: var(--space-6);
+    background: var(--color-surface-soft);
+    font-size: var(--text-small);
+  }
+
+  .sources li + li {
+    margin-block-start: var(--space-1);
+  }
+
+  .sources a {
+    overflow-wrap: anywhere;
+  }
+
+  .sources-title {
+    margin: 0 0 var(--space-2);
+    font-weight: 700;
+  }
+
+  @container (max-width: 860px) {
+    .with-aside {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+
+    .aside {
+      position: static;
+      padding-block-end: var(--space-6);
+      border-block-end: 1px solid var(--color-rule);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+      padding-block-start: var(--space-6);
+    }
+  }
+</style>

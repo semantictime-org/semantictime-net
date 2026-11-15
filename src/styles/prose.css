@@ -3,6 +3,10 @@
   max-width: var(--measure);
 }
 
+.prose > :first-child {
+  margin-block-start: 0;
+}
+
 .prose > * + * {
   margin-block-start: var(--space-4);
 }
@@ -48,9 +52,11 @@
   line-height: 1.7;
 }
 
-.prose table {
-  display: block;
+.prose .table-scroll {
   overflow-x: auto;
+}
+
+.prose table {
   border-collapse: collapse;
   font-size: 0.93em;
 }

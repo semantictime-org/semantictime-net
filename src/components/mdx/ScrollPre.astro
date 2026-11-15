@@ -1,0 +1,6 @@
+---
+// 本文のコードのブロック（MDX の pre を差し替える）。横にスクロールするので、キーボードでも届くようにする。
+const { class: className, ...rest } = Astro.props;
+---
+
+<pre class={className} {...rest} tabindex="0"><slot /></pre>

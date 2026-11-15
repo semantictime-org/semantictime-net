@@ -1,0 +1,133 @@
+---
+// ページ冒頭の黒い帯（DESIGN.md の Layout）：パンくず → 英字 → 題 → 説明。右下に巨大な薄い透かし。
+// 右の欄（検証票など）は slot="side" で渡す。
+import Breadcrumbs from '../nav/Breadcrumbs.astro';
+import type { Crumb } from '../../lib/article-view';
+
+interface Props {
+  crumbs: readonly Crumb[];
+  /** 帯に大きく出す英字（読み上げからは隠す） */
+  en: string;
+  title: string;
+  lead: string;
+  watermark?: string | undefined;
+}
+
+const { crumbs, en, title, lead, watermark } = Astro.props;
+const hasSide = Astro.slots.has('side');
+---
+
+<header class="hero" data-watermark={watermark}>
+  <div class:list={['inner', { 'with-side': hasSide }]}>
+    <div class="main">
+      <Breadcrumbs items={crumbs} />
+      <p class="en" aria-hidden="true">
+        {en}
+      </p>
+      <slot name="meta" />
+      <h1>{title}</h1>
+      <p class="lead">{lead}</p>
+      <slot name="facts" />
+    </div>
+    {hasSide && (
+      <div class="side">
+        <slot name="side" />
+      </div>
+    )}
+  </div>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    container-type: inline-size;
+    padding-block: var(--space-8) var(--space-band);
+    background: var(--color-band);
+    color: var(--color-on-band);
+  }
+
+  /* 透かしは疑似要素にして、読み上げとコントラストの判定から外す（飾りのため） */
+  .hero::after {
+    content: attr(data-watermark);
+    position: absolute;
+    inset-inline-end: -0.02em;
+    inset-block-end: -0.22em;
+    z-index: -1;
+    color: var(--color-watermark);
+    font: 400 var(--text-watermark) / 1 var(--font-display);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .inner {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+  }
+
+  .with-side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--ticket-width);
+    gap: var(--space-section);
+    align-items: center;
+  }
+
+  .main {
+    min-width: 0;
+  }
+
+  .en {
+    margin: var(--space-6) 0 0;
+    color: var(--color-key-on-band);
+    font: 400 var(--text-hero-en) / 0.9 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  h1 {
+    max-width: 22em;
+    margin: var(--space-4) 0 0;
+    color: var(--color-on-band);
+    font-size: var(--text-hero-title);
+    line-height: 1.3;
+  }
+
+  .lead {
+    max-width: 36em;
+    margin: var(--space-4) 0 0;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-lead);
+  }
+
+  /* 帯そのもの（コンテナ自身）は自分の幅を問い合わせられないので、画面の幅で切り替える */
+  @media (max-width: 700px) {
+    .hero {
+      padding-block: var(--space-6) var(--space-8);
+    }
+
+    .hero::after {
+      font-size: var(--text-watermark-narrow);
+    }
+  }
+
+  @container (max-width: 700px) {
+    .inner {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+
+    .with-side {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+
+    .en {
+      font-size: var(--text-hero-en-narrow);
+    }
+
+    h1 {
+      font-size: var(--text-hero-title-narrow);
+    }
+  }
+</style>

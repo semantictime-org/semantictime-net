@@ -1,0 +1,32 @@
+---
+title: settings.json の設定項目
+description: 手元で動く設定項目だけを、型・既定値・状態つきで並べた現行仕様（テスト用の記事。本番には入らない）。
+type: reference
+products: [claude-code]
+stationNo: 12
+verification: hands-on
+roles: [developer]
+level: advanced
+features: [hooks, code-mode]
+publishedAt: 2026-09-01
+verifiedAt: 2026-09-01
+verifiedWith:
+  claudeCode: 2.1.300
+sources:
+  - https://code.claude.com/docs/en/settings
+owner: shizukukai
+aiAssisted: none
+---
+
+## 権限
+
+| 項目                | 型           | 既定値 | 状態 |
+| ------------------- | ------------ | ------ | ---- |
+| `permissions.allow` | 文字列の配列 | `[]`   | 正式 |
+| `permissions.deny`  | 文字列の配列 | `[]`   | 正式 |
+
+## Hooks
+
+| 項目                | 型   | 既定値 | 状態 |
+| ------------------- | ---- | ------ | ---- |
+| `hooks.PostToolUse` | 配列 | なし   | 正式 |
