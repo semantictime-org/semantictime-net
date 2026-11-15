@@ -35,6 +35,7 @@ import { ogImagePath } from '../lib/og-image';
 import { LAYOUT_BY_TYPE } from '../lib/taxonomy';
 import { publishedArticles } from '../queries/articles';
 import { loadCatalog } from '../queries/catalog';
+import { articleNav } from '../lib/related';
 import { buildHub } from '../queries/hub';
 
 export const getStaticPaths = (async () => {
@@ -68,6 +69,29 @@ const { Content, headings } = await render(entry);
 // 本文の表とコードを、キーボードで届くスクロール領域に差し替える
 const components = { table: ScrollTable, pre: ScrollPre };
 
+// 記事の最後の案内。下書きの扱いは publishedArticles と同じ（loadCatalog がそれを使う）
+const catalog = await loadCatalog();
+const navOf = (id: string | undefined) => {
+  const s = id === undefined ? undefined : catalog.summaryById.get(id);
+  return s && { href: s.href, title: s.title, station: s.station };
+};
+const nav = articleNav(
+  {
+    id: entry.id,
+    type: data.type,
+    products: data.products.map((p) => p.id),
+    ...(data.stationNo === undefined ? {} : { stationNo: data.stationNo }),
+    ...(data.series ? { series: { id: data.series.id.id, no: data.series.no } } : {}),
+  },
+  catalog.articles.map((a) => ({
+    id: a.id,
+    type: a.data.type,
+    products: a.data.products.map((p) => p.id),
+    ...(a.data.stationNo === undefined ? {} : { stationNo: a.data.stationNo }),
+    ...(a.data.series ? { series: { id: a.data.series.id.id, no: a.data.series.no } } : {}),
+  })),
+);
+
 const page: ArticlePage = {
   id: entry.id,
   title: data.title,
@@ -79,6 +103,7 @@ const page: ArticlePage = {
   series:
     series && data.series
       ? {
+          name: series.data.name,
           label: `連載「${series.data.name}」第 ${data.series.no} 回`,
           href: seriesHref(series.id),
         }
@@ -121,6 +146,11 @@ const page: ArticlePage = {
   },
   history: historyOf(data.verification, data.publishedAt, data.verifiedAt),
   sources: data.sources,
+  nav: {
+    prev: navOf(nav.prev),
+    next: navOf(nav.next),
+    related: nav.related.flatMap((id) => navOf(id) ?? []),
+  },
   headings,
   seo: {
     author: author.data.name,
