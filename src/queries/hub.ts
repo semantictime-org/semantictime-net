@@ -2,6 +2,7 @@
 import { breadcrumbsOf, FEATURE_STATUS_LABEL, type Crumb } from '../lib/article-view';
 import { resolveRoute } from '../lib/catalog';
 import { toJstDate } from '../lib/dates';
+import { verificationStats } from '../lib/home';
 import type { ArticleSummary, loadCatalog } from './catalog';
 
 type Catalog = Awaited<ReturnType<typeof loadCatalog>>;
@@ -39,11 +40,9 @@ export const buildHub = (productId: string, catalog: Catalog): HubView => {
     articles: s.articles.flatMap((a) => catalog.summaryById.get(a.id) ?? []),
   }));
   const all = sections.flatMap((s) => s.articles);
-  const needsReview = all.filter((a) => a.record.state !== 'ok').length;
-  const latest = all
-    .map((a) => a.verifiedDate)
-    .toSorted()
-    .at(-1);
+  const { needsReview, latest } = verificationStats(
+    all.map((a) => ({ state: a.record.state, verifiedDate: a.verifiedDate })),
+  );
   const productFeatures = catalog.features.filter((f) => f.data.product === product.id);
 
   return {
