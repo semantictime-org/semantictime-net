@@ -1,0 +1,73 @@
+/* 全体の土台。要素の既定値だけを置き、部品の見た目は各コンポーネントに書く。 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-headline);
+  font-weight: var(--weight-headline);
+  letter-spacing: var(--tracking-headline);
+  line-height: var(--leading-heading);
+  word-break: auto-phrase;
+  text-wrap: balance;
+}
+
+a {
+  color: var(--color-key);
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-out-expo);
+}
+
+a:hover {
+  color: var(--color-key-hover);
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-data);
+}
+
+/* 動きを減らす設定では、すべての動きを止めて完成した状態を見せる（T085） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

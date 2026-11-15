@@ -1,0 +1,78 @@
+/* デザイントークン（DESIGN.md の前置きを写したもの）。色・書体・角丸・余白・動きの値はここにだけ書く。
+   フェーズ1はライトのみ（2026-11-15 決定）。v11 は黒い帯と白い本文の対比で組む。 */
+:root {
+  /* 帯（ヘッダー、ページ冒頭、変更の記録） */
+  --color-band: #0b0d12;
+  --color-band-card: #151922;
+  --color-band-rule: rgba(255, 255, 255, 0.1);
+  --color-on-band: #ffffff;
+  --color-on-band-muted: #c5cbd8;
+  --color-on-band-faint: #9aa3b5;
+  --color-watermark: rgba(255, 255, 255, 0.04);
+
+  /* 本文 */
+  --color-ink: #172343;
+  --color-ink-muted: #59637a;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f4f6fb;
+  --color-surface-tint: #eef2ff;
+  --color-rule: #dde2ef;
+
+  /* 差し色は青1色 */
+  --color-key: #1a3cff;
+  --color-key-hover: #0f2bd6;
+  --color-key-on-band: #8095ff;
+
+  /* 状態（文字と小さな札だけに使う） */
+  --color-status-ok: #15803d;
+  --color-status-ok-bg: #ecf8f0;
+  --color-status-review: #b45309;
+  --color-status-review-bg: #fff4e0;
+  --color-status-stale: #9b3d17;
+  --color-status-stale-bg: #f8e8e1;
+  --color-live: #3ddc84;
+
+  /* 書体（--font-*-face と代替の書体は astro.config.ts の fonts が /fonts.css で定義する） */
+  --font-display: var(--font-anton-face);
+  --font-headline: var(--font-zen-kaku-face);
+  --font-body: var(--font-biz-ud-face);
+  --font-data: var(--font-plex-mono-face);
+  --weight-headline: 900;
+  --tracking-display: 0.01em;
+  --tracking-headline: -0.04em;
+  --text-body: 15px;
+  --text-data: 12px;
+  --text-section-ja: 22px;
+  --text-section-en: clamp(52px, 7.6cqi, 104px);
+  --leading-body: 1.9;
+  --leading-heading: 1.4;
+
+  /* 角丸 */
+  --radius-control: 6px;
+  --radius-card: 8px;
+  --radius-ticket: 12px;
+  --radius-pill: 999px;
+
+  /* 余白と幅 */
+  --page-max: 1184px;
+  --gutter-narrow: 20px;
+  --gutter-wide: 48px;
+  --space-section: 64px;
+  --space-band: 56px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --measure: 40em;
+
+  /* 動き */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-draw: 1600ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --focus-ring: 2px solid var(--color-key);
+  --focus-offset: 2px;
+}
