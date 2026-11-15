@@ -36,11 +36,11 @@ typography:
     letterSpacing: '-0.04em'
   body:
     fontFamily: "'BIZ UDPGothic', sans-serif"
-    fontSize: '15px'
+    fontSize: '16px'
     lineHeight: 1.9
   data:
     fontFamily: "'IBM Plex Mono', ui-monospace, monospace"
-    fontSize: '12px'
+    fontSize: '13px'
 rounded:
   control: '6px'
   card: '8px'
