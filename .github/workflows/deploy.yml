@@ -1,0 +1,68 @@
+name: deploy
+
+# main に入ったものを本番に出す（設計書 9.1）。リポジトリ変数 DEPLOY_PAUSED が true のときは何もしない。
+# 順番：公開日の検査 → ビルド → 実名の検査 → デプロイ → スモークテスト → タグ deployed を移す。
+# 実名の検査は、漏れてから見つけるのでは遅いので、デプロイの前に行う。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: vars.DEPLOY_PAUSED != 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      # PR のビルド（ci.yml）が main のキャッシュを使えるよう、ここで書体を残す
+      - uses: actions/cache@v6
+        with:
+          path: node_modules/.astro/fonts
+          key: astro-fonts-${{ hashFiles('astro.config.ts') }}
+      - name: Publish dates (deploy mode)
+        run: |
+          base="$(git rev-parse -q --verify refs/tags/deployed || git rev-list --max-parents=0 HEAD)"
+          node scripts/check-publish-dates.ts --base "$base" --head HEAD --mode deploy
+      - run: npm run build
+        env:
+          PUBLIC_DEPLOY_ENV: production
+      - name: Real name check
+        env:
+          REAL_NAME_PATTERNS: ${{ secrets.REAL_NAME_PATTERNS }}
+        run: node scripts/check-real-name.ts dist
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PROD }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy --config wrangler.jsonc
+      - name: Smoke test
+        run: |
+          for path in / /rss.xml /llms.txt /sitemap-index.xml /robots.txt; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' "https://semantictime.net${path}")"
+            echo "${path} ${code}"
+            [ "$code" = "200" ]
+          done
+          code="$(curl -s -o /dev/null -w '%{http_code}' https://semantictime.net/no-such-page/)"
+          echo "/no-such-page/ ${code}"
+          [ "$code" = "404" ]
+      - name: Move tag deployed
+        run: |
+          git tag -f deployed HEAD
+          git push -f origin refs/tags/deployed
