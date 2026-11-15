@@ -85,8 +85,10 @@ const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: TITLE }];
     color: var(--color-key);
   }
 
+  /* 準備中：枠を消し、薄い地の色で静かに置く（押せる項目は実線の枠） */
   .pending {
-    border-style: dashed;
+    border-color: transparent;
+    background: var(--color-surface-soft);
     color: var(--color-ink-muted);
   }
 
