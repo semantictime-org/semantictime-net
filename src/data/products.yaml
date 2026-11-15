@@ -4,6 +4,12 @@
 # route は読む順。記事を書いたら slug を足す。載せ忘れた記事は「そのほか」に番号順で並ぶ。
 # routeUpdated は読む順を入れ替えた日（製品のページに表示する）。
 
+# --- 共通（会社に属さない路線。vendor を書かない） ---
+- id: ai-basics
+  name: AI の基本
+  code: AI
+  categories: [chat, agent]
+
 # --- Anthropic ---
 - id: claude-app
   name: Claude アプリ

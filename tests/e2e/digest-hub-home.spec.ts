@@ -42,6 +42,7 @@ test('ホームは新しい順：トップに 3 本、残りは公開日ごと�
 test('T317: 会社は order の順に並び、記事のある製品だけハブへリンクする', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#vendors h3')).toHaveText([
+    '共通',
     'Anthropic',
     'OpenAI',
     'Google',

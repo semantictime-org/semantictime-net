@@ -27,7 +27,7 @@ export interface HubView {
 export const buildHub = (productId: string, catalog: Catalog): HubView => {
   const product = catalog.productById.get(productId);
   if (!product) throw new Error(`未登録の製品: ${productId}`);
-  const vendor = catalog.vendors.find((v) => v.id === product.data.vendor.id);
+  const vendor = catalog.vendors.find((v) => v.id === product.data.vendor?.id);
   const resolved = resolveRoute(
     { id: product.id, route: product.data.route },
     // landing 型の記事は、ハブそのものなので一覧に入れない
@@ -54,7 +54,9 @@ export const buildHub = (productId: string, catalog: Catalog): HubView => {
     ],
     en: product.data.name.toUpperCase(),
     title: `${product.data.name} の使い方`,
-    lead: `${vendor?.data.name ?? ''} の ${product.data.name}。手元で動かして確かめた手順と、現行仕様をまとめています。`,
+    lead: vendor
+      ? `${vendor.data.name} の ${product.data.name}。手元で動かして確かめた手順と、現行仕様をまとめています。`
+      : `${product.data.name}。会社を問わず使う言葉と考え方を、一次情報で確かめてまとめています。`,
     watermark: product.data.code,
     stats: [
       { label: '記事', value: String(all.length) },
