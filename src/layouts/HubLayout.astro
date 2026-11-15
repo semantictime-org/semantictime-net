@@ -58,20 +58,15 @@ const {
           </div>
         )}
         <section aria-labelledby="route-title" data-pagefind-ignore>
-          <p class="en" aria-hidden="true">
-            ROUTE
-          </p>
-          <h2 id="route-title">読む順</h2>
-          <ul class="notes">
-            <li>記事番号は固定。読む順を入れ替えても番号は変わらない</li>
-            {routeUpdated && <li>読む順を見直した日 {routeUpdated}</li>}
-          </ul>
+          <h2 id="route-title">読む順に並べた記事</h2>
+          {routeUpdated && <p class="notes">並び順を見直した日 {routeUpdated}</p>}
           {sections.length === 0 ? (
             <p class="empty">公開済みの記事はまだありません。</p>
           ) : (
             sections.map((section) => (
               <section class="route-section" aria-label={section.name}>
-                <h3>{section.name}</h3>
+                {/* 区切りが 1 つなら見出しは要らない（上の見出しと重なる） */}
+                {sections.length > 1 && <h3>{section.name}</h3>}
                 <ol>
                   {section.articles.map((a) => (
                     <li>
@@ -101,9 +96,9 @@ const {
           )}
           <p class="note">
             {features.length > 0
-              ? `ほか ${gaFeatureCount} 件は提供中。`
-              : `${gaFeatureCount} 件すべて提供中。`}
-            公式ドキュメントの記載をもとに管理している。
+              ? `このほかの ${gaFeatureCount} 機能は提供中です。`
+              : `${gaFeatureCount} 機能すべて提供中です。`}
+            状態は公式ドキュメントで確かめています。
           </p>
         </aside>
       )}
@@ -156,22 +151,15 @@ const {
     min-width: 0;
   }
 
-  .en {
-    margin: 0;
-    color: var(--color-key);
-    font: 400 var(--text-section-en) / 0.9 var(--font-display);
-    letter-spacing: var(--tracking-display);
-    white-space: nowrap;
-  }
-
   h2 {
-    margin: var(--space-2) 0 var(--space-3);
-    font-size: var(--text-section-ja);
+    margin: 0 0 var(--space-3);
+    padding-block-end: var(--space-2);
+    border-block-end: 2px solid var(--color-ink);
+    font-size: var(--text-nav);
   }
 
   .notes {
     margin: 0 0 var(--space-6);
-    padding-inline-start: 1.2em;
     color: var(--color-ink-muted);
     font-size: var(--text-small);
   }

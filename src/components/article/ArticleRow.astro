@@ -8,9 +8,13 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const meta = [article.productName, article.levelLabel, `検証 ${article.verifiedDate}`].filter(
-  (v): v is string => Boolean(v),
-);
+// 日付の前の言葉は確かめ方に合わせる（ホームの一覧と同じ）
+const verifiedLabel = article.entry.data.verification === 'hands-on' ? '検証' : '出典確認';
+const meta = [
+  article.productName,
+  article.levelLabel,
+  `${verifiedLabel} ${article.verifiedDate}`,
+].filter((v): v is string => Boolean(v));
 ---
 
 <a class="row" href={article.href}>
