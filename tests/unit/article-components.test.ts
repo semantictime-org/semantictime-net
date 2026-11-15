@@ -21,7 +21,7 @@ describe('VerificationBadge', () => {
     expect(html).toContain('2026.11.01');
     expect(html).toContain('検証済み');
     expect(html).toContain('Claude Code 2.1.325');
-    expect(html).toContain('2026.12.01');
+    expect(html).toContain('2026.12.31');
     expect(html).toContain('href="#history"');
   });
 
