@@ -55,6 +55,9 @@
   --text-ticket-date: clamp(40px, 4.2cqi, 56px);
   --text-hero-en: clamp(56px, 9cqi, 120px);
   --text-hero-en-narrow: 17cqi;
+  /* 記事の冒頭（compact）。題と検証票を先に見せるため、種類の英字は控えめにする */
+  --text-hero-en-compact: clamp(32px, 4.4cqi, 56px);
+  --text-hero-en-compact-narrow: 10cqi;
   --text-hero-title: clamp(28px, 4.2cqi, 52px);
   --text-hero-title-narrow: 8.2cqi;
   --text-watermark: clamp(150px, 26cqi, 340px);

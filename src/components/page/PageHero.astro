@@ -13,9 +13,11 @@ interface Props {
   watermark?: string | undefined;
   /** 題と説明をサイト内検索の索引に入れるか（記事とハブだけ） */
   indexed?: boolean;
+  /** 記事の冒頭：英字を小さくし、題と検証票を早く見せる */
+  compact?: boolean;
 }
 
-const { crumbs, en, title, lead, watermark, indexed = false } = Astro.props;
+const { crumbs, en, title, lead, watermark, indexed = false, compact = false } = Astro.props;
 const hasSide = Astro.slots.has('side');
 ---
 
@@ -23,7 +25,7 @@ const hasSide = Astro.slots.has('side');
   <div class:list={['inner', { 'with-side': hasSide }]}>
     <div class="main">
       <Breadcrumbs items={crumbs} />
-      <p class="en" aria-hidden="true">
+      <p class:list={['en', { compact }]} aria-hidden="true">
         {en}
       </p>
       <slot name="meta" />
@@ -92,6 +94,10 @@ const hasSide = Astro.slots.has('side');
     white-space: nowrap;
   }
 
+  .en.compact {
+    font-size: var(--text-hero-en-compact);
+  }
+
   h1 {
     max-width: 22em;
     margin: var(--space-4) 0 0;
@@ -130,6 +136,10 @@ const hasSide = Astro.slots.has('side');
 
     .en {
       font-size: var(--text-hero-en-narrow);
+    }
+
+    .en.compact {
+      font-size: var(--text-hero-en-compact-narrow);
     }
 
     h1 {

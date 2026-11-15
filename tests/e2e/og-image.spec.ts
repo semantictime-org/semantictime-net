@@ -23,3 +23,11 @@ test('記事以外のページはサイト共通の OGP 画像を指す', async 
   );
   expect((await request.get('/og/site.png')).status()).toBe(200);
 });
+
+test('RSS の自動発見リンクがある', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('link[rel="alternate"][type="application/rss+xml"]')).toHaveAttribute(
+    'href',
+    '/rss.xml',
+  );
+});
