@@ -1,0 +1,48 @@
+---
+// 一覧のサムネイルの代わりに置く記号のタイル（黒地に青の記事番号）。画像を持たない記事でも必ずそろう。
+// 色は DESIGN.md の「青1色」に従い、製品ごとの色は使わない。文字の大きさはタイルの幅に合わせる。
+interface Props {
+  /** 大きく出す記号（CC07、ニュースは NEWS） */
+  mark: string;
+  /** 下に小さく出す補足（製品名、ニュースは日付） */
+  sub?: string | undefined;
+}
+
+const { mark, sub } = Astro.props;
+---
+
+<span class="tile" aria-hidden="true">
+  <span class="mark">{mark}</span>
+  {sub && <span class="sub">{sub}</span>}
+</span>
+
+<style>
+  .tile {
+    container-type: inline-size;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-1);
+    aspect-ratio: 4 / 3;
+    padding: var(--space-2);
+    overflow: hidden;
+    border-radius: var(--radius-control);
+    background: var(--color-band);
+  }
+
+  .mark {
+    color: var(--color-key-on-band);
+    font: 400 26cqi / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  .sub {
+    max-width: 100%;
+    overflow: hidden;
+    color: var(--color-on-band-faint);
+    font: 9cqi / 1.2 var(--font-data);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>

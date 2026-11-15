@@ -25,20 +25,42 @@ test.describe('JS が無効のとき', () => {
   });
 });
 
-test('T317: ホームの会社は order の順で、記事 0 本の会社には一文を出す', async ({ page }) => {
+test('ホームは新しい順：トップに 3 本、残りは公開日ごとに並ぶ', async ({ page }) => {
   await page.goto('/');
-  const vendors = page.locator('#vendors .vendor h3');
-  await expect(vendors).toHaveText([
+  await expect(page.locator('[data-top] .title')).toHaveText([
+    '第46週の公式の変更',
+    'Claude のプランの選び方',
+    'Codex CLI を入れて最初の作業を頼む',
+  ]);
+  await expect(page.locator('[data-river] h3')).toHaveText(['10月2日(金)', '9月1日(火)']);
+  await expect(page.locator('[data-river] li').first()).toContainText('CC07');
+  await expect(page.locator('[data-river] li').first()).toContainText(
+    'Hooks で保存のたびに整形する',
+  );
+});
+
+test('T317: 会社は order の順に並び、記事のある製品だけハブへリンクする', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#vendors h3')).toHaveText([
     'Anthropic',
     'OpenAI',
     'Google',
     'Midjourney',
     'Black Forest Labs',
   ]);
-  await expect(page.getByRole('region', { name: 'Google' })).toContainText(
-    '記事は準備中です。',
+  const vendors = page.locator('#vendors');
+  await expect(vendors.getByRole('link', { name: /Claude Code/ })).toHaveAttribute(
+    'href',
+    '/claude-code/',
   );
-  await expect(page.getByRole('region', { name: 'Anthropic' })).toContainText('すべて見る（2 本）');
+  await expect(vendors.getByRole('link', { name: /Gemini/ })).toHaveCount(0);
+});
+
+test('連載の欄から連載のページへ行ける', async ({ page }) => {
+  await page.goto('/');
+  await expect(
+    page.locator('#series').getByRole('link', { name: /はじめての Claude Code/ }),
+  ).toHaveAttribute('href', '/series/claude-code-first-steps/');
 });
 
 test('製品のハブは記事を並べ、記事番号でリンクする', async ({ page }) => {

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { isChangeVisible } from '../../src/lib/change-filter';
-import { buildVendorSections, type HomeArticle } from '../../src/lib/home';
+import { buildFrontPage } from '../../src/lib/home';
 
 describe('isChangeVisible（T078 の絞り込み）', () => {
   const row = { product: 'claude-code', breaking: false } as const;
@@ -22,69 +22,38 @@ describe('isChangeVisible（T078 の絞り込み）', () => {
   });
 });
 
-describe('buildVendorSections（T317 全社同等のホーム）', () => {
-  const vendors = [
-    { id: 'openai', name: 'OpenAI', order: 2 },
-    { id: 'anthropic', name: 'Anthropic', order: 1 },
-    { id: 'google', name: 'Google', order: 3 },
-    { id: 'midjourney', name: 'Midjourney', order: 4 },
-  ];
-  const products = [
-    { id: 'claude-code', name: 'Claude Code', vendor: 'anthropic', code: 'CC', route: [] },
-    { id: 'claude-api', name: 'Claude API', vendor: 'anthropic', code: 'AP', route: [] },
-    {
-      id: 'codex',
-      name: 'Codex',
-      vendor: 'openai',
-      code: 'CX',
-      route: [{ section: 'はじめる', articles: ['setup'] }],
-    },
-    { id: 'gemini', name: 'Gemini', vendor: 'google', code: 'GM', route: [] },
-    { id: 'midjourney', name: 'Midjourney', vendor: 'midjourney', code: 'MJ', route: [] },
-  ];
-  const article = (id: string, stationNo: number): HomeArticle => ({
-    id,
-    type: 'how-to',
-    products: [id.split('/')[0] ?? ''],
-    stationNo,
-  });
-  const articles = [
-    article('claude-code/a', 1),
-    article('claude-code/b', 2),
-    article('claude-code/c', 3),
-    article('codex/usage', 2),
-    article('codex/setup', 1),
-    article('gemini/start', 1),
+describe('buildFrontPage（ホームの新しい順の流れ）', () => {
+  const item = (id: string, publishedAt: string) => ({ id, publishedAt: new Date(publishedAt) });
+  const items = [
+    item('a', '2026-11-13'),
+    item('b', '2026-11-15'),
+    item('c', '2026-11-14'),
+    item('d', '2026-11-15'),
+    item('e', '2026-11-12'),
   ];
 
-  const sections = buildVendorSections(vendors, products, articles);
-
-  test('会社は order の順に、記事 0 本の会社も含めて全部出る', () => {
-    expect(sections.map((s) => s.vendor.id)).toEqual([
-      'anthropic',
-      'openai',
-      'google',
-      'midjourney',
+  test('新しい順の先頭をトップに、残りを日付ごとに分ける（JST）', () => {
+    const page = buildFrontPage(items, 2);
+    expect(page.top.map((i) => i.id)).toEqual(['b', 'd']);
+    expect(page.days.map((d) => [d.date, d.items.map((i) => i.id)])).toEqual([
+      ['2026-11-14', ['c']],
+      ['2026-11-13', ['a']],
+      ['2026-11-12', ['e']],
     ]);
   });
 
-  test('記事 0 本の会社は「記事は準備中です。」', () => {
-    const mj = sections.find((s) => s.vendor.id === 'midjourney');
-    expect(mj?.products).toEqual([]);
-    expect(mj?.emptyMessage).toBe('記事は準備中です。');
+  test('同じ日時なら ID の順で並びを固定する', () => {
+    expect(
+      buildFrontPage([item('z', '2026-11-15'), item('y', '2026-11-15')], 2).top.map((i) => i.id),
+    ).toEqual(['y', 'z']);
   });
 
-  test('記事 0 本の製品は出さない', () => {
-    const anthropic = sections.find((s) => s.vendor.id === 'anthropic');
-    expect(anthropic?.products.map((p) => p.id)).toEqual(['claude-code']);
-    expect(anthropic?.emptyMessage).toBeUndefined();
+  test('記事が 0 本なら、トップも流れも空', () => {
+    expect(buildFrontPage([], 3)).toEqual({ top: [], days: [] });
   });
 
-  test('各製品は読む順の先頭から 2 本と、全体の本数', () => {
-    const codex = sections.find((s) => s.vendor.id === 'openai')?.products[0];
-    expect(codex?.top.map((a) => a.id)).toEqual(['codex/setup', 'codex/usage']);
-    const cc = sections.find((s) => s.vendor.id === 'anthropic')?.products[0];
-    expect(cc?.top.map((a) => a.id)).toEqual(['claude-code/a', 'claude-code/b']);
-    expect(cc?.count).toBe(3);
+  test('JST の日付で分ける（UTC では前日でも、JST で翌日なら翌日）', () => {
+    const page = buildFrontPage([item('late', '2026-11-14T16:30:00Z')], 0);
+    expect(page.days[0]?.date).toBe('2026-11-15');
   });
 });
