@@ -26,9 +26,11 @@
 
 | 値 | 置き場所 |
 | --- | --- |
-| `CLOUDFLARE_API_TOKEN_PREVIEW` | Environment `preview` の secret（Workers Editor ＋ Account Settings Read、90日） |
+| `CLOUDFLARE_API_TOKEN_PREVIEW` | Environment `preview` の secret。Worker `semantictime-preview` だけをデプロイできるトークン（Individual Workers Editor） |
 | `CLOUDFLARE_API_TOKEN_PROD` | Environment `production` の secret（main からだけ使える） |
 | `CLOUDFLARE_ACCOUNT_ID` | 両方の Environment の variable（秘密ではない） |
 | `REAL_NAME_PATTERNS` | リポジトリの secret（1行1パターン。実名と雇用先のアカウント名） |
 
-トークンの有効期限が近づいたら、Cloudflare の「アカウントの API トークン」で作り直し、上の secret を差し替える。
+トークンは、Worker の設定画面（Settings → Builds → API token for external CI/CD）で、その Worker 専用のものを作る。
+同じ Cloudflare アカウントにほかのプロジェクトの Worker があるので、アカウント全体に効くトークンは使わない。
+Worker 専用のトークンでは Worker を新しく作れないので、新しい Worker はダッシュボードで先に作っておく。
