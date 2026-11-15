@@ -1,5 +1,6 @@
 ---
 // 記事一覧の1行：記事番号、題、製品・難易度・検証日、右に状態の札（DESIGN.md の「記事一覧の行」）。
+import StatePill from '../status/StatePill.astro';
 import type { ArticleSummary } from '../../queries/catalog';
 
 interface Props {
@@ -20,7 +21,7 @@ const meta = [article.productName, article.levelLabel, `検証 ${article.verifie
     <span class="title">{article.title}</span>
     <span class="meta">{meta.join(' · ')}</span>
   </span>
-  <span class:list={['state', article.record.state]}>{article.record.stateLabel}</span>
+  <StatePill state={article.record.state} label={article.record.stateLabel} />
 </a>
 
 <style>
@@ -68,28 +69,5 @@ const meta = [article.productName, article.levelLabel, `検証 ${article.verifie
   .meta {
     color: var(--color-ink-muted);
     font-size: var(--text-small);
-  }
-
-  .state {
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-pill);
-    font-size: var(--text-small);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .ok {
-    background: var(--color-status-ok-bg);
-    color: var(--color-status-ok);
-  }
-
-  .review {
-    background: var(--color-status-review-bg);
-    color: var(--color-status-review);
-  }
-
-  .stale {
-    background: var(--color-status-stale-bg);
-    color: var(--color-status-stale);
   }
 </style>

@@ -1,0 +1,50 @@
+---
+// 状態の札（検証済み・まもなく見直し・期限切れ など）。色は文字と小さな札だけに使う（DESIGN.md の Colors）。
+import type { RecordState } from '../../lib/article-meta';
+
+interface Props {
+  state: RecordState;
+  label: string;
+}
+
+const { state, label } = Astro.props;
+---
+
+<span class:list={['pill', state]}>{label}</span>
+
+<style>
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-small);
+    font-weight: 700;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .pill::before {
+    content: '';
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: var(--radius-pill);
+    background: currentColor;
+  }
+
+  .ok {
+    background: var(--color-status-ok-bg);
+    color: var(--color-status-ok);
+  }
+
+  .review {
+    background: var(--color-status-review-bg);
+    color: var(--color-status-review);
+  }
+
+  .stale {
+    background: var(--color-status-stale-bg);
+    color: var(--color-status-stale);
+  }
+</style>

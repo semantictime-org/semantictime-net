@@ -23,6 +23,7 @@ import {
   CHANGE_LABEL,
   historyOf,
   LEVEL_LABEL,
+  ROUTES,
   ROLE_LABEL,
   TYPE_EN,
   TYPE_LABEL,
@@ -82,7 +83,11 @@ const page: ArticlePage = {
   ],
   publishedDate: toJstDate(data.publishedAt),
   crumbs: isNews
-    ? [{ label: 'ホーム', href: '/' }, { label: 'ニュース', href: '/news/' }, { label: newsDate }]
+    ? [
+        { label: 'ホーム', href: ROUTES.home },
+        { label: 'ニュース', href: ROUTES.news },
+        { label: newsDate },
+      ]
     : breadcrumbsOf(product && { id: product.id, name: product.data.name }, station ?? data.title),
   record: verificationRecordOf(
     {

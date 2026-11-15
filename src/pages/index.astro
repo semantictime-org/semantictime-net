@@ -3,8 +3,9 @@
 // 「今朝の確認時刻」と「変更の記録」の帯は、上流の取得（Phase 5）ができてから足す。
 import { SITE } from '../../site.config';
 import ArticleRow from '../components/article/ArticleRow.astro';
+import StatePill from '../components/status/StatePill.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { articleHref } from '../lib/article-view';
+import { articleHref, ROUTES } from '../lib/article-view';
 import { toJstDate } from '../lib/dates';
 import { buildVendorSections } from '../lib/home';
 import { loadCatalog } from '../queries/catalog';
@@ -59,7 +60,7 @@ const news = summaries
           <a class="primary" href="#vendors">
             使い方を探す ↘
           </a>
-          <a class="secondary" href="/news/">
+          <a class="secondary" href={ROUTES.news}>
             変更を追う →
           </a>
         </p>
@@ -68,7 +69,7 @@ const news = summaries
         <a class="ticket" href={featured.href}>
           <span class="ticket-head">
             <span class="mono">{featured.station ?? ''} / 検証票</span>
-            <span class:list={['state', featured.record.state]}>{featured.record.stateLabel}</span>
+            <StatePill state={featured.record.state} label={featured.record.stateLabel} />
           </span>
           <span class="ticket-label">{featured.record.label}</span>
           <span class="ticket-date">{featured.record.date}</span>
@@ -161,7 +162,7 @@ const news = summaries
         </ol>
       )}
       <p>
-        <a href="/news/">ニュースをすべて見る →</a>
+        <a href={ROUTES.news}>ニュースをすべて見る →</a>
       </p>
     </section>
   </div>
@@ -286,27 +287,6 @@ const news = summaries
     justify-content: space-between;
     gap: var(--space-3);
     font-size: var(--text-small);
-  }
-
-  .state {
-    padding: 0 var(--space-2);
-    border-radius: var(--radius-pill);
-    font-weight: 700;
-  }
-
-  .ok {
-    background: var(--color-status-ok-bg);
-    color: var(--color-status-ok);
-  }
-
-  .review {
-    background: var(--color-status-review-bg);
-    color: var(--color-status-review);
-  }
-
-  .stale {
-    background: var(--color-status-stale-bg);
-    color: var(--color-status-stale);
   }
 
   .ticket-label {
