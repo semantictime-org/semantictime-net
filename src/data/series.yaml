@@ -1,0 +1,9 @@
+# 連載。記事の frontmatter の series.id から参照する。order はホームと一覧で並べる順
+- id: ai-glossary
+  name: AI 用語の基礎知識
+  description: エージェント、MCP、コンテキストウィンドウなど、AI の使い方の記事に出てくる言葉を、使う場面から説明します。
+  order: 1
+- id: claude-code-first-steps
+  name: はじめての Claude Code
+  description: Claude Code を入れてから、毎日の作業を任せられるようになるまでを、手元で確かめた順に追います。
+  order: 2

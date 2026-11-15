@@ -13,6 +13,8 @@ export interface ArticlePage {
   /** 手順のある記事（チュートリアル、ハウツー）は目次に番号を付ける */
   readonly numbered: boolean;
   readonly productName: string | undefined;
+  /** 連載の何回目か（連載「はじめての Claude Code」第 2 回） */
+  readonly series: { readonly label: string; readonly href: string } | undefined;
   /** 記事番号（CC07） */
   readonly stationLabel: string | undefined;
   /** 冒頭の帯の透かし（記事番号、ニュースは日付） */

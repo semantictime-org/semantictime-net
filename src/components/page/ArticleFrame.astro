@@ -31,6 +31,11 @@ const hasAside = Astro.slots.has('aside');
     <p class="meta" slot="meta">
       {page.stationLabel && <span class="station">{page.stationLabel}</span>}
       <span>{[page.productName, page.typeLabel].filter(Boolean).join(' / ')}</span>
+      {page.series && (
+        <a class="series" href={page.series.href}>
+          {page.series.label}
+        </a>
+      )}
     </p>
     <p class="facts" slot="facts">
       <span>
@@ -105,6 +110,14 @@ const hasAside = Astro.slots.has('aside');
     margin: var(--space-4) 0 0;
     color: var(--color-on-band-muted);
     font-size: var(--text-nav);
+  }
+
+  .series {
+    color: var(--color-on-band);
+  }
+
+  .series:hover {
+    color: var(--color-key-on-band);
   }
 
   .station {

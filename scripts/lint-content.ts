@@ -1,12 +1,12 @@
 // 記事の検査（危険な HTML、内部リンク切れ、.md 版で扱えない JSX、置き場所、段落の長さ、
-// 記事番号の重複、読む順の誤り）。
+// 記事番号・連載の回の重複、読む順の誤り）。
 // 使い方: node scripts/lint-content.ts。違反があれば内容を出力して exit 1。
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { z } from 'astro/zod';
 import { parse } from 'yaml';
 import { lintArticle, routeOf, type LintTarget } from '../src/lib/content-lint.ts';
-import { findStationConflicts, resolveRoute } from '../src/lib/catalog.ts';
+import { findSeriesConflicts, findStationConflicts, resolveRoute } from '../src/lib/catalog.ts';
 import { CONTENT_TYPES } from '../src/lib/taxonomy.ts';
 import { readProducts } from './lib/products.ts';
 
@@ -23,12 +23,14 @@ const frontmatterSchema = z.object({
   type: z.enum(CONTENT_TYPES),
   products: z.array(z.string()).default([]),
   stationNo: z.number().int().optional(),
+  series: z.object({ id: z.string(), no: z.number().int() }).optional(),
 });
 
 interface ArticleFile extends LintTarget {
   /** 本文の1行目が、ファイルの何行目の次にあたるか（frontmatter の行数） */
   readonly lineOffset: number;
   readonly stationNo?: number;
+  readonly series?: { readonly id: string; readonly no: number };
 }
 
 const articles: readonly ArticleFile[] = listFiles(ARTICLES_DIR, /\.(md|mdx)$/)
@@ -43,6 +45,7 @@ const articles: readonly ArticleFile[] = listFiles(ARTICLES_DIR, /\.(md|mdx)$/)
       type: meta.type,
       products: meta.products,
       ...(meta.stationNo === undefined ? {} : { stationNo: meta.stationNo }),
+      ...(meta.series === undefined ? {} : { series: meta.series }),
       body: source.slice(match[0].length),
       lineOffset: match[0].split('\n').length - 1,
     };
@@ -62,6 +65,7 @@ const violations = articles.flatMap((a) =>
 // 記事どうし・製品との関係の検査（記事番号の重複 T303、読む順の誤り T315）
 const catalogErrors = [
   ...findStationConflicts(articles),
+  ...findSeriesConflicts(articles),
   ...readProducts().flatMap((product) => resolveRoute(product, articles).errors),
 ];
 

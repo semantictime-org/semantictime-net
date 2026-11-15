@@ -10,12 +10,14 @@ import {
   buildProductSchema,
   existingId,
   featureSchema,
+  seriesSchema,
   vendorSchema,
 } from './lib/schemas';
 
 const FEATURES_FILE = 'src/data/features.yaml';
 const VENDORS_FILE = 'src/data/vendors.yaml';
 const PRODUCTS_FILE = 'src/data/products.yaml';
+const SERIES_FILE = 'src/data/series.yaml';
 const AUTHORS_DIR = 'src/content/authors';
 // CONTENT_FIXTURES=1 のときは、テスト用の記事（tests/fixtures/articles）を読む。本番のビルドには入らない
 const ARTICLES_DIR =
@@ -31,6 +33,7 @@ const readIds = (path: string): readonly string[] =>
 const featureIds = readIds(FEATURES_FILE);
 const vendorIds = readIds(VENDORS_FILE);
 const productIds = readIds(PRODUCTS_FILE);
+const seriesIds = readIds(SERIES_FILE);
 const authorIds = readdirSync(AUTHORS_DIR)
   .filter((name) => name.endsWith('.yaml'))
   .map((name) => name.replace(/\.yaml$/, ''));
@@ -63,6 +66,11 @@ const products = defineCollection({
   schema: buildProductSchema(existingId(vendorIds, '会社 ID').pipe(reference('vendors'))),
 });
 
+const series = defineCollection({
+  loader: file(SERIES_FILE),
+  schema: seriesSchema,
+});
+
 const authors = defineCollection({
   loader: glob({ pattern: '*.yaml', base: `./${AUTHORS_DIR}` }),
   schema: authorSchema,
@@ -74,7 +82,8 @@ const articles = defineCollection({
     existingId(featureIds, '機能 ID').pipe(reference('features')),
     existingId(authorIds, '著者').pipe(reference('authors')),
     productRef,
+    existingId(seriesIds, '連載 ID').pipe(reference('series')),
   ),
 });
 
-export const collections = { features, vendors, products, authors, articles };
+export const collections = { features, vendors, products, series, authors, articles };

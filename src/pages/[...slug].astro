@@ -25,6 +25,7 @@ import {
   LEVEL_LABEL,
   ROUTES,
   ROLE_LABEL,
+  seriesHref,
   TYPE_EN,
   TYPE_LABEL,
 } from '../lib/article-view';
@@ -52,6 +53,7 @@ const productRef = data.products[0];
 const product = productRef ? await getEntry(productRef) : undefined;
 const features = await getEntries(data.features);
 const author = await getEntry(data.owner);
+const series = data.series ? await getEntry(data.series.id) : undefined;
 const station =
   product && data.stationNo !== undefined
     ? stationLabel(product.data.code, data.stationNo)
@@ -73,6 +75,13 @@ const page: ArticlePage = {
   typeEn: TYPE_EN[data.type],
   numbered: NUMBERED_TYPES.includes(data.type),
   productName: product?.data.name,
+  series:
+    series && data.series
+      ? {
+          label: `連載「${series.data.name}」第 ${data.series.no} 回`,
+          href: seriesHref(series.id),
+        }
+      : undefined,
   stationLabel: station,
   watermark: isNews ? newsDate : station,
   levelLabel: LEVEL_LABEL[data.level],
