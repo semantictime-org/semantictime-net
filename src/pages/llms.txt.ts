@@ -11,7 +11,9 @@ export const GET: APIRoute = async () => {
   const summaries = [...catalog.summaryById.values()];
   const vendorOrder = new Map(catalog.vendors.map((v) => [v.id, v.data.order]));
   const products = catalog.products.toSorted(
-    (a, b) => (vendorOrder.get(a.data.vendor.id) ?? 0) - (vendorOrder.get(b.data.vendor.id) ?? 0),
+    (a, b) =>
+      (vendorOrder.get(a.data.vendor?.id ?? '') ?? 0) -
+      (vendorOrder.get(b.data.vendor?.id ?? '') ?? 0),
   );
   const link = (a: (typeof summaries)[number]) => ({
     title: a.title,

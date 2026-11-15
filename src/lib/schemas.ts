@@ -143,7 +143,8 @@ export const buildProductSchema = <V extends z.ZodType>(vendorRef: V) =>
   z.object({
     id: z.string().regex(SLUG, '製品 ID は英小文字・数字・ハイフンだけ'),
     name: z.string().min(1),
-    vendor: vendorRef,
+    // 会社に属さない路線（AI の基本：用語や考え方）は書かない
+    vendor: vendorRef.optional(),
     // 記事番号の記号（例: CC07 の CC）。全製品で重複しない
     code: z.string().regex(PRODUCT_CODE, '記号は英大文字 2 字'),
     categories: z.array(z.enum(CATEGORIES)).min(1),

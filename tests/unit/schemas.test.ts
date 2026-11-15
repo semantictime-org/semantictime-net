@@ -226,6 +226,11 @@ describe('vendor and product schema', () => {
     if (result.success) expect(result.data.route).toEqual([]);
   });
 
+  test('会社に属さない路線（AI の基本）は vendor を書かなくてよい', () => {
+    const general = { id: 'ai-basics', name: 'AI の基本', code: 'AI', categories: ['chat'] };
+    expect(productSchema.safeParse(general).success).toBe(true);
+  });
+
   test.each(['cc', 'CCC', 'C1'])('記号 %s は英大文字 2 字でないので失敗する', (code) => {
     expect(productSchema.safeParse({ ...validProduct, code }).success).toBe(false);
   });

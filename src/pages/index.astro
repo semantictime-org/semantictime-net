@@ -42,18 +42,24 @@ const countByProduct = Map.groupBy(
   catalog.catalogArticles.filter((a) => a.type !== 'news' && a.type !== 'landing'),
   (a) => a.products[0] ?? '',
 );
-const vendors = catalog.vendors
-  .toSorted((a, b) => a.data.order - b.data.order)
+// 会社に属さない路線（AI の基本）は「共通」として先頭に置く
+const COMMON_GROUP = '共通';
+const vendors = [
+  { id: undefined, name: COMMON_GROUP, order: 0 },
+  ...catalog.vendors.map((v) => ({ id: v.id, name: v.data.name, order: v.data.order })),
+]
+  .toSorted((a, b) => a.order - b.order)
   .map((v) => ({
-    name: v.data.name,
+    name: v.name,
     products: catalog.products
-      .filter((p) => p.data.vendor.id === v.id)
+      .filter((p) => p.data.vendor?.id === v.id)
       .map((p) => ({
         name: p.data.name,
         count: countByProduct.get(p.id)?.length ?? 0,
         href: catalog.hubProductIds.has(p.id) ? `/${p.id}/` : undefined,
       })),
-  }));
+  }))
+  .filter((g) => g.products.length > 0);
 
 // 右の列：連載。公開済みの回がある連載だけリンクする
 const series = seriesList
@@ -66,7 +72,9 @@ const series = seriesList
 const vendorOrder = new Map(catalog.vendors.map((v) => [v.id, v.data.order]));
 const credits = catalog.products
   .toSorted(
-    (a, b) => (vendorOrder.get(a.data.vendor.id) ?? 0) - (vendorOrder.get(b.data.vendor.id) ?? 0),
+    (a, b) =>
+      (vendorOrder.get(a.data.vendor?.id ?? '') ?? 0) -
+      (vendorOrder.get(b.data.vendor?.id ?? '') ?? 0),
   )
   .map((p) => ({
     name: p.data.name,

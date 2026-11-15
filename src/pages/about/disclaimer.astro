@@ -12,7 +12,7 @@ const marks = vendors
   .toSorted((a, b) => a.data.order - b.data.order)
   .map((v) => ({
     vendor: v.data.name,
-    products: products.filter((p) => p.data.vendor.id === v.id).map((p) => p.data.name),
+    products: products.filter((p) => p.data.vendor?.id === v.id).map((p) => p.data.name),
   }));
 ---
 
