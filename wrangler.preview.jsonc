@@ -1,0 +1,13 @@
+// PR のプレビュー用の Worker（設計書 9.1）。workers.dev の URL で確かめる。独自ドメインは付けない。
+// ビルドは PUBLIC_DEPLOY_ENV=preview（下書きを含む）で行い、scripts/add-noindex-headers.ts で noindex を足す。
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "semantictime-preview",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+  },
+}
