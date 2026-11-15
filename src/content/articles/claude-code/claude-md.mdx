@@ -1,0 +1,75 @@
+---
+title: CLAUDE.md に、プロジェクトの決まりを書いておく
+description: CLAUDE.md は、Claude Code が毎回の作業の初めに読む指示のファイルです。置き場所ごとの効く範囲、/init でのひな形づくり、短く保つコツを、表とひな形で整理します。
+type: how-to
+products: [claude-code]
+stationNo: 2
+series: { id: claude-code-first-steps, no: 2 }
+verification: hands-on
+roles: [developer]
+level: beginner
+features: [memory]
+draft: true
+publishedAt: 2026-11-16
+verifiedAt: 2026-11-16
+verifiedWith:
+  claudeCode: 2.1.325
+  version: macOS 26.7.2
+sources:
+  - https://code.claude.com/docs/en/memory
+owner: shizukukai
+aiAssisted: draft
+---
+
+import Callout from '../../../components/mdx/Callout.astro';
+
+- **ゴール**：毎回説明していた決まりを、Claude Code が最初から知っている状態にする
+- **所要時間**：10分
+- **前に読む記事**：[Claude Code を入れて、最初の作業を頼む](/claude-code/install-and-first-task/)
+- **手順の全体**：1. 置き場所を決める → 2. ひな形を作る → 3. 短く整える
+
+## 1. 置き場所を決める
+
+| 置き場所              | 効く範囲             | 共有                              |
+| --------------------- | -------------------- | --------------------------------- |
+| `~/.claude/CLAUDE.md` | 自分の全プロジェクト | 自分だけ                          |
+| `./CLAUDE.md`         | このプロジェクト     | Git でチームと共有                |
+| `./CLAUDE.local.md`   | このプロジェクト     | 自分だけ（`.gitignore` に入れる） |
+
+- 見つかったファイルは全部読まれ、上書きではなく足し合わされる
+- 起動したフォルダーに近いものほど後に読まれる
+
+## 2. ひな形を作る
+
+```text
+> /init
+```
+
+- Claude Code がプロジェクトを調べ、CLAUDE.md の下書きを作る
+- すでにあるときは、上書きせずに直し方を提案する
+
+## 3. 短く整える
+
+```markdown
+# このプロジェクトの決まり
+
+## コマンド
+
+- テスト：npm test
+- 書式の確認：npm run lint
+
+## 書き方
+
+- TypeScript は strict。any を使わない
+- 色はトークンから使い、直接書かない
+```
+
+- 1つのファイルは200行より短く保つ
+- 長い説明は別のファイルに分け、`@docs/style.md` のように読み込ませる
+- Claude が自分で見つけられることは書かない
+
+<Callout type="warning">
+  CLAUDE.md は守らせる仕組みではなく、読ませる指示です。必ず止めたい操作は、Hooks で止めます。
+</Callout>
+
+次は、保存のたびに整形を走らせる [Hooks の使い方](/claude-code/hooks-format/)です。
