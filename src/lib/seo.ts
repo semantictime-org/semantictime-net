@@ -9,6 +9,8 @@ const DEFAULT_ENV: DeployEnv = 'test';
 const NOINDEX = 'noindex,nofollow';
 const FILE_EXTENSION = /\/[^/]+\.[a-z0-9]+$/i;
 const INDEX_HTML = /\/index\.html$/;
+/** 記事以外のページの OGP 画像（src/pages/og/site.png.ts が作る） */
+export const DEFAULT_OG_IMAGE = '/og/site.png';
 
 const isDeployEnv = (value: string): value is DeployEnv =>
   (DEPLOY_ENVS as readonly string[]).includes(value);
@@ -26,6 +28,8 @@ export interface SeoArticle {
   readonly author: string;
   readonly publishedAt: Date;
   readonly modifiedAt: Date;
+  /** 記事ごとの OGP 画像のパス */
+  readonly image: string;
 }
 
 export interface SeoInput {
@@ -51,6 +55,7 @@ export interface Seo {
     readonly title: string;
     readonly description: string;
     readonly siteName: string;
+    readonly image: string;
   };
   readonly jsonLd: Readonly<Record<string, string | Readonly<Record<string, string>>>>;
 }
@@ -95,6 +100,7 @@ export const buildSeo = (input: SeoInput & { readonly env: DeployEnv }): Seo => 
       title,
       description,
       siteName,
+      image: `${siteUrl}${article?.image ?? DEFAULT_OG_IMAGE}`,
     },
     jsonLd,
   };

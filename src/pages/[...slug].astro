@@ -31,6 +31,7 @@ import {
 } from '../lib/article-view';
 import { stationLabel } from '../lib/catalog';
 import { toJstDate } from '../lib/dates';
+import { ogImagePath } from '../lib/og-image';
 import { LAYOUT_BY_TYPE } from '../lib/taxonomy';
 import { publishedArticles } from '../queries/articles';
 import { loadCatalog } from '../queries/catalog';
@@ -125,6 +126,7 @@ const page: ArticlePage = {
     author: author.data.name,
     publishedAt: data.publishedAt,
     modifiedAt: data.verifiedAt > data.publishedAt ? data.verifiedAt : data.publishedAt,
+    image: ogImagePath(entry.id),
   },
 };
 
