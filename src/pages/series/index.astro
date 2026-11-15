@@ -1,0 +1,108 @@
+---
+// 連載の一覧（/series/）。説明と公開済みの回の数を出し、回がある連載だけリンクする。
+import PageHero from '../../components/page/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ROUTES } from '../../lib/article-view';
+import { loadCatalog } from '../../queries/catalog';
+import { loadSeriesDirectory } from '../../queries/directory';
+
+const TITLE = '連載';
+const LEAD = 'テーマごとに、読む順に並べた記事のまとまりです。';
+
+const series = await loadSeriesDirectory(await loadCatalog());
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: TITLE }];
+---
+
+<BaseLayout title={TITLE} description={LEAD}>
+  <PageHero crumbs={crumbs} en="SERIES" title={TITLE} lead={LEAD} />
+  <div class="body">
+    <ul class="list">
+      {series.map((s) => (
+        <li data-series={s.id}>
+          {s.href ? (
+            <a href={s.href}>
+              <span class="name">{s.name}</span>
+              <span class="desc">{s.description}</span>
+              <span class="count">{s.count} 回</span>
+            </a>
+          ) : (
+            <span class="pending">
+              <span class="name">{s.name}</span>
+              <span class="desc">{s.description}</span>
+              <span class="count">準備中</span>
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a,
+  .pending {
+    display: grid;
+    gap: var(--space-2);
+    height: 100%;
+    padding: var(--space-6);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-control);
+    text-decoration: none;
+  }
+
+  a {
+    color: var(--color-ink);
+    transition: border-color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  a:hover {
+    border-color: var(--color-key);
+  }
+
+  .name {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+    font-size: var(--text-lead);
+  }
+
+  a .name {
+    color: var(--color-key);
+  }
+
+  .pending {
+    border-style: dashed;
+    color: var(--color-ink-muted);
+  }
+
+  .desc {
+    color: var(--color-ink-muted);
+    font-size: var(--text-nav);
+  }
+
+  .count {
+    color: var(--color-ink-muted);
+    font: var(--text-small) var(--font-data);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+  }
+</style>

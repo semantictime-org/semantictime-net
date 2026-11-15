@@ -2,19 +2,19 @@
 // ホーム。AI Watch 型の新しい順の流れ（トップ記事 → 公開日ごとの一覧）と、右の列に連載・会社と製品。
 // 会社と製品は vendors.yaml の order の順に、同じ扱いで並べる（T317）。
 // 「今朝の確認時刻」と「変更の記録」の帯は、上流の取得（Phase 5）ができてから足す。
-import { getCollection } from 'astro:content';
 import { SITE } from '../../site.config';
 import ArticleTile from '../components/article/ArticleTile.astro';
 import StatePill from '../components/status/StatePill.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { ROUTES, seriesHref, TYPE_LABEL } from '../lib/article-view';
+import { ROUTES, TYPE_LABEL } from '../lib/article-view';
 import { toJstDate } from '../lib/dates';
 import { buildFrontPage, EMPTY_VENDOR, verificationStats } from '../lib/home';
 import { loadCatalog, type ArticleSummary } from '../queries/catalog';
+import { loadSeriesDirectory, productDirectory } from '../queries/directory';
 
 const TOP_COUNT = 3;
 
-const [catalog, seriesList] = await Promise.all([loadCatalog(), getCollection('series')]);
+const catalog = await loadCatalog();
 // landing（製品のハブそのもの）は流れに入れない
 const listed = [...catalog.summaryById.values()].filter((a) => a.entry.data.type !== 'landing');
 const front = buildFrontPage(
@@ -45,42 +45,13 @@ const stats = verificationStats(
   listed.map((a) => ({ state: a.record.state, verifiedDate: a.verifiedDate })),
 );
 
-// 右の列：会社ごとの製品。記事のある製品だけハブへリンクする
-const countByProduct = Map.groupBy(
-  catalog.catalogArticles.filter((a) => a.type !== 'news' && a.type !== 'landing'),
-  (a) => a.products[0] ?? '',
-);
-// 会社に属さない路線（AI の基本）は「共通」として先頭に置く
-const COMMON_GROUP = '共通';
-const vendors = [
-  { id: undefined, name: COMMON_GROUP, order: 0 },
-  ...catalog.vendors.map((v) => ({ id: v.id, name: v.data.name, order: v.data.order })),
-]
-  .toSorted((a, b) => a.order - b.order)
-  .map((v) => ({
-    name: v.name,
-    products: catalog.products
-      .filter((p) => p.data.vendor?.id === v.id)
-      .map((p) => ({
-        name: p.data.name,
-        count: countByProduct.get(p.id)?.length ?? 0,
-        href: catalog.hubProductIds.has(p.id) ? `/${p.id}/` : undefined,
-      })),
-  }))
+// 右の列：記事のある製品だけを会社ごとに。残りは「準備中」の 1 行にたたむ
+const directory = productDirectory(catalog);
+const vendors = directory
   .map((g) => ({ ...g, products: g.products.filter((p) => p.count > 0) }))
   .filter((g) => g.products.length > 0);
-// 記事のない製品は、右の列で 1 行にたたむ（同じ「準備中」を並べない）
-const pending = catalog.products
-  .filter((p) => !catalog.hubProductIds.has(p.id))
-  .map((p) => p.data.name);
-
-// 右の列：連載。公開済みの回がある連載だけリンクする
-const series = seriesList
-  .toSorted((a, b) => a.data.order - b.data.order)
-  .map((s) => {
-    const count = catalog.articles.filter((a) => a.data.series?.id.id === s.id).length;
-    return { name: s.data.name, count, href: count > 0 ? seriesHref(s.id) : undefined };
-  });
+const pendingCount = directory.flatMap((g) => g.products).filter((p) => p.count === 0).length;
+const series = await loadSeriesDirectory(catalog);
 ---
 
 <BaseLayout title={SITE.tagline} description={SITE.description}>
@@ -182,6 +153,9 @@ const series = seriesList
             </li>
           ))}
         </ul>
+        <a class="all" href={ROUTES.series}>
+          すべての連載 →
+        </a>
       </section>
 
       <section id="vendors" aria-labelledby="vendors-title">
@@ -201,12 +175,10 @@ const series = seriesList
             </ul>
           </section>
         ))}
-        {pending.length > 0 && (
-          <details class="pending">
-            <summary>ほか {pending.length} 製品は準備中</summary>
-            <p>{pending.join('、')}</p>
-          </details>
-        )}
+        {pendingCount > 0 && <p class="pending">ほか {pendingCount} 製品は準備中</p>}
+        <a class="all" href={ROUTES.products}>
+          すべての製品 →
+        </a>
       </section>
 
       <ul class="more">
@@ -413,18 +385,17 @@ const series = seriesList
     color: var(--color-ink-muted);
   }
 
+  .all {
+    display: inline-block;
+    margin-block-start: var(--space-3);
+    color: var(--color-key);
+    font-size: var(--text-nav);
+  }
+
   .pending {
     margin-block-start: var(--space-4);
     color: var(--color-ink-muted);
     font-size: var(--text-nav);
-  }
-
-  .pending summary {
-    cursor: pointer;
-  }
-
-  .pending p {
-    margin: var(--space-2) 0 0;
   }
 
   .more {

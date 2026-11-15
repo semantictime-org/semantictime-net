@@ -4,8 +4,8 @@ import { ROUTES } from '../../lib/article-view';
 
 // 狭い画面でも項目は隠さず、帯の中で横に送る（検索だけは 1 段目に残す）
 const NAV = [
-  { label: '製品', href: `${ROUTES.home}#vendors` },
-  { label: '連載', href: `${ROUTES.home}#series` },
+  { label: '製品', href: ROUTES.products },
+  { label: '連載', href: ROUTES.series },
   { label: 'ニュース', href: ROUTES.news },
   { label: 'バックナンバー', href: ROUTES.archive },
 ] as const;
