@@ -30,3 +30,9 @@ test('ホームからバックナンバーへ行ける', async ({ page }) => {
     '/archive/',
   );
 });
+
+test('一覧の日付は確かめ方に合わせる（出典で確かめた記事は「出典確認」）', async ({ page }) => {
+  await page.goto('/archive/2026/11/');
+  await expect(page.locator('[data-month-list] li').first()).toContainText('出典確認 2026-11-14');
+  await expect(page.locator('[data-month-list]')).toContainText('検証 2026-11-13');
+});

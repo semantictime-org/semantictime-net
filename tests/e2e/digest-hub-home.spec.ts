@@ -96,3 +96,9 @@ test('ホームの冒頭は、各社の使い方と変化をまとめるサイ�
   await expect(page.locator('h1')).toHaveText('AI の使い方と変化を、ひとつの場所で。');
   await expect(page).toHaveTitle('AI の使い方と変化を、ひとつの場所で | semantictime.net');
 });
+
+test('製品のハブは読者向けの言葉で書き、作る側の決まりを出さない', async ({ page }) => {
+  await page.goto('/claude-code/');
+  await expect(page.locator('main')).not.toContainText('記事番号は固定');
+  await expect(page.getByRole('heading', { name: '読む順に並べた記事' })).toBeVisible();
+});
