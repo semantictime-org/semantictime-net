@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>はじめての方へ</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
+@media (hover:hover){a:hover{color:#1E3A8A}}
+::selection{background:#DBE4FF;color:#12161D}
+:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
+h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li,dd{text-wrap:pretty}
+button{transition:transform 120ms ease-out,background 150ms ease-out}button:active{transform:scale(0.97)}
+</style>
+</helmet>
+<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="Header" hint-size="100%,100px"></dc-import>
+  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
+    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562"><a href="Main.dc.html">ホーム</a> › はじめての方へ</nav>
+    <div style="padding-top: 40px; max-width: 760px">
+      <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">はじめての方へ</h1>
+      <p style="margin: 16px 0 0; max-width: 38em; font-size: 18px; line-height: 1.75; color: #4D5562">このサイトは、AI の使い方を「手元で動かして確かめた手順」としてまとめています。読み方を3つだけ覚えれば、どの記事も同じように読めます。</p>
+
+      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">読み方は3つ</h2>
+      <ol style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #12161D">
+        <li style="display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 16px; padding: 24px 0; border-bottom: 1px solid #D9DDE3"><p style="margin: 0; font-size: 14px; line-height: 1.6"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-01</span><br>Claude Code <span style="font-family: 'BIZ UDGothic', monospace">2.1.325</span></p><div><p style="margin: 0; font-weight: 700">記事の上に、確かめた日と版がある</p><p style="margin: 4px 0 0; color: #4D5562">その日に、その版で、手順どおりに動いたという記録です。版が新しくなると動きが変わることがあります。</p></div></li>
+        <li style="display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 16px; padding: 24px 0; border-bottom: 1px solid #D9DDE3"><p style="margin: 0"><span style="display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: #C2410C; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; vertical-align: 1px">CC</span> <span style="font-family: 'BIZ UDGothic', monospace">07</span></p><div><p style="margin: 0; font-weight: 700">記事には番号がある</p><p style="margin: 4px 0 0; color: #4D5562">CC は Claude Code のように、記号は製品を表します。番号は記事ごとに決まっていて、変わりません。人に伝えるときは「CC07」で通じます。</p></div></li>
+        <li style="display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 16px; padding: 24px 0; border-bottom: 1px solid #D9DDE3"><p style="margin: 0; font-weight: 700; color: #B45309">見直し中</p><div><p style="margin: 0; font-weight: 700">公式が変わると「見直し中」になる</p><p style="margin: 4px 0 0; color: #4D5562">公式の変更が記事に影響しそうなときに付けます。確かめ直すまでは、手順の一部が古いかもしれません。</p></div></li>
+      </ol>
+
+      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">やりたいことから選ぶ</h2>
+      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 40px"><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: block; font-weight: 700; font-size: 17px">文章や資料をまとめたい</span><span style="display: block; font-size: 13px; color: #4D5562">Claude アプリ・ChatGPT・Gemini</span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: block; font-weight: 700; font-size: 17px">コードを書かせたい</span><span style="display: block; font-size: 13px; color: #4D5562">Claude Code・Codex・Gemini CLI</span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: block; font-weight: 700; font-size: 17px">決まった作業を自動にしたい</span><span style="display: block; font-size: 13px; color: #4D5562">Claude Code・Agent SDK・MCP</span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: block; font-weight: 700; font-size: 17px">画像を作りたい</span><span style="display: block; font-size: 13px; color: #4D5562">Midjourney・FLUX ほか</span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: block; font-weight: 700; font-size: 17px">動画を作りたい</span><span style="display: block; font-size: 13px; color: #4D5562">Sora・Veo ほか</span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: block; font-weight: 700; font-size: 17px">音声を作る・文字に起こしたい</span><span style="display: block; font-size: 13px; color: #4D5562">ElevenLabs ほか</span></a></li></ul>
+
+      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">どの AI を使えばいいか迷ったら</h2>
+      <p style="margin: 0">3つの質問に答えると、合うプランが分かります。<a href="Comparison.dc.html">Claude のプランの選び方</a></p>
+
+      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">分からない言葉があったら</h2>
+      <p style="margin: 0">MCP、トークン、コンテキストなど、よく出る言葉を短く説明しています。<a href="Glossary.dc.html">用語集</a></p>
+    </div>
+  </main>
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -40,7 +40,7 @@ h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}
     <div style="display: flex; flex-wrap: wrap; gap: 40px 64px; padding-top: 40px">
       <section aria-labelledby="route-title" style="flex: 999 1 600px; min-width: 0">
         <h2 id="route-title" style="margin: 0 0 8px; font-weight: 700; font-size: 28px; line-height: 1.4">読む順</h2>
-        <p style="margin: 0 0 24px; font-size: 14px; line-height: 1.5; color: #4D5562">上から順に読むと、はじめてでも使えるようになります。番号は記事ごとの固定の番号です。</p>
+        <p style="margin: 0 0 24px; font-size: 14px; line-height: 1.5; color: #4D5562">上から順に読むと、はじめてでも使えるようになります。番号は記事ごとの固定の番号で、読む順を入れ替えても変わりません。<span aria-hidden="true" style="display: inline-block; width: 1em"></span>読む順を見直しました <span style="font-family: 'BIZ UDGothic', monospace">2026-11-15</span></p>
         <sc-for list="{{sections}}" as="sec" hint-placeholder-count="4">
           <div>
             <h3 style="position: relative; margin: 0; padding: 16px 0 8px 28px; font-size: 13px; line-height: 1.4; font-weight: 700; color: #4D5562"><span aria-hidden="true" style="{{sec.track}}"></span>{{sec.name}}</h3>

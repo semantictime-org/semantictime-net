@@ -34,6 +34,15 @@ button:active{transform:scale(0.97)}
           <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">Hooks で保存のたびに整形する</h1>
           <p style="margin: 16px 0 0; font-size: 18px; line-height: 1.75; color: #4D5562">Claude Code がファイルを書き換えた直後に、Prettier を自動で走らせる設定です。うまく動かないときの見分け方まで扱います。</p>
         </header>
+        <section aria-label="この記事について" style="margin-top: 24px">
+          <dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px 24px; font-size: 14px; line-height: 1.5">
+            <div style="grid-column: 1 / -1"><dt style="font-size: 12px; color: #4D5562">この記事で分かること</dt><dd style="margin: 4px 0 0; font-size: 16px; line-height: 1.6">保存のたびに整形を自動で走らせる設定と、動かないときの見分け方</dd></div>
+            <div><dt style="font-size: 12px; color: #4D5562">所要時間</dt><dd style="margin: 4px 0 0">約 10 分</dd></div>
+            <div><dt style="font-size: 12px; color: #4D5562">必要なもの</dt><dd style="margin: 4px 0 0">Claude Pro 以上、Claude Code、Node.js</dd></div>
+            <div><dt style="font-size: 12px; color: #4D5562">対象</dt><dd style="margin: 4px 0 0">開発者・中級</dd></div>
+            <div><dt style="font-size: 12px; color: #4D5562">前に読む記事</dt><dd style="margin: 4px 0 0"><a href="Article.dc.html" style="font-family: 'BIZ UDGothic', monospace">CC03</a></dd></div>
+          </dl>
+        </section>
 
         <section aria-label="検証と追跡の記録" style="margin-top: 24px; border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3; padding: 16px 0">
           <dl style="margin: 0; display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 8px 16px; font-size: 14px; line-height: 1.5">
@@ -42,7 +51,7 @@ button:active{transform:scale(0.97)}
             <dt style="color: #4D5562">公式の変更の確認</dt>
             <dd style="margin: 0"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-15 06:00</span><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="display: inline-flex; align-items: center; gap: 4px; color: #15803D"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>この記事に影響する変更はなし</span></dd>
             <dt style="color: #4D5562">次の見直し</dt>
-            <dd style="margin: 0; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">2026-12-01</span> まで（30 日ごと）</dd>
+            <dd style="margin: 0; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">2026-12-01</span> まで（30 日ごと）<span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="About.dc.html">検証のしかた</a></dd>
           </dl>
         </section>
 
@@ -55,7 +64,15 @@ button:active{transform:scale(0.97)}
         </ul>
 
         <h2 id="write" style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">設定を書く</h2>
-        <p style="margin: 0 0 24px">書き換えのあとに動かしたいので、<code style="font-family: 'BIZ UDGothic', monospace; font-size: 0.85em; background: #F1F3F5; padding: 2px 4px; border-radius: 2px">PostToolUse</code> に登録します。対象は書き込みと編集の2つに絞ります。</p>
+        <p style="margin: 0 0 24px">書き換えのあとに動かしたいので、<a href="Glossary.dc.html" title="Claude Code がツールを使った直後に動くフックのイベント" style="color: inherit; text-decoration: underline dotted; text-underline-offset: 4px"><code style="font-family: 'BIZ UDGothic', monospace; font-size: 0.85em; background: #F1F3F5; padding: 2px 4px; border-radius: 2px">PostToolUse</code></a> に登録します。対象は書き込みと編集の2つに絞ります。</p>
+        <figure style="margin: 0 0 24px">
+          <div role="img" aria-label="Claude Code がファイルを書き換えると、PostToolUse のフックが動き、Prettier が整形する流れの図" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 24px; background: #F1F3F5">
+            <div style="padding: 12px 16px; border: 1px solid #12161D; border-radius: 4px; background: #FFFFFF; font-size: 14px; line-height: 1.5; text-align: center; flex: 1 1 140px; word-break: auto-phrase">Claude Code が<br>ファイルを書き換える</div><span aria-hidden="true" style="flex: 0 0 20px; display: grid; place-items: center; color: #4D5562"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18m-7-7 7 7-7 7"></path></svg></span>
+            <div style="padding: 12px 16px; border: 1px solid #12161D; border-radius: 4px; background: #FFFFFF; font-size: 14px; line-height: 1.5; text-align: center; flex: 1 1 140px; word-break: auto-phrase; border-color: #C2410C; border-width: 2px"><span style="font-family: 'BIZ UDGothic', monospace">PostToolUse</span><br>のフックが動く</div><span aria-hidden="true" style="flex: 0 0 20px; display: grid; place-items: center; color: #4D5562"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18m-7-7 7 7-7 7"></path></svg></span>
+            <div style="padding: 12px 16px; border: 1px solid #12161D; border-radius: 4px; background: #FFFFFF; font-size: 14px; line-height: 1.5; text-align: center; flex: 1 1 140px; word-break: auto-phrase"><span style="font-family: 'BIZ UDGothic', monospace">npx prettier</span><br>で整形</div>
+          </div>
+          <figcaption style="margin-top: 8px; font-size: 13px; line-height: 1.5; color: #4D5562">図1　保存から整形までの流れ</figcaption>
+        </figure>
         <figure style="margin: 0; background: #0B1B33; border-radius: 4px">
           <figcaption style="display: flex; justify-content: space-between; align-items: center; padding: 8px 8px 8px 16px; border-bottom: 1px solid #22385C; font-family: 'BIZ UDGothic', monospace; font-size: 13px; line-height: 1.4; color: #B4BFCF">.claude/settings.json<button type="button" style="min-height: 32px; padding: 0 12px; background: transparent; color: #FFFFFF; border: 1px solid #3A527A; border-radius: 4px; font-family: 'BIZ UDPGothic', sans-serif; font-size: 13px; cursor: pointer; transition: transform 120ms ease-out">コピー</button></figcaption>
           <pre style="margin: 0; padding: 16px; color: #E7ECF4; font-family: 'BIZ UDGothic', monospace; font-size: 14px; line-height: 1.7; overflow-x: auto"><code>{
@@ -79,6 +96,10 @@ button:active{transform:scale(0.97)}
           <li style="padding-left: 8px">Claude Code に、そのファイルへ1行足すよう頼む。</li>
           <li style="padding-left: 8px">保存のあと、字下げが直っていれば成功。</li>
         </ol>
+        <figure style="margin: 24px 0 0">
+          <div role="img" aria-label="画面写真の置き場所（実機で撮影して差し替える）" style="aspect-ratio: 16 / 10; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #F1F3F5 0 12px, #E7EAEE 12px 24px); border: 1px solid #D9DDE3; color: #4D5562; font-size: 14px; text-align: center; padding: 16px">実機の画面写真<br>（撮影して差し替える）</div>
+          <figcaption style="margin-top: 8px; font-size: 13px; line-height: 1.5; color: #4D5562">図2　保存のあと、字下げが直った状態（Claude Code <span style="font-family: 'BIZ UDGothic', monospace">2.1.325</span>、macOS で撮影）</figcaption>
+        </figure>
 
         <h2 id="trouble" style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">うまく動かないとき</h2>
         <div style="overflow-x: auto">
@@ -112,6 +133,10 @@ button:active{transform:scale(0.97)}
           <p style="margin: 0"><strong style="color: #12161D">改訂履歴</strong><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="font-family: 'BIZ UDGothic', monospace">2026-11-01</span> 手元で再検証し、手順 2 を書き直した。<span style="font-family: 'BIZ UDGothic', monospace">2026-10-02</span> 公開。</p>
           <p style="margin: 8px 0 0"><strong style="color: #12161D">出典</strong><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="#">Claude Code ドキュメント：Hooks</a>・<a href="#">Claude Code 変更履歴</a></p>
           <p style="margin: 8px 0 0">執筆支援：AI（下書き）。手順の検証と最終稿：shizukukai。公式の文章は転載せず、必要なところだけ出典を示して引用しています。</p>
+          <div style="margin-top: 24px; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; padding-top: 24px; border-top: 1px solid #D9DDE3">
+            <div aria-hidden="true" style="width: 48px; height: 48px; border-radius: 50%; background: #0B1B33; color: #FFFFFF; display: grid; place-items: center; font-weight: 700">s</div>
+            <div><p style="margin: 0; font-weight: 700; color: #12161D">shizukukai</p><p style="margin: 2px 0 0">手順の検証と最終稿を担当。Claude の認定資格を持つ。<a href="About.dc.html">検証のしかたと著者</a></p></div>
+          </div>
         </footer>
       </article>
 

@@ -29,13 +29,23 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
 </helmet>
 <div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
   <dc-import name="Header" hint-size="100%,100px"></dc-import>
+  <sc-if value="{{showSince}}" hint-placeholder-val="{{ true }}">
+    <div role="status" style="background: #F1F3F5; border-bottom: 1px solid #D9DDE3">
+      <div style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 8px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 14px; line-height: 1.5">
+        <span>前回の訪問（<span style="font-family: 'BIZ UDGothic', monospace">11-10</span>）のあとに、<strong>記事の更新 5 本</strong>と<strong>ニュース 3 件</strong>があります。</span>
+        <a href="Digest.dc.html">変わったところを見る</a>
+        <button type="button" onClick="{{hideSince}}" aria-label="このお知らせを閉じる" style="margin-left: auto; width: 32px; height: 32px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 4px; color: #4D5562; cursor: pointer"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+      </div>
+    </div>
+  </sc-if>
   <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
 
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 64px; padding: 64px 0; border-bottom: 1px solid #12161D">
       <div style="flex: 1 1 440px; min-width: 0">
         <section aria-labelledby="title">
           <h1 id="title" style="margin: 0; font-weight: 700; font-size: clamp(32px, 4.2vw, 48px); line-height: 1.3">検証した日と版で読む、AI の使い方</h1>
-          <p style="margin: 24px 0 0; max-width: 32em; font-size: 16px; line-height: 1.75; color: #4D5562">Claude を中心に、ChatGPT・Gemini・画像や動画の生成 AI まで扱います。手順の記事はすべて手元で動かして確かめ、公式に変更があれば、影響する記事を見直します。</p>
+          <p style="margin: 24px 0 0; max-width: 32em; font-size: 16px; line-height: 1.75; color: #4D5562">Claude・ChatGPT・Gemini から画像・動画・音声の生成 AI まで、同じ基準で扱います。手順の記事はすべて手元で動かして確かめ、公式に変更があれば、影響する記事を見直します。</p>
+          <p style="margin: 16px 0 0; font-size: 15px"><a href="Start.dc.html">はじめての方へ：このサイトの読み方</a><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="About.dc.html">検証のしかた</a></p>
         </section>
         <section aria-labelledby="run-title" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #D9DDE3">
           <h2 id="run-title" style="margin: 0 0 16px; font-size: 14px; line-height: 1.5; font-weight: 700">直近の変更と、このサイトの対応</h2>
@@ -102,51 +112,49 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
       </figure>
     </div>
 
-    <div style="display: flex; flex-wrap: wrap; gap: 40px 64px; padding-top: 64px">
-      <section aria-labelledby="claude-title" style="flex: 2 1 600px; min-width: 0">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
-          <h2 id="claude-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">Claude</h2>
-          <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">すべて手元で検証した記事　<span style="font-family: 'BIZ UDGothic', monospace">{{claudeTotal}}</span> 本</p>
-        </div>
-        <sc-if value="{{noClaude}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">まだ公開した記事がありません。</p></sc-if>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 40px 40px; padding-top: 24px">
-          <sc-for list="{{claude}}" as="r" hint-placeholder-count="3">
-            <section>
-              <h3 style="margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 1.5; font-weight: 700">
-                <span style="{{r.code}}">{{r.id}}</span><a href="Hub.dc.html" style="color: #12161D; text-decoration: none">{{r.name}}</a>
-              </h3>
-              <ol style="list-style: none; margin: 0; padding: 0">
-                <sc-for list="{{r.stations}}" as="s" hint-placeholder-count="4">
-                  <li style="position: relative; padding-left: 28px">
-                    <span aria-hidden="true" style="{{s.track}}"></span>
-                    <span aria-hidden="true" style="{{s.dot}}"></span>
-                    <a href="Article.dc.html" style="display: block; padding: 8px 0; color: #12161D; text-decoration: none">
-                      <span style="display: block; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere">{{s.title}}</span>
-                      <span style="display: block; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{s.no}}　{{s.date}}</span><span style="{{s.flagStyle}}">{{s.flag}}</span></span>
-                    </a>
-                  </li>
-                </sc-for>
-              </ol>
-            </section>
-          </sc-for>
-        </div>
-      </section>
+    <section aria-labelledby="goal-title" style="padding-top: 64px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
+        <h2 id="goal-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">やりたいことから探す</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">製品名が分からなくても大丈夫です。<a href="Start.dc.html">はじめての方へ</a></p>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 40px"><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">文章や資料をまとめたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Claude アプリ・ChatGPT・Gemini　<span style="font-family: 'BIZ UDGothic', monospace">14</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M5 15h38M11 11h2m4 0h2m-3 11-6 6 6 6m16-12 6 6-6 6m-6-14-4 16"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">コードを書かせたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Claude Code・Codex・Gemini CLI　<span style="font-family: 'BIZ UDGothic', monospace">31</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M24 6v6m0 24v6M6 24h6m24 0h6"></path><circle cx="24" cy="24" r="10"></circle><path d="m20 24 3 3 5-6"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">決まった作業を自動にしたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Claude Code・Agent SDK・MCP　<span style="font-family: 'BIZ UDGothic', monospace">17</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">画像を作りたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Midjourney・FLUX ほか　<span style="font-family: 'BIZ UDGothic', monospace">4</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M12 7v34M36 7v34M5 17h7M5 31h7m24-14h7m-7 14h7m-23-7V18l9 6-9 6v-6Z"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">動画を作りたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Sora・Veo ほか　<span style="font-family: 'BIZ UDGothic', monospace">2</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M6 20v8m8-14v20M24 6v36m10-28v20m8-14v8"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">音声を作る・文字に起こしたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">ElevenLabs ほか　<span style="font-family: 'BIZ UDGothic', monospace">2</span> 本</span></span></a></li></ul>
+    </section>
 
-      <aside aria-labelledby="others-title" style="flex: 1 1 300px; min-width: 0">
-        <h2 id="others-title" style="margin: 0; padding-bottom: 16px; border-bottom: 1px solid #12161D; font-size: 20px; line-height: 1.6; font-weight: 700">ほかの AI と比べる</h2>
-        <sc-if value="{{noOthers}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">比較の記事は準備中です。</p></sc-if>
-        <sc-for list="{{others}}" as="o" hint-placeholder-count="3">
-          <section style="padding: 24px 0 8px">
-            <h3 style="margin: 0 0 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 16px; line-height: 1.5; font-weight: 700"><sc-if value="{{o.isMedia}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #4D5562"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg></sc-if><sc-if value="{{o.isChat}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #4D5562"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg></sc-if><span style="{{o.code}}">{{o.id}}</span><span style="min-width: 0; overflow-wrap: anywhere">{{o.name}}<span style="display: block; font-size: 12px; font-weight: 400; color: #4D5562">{{o.vendor}}</span></span></h3>
-            <ul style="list-style: none; margin: 0; padding: 0">
-              <sc-for list="{{o.items}}" as="it" hint-placeholder-count="2">
-                <li style="border-top: 1px solid #D9DDE3"><a href="Article.dc.html" style="display: block; padding: 8px 0; font-size: 15px; line-height: 1.6; color: #12161D; text-decoration: none; overflow-wrap: anywhere">{{it}}</a></li>
-              </sc-for>
-            </ul>
+    <section aria-labelledby="lines-title" style="padding-top: 64px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
+        <h2 id="lines-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">会社と製品</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">すべて手元で検証した記事　<span style="font-family: 'BIZ UDGothic', monospace">{{total}}</span> 本<span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="#">RSS で更新を受け取る</a></p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; padding-top: 16px; font-size: 14px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="2"><span role="group" aria-label="{{f.label}}" style="display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px"><span style="color: #4D5562">{{f.label}}</span><sc-for list="{{f.options}}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" style="{{o.style}}">{{o.name}}</button></sc-for></span></sc-for>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; padding-top: 24px">
+        <sc-for list="{{companies}}" as="c" hint-placeholder-count="4">
+          <section aria-label="{{c.name}}" style="min-width: 0">
+            <h3 style="margin: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 8px; padding-bottom: 8px; border-bottom: 1px solid #D9DDE3; font-size: 20px; line-height: 1.5; font-weight: 700"><span style="min-width: 0; overflow-wrap: anywhere">{{c.name}}</span><span style="font-size: 13px; font-weight: 400; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{c.count}}</span> 本</span></h3>
+            <sc-if value="{{c.isEmpty}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">{{c.emptyText}}</p></sc-if>
+            <sc-for list="{{c.routes}}" as="r" hint-placeholder-count="2">
+              <div style="padding-top: 16px">
+                <h4 style="margin: 0 0 4px; display: flex; align-items: flex-start; gap: 8px; font-size: 16px; line-height: 1.5; font-weight: 700"><span style="{{r.code}}">{{r.id}}</span><a href="Hub.dc.html" style="min-width: 0; overflow-wrap: anywhere; color: #12161D; text-decoration: none">{{r.name}}<span style="{{r.vendorStyle}}">{{r.vendor}}</span></a></h4>
+                <ol style="list-style: none; margin: 0; padding: 0">
+                  <sc-for list="{{r.stations}}" as="s" hint-placeholder-count="2">
+                    <li style="position: relative; padding-left: 28px">
+                      <span aria-hidden="true" style="{{s.track}}"></span>
+                      <span aria-hidden="true" style="{{s.dot}}"></span>
+                      <a href="Article.dc.html" style="display: block; padding: 8px 0; color: #12161D; text-decoration: none">
+                        <span style="display: block; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere">{{s.title}}</span>
+                        <span style="display: block; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{s.no}}　{{s.date}}</span>　{{s.level}}<span style="{{s.flagStyle}}">{{s.flag}}</span></span>
+                      </a>
+                    </li>
+                  </sc-for>
+                </ol>
+                <a href="Hub.dc.html" class="more" style="{{r.moreStyle}}">{{r.moreLabel}}<svg class="more-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a>
+              </div>
+            </sc-for>
           </section>
         </sc-for>
-      </aside>
-    </div>
+      </div>
+    </section>
 
     <details style="margin-top: 64px; border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3">
       <summary style="cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding: 16px 0">
@@ -155,10 +163,10 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
       </summary>
       <div style="overflow-x: auto">
         <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.5">
-          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562"><th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400">製品</th><th scope="col" style="padding: 8px 16px; font-weight: 400">会社</th><th scope="col" style="padding: 8px 16px; font-weight: 400">状況</th><th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400">内容</th></tr></thead>
+          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562"><th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400">製品</th><th scope="col" style="padding: 8px 16px; font-weight: 400">会社</th><th scope="col" style="padding: 8px 16px; font-weight: 400">状況</th><th scope="col" style="padding: 8px 16px; font-weight: 400">内容</th><th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400">フォロー</th></tr></thead>
           <tbody>
             <sc-for list="{{status}}" as="st" hint-placeholder-count="8">
-              <tr style="border-top: 1px solid #D9DDE3"><th scope="row" style="padding: 8px 16px 8px 0; text-align: left; font-weight: 700; white-space: nowrap"><span style="{{st.code}}">{{st.id}}</span> {{st.name}}</th><td style="padding: 8px 16px; color: #4D5562">{{st.vendor}}</td><td style="{{st.stateStyle}}">{{st.state}}</td><td style="padding: 8px 0 8px 16px">{{st.detail}}</td></tr>
+              <tr style="border-top: 1px solid #D9DDE3"><th scope="row" style="padding: 8px 16px 8px 0; text-align: left; font-weight: 700; white-space: nowrap"><span style="{{st.code}}">{{st.id}}</span> {{st.name}}</th><td style="padding: 8px 16px; color: #4D5562">{{st.vendor}}</td><td style="{{st.stateStyle}}">{{st.state}}</td><td style="padding: 8px 16px">{{st.detail}}</td><td style="padding: 8px 0 8px 16px; white-space: nowrap"><a href="#">RSS</a></td></tr>
             </sc-for>
           </tbody>
         </table>
@@ -179,6 +187,7 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
               <span>
                 <span style="display: block; font-size: 17px; line-height: 1.6; font-weight: 700; overflow-wrap: anywhere">{{n.title}}</span>
                 <span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: #4D5562; overflow-wrap: anywhere">{{n.product}}　出典：{{n.source}}</span>
+                <span style="{{n.whoStyle}}">{{n.who}}</span>
               </span>
             </a>
           </li>
@@ -196,7 +205,7 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { ds: 'demo' };
+    this.state = { ds: 'demo', role: 'すべて', level: 'すべて', since: true };
   }
   renderVals() {
     const ds = this.state.ds;
@@ -219,37 +228,71 @@ class Component extends DCLogic {
     const line = (color, i, n) => 'position: absolute; left: 6px; width: 4px; background: ' + color + '; top: ' + (i === 0 ? '19px' : '0') + '; bottom: ' + (i === n - 1 ? 'calc(100% - 19px)' : '0');
     const dot = (color) => 'position: absolute; left: 0; top: 12px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 3px solid ' + color + '; background: #FFFFFF';
     const FLAG = { review: '見直し中', stale: '期限切れ' };
-    const route = (id, name, color, list) => ({
-      id, name, code: code(color),
+    const META = { CC01: ['入門', 'all'], CC03: ['入門', 'dev'], CC07: ['中級', 'dev'], CC12: ['上級', 'dev'], AP01: ['入門', 'dev'], AP03: ['中級', 'dev'], AP06: ['上級', 'dev'], MC01: ['入門', 'dev'], MC03: ['上級', 'dev'], MC05: ['中級', 'dev'], CA01: ['入門', 'all'], CA02: ['入門', 'all'], CG01: ['入門', 'all'], CG02: ['中級', 'all'], CG04: ['入門', 'all'], CX01: ['入門', 'dev'], CX03: ['中級', 'dev'], SO01: ['入門', 'all'], GM01: ['入門', 'all'], GM03: ['入門', 'all'], GC01: ['入門', 'dev'], GC02: ['上級', 'dev'], MJ01: ['入門', 'all'], MJ03: ['中級', 'all'], FX01: ['中級', 'all'] };
+    const st = this.state;
+    const keep = ([no]) => { const m = META[no] || ['中級', 'dev']; return (st.level === 'すべて' || m[0] === st.level) && (st.role === 'すべて' || (st.role === '開発者' ? true : m[1] === 'all')); };
+    const LINES = {
+      CC: ['Claude Code', '#C2410C'], AP: ['Claude API', '#9D174D'], MC: ['MCP', '#854D0E'], CA: ['Claude アプリ', '#BE123C'], CR: ['Claude for Chrome（ブラウザ拡張）', '#7C2D12'],
+      CG: ['ChatGPT', '#3F3F46'], CX: ['Codex', '#1E293B'], SO: ['Sora', '#52525B'],
+      GM: ['Gemini', '#0369A1'], GC: ['Gemini CLI', '#047857'], GA: ['Gemini Code Assist for GitHub', '#047857'],
+      MJ: ['Midjourney', '#6D28D9'], FX: ['FLUX.1 Kontext [pro]', '#7E22CE'],
+    };
+    const VENDOR = { FX: 'Black Forest Labs' };
+    const SHOW = 2;
+    const route = (id, count, all) => { const list = all.filter(keep).slice(0, SHOW); const [name, color] = LINES[id]; return {
+      id, name, count, code: code(color), vendor: VENDOR[id] || '',
+      vendorStyle: VENDOR[id] ? 'display: block; font-size: 12px; font-weight: 400; color: #4D5562' : 'display: none',
+      moreLabel: 'すべて見る（' + count + ' 本）',
+      moreStyle: count > list.length && list.length > 0 ? 'display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; font-size: 13px; line-height: 1.5' : 'display: none',
       stations: list.map(([no, title, date, flag], i) => ({
         no, title, date,
         flag: flag ? '　' + FLAG[flag] : '',
         flagStyle: flag ? 'font-weight: 700; color: ' + (flag === 'stale' ? '#B91C1C' : '#B45309') : 'display: none',
+        level: (META[no] || ['中級'])[0],
         track: line(color, i, list.length), dot: dot(color),
       })),
+    }; };
+    const COMPANY = [['anthropic', 'Anthropic'], ['openai', 'OpenAI'], ['google', 'Google'], ['media', '画像・動画・音声']];
+    const DATA_DEMO = {
+      anthropic: [
+        route('CC', 24, [['CC01', 'インストールと最初の依頼', '11-09'], ['CC03', 'CLAUDE.md で手順を覚えさせる', '11-06'], ['CC07', 'Hooks で保存のたびに整形する', '11-01'], ['CC12', 'settings.json の設定項目', '11-03', 'review']]),
+        route('AP', 12, [['AP01', 'はじめての API 呼び出し', '11-11'], ['AP03', 'ツール使用の基本', '11-02'], ['AP06', 'プロンプトキャッシュで料金を減らす', '11-15']]),
+        route('MC', 9, [['MC01', 'はじめての MCP サーバーをつなぐ', '10-20', 'review'], ['MC05', 'MCP の設定ファイル', '11-09'], ['MC03', 'リモート MCP サーバーの認証', '11-04']]),
+        route('CA', 7, [['CA01', 'プランの選び方', '11-13'], ['CA02', 'プロジェクトで資料を共有する', '11-05']]),
+      ],
+      openai: [
+        route('CG', 5, [['CG01', 'ChatGPT のはじめかた', '11-10'], ['CG02', 'GPT を自分用に作る', '11-03'], ['CG04', 'ChatGPT と Claude の使い分け', '11-07']]),
+        route('CX', 3, [['CX01', 'Codex CLI を入れて最初の依頼', '11-08'], ['CX03', 'Codex と Claude Code の比較', '09-30', 'stale']]),
+        route('SO', 1, [['SO01', 'Sora で短い動画を作る', '11-12']]),
+      ],
+      google: [
+        route('GM', 4, [['GM01', 'Gemini のはじめかた', '11-11'], ['GM03', 'Gemini と Claude の使い分け', '11-07']]),
+        route('GC', 3, [['GC01', 'Gemini CLI を入れて最初の依頼', '11-06'], ['GC02', 'Gemini CLI の設定ファイル', '10-29']]),
+      ],
+      media: [
+        route('MJ', 4, [['MJ01', 'Midjourney で最初の画像を作る', '11-09'], ['MJ03', '画像の縦横比と画風を指定する', '11-02']]),
+        route('FX', 2, [['FX01', 'FLUX で商品写真の背景を差し替える', '11-05']]),
+      ],
+    };
+    const DATA_WORST = {
+      anthropic: [
+        route('CC', 3, [['CC31', 'PreToolUse と PostToolUse を組み合わせ、保存のたびに整形・型検査・テストを順に走らせて、失敗したときだけ止める', '11-15'], ['CC32', 'mcp__claude_ai_Google_Drive__download_file_content を許可リストに入れる', '10-24', 'stale'], ['CC33', 'MCP', '11-14', 'review']]),
+        route('CR', 1, [['CR01', 'Claude for Chrome で、ログインが必要なページの表を読み取って要約する', '11-12']]),
+        route('AP', 0, []),
+      ],
+      openai: [],
+      google: [route('GA', 1, [['GA01', 'Gemini Code Assist for GitHub でプルリクエストの自動レビューを有効にする', '11-14', 'review']])],
+      media: [route('FX', 1, [['FX01', 'FLUX.1 Kontext [pro] で、商品写真の背景だけを差し替えて、影と反射を自然に残す', '11-13']])],
+    };
+    const DATA_ONE = { anthropic: [route('CC', 1, [['CC01', 'インストールと最初の依頼', '11-09']])], openai: [], google: [], media: [] };
+    const DATA = { demo: DATA_DEMO, worst: DATA_WORST, empty: { anthropic: [], openai: [], google: [], media: [] }, one: DATA_ONE }[ds];
+    const companies = COMPANY.map(([key, name]) => {
+      const routes = DATA[key].filter((r) => r.stations.length > 0);
+      const count = DATA[key].reduce((n, r) => n + r.count, 0);
+      const filtered = count > 0 && routes.length === 0;
+      return { name, count, routes, isEmpty: routes.length === 0, emptyText: filtered ? 'この条件に合う記事はありません。' : 'まだ公開した記事がありません。' };
     });
-    const CLAUDE_DEMO = [
-      route('CC', 'Claude Code', '#C2410C', [['CC01', 'インストールと最初の依頼', '11-09'], ['CC03', 'CLAUDE.md で手順を覚えさせる', '11-06'], ['CC07', 'Hooks で保存のたびに整形する', '11-01'], ['CC12', 'settings.json の設定項目', '11-03', 'review']]),
-      route('AP', 'Claude API', '#9D174D', [['AP01', 'はじめての API 呼び出し', '11-11'], ['AP03', 'ツール使用の基本', '11-02'], ['AP06', 'プロンプトキャッシュで料金を減らす', '11-15']]),
-      route('MC', 'MCP', '#854D0E', [['MC01', 'はじめての MCP サーバーをつなぐ', '10-20', 'review'], ['MC03', 'リモート MCP サーバーの認証', '11-04'], ['MC05', 'MCP の設定ファイル', '11-09']]),
-      route('CA', 'Claude アプリ', '#BE123C', [['CA01', 'プランの選び方', '11-13'], ['CA02', 'プロジェクトで資料を共有する', '11-05']]),
-    ];
-    const CLAUDE_WORST = [
-      route('CC', 'Claude Code', '#C2410C', [['CC31', 'PreToolUse と PostToolUse を組み合わせ、保存のたびに整形・型検査・テストを順に走らせて、失敗したときだけ止める', '11-15'], ['CC32', 'mcp__claude_ai_Google_Drive__download_file_content を許可リストに入れる', '10-24', 'stale'], ['CC33', 'MCP', '11-14', 'review']]),
-      route('CR', 'Claude for Chrome（ブラウザ拡張）', '#7C2D12', [['CR01', 'Claude for Chrome で、ログインが必要なページの表を読み取って要約する', '11-12']]),
-      route('AP', 'Claude API', '#9D174D', []),
-    ];
-    const claude = { demo: CLAUDE_DEMO, worst: CLAUDE_WORST, empty: [], one: [route('CC', 'Claude Code', '#C2410C', [['CC01', 'インストールと最初の依頼', '11-09']])] }[ds];
-    const OTHERS_DEMO = [
-      { id: 'CG', name: 'ChatGPT', vendor: 'OpenAI', isChat: true, isMedia: false, code: code('#3F3F46'), items: ['ChatGPT と Claude の使い分け', 'Codex と Claude Code の比較'] },
-      { id: 'GM', name: 'Gemini', vendor: 'Google', isChat: true, isMedia: false, code: code('#0369A1'), items: ['Gemini と Claude の使い分け', 'Gemini CLI と Claude Code の比較'] },
-      { id: 'MJ', name: '画像・動画・音声', vendor: '各社', isChat: false, isMedia: true, code: code('#6D28D9'), items: ['画像生成 AI の選び方', '動画生成 AI でできること、できないこと'] },
-    ];
-    const OTHERS_WORST = [
-      { id: 'FX', name: 'FLUX.1 Kontext [pro]', vendor: 'Black Forest Labs', isChat: false, isMedia: true, code: code('#6D28D9'), items: ['FLUX.1 Kontext [pro] で、商品写真の背景だけを差し替えて、影と反射を自然に残す'] },
-      { id: 'GC', name: 'Gemini Code Assist for GitHub', vendor: 'Google', isChat: true, isMedia: false, code: code('#047857'), items: [] },
-    ];
-    const others = { demo: OTHERS_DEMO, worst: OTHERS_WORST, empty: [], one: [OTHERS_DEMO[0]] }[ds];
+    const total = companies.reduce((n, c) => n + c.count, 0);
     const S = (id, name, color, vendor, state, detail) => ({
       id, name, vendor, state, detail, code: code(color),
       stateStyle: 'padding: 8px 16px; white-space: nowrap; ' + (state === '見直し中' ? 'font-weight: 700; color: #B45309' : state === '期限切れあり' ? 'font-weight: 700; color: #B91C1C' : 'color: #4D5562'),
@@ -270,27 +313,29 @@ class Component extends DCLogic {
     ];
     const status = { demo: STATUS_DEMO, worst: STATUS_WORST, empty: [], one: [STATUS_DEMO[0]] }[ds];
     const NEWS_DEMO = [
-      { date: '11-15', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
-      { date: '11-14', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
-      { date: '11-13', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
-      { date: '11-12', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
+      { date: '11-15', who: '誰に影響：Gemini アプリを使っている人。やること：なし', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
+      { date: '11-14', who: '誰に影響：ステータス行を自分で設定している人。やること：設定を新しい書き方に直す', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
+      { date: '11-13', who: '誰に影響：無料プランの人。やること：なし', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
+      { date: '11-12', who: '誰に影響：日本から使いたい人。やること：提供地域を確認', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
     ];
     const NEWS_WORST = [
       { date: '11-15', title: 'Anthropic が Claude の新しいモデルを公開し、API・アプリ・Claude Code のすべてで既定のモデルが切り替わった（例）', product: 'Claude API・Claude アプリ・Claude Code', source: 'https://platform.claude.com/docs/en/release-notes/overview' },
       { date: '11-14', title: 'AI', product: 'FLUX.1 Kontext [pro]', source: 'Black Forest Labs 公式ブログ（英語）' },
     ];
+    NEWS_WORST.forEach((n) => { n.who = n.who || ''; });
     const news = { demo: NEWS_DEMO, worst: NEWS_WORST, empty: [], one: [NEWS_DEMO[0]] }[ds];
-    const claudeShown = claude.filter((r) => r.stations.length > 0);
-    const othersShown = others.filter((o) => o.items.length > 0);
-    const claudeTotal = { demo: 58, worst: 4, empty: 0, one: 1 }[ds];
     const needs = status.filter((x) => x.state !== '期限内');
     const flags = {
-      noRun: RUN.length === 0, noClaude: claudeShown.length === 0, noOthers: othersShown.length === 0, noNews: news.length === 0,
-      hasNeeds: needs.length > 0, noNeeds: needs.length === 0, needCount: needs.length, needNames: needs.map((x) => x.name).join('・'), claudeTotal,
+      noRun: RUN.length === 0, noNews: news.length === 0,
+      hasNeeds: needs.length > 0, noNeeds: needs.length === 0, needCount: needs.length, needNames: needs.map((x) => x.name).join('・'), total,
     };
+    const optStyle = (on) => 'border: 1px solid ' + (on ? '#12161D' : '#D9DDE3') + '; background: ' + (on ? '#12161D' : '#FFFFFF') + '; color: ' + (on ? '#FFFFFF' : '#12161D') + '; border-radius: 4px; padding: 4px 12px; font: inherit; font-size: 14px; cursor: pointer';
+    const opts = (key, names) => names.map((n) => ({ name: n, pressed: st[key] === n ? 'true' : 'false', pick: () => this.setState({ [key]: n }), style: optStyle(st[key] === n) }));
+    const filters = [{ label: '対象', options: opts('role', ['すべて', '開発者', 'ビジネス職']) }, { label: '難易度', options: opts('level', ['すべて', '入門', '中級', '上級']) }];
     const DS = [['demo', 'デモ'], ['worst', '最悪'], ['empty', '空'], ['one', '1件']];
+    const newsShown = news.map((n) => ({ ...n, whoStyle: n.who ? 'display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #12161D' : 'display: none' }));
     const toggle = DS.map(([key, label]) => ({ label, pick: () => this.setState({ ds: key }), style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (ds === key ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
-    return { run, claude: claudeShown, others: othersShown, status, news, toggle, ...flags };
+    return { filters, showSince: st.since, hideSince: () => this.setState({ since: false }), run, companies, status, news: newsShown, toggle, ...flags };
   }
 }
 </script>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>検索結果</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
+@media (hover:hover){a:hover{color:#1E3A8A}}
+::selection{background:#DBE4FF;color:#12161D}
+:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
+h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li,dd{text-wrap:pretty}
+button{transition:transform 120ms ease-out,background 150ms ease-out}button:active{transform:scale(0.97)}
+</style>
+</helmet>
+<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="Header" hint-size="100%,100px"></dc-import>
+  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
+    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562"><a href="Main.dc.html">ホーム</a> › 検索</nav>
+    <div style="padding-top: 40px">
+      <form role="search" style="display: flex; gap: 8px; max-width: 760px">
+        <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">サイト内を検索</label>
+        <input id="q" type="search" value="{{query}}" style="flex: 1 1 auto; min-width: 0; height: 48px; box-sizing: border-box; padding: 0 16px; font: inherit; font-size: 18px; color: #12161D; border: 1px solid #12161D; border-radius: 4px">
+        <button type="button" style="height: 48px; padding: 0 24px; background: #12161D; color: #FFFFFF; border: 0; border-radius: 4px; font: inherit; font-size: 15px; cursor: pointer">検索</button>
+      </form>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; margin-top: 24px; font-size: 14px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><span role="group" aria-label="{{f.label}}" style="display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px"><span style="color: #4D5562">{{f.label}}</span><sc-for list="{{f.options}}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" style="{{o.style}}">{{o.name}}</button></sc-for></span></sc-for>
+      </div>
+      <sc-if value="{{hasResults}}" hint-placeholder-val="{{ true }}">
+        <p style="margin: 24px 0 0; font-size: 14px; color: #4D5562">「{{query}}」の検索結果　<span style="font-family: 'BIZ UDGothic', monospace">{{count}}</span> 件</p>
+        <ol style="list-style: none; margin: 8px 0 0; padding: 0; max-width: 860px; border-top: 1px solid #12161D">
+          <sc-for list="{{results}}" as="r" hint-placeholder-count="4">
+            <li style="border-bottom: 1px solid #D9DDE3"><a href="Article.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none">
+              <span style="display: block; font-size: 13px; color: #4D5562"><span style="{{r.code}}">{{r.id}}</span> <span style="font-family: 'BIZ UDGothic', monospace">{{r.no}}</span>　{{r.kind}}　{{r.date}}</span>
+              <span style="display: block; margin-top: 4px; font-size: 18px; font-weight: 700; overflow-wrap: anywhere">{{r.title}}</span>
+              <span style="display: block; margin-top: 4px; font-size: 15px; color: #4D5562">{{r.before}}<mark style="background: #FFF1B8; color: #12161D; padding: 0 2px">{{r.hit}}</mark>{{r.after}}</span>
+            </a></li>
+          </sc-for>
+        </ol>
+      </sc-if>
+      <sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}">
+        <section style="margin-top: 40px; max-width: 760px; border-top: 1px solid #12161D; padding-top: 24px">
+          <h1 style="margin: 0; font-size: 24px; line-height: 1.5; font-weight: 700">「{{query}}」に合う記事は見つかりませんでした</h1>
+          <ul style="margin: 16px 0 0; padding-left: 1.2em; color: #4D5562"><li>別の言い方で探す（例：「自動で整形」→「Hooks」）</li><li>絞り込みを外す</li><li><a href="Glossary.dc.html">用語集</a>で言葉を調べる</li></ul>
+          <p style="margin: 24px 0 8px; font-size: 14px; font-weight: 700">よく探されている言葉</p>
+          <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px 16px"><a href="#">Hooks</a><a href="#">MCP</a><a href="#">プランの選び方</a><a href="#">プロンプトキャッシュ</a></p>
+        </section>
+      </sc-if>
+    </div>
+  <div role="group" aria-label="データの切り替え（検証用）" style="position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 10; display: flex; gap: 2px; padding: 3px; background: #E5E5E5; border-radius: 999px"><sc-for list="{{toggle}}" as="t" hint-placeholder-count="2"><button type="button" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button></sc-for></div>
+  </main>
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ds: 'hit', product: 'すべて', kind: 'すべて', role: 'すべて' };
+  }
+  renderVals() {
+    const st = this.state;
+    const code = (c) => "display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: " + c + "; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; vertical-align: 1px";
+    const ALL = [
+      { id: 'CC', c: '#C2410C', no: '07', kind: 'ハウツー', role: '開発者', date: '検証 11-01', title: 'Hooks で保存のたびに整形する', before: '書き換えの直後に決まったコマンドを動かす ', hit: 'Hooks', after: ' の設定。' },
+      { id: 'CC', c: '#C2410C', no: '13', kind: '現行仕様', role: '開発者', date: '検証 11-02', title: 'Hooks のイベント', before: '', hit: 'Hooks', after: ' で使えるイベントの一覧と、それぞれが動く時点。' },
+      { id: 'SD', c: '#7C2D12', no: '02', kind: 'ハウツー', role: '開発者', date: '検証 10-28', title: 'Agent SDK で Hooks を使う', before: 'Agent SDK から ', hit: 'Hooks', after: ' を登録する方法。' },
+      { id: 'GC', c: '#047857', no: '01', kind: '比較', role: 'ビジネス職', date: '検証 11-02', title: 'Gemini CLI と Claude Code の比較', before: '自動で整形する仕組み（Claude Code の ', hit: 'Hooks', after: ' など）の違いも比べる。' },
+    ];
+    const pick = (key, val) => () => this.setState({ [key]: val });
+    const opt = (key, names) => names.map((n) => ({ name: n, pressed: st[key] === n ? 'true' : 'false', pick: pick(key, n),
+      style: 'border: 1px solid ' + (st[key] === n ? '#12161D' : '#D9DDE3') + '; background: ' + (st[key] === n ? '#12161D' : '#FFFFFF') + '; color: ' + (st[key] === n ? '#FFFFFF' : '#12161D') + '; border-radius: 4px; padding: 4px 12px; font: inherit; font-size: 14px; cursor: pointer' }));
+    const filters = [
+      { label: '製品', options: opt('product', ['すべて', 'Claude Code', 'ほかの製品']) },
+      { label: '種類', options: opt('kind', ['すべて', 'ハウツー', '現行仕様', '比較']) },
+      { label: '対象', options: opt('role', ['すべて', '開発者', 'ビジネス職']) },
+    ];
+    const results = (st.ds === 'none' ? [] : ALL)
+      .filter((r) => st.product === 'すべて' || (st.product === 'Claude Code' ? r.id === 'CC' : r.id !== 'CC'))
+      .filter((r) => st.kind === 'すべて' || r.kind === st.kind)
+      .filter((r) => st.role === 'すべて' || r.role === st.role)
+      .map((r) => ({ ...r, code: code(r.c) }));
+    const toggle = [['hit', '結果あり'], ['none', '結果なし']].map(([k, l]) => ({ label: l, pick: () => this.setState({ ds: k }),
+      style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (st.ds === k ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
+    const query = st.ds === 'none' ? '保存したら自動できれいにする' : 'Hooks';
+    return { query, filters, results, count: results.length, hasResults: results.length > 0, noResults: results.length === 0, toggle };
+  }
+}
+</script>
+</body>
+</html>

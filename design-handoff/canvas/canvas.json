@@ -35,7 +35,7 @@
       "x": 0,
       "y": 1900,
       "w": 1280,
-      "h": 3600,
+      "h": 3400,
       "expand": "fill",
       "title": "01 ホーム",
       "is_interactive": true
@@ -62,7 +62,8 @@
       "w": 1280,
       "h": 2100,
       "expand": "fill",
-      "title": "04 比較"
+      "title": "04 比較",
+      "is_interactive": true
     },
     "Digest.dc.html": {
       "x": 5440,
@@ -121,6 +122,55 @@
       "w": 390,
       "h": 5000,
       "title": "06 製品（モバイル）"
+    },
+    "NewsArticle.dc.html": {
+      "x": 8160,
+      "y": 1900,
+      "w": 1280,
+      "h": 1800,
+      "expand": "fill",
+      "title": "07 ニュース記事"
+    },
+    "Start.dc.html": {
+      "x": 9520,
+      "y": 1900,
+      "w": 1280,
+      "h": 2200,
+      "expand": "fill",
+      "title": "08 はじめての方へ"
+    },
+    "About.dc.html": {
+      "x": 10880,
+      "y": 1900,
+      "w": 1280,
+      "h": 2300,
+      "expand": "fill",
+      "title": "09 検証のしかたと著者"
+    },
+    "Glossary.dc.html": {
+      "x": 12240,
+      "y": 1900,
+      "w": 1280,
+      "h": 2000,
+      "expand": "fill",
+      "title": "10 用語集"
+    },
+    "Search.dc.html": {
+      "x": 13600,
+      "y": 1900,
+      "w": 1280,
+      "h": 1600,
+      "expand": "fill",
+      "title": "11 検索結果",
+      "is_interactive": true
+    },
+    "NotFound.dc.html": {
+      "x": 14960,
+      "y": 1900,
+      "w": 1280,
+      "h": 1300,
+      "expand": "fill",
+      "title": "12 見つからないページ（404）"
     }
   },
   "order": [
@@ -138,7 +188,13 @@
     "ReferenceMobile.dc.html",
     "ComparisonMobile.dc.html",
     "DigestMobile.dc.html",
-    "HubMobile.dc.html"
+    "HubMobile.dc.html",
+    "NewsArticle.dc.html",
+    "Start.dc.html",
+    "About.dc.html",
+    "Glossary.dc.html",
+    "Search.dc.html",
+    "NotFound.dc.html"
   ],
   "notes": {
     "row1": {
@@ -153,14 +209,14 @@
       "y": 1600,
       "text": "デスクトップ（幅 1280）",
       "kind": "title1",
-      "maxW": 8080
+      "maxW": 16320
     },
     "row3": {
       "x": 0,
       "y": 5700,
       "text": "モバイル（幅 390）",
       "kind": "title1",
-      "maxW": 8080
+      "maxW": 16320
     },
     "dummy": {
       "x": 2720,
