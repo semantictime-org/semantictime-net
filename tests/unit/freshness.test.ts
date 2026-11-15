@@ -23,10 +23,13 @@ describe('reviewIntervalFor（T313）', () => {
 
 describe('tracksFreshness（T312）', () => {
   test('実機で検証した記事は鮮度を判定する', () => {
-    expect(tracksFreshness('hands-on')).toBe(true);
+    expect(tracksFreshness('hands-on', 'how-to')).toBe(true);
   });
-  test('出典で確かめた記事（ニュース）は判定しない（日付つきの記録として残す）', () => {
-    expect(tracksFreshness('sources')).toBe(false);
+  test('ニュースは判定しない（日付つきの記録として残す）', () => {
+    expect(tracksFreshness('sources', 'news')).toBe(false);
+  });
+  test('出典で確かめた解説も判定する（2026-11-16 決定。解説は 180 日）', () => {
+    expect(tracksFreshness('sources', 'explanation')).toBe(true);
   });
 });
 

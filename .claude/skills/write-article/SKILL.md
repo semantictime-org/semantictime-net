@@ -48,6 +48,7 @@ aiAssisted: draft # Claude が下書きしたら draft。人が大きく書き�
 
 - `changes` は `type: news` のときだけ書く。各項目の `product` は products.yaml の `id`。
 - 読む順は記事ではなく `products.yaml` の `route` に slug を足して決める。入れ替えても `stationNo` と URL は変えない（入れ替えた日を `routeUpdated` に書く）。
+- 公開のあとに確かめ直したら、`history` に1行足す（`- { date: 2026-12-20, note: 手元で再検証した。手順 3 を v2.2 に合わせて直した。 }`）。いちばん新しい `date` は `verifiedAt` と同じにする（違うとビルドで失敗する）。
 - `verifiedAt` と `verifiedWith` は、人が確かめた結果を書く欄。Claude が自分で動かしていない内容を「検証した」と書かない。分からないときは人に聞く。
 
 ## 4. 書き方

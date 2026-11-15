@@ -70,6 +70,8 @@ const STATE_LABEL: Record<RecordState, string> = {
   stale: '期限切れ',
 };
 
+const SOURCES_OK = '出典を確認';
+
 const dotted = (isoDate: string): string => isoDate.replaceAll('-', '.');
 
 /** 検証票の中身。状態はビルドした時点で判定する（静的サイトのため） */
@@ -83,22 +85,19 @@ export const verificationRecordOf = (
   now: Date,
 ): VerificationRecord => {
   const date = dotted(toJstDate(article.verifiedAt));
-  if (!tracksFreshness(article.verification)) {
-    return {
-      label: '出典を確かめた日',
-      date,
-      state: 'ok',
-      stateLabel: '出典を確認',
-      nextReview: undefined,
-    };
+  const bySources = article.verification === 'sources';
+  const label = bySources ? '出典を確かめた日' : '手元で確かめた日';
+  if (!tracksFreshness(article.verification, article.type)) {
+    return { label, date, state: 'ok', stateLabel: SOURCES_OK, nextReview: undefined };
   }
   const interval = reviewIntervalFor(article.type, article.categories);
   const state = STATE_OF[freshnessOf(article.verifiedAt, interval, now)];
   return {
-    label: '手元で確かめた日',
+    label,
     date,
     state,
-    stateLabel: STATE_LABEL[state],
+    // 期限内なら確かめ方を示す（出典を確認／検証済み）。見直しが近い・過ぎたときは共通の言葉
+    stateLabel: bySources && state === 'ok' ? SOURCES_OK : STATE_LABEL[state],
     nextReview: dotted(addDays(article.verifiedAt, interval)),
   };
 };

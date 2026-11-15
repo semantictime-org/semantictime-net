@@ -85,6 +85,8 @@ export const buildArticleSchema = <
       publishedAt: z.coerce.date(),
       verifiedAt: z.coerce.date(),
       verifiedWith: verifiedWithSchema.optional(),
+      // 確かめ直した日と、そのとき何をしたか（公開のあと）。いちばん新しい日付は verifiedAt と同じにする
+      history: z.array(z.object({ date: z.coerce.date(), note: z.string().min(1) })).default([]),
       sources: z.array(httpUrl()).min(1),
       owner: ownerRef,
       aiAssisted: z.enum(AI_ASSISTED),
@@ -114,6 +116,13 @@ export const buildArticleSchema = <
         if (a.products.length === 0) issue('products', 'news 以外は products を1つ以上書く');
         if (a.stationNo === undefined)
           issue('stationNo', 'news 以外は stationNo（記事番号）を書く');
+      }
+      const latest = a.history
+        .map((h) => h.date.getTime())
+        .toSorted((x, y) => x - y)
+        .at(-1);
+      if (latest !== undefined && latest !== a.verifiedAt.getTime()) {
+        issue('history', 'いちばん新しい history の日付を verifiedAt と同じにする');
       }
       if (a.verification === 'hands-on' && !a.verifiedWith) {
         issue('verifiedWith', '実機で検証した記事は verifiedWith（検証環境）を書く');
