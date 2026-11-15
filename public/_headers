@@ -1,0 +1,13 @@
+# Cloudflare Workers Static Assets のヘッダ（設計書 6.2、T057）。
+# CSP は Astro の security.csp が <meta> で出すので、ここには書かない（二重に定義しないため）。
+# プレビューでは scripts/add-noindex-headers.ts が X-Robots-Tag: noindex を足す（T058）。
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: DENY
+
+# 名前にハッシュがない書体の CSS は、毎回 ETag で確かめ直す（Phase 3 のレビューより）
+/fonts.css
+  Cache-Control: no-cache
