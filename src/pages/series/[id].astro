@@ -1,0 +1,89 @@
+---
+// 連載のページ（/series/<id>/）。回の順に並べる。公開済みの記事がない連載のページは作らない。
+import type { GetStaticPaths } from 'astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import ArticleRow from '../../components/article/ArticleRow.astro';
+import PageHero from '../../components/page/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ROUTES } from '../../lib/article-view';
+import { loadCatalog, type ArticleSummary } from '../../queries/catalog';
+
+export const getStaticPaths = (async () => {
+  const [series, catalog] = await Promise.all([getCollection('series'), loadCatalog()]);
+  return series.flatMap((s) => {
+    const episodes = catalog.articles
+      .flatMap((a) => (a.data.series?.id.id === s.id ? [{ no: a.data.series.no, id: a.id }] : []))
+      .toSorted((a, b) => a.no - b.no)
+      .flatMap((e) => {
+        const summary = catalog.summaryById.get(e.id);
+        return summary ? [{ no: e.no, summary }] : [];
+      });
+    return episodes.length === 0 ? [] : [{ params: { id: s.id }, props: { series: s, episodes } }];
+  });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  series: CollectionEntry<'series'>;
+  episodes: readonly { no: number; summary: ArticleSummary }[];
+}
+
+const { series, episodes } = Astro.props;
+const crumbs = [
+  { label: 'ホーム', href: ROUTES.home },
+  { label: '連載' },
+  { label: series.data.name },
+];
+---
+
+<BaseLayout title={series.data.name} description={series.data.description}>
+  <PageHero crumbs={crumbs} en="SERIES" title={series.data.name} lead={series.data.description} />
+  <div class="body">
+    <ol class="list" data-series-list>
+      {episodes.map((e) => (
+        <li>
+          <span class="no">第 {e.no} 回</span>
+          <ArticleRow article={e.summary} />
+        </li>
+      ))}
+    </ol>
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list li {
+    display: grid;
+    grid-template-columns: 5em minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .no {
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+
+    .list li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+  }
+</style>

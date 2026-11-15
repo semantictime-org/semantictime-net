@@ -7,12 +7,13 @@ import {
   checkArticlePath,
   existingId,
   productSchema,
+  seriesSchema,
   vendorSchema,
 } from '../../src/lib/schemas';
 import { CONTENT_TYPES, LAYOUT_BY_TYPE } from '../../src/lib/taxonomy';
 
 // 単体テストでは reference() の代わりに文字列を受け付ける（参照先の存在はビルドで検証する）
-const articleSchema = buildArticleSchema(z.string(), z.string(), z.string());
+const articleSchema = buildArticleSchema(z.string(), z.string(), z.string(), z.string());
 
 const validArticle = {
   title: 'Remote Control の現行仕様',
@@ -293,5 +294,33 @@ describe('taxonomy', () => {
     expect(LAYOUT_BY_TYPE.landing).toBe('hub');
     expect(LAYOUT_BY_TYPE.news).toBe('digest');
     expect(LAYOUT_BY_TYPE.reference).toBe('reference');
+  });
+});
+
+describe('連載（series）', () => {
+  test('連載の定義は id・名前・説明・順で通る', () => {
+    expect(
+      seriesSchema.safeParse({
+        id: 'ai-glossary',
+        name: 'AI 用語の基礎知識',
+        description: 'AI の用語を、使う場面から説明する。',
+        order: 1,
+      }).success,
+    ).toBe(true);
+  });
+  test('連載 ID は英小文字・数字・ハイフンだけ', () => {
+    expect(
+      seriesSchema.safeParse({ id: 'AI Glossary', name: 'x', description: 'x', order: 1 }).success,
+    ).toBe(false);
+  });
+  test('記事は連載と回の番号を持てる', () => {
+    expect(parse({ series: { id: 'ai-glossary', no: 1 } }).success).toBe(true);
+  });
+  test('回の番号は 1 以上の整数', () => {
+    expect(parse({ series: { id: 'ai-glossary', no: 0 } }).success).toBe(false);
+    expect(parse({ series: { id: 'ai-glossary', no: 1.5 } }).success).toBe(false);
+  });
+  test('連載は書かなくてよい', () => {
+    expect(parse({ series: undefined }).success).toBe(true);
   });
 });

@@ -16,6 +16,7 @@ const DESCRIPTION_MIN = 50;
 const DESCRIPTION_MAX = 160;
 const TITLE_MAX = 80;
 const STATION_MIN = 1;
+const SERIES_NO_MIN = 1;
 const STATION_MAX = 99;
 const SEMVER = /^\d+\.\d+\.\d+$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -50,13 +51,19 @@ const verifiedWithSchema = z
   .refine((v) => Object.values(v).some(Boolean), '検証環境（verifiedWith）を最低1つ書く');
 
 /**
- * 記事のスキーマを作る。features・owner・products の参照先は、本番では Astro の reference()、
+ * 記事のスキーマを作る。features・owner・products・series の参照先は、本番では Astro の reference()、
  * 単体テストでは文字列を渡す（参照先が存在するかはビルドで検証される）。
  */
-export const buildArticleSchema = <F extends z.ZodType, O extends z.ZodType, P extends z.ZodType>(
+export const buildArticleSchema = <
+  F extends z.ZodType,
+  O extends z.ZodType,
+  P extends z.ZodType,
+  S extends z.ZodType,
+>(
   featureRef: F,
   ownerRef: O,
   productRef: P,
+  seriesRef: S,
 ) =>
   z
     .object({
@@ -67,6 +74,8 @@ export const buildArticleSchema = <F extends z.ZodType, O extends z.ZodType, P e
       products: z.array(productRef).default([]),
       // 路線の中での固定の番号。作成時に一度だけ付け、読む順を入れ替えても変えない
       stationNo: z.number().int().min(STATION_MIN).max(STATION_MAX).optional(),
+      // 連載の何回目か。回の番号は連載の中で重ならない（lint-content で検査）
+      series: z.object({ id: seriesRef, no: z.number().int().min(SERIES_NO_MIN) }).optional(),
       verification: z.enum(VERIFICATION),
       roles: z.array(z.enum(ROLES)).min(1),
       level: z.enum(LEVELS),
@@ -118,6 +127,15 @@ export const vendorSchema = z.object({
   order: z.number().int().min(1),
   // 公式の変更履歴・リリースノート（上流の追跡に使う）
   changelogs: z.array(httpUrl()).default([]),
+});
+
+// 連載（AI 用語の基礎知識、はじめての Claude Code など）。複数の製品にまたがってよい
+export const seriesSchema = z.object({
+  id: z.string().regex(SLUG, '連載 ID は英小文字・数字・ハイフンだけ'),
+  name: z.string().min(1),
+  description: z.string().min(1),
+  // 一覧で並べる順
+  order: z.number().int().min(1),
 });
 
 /** 製品のスキーマを作る。vendor の参照先は、本番では reference()、単体テストでは文字列 */

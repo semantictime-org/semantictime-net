@@ -51,6 +51,23 @@ export const findDuplicateCodes = (
     .map(([code, list]) => `記号 ${code} が重複している: ${list.map((p) => p.id).join(', ')}`);
 };
 
+/** 同じ連載で同じ回を持つ記事を探す */
+export const findSeriesConflicts = (
+  articles: readonly {
+    readonly id: string;
+    readonly series?: { readonly id: string; readonly no: number };
+  }[],
+): readonly string[] => {
+  const inSeries = articles.flatMap((a) => (a.series ? [{ id: a.id, series: a.series }] : []));
+  const byNo = Map.groupBy(inSeries, (a) => `${a.series.id}#${a.series.no}`);
+  return [...byNo.values()]
+    .filter((list) => list.length > 1)
+    .map((list) => {
+      const { id, no } = list[0]?.series ?? { id: '', no: 0 };
+      return `連載 ${id} の第 ${no} 回が重複している: ${list.map((a) => a.id).join(', ')}`;
+    });
+};
+
 /** 同じ路線で同じ記事番号を持つ記事を探す（T303）。ニュースは番号を持たないので対象外 */
 export const findStationConflicts = (articles: readonly CatalogArticle[]): readonly string[] => {
   const numbered = articles.filter((a) => lineOf(a) !== undefined && a.stationNo !== undefined);

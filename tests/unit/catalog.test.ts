@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   findDuplicateCodes,
+  findSeriesConflicts,
   findStationConflicts,
   resolveRoute,
   stationLabel,
@@ -126,5 +127,26 @@ describe('stationLabel', () => {
   test('記号と 2 桁の番号をつなぐ', () => {
     expect(stationLabel('CC', 7)).toBe('CC07');
     expect(stationLabel('AP', 12)).toBe('AP12');
+  });
+});
+
+describe('findSeriesConflicts（連載の回の重複）', () => {
+  test('同じ連載で回が重ならなければ問題なし', () => {
+    expect(
+      findSeriesConflicts([
+        { id: 'mcp/what-is', series: { id: 'ai-glossary', no: 1 } },
+        { id: 'claude-code/intro', series: { id: 'ai-glossary', no: 2 } },
+        { id: 'codex/setup', series: { id: 'first-steps', no: 1 } },
+        { id: 'codex/usage' },
+      ]),
+    ).toEqual([]);
+  });
+  test('同じ連載で同じ回があれば、記事 ID を並べて知らせる', () => {
+    expect(
+      findSeriesConflicts([
+        { id: 'mcp/what-is', series: { id: 'ai-glossary', no: 1 } },
+        { id: 'claude-code/intro', series: { id: 'ai-glossary', no: 1 } },
+      ]),
+    ).toEqual(['連載 ai-glossary の第 1 回が重複している: mcp/what-is, claude-code/intro']);
   });
 });

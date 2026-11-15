@@ -55,6 +55,9 @@ export const ROUTES = {
   disclaimer: '/about/disclaimer/',
 } as const;
 
+/** 連載のページ */
+export const seriesHref = (id: string): string => `/series/${id}/`;
+
 /** このサイトについてのページ（フッターと各ページの末尾に並べる） */
 export const ABOUT_PAGES = [
   { href: ROUTES.editorialPolicy, label: '編集方針' },
