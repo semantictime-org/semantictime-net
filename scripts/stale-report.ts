@@ -32,7 +32,7 @@ const categoriesOf = new Map(readProducts().map((p) => [p.id, p.categories]));
 
 const candidates: readonly StaleCandidate[] = listArticles(args.ref)
   .map((path) => ({ id: toId(path), meta: readArticleMeta(args.ref, path) }))
-  .filter(({ meta }) => !meta.draft && tracksFreshness(meta.verification))
+  .filter(({ meta }) => !meta.draft && tracksFreshness(meta.verification, meta.type))
   .map(({ id, meta }) => ({
     id,
     title: meta.title,

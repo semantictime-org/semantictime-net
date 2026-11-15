@@ -93,7 +93,26 @@ describe('verificationRecordOf（検証票）', () => {
     });
   });
 
-  test('出典で確かめた記事は鮮度を判定せず、見直し日も出さない', () => {
+  test('出典で確かめた解説は 180 日で見直し、ラベルは「出典を確かめた日」', () => {
+    const record = verificationRecordOf(
+      { ...handsOn, verification: 'sources', type: 'explanation' },
+      NOW,
+    );
+    expect(record).toMatchObject({
+      label: '出典を確かめた日',
+      state: 'ok',
+      stateLabel: '出典を確認',
+      nextReview: '2027.04.30', // 11-01 + 180 日
+    });
+    expect(
+      verificationRecordOf(
+        { ...handsOn, verification: 'sources', type: 'explanation', verifiedAt: daysAgo(181) },
+        NOW,
+      ).state,
+    ).toBe('stale');
+  });
+
+  test('ニュースは鮮度を判定せず、見直し日も出さない', () => {
     expect(
       verificationRecordOf({ ...handsOn, verification: 'sources', type: 'news' }, NOW),
     ).toEqual({

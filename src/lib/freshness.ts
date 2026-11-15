@@ -6,11 +6,11 @@ import type { Category, ContentType, Verification } from './taxonomy.ts';
 export type Freshness = 'fresh' | 'due-soon' | 'stale';
 
 /**
- * 鮮度（再検証の期限）を判定する記事か。実機で検証した記事だけが対象。
- * 出典で確かめた記事（ニュース）は、その日付の記録として残し、期限切れにしない（T312）。
+ * 鮮度（再検証の期限）を判定する記事か。ニュースは、その日付の記録として残し、期限切れにしない（T312）。
+ * 出典で確かめた解説なども、2026-11-16 から期限を数える（解説は 180 日）。
  */
-export const tracksFreshness = (verification: Verification): boolean =>
-  verification === 'hands-on';
+export const tracksFreshness = (verification: Verification, type: ContentType): boolean =>
+  verification === 'hands-on' || type !== 'news';
 
 /** 期限まで残りこの日数以下なら「まもなく期限」 */
 export const DUE_SOON_DAYS = 7;
