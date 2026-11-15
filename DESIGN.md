@@ -1,236 +1,138 @@
 ---
 name: semantictime
-description: 検証した日と版で読む、AI の使い方（各社の AI を同じ扱いで載せる非公式情報サイト）
+description: その手順、いま動きますか。— 手元で動かした日と版をつけて公開し、公式の変更を毎朝たどる AI の使い方サイト（各社を同じ扱いで載せる非公式サイト）
 colors:
-  frame: '#0B1B33'
-  frame-line: '#22385C'
-  frame-control: '#3A527A'
-  frame-text-muted: '#B4BFCF'
-  ink: '#12161D'
-  ink-muted: '#4D5562'
-  rule: '#D9DDE3'
-  rule-faint: '#EEF0F3'
+  ink-band: '#0B0D12'
+  ink: '#172343'
+  ink-muted: '#59637A'
+  on-band: '#FFFFFF'
+  on-band-muted: '#C5CBD8'
+  on-band-faint: '#9AA3B5'
+  key: '#1A3CFF'
+  key-hover: '#0F2BD6'
+  key-on-band: '#8095FF'
   surface: '#FFFFFF'
-  surface-sunken: '#F1F3F5'
-  link: '#1D4ED8'
-  link-hover: '#1E3A8A'
-  selection: '#DBE4FF'
+  surface-soft: '#F4F6FB'
+  surface-tint: '#EEF2FF'
+  rule: '#DDE2EF'
+  band-card: '#151922'
+  band-rule: 'rgba(255,255,255,0.10)'
+  watermark: 'rgba(255,255,255,0.04)'
   status-ok: '#15803D'
+  status-ok-bg: '#ECF8F0'
   status-review: '#B45309'
-  status-review-row: '#FFF8E6'
-  status-stale: '#B91C1C'
-  note-label: '#92400E'
-  code-text: '#E7ECF4'
-  line-claude-code: '#C2410C'
-  line-claude-api: '#9D174D'
-  line-mcp: '#854D0E'
-  line-claude-app: '#BE123C'
-  line-claude-chrome: '#7C2D12'
-  line-chatgpt: '#3F3F46'
-  line-codex: '#1E293B'
-  line-sora: '#52525B'
-  line-gemini: '#0369A1'
-  line-gemini-cli: '#047857'
-  line-midjourney: '#6D28D9'
-  line-flux: '#7E22CE'
+  status-review-bg: '#FFF4E0'
+  status-stale: '#9B3D17'
+  status-stale-bg: '#F8E8E1'
+  live: '#3DDC84'
 typography:
-  page-title:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '40px'
-    fontWeight: 700
-    lineHeight: 1.35
-    letterSpacing: '0em'
-  home-title:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '48px'
-    fontWeight: 700
-    lineHeight: 1.3
-    letterSpacing: '0em'
-  section:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '28px'
-    fontWeight: 700
-    lineHeight: 1.4
-    letterSpacing: '0em'
-  subsection:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '20px'
-    fontWeight: 700
-    lineHeight: 1.6
-    letterSpacing: '0em'
+  display:
+    fontFamily: "'Anton', 'Impact', sans-serif"
+    fontWeight: 400
+    letterSpacing: '0.01em'
+  headline:
+    fontFamily: "'Zen Kaku Gothic New', sans-serif"
+    fontWeight: 900
+    letterSpacing: '-0.04em'
   body:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '18px'
-    fontWeight: 400
-    lineHeight: 1.85
-    letterSpacing: '0em'
-  list-title:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '16px'
-    fontWeight: 400
-    lineHeight: 1.6
-    letterSpacing: '0em'
-  ui:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '14px'
-    fontWeight: 400
-    lineHeight: 1.5
-    letterSpacing: '0em'
-  label:
-    fontFamily: "'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif"
-    fontSize: '12px'
-    fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: '0em'
+    fontFamily: "'BIZ UDPGothic', sans-serif"
+    fontSize: '15px'
+    lineHeight: 1.9
   data:
-    fontFamily: "'BIZ UDGothic', ui-monospace, monospace"
-    fontSize: '13px'
-    fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: '0em'
-  code:
-    fontFamily: "'BIZ UDGothic', ui-monospace, monospace"
-    fontSize: '14px'
-    fontWeight: 400
-    lineHeight: 1.7
-    letterSpacing: '0em'
+    fontFamily: "'IBM Plex Mono', ui-monospace, monospace"
+    fontSize: '12px'
 rounded:
-  none: '0px'
-  code-chip: '2px'
-  control: '4px'
-  station: '50%'
+  control: '6px'
+  card: '8px'
+  ticket: '12px'
+  pill: '999px'
 spacing:
-  xs: '8px'
-  sm: '16px'
-  md: '24px'
-  lg: '40px'
-  xl: '64px'
-  page-max: '1248px'
-  article-max: '684px'
-  rail: '240px'
-components:
-  product-code:
-    backgroundColor: '{colors.line-claude-code}'
-    textColor: '{colors.surface}'
-    typography: '{typography.data}'
-    rounded: '{rounded.code-chip}'
-    height: '20px'
-    padding: '0 4px'
-  station:
-    backgroundColor: '{colors.surface}'
-    rounded: '{rounded.station}'
-    size: '16px'
-  code-block:
-    backgroundColor: '{colors.frame}'
-    textColor: '{colors.code-text}'
-    typography: '{typography.code}'
-    rounded: '{rounded.control}'
-    padding: '16px'
-  button-primary:
-    backgroundColor: '{colors.ink}'
-    textColor: '{colors.surface}'
-    typography: '{typography.ui}'
-    rounded: '{rounded.control}'
-    height: '40px'
-    padding: '0 16px'
-  search-field:
-    backgroundColor: '{colors.frame}'
-    textColor: '{colors.surface}'
-    typography: '{typography.ui}'
-    rounded: '{rounded.control}'
-    height: '40px'
-    padding: '0 12px 0 36px'
-  nav-link-current:
-    textColor: '{colors.ink}'
-    typography: '{typography.ui}'
+  page-max: '1184px'
+  gutter-narrow: '20px'
+  section: '64px'
+  band-pad: '56px'
 ---
 
-# semantictime のデザイン
+# semantictime のデザイン（v11）
 
-デザインの確認用のキャンバス（Design Artifact）は `design-handoff/canvas/` に、路線図とアイコンは `design-handoff/assets/` にある。実装は `src/styles/tokens.css` の CSS custom properties に写し、色や余白をコードに直接書かない。
+確認用のキャンバスは `design-handoff/canvas/` にある。正本は `Fresh*.dc.html`（ホーム・記事・ヘッダー・フッター）と、同じ見た目に変換したほかのページ（`Reference` `Comparison` `Digest` `Hub` `NewsArticle` `Start` `About` `Glossary` `Search` `NotFound`）。`Main` `Article` `Header` `Footer` は v10、`Codex*` は検討用の案で、実装には使わない。
+
+実装では前置きのトークンを `src/styles/tokens.css` の CSS custom properties に写し、色や余白をコードに直接書かない。
 
 ## Overview
 
-**世界観：路線図と運行記録。** AI の会社を鉄道会社、製品を路線、記事を駅として並べる。このサイトの強み（記事ごとに手元で検証した日と版を載せ、公式の変更を毎朝たどる）を、「公式の変更 → 影響の判定 → 対応」という運行記録の形で見せる。
+**主役は「検証した日付」。** このサイトの強みは、手順を手元で動かした日と版を載せ、公式の変更を毎朝たどって確かめ直すこと。だから日付と記事番号を、映画の公開日のように大きく見せる。
 
-- **主役は運行記録。** ホームの最上部と、記事の題の直下に置く。進捗バーや得点のような飾りにしない。
-- **Read モード。** 個性は枠（ヘッダー、路線図、運行記録、コードの組み方）で出し、本文の段は静かに組む。
-- **全社を同じ扱いにする。** 骨組み（ホームの欄の幅、ナビの並び）は全社同じにし、会社を特別扱いしない。どの会社がどれだけ載るかは、記事の本数と更新から決まる。
-- **番号は固定の ID、読む順は変わる。** `CC07` は記事を作ったときに一度だけ付け、全ページで同じ記事を指す。読む順は入れ替わることがあるので、画面に「何番目」とは書かない。入れ替えた日は製品のページに出す。
-
-## 文字を減らし、図で見せる
-
-**原則：読ませる前に、見て分からせる。** 文章は図・記号・表で伝えられないことだけに使う。
-
-- **文字の量の上限：** 段落は2文・80字まで。節（`h2`）は図・手順・表・チェックリストのどれかで始め、文章から始めない。記事の本文（コードを除く）は 600 字を目安にし、超えたら図にできないか見直す。
-- **記事の冒頭の4点：** ①ゴールの図（いま→読んだあと） ②概要の記号列（所要時間・難しさ・必要なプラン・前に読む記事） ③検証の記録（1行、記号つき） ④手順の全体図（駅の番号で 1・2・3、困ったときは「?」）。この4点で、本文を読まずに「自分に関係あるか」「どれくらいかかるか」が分かるようにする。
-- **番号は1種類の意味に1つの形：** 手順は路線の色の輪の駅（1・2・3）、コードと画面写真の説明は紺の塗りの丸（1・2・3）。同じ節の中で2つの番号を混ぜない。並んだ絵は番号を付けず、左から右の順で読ませる。
-- **記号は意味を固定する：** 時計＝所要時間、3本の棒＝難しさ、カード＝プラン、本＝前に読む記事、丸のチェック＝検証済み・対応不要、矢印の円＝公式の変更の確認、カレンダー＝次の見直し、三角＝注意・症状、虫眼鏡＝見るところ、人＝誰に影響、四角のチェック＝やること、新聞＝公式の変更、工具＝対応。同じ記号を別の意味に使わない。
-- **記号には必ず言葉を添える。** 記号だけで意味を伝えない（色の見分けにくい人、読み上げ）。図には `role="img"` と、図の中身を一文で書いた `aria-label` を付ける。
-- **ニュース：** 題の下に「人＋誰に影響」と「やること（琥珀）」または「対応は不要（緑）」を記号つきで1行。製品と出典はその下に小さく。
-- **困ったとき：** 表ではなく「症状 → 見るところ」の行で並べる。
-- **横に流れる図は、狭い幅で縦に積む。** 箱は縦に並べ、矢印を下向きに回す。画面の幅ではなく本文の幅で判定する（container query）。
+- **言い切る。** ホームの第一声は「その手順、いま動きますか。」。今朝の確認時刻 `2026.11.15 06:00 CHECKED` と、斜めの検証票（巨大な日付）を並べる。
+- **迫力は帯だけ。** 黒い帯（ヘッダー、ページ冒頭、変更の記録）で見せ、本文は白地で静かに組む。LP にはしない。
+- **全社を同じ扱いにする。** 骨組みは全社同じ。どの会社がどれだけ載るかは記事のデータから決まる。冒頭の下に、扱う製品を映画のクレジットのように1行で並べる。
+- **番号は固定、読む順は変わる。** 記事番号（`CC07`）は作成時に一度だけ付けて変えない。読む順は `products.yaml` の `route` で入れ替える。
 
 ## Colors
 
-- **枠は紺（`frame`）、読む面は白（`surface`）。** 紺はヘッダー、フッター、コードの面にだけ使う。
-- **本文は墨（`ink`）、補足は `ink-muted`。** 補足でも白地とのコントラストは 4.5:1 以上。
-- **リンクは `link` の1色。** 選択範囲とフォーカスの枠も、この系統から決める。
-- **状態の色は文字で使う。** `status-review`（見直し中）と `status-stale`（期限切れ・破壊的な変更）は、文字の色と、見直し中の表の行（`status-review-row`）にだけ使う。淡い色付きの囲みにはしない。「期限内」「GA」は強調しない。
-- **路線（製品）の色は、会社ごとに色の系統をそろえる。** Anthropic は暖色、OpenAI は無彩色、Google は青緑、画像・動画・音声の各社は紫。系統の中で明るさを変えて製品を分ける。どの色も白い文字とのコントラストは 4.5:1 以上（いまの値は 5.18〜14.63）。路線の色は、製品の記号、路線の線、ページ上端の帯にだけ使い、面を塗らない。
+- **色は青1色に徹する。** リンク、主ボタン、記事番号、英字見出しは `key`。黒い帯の上では、読める明るさの `key-on-band` を使う。ほかの差し色を足さない。製品ごとの色も使わない。
+- **白い帯と黒い帯を交互に置く。** ヘッダー、ページ冒頭、変更の記録は `ink-band`。それ以外は `surface`、一覧の地は `surface-soft`。
+- **状態の色は文字と小さな札だけ。** 検証済み（`status-ok`）、見直し中（`status-review`）、期限切れ（`status-stale`）。面を塗らない。「対応不要」は緑、「要対応」は琥珀。
+- 淡い藤色・生成り・テラコッタ（Anthropic 風）は使わない。
 
 ## Typography
 
-- **書体は2つだけ。** 文章と見出しは BIZ UDPGothic、日付・記事番号・版・コードは等幅の BIZ UDGothic（どちらも Google Fonts）。等幅を「技術っぽさ」の飾りに使わない。
-- **文字の大きさは役割で固定する。** 題 40（ホームは 48）、節 28、小見出し 20、本文 18、一覧の題 16、操作 14、日付 13、補助 12。ページごとに細かく変えない。
-- **和文の字間は 0。** 英語のように詰めない。
-- **見出しは `text-wrap: balance` と `word-break: auto-phrase`、段落は `text-wrap: pretty`。** 固定の改行（`<br>`）は使わない。
-- **空白のない長い文字列（ツール名、URL）は `overflow-wrap: anywhere` で折り返す。** 記事の題、運行記録の文、出典に必ず付ける。
-- 本文の段の幅は最大 684px（およそ 38 字）。
+- **Anton は英字・数字の見出しだけ。** 区切りの英字見出し（`VERIFIED` `CHANGELOG` `NEWS` など）、日付、記事番号、手順の番号（`01`）、巨大な数字（`404` `24`）に使う。日本語には使わない。
+- **区切りの見出しは二段。** 大きな Anton の英字（`clamp(52px, 7.6cqi, 104px)`）＋小さな日本語の見出し（Zen Kaku Gothic New 900、22px）。英字は見出しの一部として読み上げから隠す（`aria-hidden`）。
+- **日本語の見出しは Zen Kaku Gothic New 900、本文は BIZ UDPGothic、小さなデータは IBM Plex Mono。**
+- Anton の語は途中で改行させない（`white-space: nowrap`）。大きさは画面ではなく欄の幅（`cqi`）で決める。
+- 日本語の題は `word-break: auto-phrase` と `text-wrap: balance` で折り返す。1文字だけ次の行に落とさない。
 
 ## Layout
 
-- **余白は 8・16・24・40・64 の5段だけ。** 大きな区切りは 64、区切りの中は 24、見出しと一覧の間は 16。
-- ページの最大幅は 1248px、左右の余白は `clamp(16px, 4vw, 48px)`。
-- 記事は本文（最大 684px）と右の欄（240px、目次と「このページを使う」）。狭い画面では1列にし、右の欄は本文の後ろに回す。
-- ナビは狭い画面でも1行のまま、横にスクロールさせる（項目は縮ませない）。
-- 区切りは罫線で示す。上端の太い罫（`ink` 1px）で節を始め、行は細い罫（`rule`）で区切る。
+- ページの最大幅は 1184px。左右の余白は `max(48px, (100cqi - 1184px) / 2)`、狭い画面では 20px。
+- **ページの冒頭は黒い帯。** パンくず → Anton の英字 → 日本語の題 → 1〜2行の説明。右下に巨大な薄い透かし（記事番号・日付・`404` など）を置く。
+- 区切りの間は 64px。帯の上下は 40〜56px。
+- **狭い画面の判定は画面ではなく欄の幅で行う**（`container-type: inline-size` と `@container`）。キャンバスでは 390px の枠の中に表示されるため。
+- 狭い画面では、横に並べた項目を縦に積む。用語集の「言葉・意味・記事」、記事一覧の「表紙・題・状態」も縦にする。ボタンの文字は折り返さない。
 
 ## Elevation & Depth
 
-影は使わない。奥行きは、紺の枠と白い面の対比、罫線、余白だけで出す。
+奥行きは「黒い帯と白い面の対比」「背景の巨大な薄い文字」「帯に重ねた白いカード（検証票）」で出す。影は検証票だけに付け、ほかの面は平らにする。
 
 ## Shapes
 
-- 角は、データの面 0、操作部品 4px、製品の記号 2px、駅だけ円。
-- 路線の線は 4px、駅は直径 16px で輪郭 3px。駅の中に状態を詰め込まず、状態は日付の横に文字で書く。
-- 乗り換え駅は、白地に墨の輪郭の角丸の印（路線図のイラストと同じ形）。
+- 操作部品は 6px、カードと表紙は 8px、検証票は 12px、状態の札と絞り込みは丸（999px）。
+- 路線の線は帯の背景に細く敷き、主役の1本だけを `key-on-band` で描く。
 
 ## Components
 
-- **運行記録：** 縦の線でつないだ3段（公式の変更 → 影響の判定 → 対応）。各段は、日付と段の名前（`label`）、本文（15px）。変更がないときは「今週はまだ公式の変更がありません。毎朝 6 時に確かめています。」と書く。
-- **検証と追跡の記録：** 記事の題の直下。定義リストで「手元で検証」「公式の変更の確認」「次の見直し」を並べ、影響があるときだけ「見直し中」の行を加える。
-- **会社と製品（ホーム）：** 全社を同じ幅の列で並べる（会社の順はナビと同じで固定）。列の見出しは会社名と記事の本数。その下に製品ごとの路線を置き、読む順の先頭から 2 本と「すべて見る（N 本）」。記事が 0 本の会社は「まだ公開した記事がありません。」と書き、列は消さない。
-- **路線（記事の一覧）：** 路線の記号と製品名、その下に駅を縦に並べる。駅の題（16px）の下に、記事番号・日付（13px 等幅）・難易度、必要なときだけ「見直し中」「期限切れ」。記事が0本の路線は出さない。製品名と会社名が違うとき（画像・動画・音声の各社）だけ、製品名の下に会社名を 12px で添える。
-- **製品の記号：** 2文字の記号（`CC`）。記事番号と並べるときは「CC 07」の形にする。ナビには付けない。
-- **注意書き：** 囲みや色付きの左線を使わない。三角の記号と「注意」を左に置き、上下を細い罫で挟む。1文で書く。
-- **コード：** 紺の面に、上段にファイル名と「コピー」。
-- **空の状態：** 見出しだけを残さず、何がないのかを一文で書く。
-- **ヘッダーとフッターの部品は、読み込んだ側のページに影響する全体の指定を持たない。** 色はそれぞれの要素に直接書く。
+- **検証票（ホーム）：** 白いカードを少し傾けて（3度）帯に重ねる。中身は「CC07 / 検証票」、検証済みの札、巨大な日付（Anton）、製品の版と環境、公式の変更の確認結果、記事へのリンク。マウスを当てるとまっすぐに戻る。
+- **検証票（記事）：** 題の右に置く。手元で検証した日（Anton）、製品の版、環境、公式の変更、次の見直し、履歴へのリンク。
+- **記事一覧の行：** 左に 16:9 の表紙（黒地に青の路線。記事番号から自動で描き、番号を Anton で重ねる）、題、製品・難易度・検証日、右に状態の札。長い記事番号は小さな等幅に切り替える。
+- **変更の記録：** 黒い帯に「公式の変更 → 影響の判定 → 再検証」の3枚の札。予定の段は「予定」と書く。
+- **ニュース：** 日付、題、対象、右に「対応不要」（緑）か「要対応」（琥珀）と一言。
+- **やりたいことから探す：** 罫線の行に題と ↘。アイコンは置かない。
+- **空の状態：** 「公開済みの記事はまだありません。」のように、何がないのかを一文で書く。
+- **ヘッダー・フッターの部品は、読み込んだページに影響する全体の指定（`a{}` など）を持たない。** ページ側の `a{}` に負けないよう、ヘッダーのリンク色は強い指定で固定する。
 
-### 動き
+## Motion
 
-- 見せ場はひとつだけ。ホームの路線図の線が、会社の並び順に 70ms ずつずれて描かれ、最後に駅が現れる（全体で約 1 秒、`cubic-bezier(0.16, 1, 0.3, 1)`）。線の長さは実測した値を使う。
-- 反応：ボタンは押した瞬間に `scale(0.97)`、「すべて見る」の矢印はマウスを当てたときだけ 3px 右へ、開閉の矢印は 200ms で回る。マウスを当てたときの反応は `@media (hover: hover)` の中に書く。
-- `prefers-reduced-motion: reduce` では、線を描く動きをやめて完成した路線図を見せる。
+動きは説明か反応のためだけに、局所的に使う。
+
+- ホーム冒頭：路線の青い1本が描かれ、駅が現れる（約1.6秒、1回だけ）。今朝の確認の点が脈打つ。
+- 検証票：マウスを当てると傾きが戻る（弾む動き）。
+- 記事一覧：マウスを当てると表紙が少し拡大する。
+- 記事：「保存する」の実演（書き換え → PostToolUse → prettier が順に点灯し、字下げが揃う）。
+- `prefers-reduced-motion: reduce` ではすべて止め、完成した状態を見せる。
+
+## 書き方
+
+- 段落は2文・80字まで（`npm run check` の `long-paragraph` で検査する）。
+- 見出しの上の小さなラベル、英語の飾り文句、画面上の「これはデモです」のような注意書きは置かない。
+- 実名・雇用先は書かない。著者は shizukukai。確かめていない値は［要確認］として残す。
 
 ## Do's and Don'ts
 
-- **Do** 状態は言葉で書く（「見直し中」「期限切れ」）。色は言葉を補うだけにする。
-- **Do** 件数や「対応が必要な製品」は、データから計算して出す。画面に固定の数字を書かない。
-- **Do** 長い題、空白のない識別子、記事が0本の路線、空の一覧を、実装のたびに確かめる（break-ui の「最悪」のデータ）。
-- **Don't** 見出しの上の小さなラベル（eyebrow）を置かない。
-- **Don't** 角丸のカードを並べて骨組みにしない。淡い色付きの囲み、グラデーション、影を使わない。
-- **Don't** 製品の色で面を塗らない。同じ保証（「出典を確認済み」など）を項目ごとに繰り返さない。
-- **Don't** 記号の文字や絵文字をアイコンの代わりにしない。アイコンは `design-handoff/assets/icons.svg-snippets.html` の線の太さ 1.6 の1セットだけを使う。
-- **Don't** 実在の鉄道会社の駅名標、配色一式、記号の形を借りない。
+- **Do** 日付と記事番号を大きく見せる。状態は言葉で書き、色は補うだけにする。
+- **Do** 件数・本数・状態はデータから計算して出す。
+- **Do** 長い題、空白のない識別子、記事0本の会社、空の一覧を、実装のたびに「最悪」のデータで確かめる。
+- **Don't** 差し色を増やさない。製品ごとの色、藤色、グラデーションを使わない。
+- **Don't** Anton を日本語や本文に使わない。
+- **Don't** 帯の迫力を本文まで持ち込まない（本文は白地で静かに組む）。
+- **Don't** 実在の会社のロゴ、作品の意匠、参考サイトの文章を借りない。

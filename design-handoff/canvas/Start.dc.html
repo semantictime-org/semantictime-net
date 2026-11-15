@@ -8,36 +8,94 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700;900&amp;family=Anton&amp;display=swap">
 <style>
-body{margin:0;background:#FFFFFF}
-a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
-@media (hover:hover){a:hover{color:#1E3A8A}}
-::selection{background:#DBE4FF;color:#12161D}
-:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
-h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li,dd{text-wrap:pretty}
-button{transition:transform 120ms ease-out,background 150ms ease-out}button:active{transform:scale(0.97)}
+body{margin:0}
+.fx{container-type:inline-size;color:#172343;background:#fff;font:15px/1.8 'BIZ UDPGothic','Hiragino Sans',sans-serif;overflow-wrap:anywhere}
+.fx *{box-sizing:border-box}
+.fx a{color:#1A3CFF;text-underline-offset:3px}
+.fx a:focus-visible,.fx button:focus-visible{outline:3px solid #1A3CFF;outline-offset:4px}
+.fx h1,.fx h2,.fx h3,.fx p{margin:0}
+.fx h1,.fx h2,.fx h3{font-family:'Zen Kaku Gothic New',sans-serif}
+.fx-wrap{max-width:1184px;margin:0 auto;padding-inline:clamp(20px,4cqi,48px)}
+.fx-band{position:relative;isolation:isolate;overflow:hidden;background:#0B0D12;color:#fff;padding:32px 0 64px}
+.fx-band a{color:#8095FF}
+.fx-band a:focus-visible{outline-color:#8095FF}
+.fx-crumbs{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:#9AA3B5}
+.fx-en{display:block;margin-top:32px;font:400 clamp(52px,9cqi,128px)/.9 'Anton',Impact,sans-serif;color:#8095FF;white-space:nowrap;letter-spacing:.005em}
+.fx-h1{margin-top:16px!important;font-weight:900;font-size:clamp(28px,4cqi,48px);line-height:1.3;letter-spacing:-.03em;color:#fff}
+.fx-lead{margin-top:16px!important;max-width:34em;color:#C5CBD8;font-size:15px;line-height:1.9}
+.fx-wm{position:absolute;right:-.03em;bottom:-.24em;font:400 clamp(170px,30cqi,380px)/1 'Anton',Impact,sans-serif;color:rgba(255,255,255,.04);z-index:-1;white-space:nowrap;pointer-events:none}
+.fx-checked{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:24px!important;font-size:13px;color:#C5CBD8}
+.fx-dot{position:relative;width:8px;height:8px;border-radius:50%;background:#3DDC84;flex:0 0 auto}
+.fx-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:fxr 2.4s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes fxr{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.4);opacity:0}}
+.fx-sec{padding-top:80px}
+.fx-sec-en{display:block;font:400 clamp(44px,6.6cqi,88px)/.92 'Anton',Impact,sans-serif;color:#1A3CFF;white-space:nowrap}
+.fx-h2{margin-top:10px!important;font-weight:900;font-size:22px;letter-spacing:-.02em;line-height:1.5}
+.fx-anton{font-family:'Anton',Impact,sans-serif;font-weight:400;letter-spacing:.01em}
+.fx-mono{font-family:'IBM Plex Mono',monospace}
+.fx-muted{color:#59637A}
+.fx-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;font-size:11px;font-weight:700;line-height:1.4;white-space:nowrap}
+.fx-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.ok{background:#ECF8F0;color:#15803D}.rev{background:#FFF4E0;color:#B45309}.stale{background:#F8E8E1;color:#9B3D17}.fx-hide{display:none}
+.fx-row{border-top:1px solid #DDE2EF}
+.fx-arrow{font-family:'IBM Plex Mono',monospace;font-size:20px;color:#1A3CFF}
+.fx-end{padding:72px 0 96px}
+@media (prefers-reduced-motion:reduce){.fx-dot::after{animation:none}.fx *{transition:none!important}}
+
+.sg-list{list-style:none;margin:28px 0 0;padding:0;border-top:2px solid #172343}
+.sg-row{display:grid;grid-template-columns:260px minmax(0,1fr);gap:12px 40px;align-items:center;padding:28px 0;border-bottom:1px solid #DDE2EF}
+.sg-big{font:400 clamp(40px,5.4cqi,64px)/1 'Anton',Impact,sans-serif;color:#1A3CFF;white-space:nowrap}
+.sg-title{font-weight:700;font-size:17px}
+.it-grid{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}
+.it-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:18px 0;border-bottom:1px solid #CFD6E5;color:#172343!important;text-decoration:none;transition:border-color .2s ease}
+.it-t{font-weight:700;font-size:15px}.it-s{grid-column:1;font-size:12px;color:#59637A}
+@media (hover:hover){.it-link:hover{border-color:#1A3CFF}.it-link:hover .it-t{color:#1A3CFF}}
+.hp-list{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid #DDE2EF}
+.hp-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:20px 0;border-bottom:1px solid #DDE2EF;color:#172343!important;text-decoration:none}
+.hp-t{font-weight:700;font-size:17px;color:#1A3CFF}
+@container(max-width:900px){.it-grid{grid-template-columns:1fr 1fr}}
+@container(max-width:600px){.sg-row{grid-template-columns:1fr}.it-grid{grid-template-columns:1fr}}
 </style>
 </helmet>
-<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
-  <dc-import name="Header" hint-size="100%,100px"></dc-import>
-  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
-    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562"><a href="Main.dc.html">ホーム</a> › はじめての方へ</nav>
-    <div style="padding-top: 40px; max-width: 760px">
-      <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">はじめての方へ</h1>
-      <p style="margin: 16px 0 0; max-width: 38em; font-size: 18px; line-height: 1.75; color: #4D5562">手元で確かめた手順の記事を集めています。3つの印を覚えれば、どの記事も同じように読めます。</p>
+<div class="fx">
+<dc-import name="FreshHeader" hint-size="100%,80px"></dc-import>
+<main>
+<section class="fx-band" aria-labelledby="page-title">
+<div class="fx-wm" aria-hidden="true">HELLO</div>
+<div class="fx-wrap">
+<nav class="fx-crumbs" aria-label="パンくずリスト"><a href="FreshMain.dc.html">ホーム</a><span aria-hidden="true">/</span><span>はじめての方へ</span></nav>
+<span class="fx-en" aria-hidden="true">START</span>
+<h1 class="fx-h1" id="page-title">はじめての方へ</h1>
+<p class="fx-lead">手元で確かめた手順の記事を集めています。3つの印を覚えれば、どの記事も同じように読めます。</p>
 
-      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">覚える印は3つ</h2>
-      <ol style="margin: 0; padding: 0; list-style: none; border-top: 1px solid #12161D"><li style="display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 16px; align-items: center; padding: 24px 0; border-bottom: 1px solid #D9DDE3"><p style="margin: 0; font-size: 14px; line-height: 1.6"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-01</span><br>Claude Code <span style="font-family: 'BIZ UDGothic', monospace">2.1.325</span></p><div><p style="margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 700"><span style="color: #15803D; display: grid"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg></span>確かめた日と版</p><p style="margin: 4px 0 0 30px; font-size: 15px; color: #4D5562">その日・その版で、手順どおりに動いた記録。</p></div></li><li style="display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 16px; align-items: center; padding: 24px 0; border-bottom: 1px solid #D9DDE3"><p style="margin: 0"><span style="display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: #C2410C; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; vertical-align: 1px">CC</span> <span style="font-family: 'BIZ UDGothic', monospace">07</span></p><div><p style="margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 700"><span style="color: #12161D; display: grid"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"></path></svg></span>記事番号は変わらない</p><p style="margin: 4px 0 0 30px; font-size: 15px; color: #4D5562">CC は製品（Claude Code）の記号。人には「CC07」で通じる。</p></div></li><li style="display: grid; grid-template-columns: 10em minmax(0, 1fr); gap: 16px; align-items: center; padding: 24px 0; border-bottom: 1px solid #D9DDE3"><p style="margin: 0; font-weight: 700; color: #B45309">見直し中</p><div><p style="margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 700"><span style="color: #B45309; display: grid"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M20 12a8 8 0 1 1-2.34-5.66"></path><path d="M20 4v4h-4"></path><path d="M12 8v4l2 2"></path></svg></span>公式が変わると「見直し中」</p><p style="margin: 4px 0 0 30px; font-size: 15px; color: #4D5562">確かめ直すまで、手順の一部が古いかもしれない。</p></div></li></ol>
-
-      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">やりたいことから選ぶ</h2>
-      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 40px"><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg><span><span style="display: block; font-weight: 700; font-size: 17px">文章や資料をまとめたい</span><span style="display: block; font-size: 13px; color: #4D5562">Claude アプリ・ChatGPT・Gemini</span></span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M5 15h38M11 11h2m4 0h2m-3 11-6 6 6 6m16-12 6 6-6 6m-6-14-4 16"></path></svg><span><span style="display: block; font-weight: 700; font-size: 17px">コードを書かせたい</span><span style="display: block; font-size: 13px; color: #4D5562">Claude Code・Codex・Gemini CLI</span></span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M24 6v6m0 24v6M6 24h6m24 0h6"></path><circle cx="24" cy="24" r="10"></circle><path d="m20 24 3 3 5-6"></path></svg><span><span style="display: block; font-weight: 700; font-size: 17px">決まった作業を自動にしたい</span><span style="display: block; font-size: 13px; color: #4D5562">Claude Code・Agent SDK・MCP</span></span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg><span><span style="display: block; font-weight: 700; font-size: 17px">画像を作りたい</span><span style="display: block; font-size: 13px; color: #4D5562">Midjourney・FLUX ほか</span></span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M12 7v34M36 7v34M5 17h7M5 31h7m24-14h7m-7 14h7m-23-7V18l9 6-9 6v-6Z"></path></svg><span><span style="display: block; font-weight: 700; font-size: 17px">動画を作りたい</span><span style="display: block; font-size: 13px; color: #4D5562">Sora・Veo ほか</span></span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" style="display: block; padding: 16px 0; color: #12161D; text-decoration: none"><span style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M6 20v8m8-14v20M24 6v36m10-28v20m8-14v8"></path></svg><span><span style="display: block; font-weight: 700; font-size: 17px">音声を作る・文字に起こしたい</span><span style="display: block; font-size: 13px; color: #4D5562">ElevenLabs ほか</span></span></span></a></li></ul>
-
-      <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">迷ったら</h2>
-      <ul style="list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #D9DDE3"><li style="border-top: 1px solid #D9DDE3"><a href="Comparison.dc.html" class="more" style="display: grid; grid-template-columns: 24px minmax(0, 1fr) 20px; gap: 12px; align-items: center; padding: 16px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg><span><span style="display: block; font-weight: 700; color: #1D4ED8">プランを選ぶ</span><span style="display: block; font-size: 13px; color: #4D5562">3つの質問で、合うプランが分かる（Claude のプランの選び方）</span></span><span style="color: #4D5562; display: grid"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M3 12h18m-7-7 7 7-7 7"></path></svg></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Glossary.dc.html" class="more" style="display: grid; grid-template-columns: 24px minmax(0, 1fr) 20px; gap: 12px; align-items: center; padding: 16px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><span><span style="display: block; font-weight: 700; color: #1D4ED8">言葉を調べる</span><span style="display: block; font-size: 13px; color: #4D5562">MCP・トークン・コンテキストなどを短く説明（用語集）</span></span><span style="color: #4D5562; display: grid"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M3 12h18m-7-7 7 7-7 7"></path></svg></span></a></li></ul>
-    </div>
-  </main>
-  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+</section>
+<div class="fx-wrap">
+<section class="fx-sec" aria-labelledby="signs-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">SIGNS</span><h2 class="fx-h2" id="signs-title">覚える印は3つ</h2></div></div>
+<ol class="sg-list">
+<li class="sg-row"><div><span class="sg-big">2026.11.01</span><p class="fx-mono fx-muted" style="font-size:12px;margin-top:6px">Claude Code 2.1.325</p></div><div><p class="sg-title">確かめた日と版</p><p class="fx-muted">その日・その版で、手順どおりに動いた記録です。</p></div></li>
+<li class="sg-row"><div><span class="sg-big">CC07</span></div><div><p class="sg-title">記事番号は変わらない</p><p class="fx-muted">CC は製品（Claude Code）の記号。人には「CC07」で通じます。</p></div></li>
+<li class="sg-row"><div><span class="fx-pill rev" style="font-size:14px;padding:8px 14px">見直し中</span></div><div><p class="sg-title">公式が変わると「見直し中」</p><p class="fx-muted">確かめ直すまで、手順の一部が古いかもしれません。</p></div></li>
+</ol>
+</section>
+<section class="fx-sec" aria-labelledby="intent-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">INTENT</span><h2 class="fx-h2" id="intent-title">やりたいことから選ぶ</h2></div></div>
+<ul class="it-grid"><li><a class="it-link" href="Hub.dc.html"><span class="it-t">文章や資料をまとめたい</span><span class="fx-arrow" aria-hidden="true">↘</span><span class="it-s">Claude アプリ・ChatGPT・Gemini</span></a></li><li><a class="it-link" href="Hub.dc.html"><span class="it-t">コードを書かせたい</span><span class="fx-arrow" aria-hidden="true">↘</span><span class="it-s">Claude Code・Codex・Gemini CLI</span></a></li><li><a class="it-link" href="Hub.dc.html"><span class="it-t">決まった作業を自動にしたい</span><span class="fx-arrow" aria-hidden="true">↘</span><span class="it-s">Claude Code・Agent SDK・MCP</span></a></li><li><a class="it-link" href="Hub.dc.html"><span class="it-t">画像を作りたい</span><span class="fx-arrow" aria-hidden="true">↘</span><span class="it-s">Midjourney・FLUX ほか</span></a></li><li><a class="it-link" href="Hub.dc.html"><span class="it-t">動画を作りたい</span><span class="fx-arrow" aria-hidden="true">↘</span><span class="it-s">Sora・Veo ほか</span></a></li><li><a class="it-link" href="Hub.dc.html"><span class="it-t">音声を作る・文字に起こしたい</span><span class="fx-arrow" aria-hidden="true">↘</span><span class="it-s">ElevenLabs ほか</span></a></li></ul>
+</section>
+<section class="fx-sec" aria-labelledby="help-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">HELP</span><h2 class="fx-h2" id="help-title">迷ったら</h2></div></div>
+<ul class="hp-list">
+<li><a class="hp-link" href="Comparison.dc.html"><span><span class="hp-t">プランを選ぶ</span><span class="fx-muted" style="display:block;font-size:13px">3つの質問で、合うプランが分かります。</span></span><span class="fx-arrow" aria-hidden="true">→</span></a></li>
+<li><a class="hp-link" href="Glossary.dc.html"><span><span class="hp-t">言葉を調べる</span><span class="fx-muted" style="display:block;font-size:13px">MCP・トークン・コンテキストなどを短く説明しています。</span></span><span class="fx-arrow" aria-hidden="true">→</span></a></li>
+</ul>
+</section>
+<div class="fx-end"></div>
+</div>
+</main>
+<dc-import name="FreshFooter" hint-size="100%,260px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>

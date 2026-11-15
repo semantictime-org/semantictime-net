@@ -8,67 +8,40 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+JP:wght@400;500;600;700&amp;display=swap">
 <style>
-body{margin:0;background:#FFFFFF}
-a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
-@media (hover:hover){a:hover{color:#1E3A8A}}
-::selection{background:#DBE4FF;color:#12161D}
-:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
-h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}
-summary::-webkit-details-marker{display:none}
-.rm-line{stroke-dasharray:var(--len);animation:rm-draw 900ms cubic-bezier(0.16,1,0.3,1) both}
-@keyframes rm-draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
-.rm-station{animation:rm-in 240ms ease-out 760ms both}
-@keyframes rm-in{from{opacity:0}to{opacity:1}}
-.more-arrow{transition:transform 150ms ease-out}
-@media (hover:hover){.more:hover .more-arrow{transform:translateX(3px)}}
-details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:rotate(180deg)}
-@media (prefers-reduced-motion:reduce){.rm-line,.rm-station{animation:none}.more-arrow,details .chev{transition:none}}
+body{margin:0;background:#FFFFFF}a{color:#1D4ED8;text-underline-offset:3px;text-decoration-thickness:1px;transition:color 150ms ease-out}@media (hover:hover){a:hover{color:#1E3A8A}}::selection{background:#DBE4FF;color:#111418}:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px;border-radius:4px}h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}button:active{transform:scale(0.97)}.card{transition:transform 200ms cubic-bezier(.16,1,.3,1)}@media (hover:hover){.card:hover{transform:translateY(-2px)}.card:hover .card-title{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}}@media (prefers-reduced-motion:reduce){.card{transition:none}}
+.rm-line{stroke-dasharray:var(--len);animation:rm-draw 900ms cubic-bezier(0.16,1,0.3,1) both}@keyframes rm-draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}.rm-station{animation:rm-in 240ms ease-out 760ms both}@keyframes rm-in{from{opacity:0}to{opacity:1}}@media (prefers-reduced-motion:reduce){.rm-line,.rm-station{animation:none}}
+.mascot .eyes{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}@keyframes mjump{30%{transform:translateY(-12px) scale(1.06,.94)}55%{transform:translateY(0) scale(.94,1.06)}75%{transform:translateY(-3px)}}@keyframes ripple{0%{transform:scale(1);opacity:.55}100%{transform:scale(3.2);opacity:0}}.live{position:relative;display:inline-block;width:7px;height:7px;border-radius:50%;background:#15803D;margin-right:8px;vertical-align:1px}.live::after{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:ripple 2.4s cubic-bezier(.16,1,.3,1) infinite}@keyframes pop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}@media (prefers-reduced-motion:reduce){.mascot .eyes,.live::after{animation:none}.mascot{animation:none!important}.demo *{transition:none!important}.train{display:none}}
 </style>
 </helmet>
-<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
-  <dc-import name="Header" hint-size="100%,100px"></dc-import>
+<div style="width: 100%; background: #FFFFFF; color: #111418; font-family: 'IBM Plex Sans JP', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="Header" hint-size="100%,65px"></dc-import>
   <sc-if value="{{showSince}}" hint-placeholder-val="{{ true }}">
-    <div role="status" style="background: #F1F3F5; border-bottom: 1px solid #D9DDE3">
-      <div style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 8px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 14px; line-height: 1.5">
-        <span>前回の訪問（<span style="font-family: 'BIZ UDGothic', monospace">11-10</span>）のあとに、<strong>記事の更新 5 本</strong>と<strong>ニュース 3 件</strong>があります。</span>
+    <div role="status" style="border-bottom: 1px solid #E6E8EC">
+      <div style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 14px; line-height: 1.5; color: #5B616E">
+        <span><span class="live" aria-hidden="true" style="background: #1D4ED8"></span>前回の訪問（<span style="font-family: 'IBM Plex Mono', ui-monospace, monospace">11-10</span>）から、記事 <span style="color: #111418; font-weight: 500">5 本</span>とニュース <span style="color: #111418; font-weight: 500">3 件</span>が更新されました</span>
         <a href="Digest.dc.html">変わったところを見る</a>
-        <button type="button" onClick="{{hideSince}}" aria-label="このお知らせを閉じる" style="margin-left: auto; width: 32px; height: 32px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 4px; color: #4D5562; cursor: pointer"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+        <button type="button" onClick="{{hideSince}}" aria-label="このお知らせを閉じる" style="margin-left: auto; width: 28px; height: 28px; display: grid; place-items: center; background: transparent; border: 0; border-radius: 6px; color: #8A909C; cursor: pointer"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
       </div>
     </div>
   </sc-if>
-  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
-
-    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 64px; padding: 64px 0; border-bottom: 1px solid #12161D">
-      <div style="flex: 1 1 440px; min-width: 0">
-        <section aria-labelledby="title">
-          <h1 id="title" style="margin: 0; font-weight: 700; font-size: clamp(32px, 4.2vw, 48px); line-height: 1.3">検証した日と版で読む、AI の使い方</h1>
-          <p style="margin: 24px 0 0; max-width: 32em; font-size: 16px; line-height: 1.75; color: #4D5562">Claude・ChatGPT・Gemini から画像・動画・音声まで。手順はすべて手元で確かめ、公式の変更に合わせて直します。</p>
-          <p style="margin: 16px 0 0; font-size: 15px"><a href="Start.dc.html">はじめての方へ：このサイトの読み方</a><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="About.dc.html">検証のしかた</a></p>
-        </section>
-        <section aria-labelledby="run-title" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #D9DDE3">
-          <h2 id="run-title" style="margin: 0 0 16px; font-size: 14px; line-height: 1.5; font-weight: 700">直近の変更と、このサイトの対応</h2>
-          <sc-if value="{{noRun}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">今週はまだ公式の変更がありません。毎朝 6 時に確かめています。</p></sc-if>
-          <ol style="list-style: none; margin: 0; padding: 0">
-            <sc-for list="{{run}}" as="r" hint-placeholder-count="3">
-              <li style="position: relative; padding: 0 0 16px 28px">
-                <span aria-hidden="true" style="{{r.line}}"></span>
-                <span aria-hidden="true" style="position: absolute; left: 0; top: 5px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #12161D; background: #FFFFFF"></span>
-                <p style="margin: 0; display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{r.date}}</span><sc-if value="{{r.isChange}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg></sc-if><sc-if value="{{r.isJudge}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></sc-if><sc-if value="{{r.isFix}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg></sc-if>{{r.label}}</p>
-                <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.6; overflow-wrap: anywhere">{{r.text}}</p>
-              </li>
-            </sc-for>
-          </ol>
-          <a href="Digest.dc.html" class="more" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px">変更と対応の記録をすべて見る<svg class="more-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18m-7-7 7 7-7 7"></path></svg></a>
-        </section>
+  <main>
+    <section aria-labelledby="title" style="container-type: inline-size; max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 96px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px 64px">
+      <div style="flex: 1.4 1 520px; min-width: 0">
+        <h1 id="title" style="margin: 0; font-weight: 700; font-size: clamp(30px, 8.5cqi, 64px); line-height: 1.15; letter-spacing: -0.03em"><span style="display: inline-block">その手順、</span><span style="display: inline-block">いま動きますか。</span></h1>
+        <p style="margin: 24px 0 0; max-width: 30em; font-size: 18px; line-height: 1.8; color: #5B616E">AI の使い方を、手元で動かした日と版をつけて公開しています。公式の変更は毎朝たどり、影響があれば確かめ直します。</p>
+        <p style="margin: 32px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px">
+          <a href="Start.dc.html" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 10px; background: #111418; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">はじめての方へ<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a>
+          <a href="About.dc.html" style="font-size: 15px; color: #111418; text-decoration: none">検証のしかた →</a>
+        </p>
       </div>
-      <figure style="flex: 1 1 420px; min-width: 0; max-width: 600px; margin: 0">
+      <figure style="flex: 1 1 360px; min-width: 0; max-width: 520px; margin: 0">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" width="560" height="360" style="width: 100%; height: auto; display: block" role="img" aria-label="各社の製品を路線、記事を駅として描いた路線図">
-<path class="rm-line" style="--len:190;animation-delay:350ms" d="M24 212L68 212Q80 212 88.49 220.49L119.51 251.51Q128 260 140 260L196 260" fill="none" stroke="#3F3F46" stroke-width="6" stroke-linecap="round"></path>
-<path class="rm-line" style="--len:208;animation-delay:280ms" d="M438 24L438 54Q438 66 429.51 74.49L388.6 115.4Q382 122 382 131.33L382 210" fill="none" stroke="#0369A1" stroke-width="6" stroke-linecap="round"></path>
-<path class="rm-line" style="--len:318;animation-delay:210ms" d="M240 336L240 317.33Q240 308 246.6 301.4L259.51 288.49Q268 280 280 280L520 280" fill="none" stroke="#6D28D9" stroke-width="6" stroke-linecap="round"></path>
-<path class="rm-line" style="--len:531;animation-delay:140ms" d="M54 60L148 60Q160 60 168.49 68.49L271.51 171.51Q280 180 292 180L388 180Q400 180 408.49 188.49L473.87 253.87Q480 260 488.67 260L506 260" fill="none" stroke="#C2410C" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-cg" class="rm-line" style="--len:190;animation-delay:350ms" d="M24 212L68 212Q80 212 88.49 220.49L119.51 251.51Q128 260 140 260L196 260" fill="none" stroke="#3F3F46" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-gm" class="rm-line" style="--len:208;animation-delay:280ms" d="M438 24L438 54Q438 66 429.51 74.49L388.6 115.4Q382 122 382 131.33L382 210" fill="none" stroke="#0369A1" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-mj" class="rm-line" style="--len:318;animation-delay:210ms" d="M240 336L240 317.33Q240 308 246.6 301.4L259.51 288.49Q268 280 280 280L520 280" fill="none" stroke="#6D28D9" stroke-width="6" stroke-linecap="round"></path>
+<path id="t-cc" class="rm-line" style="--len:531;animation-delay:140ms" d="M54 60L148 60Q160 60 168.49 68.49L271.51 171.51Q280 180 292 180L388 180Q400 180 408.49 188.49L473.87 253.87Q480 260 488.67 260L506 260" fill="none" stroke="#C2410C" stroke-width="6" stroke-linecap="round"></path>
 <path class="rm-line" style="--len:606;animation-delay:70ms" d="M54 120L128 120Q140 120 148.49 128.49L191.51 171.51Q200 180 200 192L200 248Q200 260 212 260L308 260Q320 260 328.49 251.51L451.51 128.49Q460 120 472 120L506 120" fill="none" stroke="#9D174D" stroke-width="6" stroke-linecap="round"></path>
 <path class="rm-line" style="--len:663;animation-delay:0ms" d="M120 316L120 272Q120 260 128.49 251.51L271.51 108.49Q280 100 292 100L328 100Q340 100 340 112L340 228Q340 240 352 240L428 240Q440 240 448.49 248.49L506 306" fill="none" stroke="#854D0E" stroke-width="6" stroke-linecap="round"></path>
 <circle class="rm-station" cx="56" cy="212" r="5" fill="white" stroke="#3F3F46" stroke-width="3"></circle>
@@ -107,108 +80,137 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
 <rect x="24" y="50" width="28" height="20" rx="2" fill="#C2410C"></rect><text x="38" y="64" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CC</text>
 <rect x="508" y="110" width="28" height="20" rx="2" fill="#9D174D"></rect><text x="522" y="124" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">AP</text>
 <rect x="108" y="318" width="28" height="20" rx="2" fill="#854D0E"></rect><text x="122" y="332" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MC</text>
-</svg>
-        <figcaption style="margin-top: 16px; font-size: 13px; line-height: 1.5; color: #4D5562">路線は製品、駅は記事。黒い枠の乗り換え駅は、製品をまたいで関係する記事です。</figcaption>
+<g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="1.2s"></set><animateMotion dur="18s" begin="1.2s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-cc"></mpath></animateMotion></g><g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="1.6s"></set><animateMotion dur="12s" begin="1.6s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-cg"></mpath></animateMotion></g><g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="2.0s"></set><animateMotion dur="13.0s" begin="2.0s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-gm"></mpath></animateMotion></g><g class="train" opacity="0"><rect x="-9" y="-4.5" width="18" height="9" rx="4.5" fill="#111418"></rect><circle cx="4.5" cy="0" r="1.6" fill="#FFFFFF"></circle><set attributeName="opacity" to="1" begin="2.4000000000000004s"></set><animateMotion dur="15.0s" begin="2.4000000000000004s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear"><mpath href="#t-mj"></mpath></animateMotion></g></svg>
+      <section aria-labelledby="proof-title" class="proof" style="position: relative; z-index: 1; width: min(100%, 340px); margin: -56px 0 0 auto; background: #FFFFFF; border: 1px solid #E6E8EC; border-radius: 16px; box-shadow: 0 1px 2px rgba(17,20,24,0.04), 0 12px 32px -12px rgba(17,20,24,0.18); overflow: hidden">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #E6E8EC">
+            <h2 id="proof-title" style="margin: 0; font-size: 13px; font-weight: 600"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #C2410C; margin-right: 8px">CC07</span>検証の軌跡</h2>
+            <span role="status" style="{{proofPill}}">{{proofLabel}}</span>
+          </div>
+          <ol aria-label="{{proofAria}}" style="list-style: none; margin: 0; padding: 16px 16px 4px; position: relative">
+            <span aria-hidden="true" style="position: absolute; left: 22px; top: 26px; bottom: 30px; width: 2px; background: #E6E8EC"></span>
+            <li style="position: relative; padding: 0 0 14px 26px"><span aria-hidden="true" style="position: absolute; left: 0; top: 4px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #15803D; background: #FFFFFF"></span><span style="display: block; font-size: 14px; font-weight: 600; line-height: 1.5">公式の変更を読む</span><span style="display: block; font-size: 13px; line-height: 1.6; color: #5B616E">毎朝、各社の変更履歴を確かめる</span></li>
+            <li style="position: relative; padding: 0 0 14px 26px"><span aria-hidden="true" style="position: absolute; left: 0; top: 4px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #15803D; background: #FFFFFF"></span><span style="display: block; font-size: 14px; font-weight: 600; line-height: 1.5">記事への影響を調べる</span><span style="display: block; font-size: 13px; line-height: 1.6; color: #5B616E">{{proofDetail}}</span></li>
+            <li style="position: relative; padding: 0 0 14px 26px"><span aria-hidden="true" style="{{proofDot}}"></span><span style="display: block; font-size: 14px; font-weight: 600; line-height: 1.5">{{proofFinal}}</span><span style="display: block; font-size: 13px; line-height: 1.6; color: #5B616E">{{proofFinalSub}}</span></li>
+          </ol>
+          <div style="padding: 0 16px 16px"><button type="button" onClick="{{advanceProof}}" style="width: 100%; height: 38px; background: #111418; color: #FFFFFF; border: 0; border-radius: 10px; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">{{proofButton}}</button></div>
+        </section>
       </figure>
-    </div>
-
-    <section aria-labelledby="goal-title" style="padding-top: 64px">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
-        <h2 id="goal-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">やりたいことから探す</h2>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">製品名が分からなくても大丈夫です。<a href="Start.dc.html">はじめての方へ</a></p>
-      </div>
-      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 40px"><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">文章や資料をまとめたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Claude アプリ・ChatGPT・Gemini　<span style="font-family: 'BIZ UDGothic', monospace">14</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M5 15h38M11 11h2m4 0h2m-3 11-6 6 6 6m16-12 6 6-6 6m-6-14-4 16"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">コードを書かせたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Claude Code・Codex・Gemini CLI　<span style="font-family: 'BIZ UDGothic', monospace">31</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M24 6v6m0 24v6M6 24h6m24 0h6"></path><circle cx="24" cy="24" r="10"></circle><path d="m20 24 3 3 5-6"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">決まった作業を自動にしたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Claude Code・Agent SDK・MCP　<span style="font-family: 'BIZ UDGothic', monospace">17</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">画像を作りたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Midjourney・FLUX ほか　<span style="font-family: 'BIZ UDGothic', monospace">4</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M12 7v34M36 7v34M5 17h7M5 31h7m24-14h7m-7 14h7m-23-7V18l9 6-9 6v-6Z"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">動画を作りたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">Sora・Veo ほか　<span style="font-family: 'BIZ UDGothic', monospace">2</span> 本</span></span></a></li><li style="border-top: 1px solid #D9DDE3"><a href="Hub.dc.html" class="goal" style="display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 16px; align-items: start; padding: 24px 0; color: #12161D; text-decoration: none"><svg viewBox="0 0 48 48" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M6 20v8m8-14v20M24 6v36m10-28v20m8-14v8"></path></svg><span><span style="display: block; font-weight: 700; font-size: 18px; line-height: 1.5">音声を作る・文字に起こしたい</span><span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5; color: #4D5562">ElevenLabs ほか　<span style="font-family: 'BIZ UDGothic', monospace">2</span> 本</span></span></a></li></ul>
     </section>
 
-    <section aria-labelledby="lines-title" style="padding-top: 64px">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
-        <h2 id="lines-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">会社と製品</h2>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">すべて手元で検証した記事　<span style="font-family: 'BIZ UDGothic', monospace">{{total}}</span> 本<span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="#">RSS で更新を受け取る</a></p>
+    <section aria-labelledby="run-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 0 96px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="run-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">直近の変更と対応</h2><a href="Digest.dc.html" class="more" style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #111418; text-decoration: none">変更の記録をすべて見る<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #5B616E"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a></div>
+      <sc-if value="{{noRun}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 24px 0; border-top: 1px solid #E6E8EC; color: #5B616E">今週はまだ公式の変更がありません。毎朝 6 時に確かめています。</p></sc-if>
+      <ol style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #E6E8EC">
+        <sc-for list="{{run}}" as="r" hint-placeholder-count="3">
+          <li style="display: grid; grid-template-columns: 96px 120px minmax(0, 1fr); gap: 4px 24px; padding: 18px 0; border-bottom: 1px solid #E6E8EC; align-items: baseline">
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; color: #5B616E">{{r.date}}</span>
+            <span style="font-size: 13px; color: #5B616E">{{r.label}}</span>
+            <span style="font-size: 16px; line-height: 1.7; overflow-wrap: anywhere">{{r.text}}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </section>
+
+    <section aria-labelledby="latest-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 0 96px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="latest-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">新しい記事</h2><div role="group" aria-label="絞り込み" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid #E6E8EC; border-radius: 999px"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="{{t.style}}">{{t.label}}</button></sc-for></div></div>
+      <sc-if value="{{noCards}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 24px 0; color: #5B616E">この条件に合う記事はまだありません。</p></sc-if>
+      <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 48px 32px">
+        <sc-for list="{{cards}}" as="a" hint-placeholder-count="6">
+          <li style="min-width: 0"><a href="Article.dc.html" class="card" style="display: block; color: #111418; text-decoration: none">
+            <span aria-hidden="true" style="display: block; aspect-ratio: 16 / 9; border-radius: 12px; border: 1px solid #E6E8EC; {{a.cover}}"></span>
+            <span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-top: 16px"><span style="{{a.numStyle}}">{{a.no}}</span><span style="font-size: 13px; color: #5B616E; overflow-wrap: anywhere; text-align: right">{{a.product}}</span></span>
+            <span class="card-title" style="display: block; margin-top: 6px; font-size: 18px; line-height: 1.55; font-weight: 600; overflow-wrap: anywhere">{{a.title}}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 8px; font-size: 13px; color: #5B616E"><span>{{a.level}}</span><span>検証 <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace">{{a.date}}</span></span><span style="{{a.flagStyle2}}">{{a.flag}}</span></span>
+          </a></li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="goal-title" style="background: #F6F7F9; border-block: 1px solid #E6E8EC">
+      <div style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 80px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="goal-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">やりたいことから探す</h2><p style="margin: 0; font-size: 14px; color: #5B616E">製品名が分からなくても大丈夫です</p></div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px"><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">文章や資料をまとめたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Claude アプリ・ChatGPT・Gemini · 14 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M5 15h38M11 11h2m4 0h2m-3 11-6 6 6 6m16-12 6 6-6 6m-6-14-4 16"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">コードを書かせたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Claude Code・Codex・Gemini CLI · 31 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M24 6v6m0 24v6M6 24h6m24 0h6"></path><circle cx="24" cy="24" r="10"></circle><path d="m20 24 3 3 5-6"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">決まった作業を自動にしたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Claude Code・Agent SDK・MCP · 17 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">画像を作りたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Midjourney・FLUX ほか · 4 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><rect x="5" y="7" width="38" height="34" rx="2"></rect><path d="M12 7v34M36 7v34M5 17h7M5 31h7m24-14h7m-7 14h7m-23-7V18l9 6-9 6v-6Z"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">動画を作りたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">Sora・Veo ほか · 2 本</span></span></a></li><li><a href="Hub.dc.html" class="card" style="display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: center; padding: 20px; border: 1px solid #E6E8EC; border-radius: 12px; background: #FFFFFF; color: #111418; text-decoration: none; height: 100%; box-sizing: border-box"><span style="display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #F6F7F9; color: #111418"><svg viewBox="0 0 48 48" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #12161D"><path d="M6 20v8m8-14v20M24 6v36m10-28v20m8-14v8"></path></svg></span><span style="min-width: 0"><span class="card-title" style="display: block; font-weight: 600; font-size: 16px; line-height: 1.5">音声を作る・文字に起こしたい</span><span style="display: block; margin-top: 2px; font-size: 13px; line-height: 1.5; color: #5B616E">ElevenLabs ほか · 2 本</span></span></a></li></ul>
       </div>
-      <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; padding-top: 16px; font-size: 14px">
-        <sc-for list="{{filters}}" as="f" hint-placeholder-count="2"><span role="group" aria-label="{{f.label}}" style="display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px"><span style="color: #4D5562">{{f.label}}</span><sc-for list="{{f.options}}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" style="{{o.style}}">{{o.name}}</button></sc-for></span></sc-for>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; padding-top: 24px">
-        <sc-for list="{{companies}}" as="c" hint-placeholder-count="4">
+    </section>
+
+    <section aria-labelledby="index-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 96px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="index-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">会社と製品</h2><p style="margin: 0; font-size: 14px; color: #5B616E">手元で検証した記事 <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #111418">{{total}}</span> 本 · <a href="#">RSS</a></p></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px 32px">
+        <sc-for list="{{index}}" as="c" hint-placeholder-count="4">
           <section aria-label="{{c.name}}" style="min-width: 0">
-            <h3 style="margin: 0; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 8px; padding-bottom: 8px; border-bottom: 1px solid #D9DDE3; font-size: 20px; line-height: 1.5; font-weight: 700"><span style="min-width: 0; overflow-wrap: anywhere">{{c.name}}</span><span style="font-size: 13px; font-weight: 400; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{c.count}}</span> 本</span></h3>
-            <sc-if value="{{c.isEmpty}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">{{c.emptyText}}</p></sc-if>
-            <sc-for list="{{c.routes}}" as="r" hint-placeholder-count="2">
-              <div style="padding-top: 16px">
-                <h4 style="margin: 0 0 4px; display: flex; align-items: flex-start; gap: 8px; font-size: 16px; line-height: 1.5; font-weight: 700"><span style="{{r.code}}">{{r.id}}</span><a href="Hub.dc.html" style="min-width: 0; overflow-wrap: anywhere; color: #12161D; text-decoration: none">{{r.name}}<span style="{{r.vendorStyle}}">{{r.vendor}}</span></a></h4>
-                <ol style="list-style: none; margin: 0; padding: 0">
-                  <sc-for list="{{r.stations}}" as="s" hint-placeholder-count="2">
-                    <li style="position: relative; padding-left: 28px">
-                      <span aria-hidden="true" style="{{s.track}}"></span>
-                      <span aria-hidden="true" style="{{s.dot}}"></span>
-                      <a href="Article.dc.html" style="display: block; padding: 8px 0; color: #12161D; text-decoration: none">
-                        <span style="display: block; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere">{{s.title}}</span>
-                        <span style="display: block; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{s.no}}　{{s.date}}</span>　{{s.level}}<span style="{{s.flagStyle}}">{{s.flag}}</span></span>
-                      </a>
-                    </li>
-                  </sc-for>
-                </ol>
-                <a href="Hub.dc.html" class="more" style="{{r.moreStyle}}">{{r.moreLabel}}<svg class="more-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a>
-              </div>
-            </sc-for>
+            <h3 style="margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #111418; font-size: 16px; font-weight: 600"><span style="overflow-wrap: anywhere">{{c.name}}</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; color: #5B616E">{{c.count}}</span></h3>
+            <sc-if value="{{c.isEmpty}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 12px 0; font-size: 14px; color: #5B616E">まだ記事がありません</p></sc-if>
+            <ul style="list-style: none; margin: 0; padding: 0">
+              <sc-for list="{{c.products}}" as="p" hint-placeholder-count="3">
+                <li><a href="Hub.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #E6E8EC; color: #111418; text-decoration: none; font-size: 15px"><span style="{{p.dot}}"></span><span style="flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere">{{p.name}}</span><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #8A909C">{{p.count}}</span></a></li>
+              </sc-for>
+            </ul>
           </section>
         </sc-for>
       </div>
     </section>
 
-    <details style="margin-top: 64px; border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3">
-      <summary style="cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding: 16px 0">
-        <span style="font-size: 20px; line-height: 1.6; font-weight: 700">各製品の状況</span>
-        <span style="font-size: 14px; line-height: 1.5; color: #4D5562"><sc-if value="{{hasNeeds}}" hint-placeholder-val="{{ true }}">対応が必要なのは <strong style="color: #B45309">{{needCount}} 製品</strong>（{{needNames}}）</sc-if><sc-if value="{{noNeeds}}" hint-placeholder-val="{{ false }}">いま対応が必要な製品はありません</sc-if><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="color: #1D4ED8; display: inline-flex; align-items: center; gap: 4px">すべての製品を表示<span class="chev" style="display: inline-flex"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="m6 9 6 6 6-6"></path></svg></span></span></span>
-      </summary>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.5">
-          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562"><th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400">製品</th><th scope="col" style="padding: 8px 16px; font-weight: 400">会社</th><th scope="col" style="padding: 8px 16px; font-weight: 400">状況</th><th scope="col" style="padding: 8px 16px; font-weight: 400">内容</th><th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400">フォロー</th></tr></thead>
-          <tbody>
-            <sc-for list="{{status}}" as="st" hint-placeholder-count="8">
-              <tr style="border-top: 1px solid #D9DDE3"><th scope="row" style="padding: 8px 16px 8px 0; text-align: left; font-weight: 700; white-space: nowrap"><span style="{{st.code}}">{{st.id}}</span> {{st.name}}</th><td style="padding: 8px 16px; color: #4D5562">{{st.vendor}}</td><td style="{{st.stateStyle}}">{{st.state}}</td><td style="padding: 8px 16px">{{st.detail}}</td><td style="padding: 8px 0 8px 16px; white-space: nowrap"><a href="#">RSS</a></td></tr>
-            </sc-for>
-          </tbody>
-        </table>
-      </div>
-    </details>
-
-    <section aria-labelledby="news-title" style="padding-top: 64px">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
-        <h2 id="news-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">ニュース</h2>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">各社の公式発表を一次情報として確かめたものだけを載せています</p>
-      </div>
-      <sc-if value="{{noNews}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">まだニュースはありません。</p></sc-if>
-      <ul style="list-style: none; margin: 0; padding: 0">
-        <sc-for list="{{news}}" as="n" hint-placeholder-count="5">
-          <li style="border-bottom: 1px solid #D9DDE3">
-            <a href="Article.dc.html" style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 4px 16px; padding: 16px 0; color: #12161D; text-decoration: none">
-              <span style="font-family: 'BIZ UDGothic', monospace; font-size: 13px; line-height: 1.75; color: #4D5562">{{n.date}}</span>
-              <span>
-                <span style="display: block; font-size: 17px; line-height: 1.6; font-weight: 700; overflow-wrap: anywhere">{{n.title}}</span>
-                <span style="display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 14px; line-height: 1.5"><sc-if value="{{n.hasWho}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>{{n.target}}</span></sc-if><sc-if value="{{n.needsAction}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: #B45309"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="m8 12 3 3 5-6"></path></svg>{{n.todo}}</span></sc-if><sc-if value="{{n.noAction}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 6px; color: #15803D"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>対応は不要</span></sc-if></span>
-                <span style="display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; line-height: 1.4; color: #4D5562; overflow-wrap: anywhere"><span style="min-width: 0">{{n.product}}・{{n.source}}</span><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14 3h7v7m0-7L11 13m-1-9H4v16h16v-6"></path></svg></span>
+    <section aria-labelledby="news-title" style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 0 112px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 24px"><h2 id="news-title" style="margin: 0; font-size: 28px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">ニュース</h2><p style="margin: 0; font-size: 14px; color: #5B616E">各社の公式発表を確かめたものだけ</p></div>
+      <sc-if value="{{noNews}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 24px 0; border-top: 1px solid #E6E8EC; color: #5B616E">まだニュースはありません。</p></sc-if>
+      <ul style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #E6E8EC">
+        <sc-for list="{{news}}" as="n" hint-placeholder-count="4">
+          <li style="border-bottom: 1px solid #E6E8EC"><a href="NewsArticle.dc.html" class="card" style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 24px; padding: 20px 0; color: #111418; text-decoration: none">
+            <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.9; color: #5B616E">{{n.date}}</span>
+            <span style="min-width: 0">
+              <span class="card-title" style="display: block; font-size: 17px; line-height: 1.6; font-weight: 600; overflow-wrap: anywhere">{{n.title}}</span>
+              <span style="display: flex; flex-wrap: wrap; gap: 2px 16px; margin-top: 6px; font-size: 14px; line-height: 1.6; color: #5B616E">
+                <sc-if value="{{n.hasWho}}" hint-placeholder-val="{{ true }}"><span>対象：{{n.target}}</span></sc-if>
+                <sc-if value="{{n.needsAction}}" hint-placeholder-val="{{ true }}"><span style="color: #B45309; font-weight: 500">要対応：{{n.todo}}</span></sc-if>
+                <sc-if value="{{n.noAction}}" hint-placeholder-val="{{ false }}"><span>対応は不要</span></sc-if>
+                <span style="color: #8A909C; overflow-wrap: anywhere">{{n.product}} · {{n.source}}</span>
               </span>
-            </a>
-          </li>
+            </span>
+          </a></li>
         </sc-for>
       </ul>
     </section>
   </main>
-  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+  <dc-import name="Footer" hint-size="100%,320px"></dc-import>
   <div role="group" aria-label="データの切り替え（検証用）" style="position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 10; display: flex; gap: 2px; padding: 3px; background: #E5E5E5; border-radius: 999px">
     <sc-for list="{{toggle}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button></sc-for>
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3400}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { ds: 'demo', role: 'すべて', level: 'すべて', since: true };
+    this.state = { ds: 'demo', role: 'すべて', level: 'すべて', since: true, tab: 'すべて', proof: 0 };
   }
   renderVals() {
     const ds = this.state.ds;
+    const cover = (seed, color, opts) => {
+      const o = opts || {};
+      let h = 2166136261;
+      for (const ch of seed) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+      const rnd = () => { h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0; h = Math.imul(h ^ (h >>> 13), 3266489909) >>> 0; return ((h ^= h >>> 16) >>> 0) / 4294967296; };
+      const W = o.wide ? 1100 : 480, H = o.wide ? 367 : (o.tall ? 270 : 240), rows = [0.22, 0.38, 0.54, 0.7, 0.86].map((r) => Math.round(r * H));
+      const bg = o.dark ? '#0E1116' : '#F4F5F7', grey = o.dark ? '#262B33' : '#DCDFE5';
+      const route = () => {
+        let r = Math.floor(rnd() * rows.length), x = -20, y = rows[r];
+        const pts = [[x, y]];
+        while (x < W + 20) {
+          x += 50 + Math.floor(rnd() * 90); pts.push([x, y]);
+          if (rnd() < 0.55) { const nr = Math.max(0, Math.min(rows.length - 1, r + (rnd() < 0.5 ? -1 : 1) * (1 + Math.floor(rnd() * 2)))); const dy = rows[nr] - y; x += Math.abs(dy); y = rows[nr]; r = nr; pts.push([x, y]); }
+        }
+        return pts;
+      };
+      const d = (pts) => 'M' + pts.map((p) => p.join(' ')).join('L');
+      let svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid slice"><rect width="100%" height="100%" fill="' + bg + '"/>';
+      for (let i = 0; i < 3; i++) svg += '<path d="' + d(route()) + '" fill="none" stroke="' + grey + '" stroke-width="3" stroke-linejoin="round"/>';
+      const main = route();
+      svg += '<path d="' + d(main) + '" fill="none" stroke="' + color + '" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>';
+      main.filter((p, i) => i > 0 && i % 2 === 1 && p[0] > 20 && p[0] < W - 20).slice(0, 4).forEach((p) => { svg += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="' + bg + '" stroke="' + color + '" stroke-width="4"/>'; });
+      svg += '</svg>';
+      return "background-color: " + bg + "; background-image: url('data:image/svg+xml;utf8," + encodeURIComponent(svg) + "'); background-size: cover; background-position: center";
+    };
+
     const code = (color) => "display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: " + color + "; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; flex: 0 0 auto";
     const RUN_DEMO = [
       ['11-14', '公式の変更', 'Claude Code のステータス行の設定の書き方が変わった（公式の変更履歴）'],
@@ -240,7 +242,7 @@ class Component extends DCLogic {
     const VENDOR = { FX: 'Black Forest Labs' };
     const SHOW = 2;
     const route = (id, count, all) => { const list = all.filter(keep).slice(0, SHOW); const [name, color] = LINES[id]; return {
-      id, name, count, code: code(color), vendor: VENDOR[id] || '',
+      id, name, count, color, code: code(color), vendor: VENDOR[id] || '',
       vendorStyle: VENDOR[id] ? 'display: block; font-size: 12px; font-weight: 400; color: #4D5562' : 'display: none',
       moreLabel: 'すべて見る（' + count + ' 本）',
       moreStyle: count > list.length && list.length > 0 ? 'display: inline-flex; align-items: center; gap: 4px; margin-top: 4px; font-size: 13px; line-height: 1.5' : 'display: none',
@@ -293,6 +295,18 @@ class Component extends DCLogic {
       return { name, count, routes, isEmpty: routes.length === 0, emptyText: filtered ? 'この条件に合う記事はありません。' : 'まだ公開した記事がありません。' };
     });
     const total = companies.reduce((n, c) => n + c.count, 0);
+
+    const TABS = [['すべて', 'すべて', 'すべて'], ['入門', 'すべて', '入門'], ['開発者向け', '開発者', 'すべて'], ['ビジネス職向け', 'ビジネス職', 'すべて']];
+    const tabs = TABS.map(([label, role, level]) => ({ label, pressed: st.tab === label ? 'true' : 'false', pick: () => this.setState({ tab: label, role, level }),
+      style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; cursor: pointer; ' + (st.tab === label ? 'background: #111418; color: #FFFFFF' : 'background: transparent; color: #5B616E') }));
+    const lanes = companies.map((c) => c.routes.flatMap((r) => r.stations.map((s) => ({ ...s, product: r.name, color: r.color, vendor: c.name }))));
+    const latest = [];
+    for (let i = 0; latest.length < 6 && i < 6; i++) lanes.forEach((l) => { if (l[i] && latest.length < 6) latest.push(l[i]); });
+    const cards = latest.map((s, i) => ({ ...s, numStyle: "font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: " + s.color, cover: cover(s.no + s.title, s.color, { dark: i === 0 }), dotStyle: 'display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: ' + s.color,
+      flagStyle2: s.flag ? 'font-weight: 500; color: ' + (s.flag.includes('期限切れ') ? '#B91C1C' : '#B45309') : 'display: none' }));
+    const index = COMPANY.map(([key, name]) => ({ name, count: DATA[key].reduce((n, r) => n + r.count, 0),
+      products: DATA[key].filter((r) => r.count > 0).map((r) => ({ name: r.name, count: r.count, dot: 'display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: ' + r.color })) }))
+      .map((c) => ({ ...c, isEmpty: c.products.length === 0 }));
     const S = (id, name, color, vendor, state, detail) => ({
       id, name, vendor, state, detail, code: code(color),
       stateStyle: 'padding: 8px 16px; white-space: nowrap; ' + (state === '見直し中' ? 'font-weight: 700; color: #B45309' : state === '期限切れあり' ? 'font-weight: 700; color: #B91C1C' : 'color: #4D5562'),
@@ -335,7 +349,19 @@ class Component extends DCLogic {
     const DS = [['demo', 'デモ'], ['worst', '最悪'], ['empty', '空'], ['one', '1件']];
     const newsShown = news.map((n) => ({ ...n, hasWho: !!n.target, needsAction: !!n.todo, noAction: !!n.target && !n.todo }));
     const toggle = DS.map(([key, label]) => ({ label, pick: () => this.setState({ ds: key }), style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (ds === key ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
-    return { filters, showSince: st.since, hideSince: () => this.setState({ since: false }), run, companies, status, news: newsShown, toggle, ...flags };
+    
+    const PROOF = [
+      ['検証した版を記録した', '検証して公開', '日付と製品の版を、記事に残す', '検証済み', '公式の変更が届いたら？', 'ok'],
+      ['この記事の手順に影響がある', '見直し中と表示', '確かめ直すまで、読者に知らせる', '見直し中', '再検証が終わったら？', 'rev'],
+      ['変更後の手順を、手元で確かめた', '手順を直して再公開', '新しい検証日と版を残す', '再検証済み', 'はじめから見る', 'ok'],
+    ];
+    const pr = PROOF[st.proof || 0], isRev = pr[5] === 'rev';
+    const proofVals = { proofDetail: pr[0], proofFinal: pr[1], proofFinalSub: pr[2], proofLabel: pr[3], proofButton: pr[4],
+      proofAria: '公式の変更を読み、記事への影響を調べ、' + pr[1] + 'までの流れ',
+      proofPill: 'display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; transition: background 250ms ease, color 250ms ease; ' + (isRev ? 'background: #FFF4E0; color: #B45309' : 'background: #ECF8F0; color: #15803D'),
+      proofDot: 'position: absolute; left: 0; top: 4px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid ' + (isRev ? '#B45309' : '#15803D') + '; background: ' + (isRev ? '#B45309' : '#FFFFFF') + '; transition: background 250ms ease, border-color 250ms ease, transform 350ms cubic-bezier(.34,1.56,.64,1); transform: scale(' + (isRev ? 1.2 : 1) + ')',
+      advanceProof: () => this.setState({ proof: ((st.proof || 0) + 1) % 3 }) };
+    return { ...proofVals, tabs, cards, noCards: cards.length === 0, index, filters, showSince: st.since, hideSince: () => this.setState({ since: false }), run, companies, status, news: newsShown, toggle, ...flags };
   }
 }
 </script>

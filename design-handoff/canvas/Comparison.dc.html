@@ -8,99 +8,116 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700;900&amp;family=Anton&amp;display=swap">
 <style>
-body{margin:0;background:#FFFFFF}
-a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
-@media (hover:hover){a:hover{color:#1E3A8A}}
-::selection{background:#DBE4FF;color:#12161D}
-:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
-h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}
+body{margin:0}
+.fx{container-type:inline-size;color:#172343;background:#fff;font:15px/1.8 'BIZ UDPGothic','Hiragino Sans',sans-serif;overflow-wrap:anywhere}
+.fx *{box-sizing:border-box}
+.fx a{color:#1A3CFF;text-underline-offset:3px}
+.fx a:focus-visible,.fx button:focus-visible{outline:3px solid #1A3CFF;outline-offset:4px}
+.fx h1,.fx h2,.fx h3,.fx p{margin:0}
+.fx h1,.fx h2,.fx h3{font-family:'Zen Kaku Gothic New',sans-serif}
+.fx-wrap{max-width:1184px;margin:0 auto;padding-inline:clamp(20px,4cqi,48px)}
+.fx-band{position:relative;isolation:isolate;overflow:hidden;background:#0B0D12;color:#fff;padding:32px 0 64px}
+.fx-band a{color:#8095FF}
+.fx-band a:focus-visible{outline-color:#8095FF}
+.fx-crumbs{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:#9AA3B5}
+.fx-en{display:block;margin-top:32px;font:400 clamp(52px,9cqi,128px)/.9 'Anton',Impact,sans-serif;color:#8095FF;white-space:nowrap;letter-spacing:.005em}
+.fx-h1{margin-top:16px!important;font-weight:900;font-size:clamp(28px,4cqi,48px);line-height:1.3;letter-spacing:-.03em;color:#fff}
+.fx-lead{margin-top:16px!important;max-width:34em;color:#C5CBD8;font-size:15px;line-height:1.9}
+.fx-wm{position:absolute;right:-.03em;bottom:-.24em;font:400 clamp(170px,30cqi,380px)/1 'Anton',Impact,sans-serif;color:rgba(255,255,255,.04);z-index:-1;white-space:nowrap;pointer-events:none}
+.fx-checked{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:24px!important;font-size:13px;color:#C5CBD8}
+.fx-dot{position:relative;width:8px;height:8px;border-radius:50%;background:#3DDC84;flex:0 0 auto}
+.fx-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:fxr 2.4s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes fxr{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.4);opacity:0}}
+.fx-sec{padding-top:80px}
+.fx-sec-en{display:block;font:400 clamp(44px,6.6cqi,88px)/.92 'Anton',Impact,sans-serif;color:#1A3CFF;white-space:nowrap}
+.fx-h2{margin-top:10px!important;font-weight:900;font-size:22px;letter-spacing:-.02em;line-height:1.5}
+.fx-anton{font-family:'Anton',Impact,sans-serif;font-weight:400;letter-spacing:.01em}
+.fx-mono{font-family:'IBM Plex Mono',monospace}
+.fx-muted{color:#59637A}
+.fx-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:4px;font-size:11px;font-weight:700;line-height:1.4;white-space:nowrap}
+.fx-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.ok{background:#ECF8F0;color:#15803D}.rev{background:#FFF4E0;color:#B45309}.stale{background:#F8E8E1;color:#9B3D17}.fx-hide{display:none}
+.fx-row{border-top:1px solid #DDE2EF}
+.fx-arrow{font-family:'IBM Plex Mono',monospace;font-size:20px;color:#1A3CFF}
+.fx-end{padding:72px 0 96px}
+@media (prefers-reduced-motion:reduce){.fx-dot::after{animation:none}.fx *{transition:none!important}}
+
+.cp-diag{margin-top:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.cp-q{border:0;margin:0 0 24px;padding:0}
+.cp-q legend{padding:0;display:flex;align-items:baseline;gap:12px;font-weight:700;font-size:16px}
+.cp-qno{font:400 28px/1 'Anton',Impact,sans-serif;color:#1A3CFF}
+.cp-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cp-opts button{min-height:42px;padding:0 18px;border-radius:6px;font:inherit;font-size:14px;cursor:pointer;transition:background .2s ease,color .2s ease,transform .12s ease}
+.cp-opts button:active{transform:scale(.97)}
+.cp-result{position:relative;isolation:isolate;overflow:hidden;background:#0B0D12;color:#fff;border-radius:16px;padding:28px 28px 32px;align-self:start}
+.cp-result p{color:#C5CBD8}
+.cp-plan{display:block;margin:6px 0 10px;font:400 clamp(84px,12cqi,160px)/.95 'Anton',Impact,sans-serif;color:#8095FF;white-space:nowrap}
+.cp-table{width:100%;border-collapse:collapse;margin-top:24px}
+.cp-table th,.cp-table td{padding:16px;text-align:left;vertical-align:baseline;border-bottom:1px solid #DDE2EF}
+.cp-table thead th{font-size:12px;font-weight:400;color:#59637A;border-bottom:2px solid #172343}
+.cp-pick{font:400 34px/1 'Anton',Impact,sans-serif!important;color:#1A3CFF;white-space:nowrap}
+.cp-matrix th:first-child{position:sticky;left:0;background:#fff}
+.cp-plan-h{font:400 28px/1 'Anton',Impact,sans-serif!important;color:#172343!important;letter-spacing:.02em}
+.cp-legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:#59637A}
+.cp-legend span{display:inline-flex;align-items:center;gap:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@container(max-width:820px){.cp-diag{grid-template-columns:1fr}}
 </style>
 </helmet>
-<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
-  <dc-import name="Header" hint-size="100%,100px"></dc-import>
-  <div style="height: 6px; background: #BE123C"></div>
-  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
-    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562">
-      <a href="Main.dc.html">ホーム</a> › <a href="Hub.dc.html">Claude アプリ</a> › 比較
-    </nav>
-    <header style="padding-top: 40px; max-width: 684px">
-      <p style="margin: 0 0 8px; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: #BE123C; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; vertical-align: 1px">CA</span> <span style="font-family: 'BIZ UDGothic', monospace">01</span>　Claude アプリの比較</p>
-      <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">Claude のプランの選び方</h1>
-      <ul style="list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; font-size: 16px; line-height: 1.5"><li style="display: flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>使い方の型ごとに、合うプランを比べる</li><li style="display: flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>金額と上限は変わりやすいので、<a href="#">公式の料金ページ</a>へ</li></ul>
-      <p style="margin: 16px 0 0; padding-top: 16px; border-top: 1px solid #12161D; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 14px; line-height: 1.5"><span style="color: #15803D; display: grid"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg></span><span style="color: #4D5562">確認</span><span style="font-family: 'BIZ UDGothic', monospace">2026-11-13</span>　公式の料金ページと照合し、各プランで手元で試した</p>
-    </header>
-
-    <section aria-labelledby="diag-title" style="margin-top: 64px; padding: 24px; background: #F1F3F5">
-      <h2 id="diag-title" style="margin: 0; font-weight: 700; font-size: 28px; line-height: 1.4">3つの質問で選ぶ</h2>
-      <p style="margin: 8px 0 0; font-size: 14px; color: #4D5562">選ぶと、その場で答えが変わります。</p>
-      <sc-for list="{{questions}}" as="q" hint-placeholder-count="3">
-        <fieldset style="margin: 24px 0 0; padding: 0; border: 0">
-          <legend style="padding: 0; display: flex; align-items: center; gap: 8px; font-weight: 700"><span aria-hidden="true" style="flex: 0 0 auto; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #0B1B33; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-size: 12px; font-weight: 700; line-height: 1">{{q.no}}</span>{{q.label}}</legend>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px"><sc-for list="{{q.options}}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" style="{{o.style}}">{{o.name}}</button></sc-for></div>
-        </fieldset>
-      </sc-for>
-      <div role="status" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #12161D; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px">
-        <p style="margin: 0; display: flex; align-items: center; gap: 6px; font-size: 14px; color: #4D5562"><span style="color: #15803D; display: grid"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg></span>あなたに合うのは</p>
-        <p style="margin: 0; font-weight: 700; font-size: 32px; line-height: 1.2">{{result}}</p>
-        <p style="margin: 0; flex: 1 1 280px">{{reason}}</p>
-      </div>
-    </section>
-
-    <section aria-labelledby="verdict-title" style="margin-top: 64px">
-      <h2 id="verdict-title" style="margin: 0 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">結論</h2>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 16px; line-height: 1.6">
-          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562; border-bottom: 1px solid #12161D"><th scope="col" style="padding: 8px 24px 8px 0; font-weight: 400">こんなとき</th><th scope="col" style="padding: 8px 24px; font-weight: 400">選ぶプラン</th><th scope="col" style="padding: 8px 0 8px 24px; font-weight: 400">理由</th></tr></thead>
-          <tbody>
-            <sc-for list="{{verdicts}}" as="v" hint-placeholder-count="3">
-              <tr style="border-bottom: 1px solid #D9DDE3; vertical-align: baseline">
-                <td style="padding: 16px 24px 16px 0">{{v.when}}</td>
-                <th scope="row" style="padding: 16px 24px; text-align: left; font-weight: 700; font-size: 24px; line-height: 1.3; white-space: nowrap">{{v.pick}}</th>
-                <td style="padding: 16px 0 16px 24px; color: #4D5562">{{v.why}}</td>
-              </tr>
-            </sc-for>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section aria-labelledby="table-title" style="margin-top: 64px">
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; margin-bottom: 16px">
-        <h2 id="table-title" style="margin: 0; font-weight: 700; font-size: 28px; line-height: 1.4">観点ごとの比較</h2>
-        <p aria-label="記号の意味" style="margin: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="display: inline-block; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 4px double #12161D"></span>とても向く</span><span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="display: inline-block; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2px solid #12161D"></span>向く</span><span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="display: inline-block; width: 14px; height: 13px; background: #B45309; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></span>工夫がいる</span><span style="display: inline-flex; align-items: center; gap: 6px"><span aria-hidden="true" style="display: inline-block; width: 14px; height: 2px; background: #4D5562; vertical-align: middle"></span>使えない</span></p>
-      </div>
-      <div style="overflow-x: auto">
-        <table style="width: 100%; min-width: 720px; border-collapse: collapse; font-size: 15px; line-height: 1.6">
-          <thead>
-            <tr style="text-align: left; border-bottom: 1px solid #12161D">
-              <th scope="col" style="position: sticky; left: 0; background: #FFFFFF; padding: 8px 16px 8px 0; width: 28%; font-size: 12px; color: #4D5562; font-weight: 400">観点</th>
-              <th scope="col" style="padding: 8px 16px; font-size: 18px">Free</th>
-              <th scope="col" style="padding: 8px 16px; font-size: 18px">Pro</th>
-              <th scope="col" style="padding: 8px 16px; font-size: 18px">Max</th>
-            </tr>
-          </thead>
-          <tbody>
-            <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
-              <tr style="border-bottom: 1px solid #D9DDE3; vertical-align: top">
-                <th scope="row" style="position: sticky; left: 0; background: #FFFFFF; padding: 16px 16px 16px 0; text-align: left; font-weight: 700">{{r.label}}</th>
-                <td style="padding: 16px"><span style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="{{r.am}}"></span><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">{{r.al}}</span><span style="font-size: 14px; color: #4D5562">{{r.an}}</span></span></td>
-                <td style="padding: 16px"><span style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="{{r.bm}}"></span><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">{{r.bl}}</span><span style="font-size: 14px; color: #4D5562">{{r.bn}}</span></span></td>
-                <td style="padding: 16px"><span style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="{{r.cm}}"></span><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">{{r.cl}}</span><span style="font-size: 14px; color: #4D5562">{{r.cn}}</span></span></td>
-              </tr>
-            </sc-for>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <p style="margin: 64px 0 0; font-size: 14px; line-height: 1.6; color: #4D5562">執筆支援：AI（下書き）。検証と最終稿：shizukukai。出典：<a href="#">Claude の料金ページ</a>・<a href="#">ヘルプセンター</a><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="#">誤りを報告する</a></p>
-  </main>
-  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+<div class="fx">
+<dc-import name="FreshHeader" hint-size="100%,80px"></dc-import>
+<main>
+<section class="fx-band" aria-labelledby="page-title">
+<div class="fx-wm" aria-hidden="true">PLAN</div>
+<div class="fx-wrap">
+<nav class="fx-crumbs" aria-label="パンくずリスト"><a href="FreshMain.dc.html">ホーム</a><span aria-hidden="true">/</span><span>Claude アプリ</span><span aria-hidden="true">/</span><span class="fx-mono">CA01</span></nav>
+<span class="fx-en" aria-hidden="true">COMPARE</span>
+<h1 class="fx-h1" id="page-title">Claude のプランの選び方</h1>
+<p class="fx-lead">使い方の型ごとに、合うプランを比べました。金額と上限は変わりやすいので、<a href="#">公式の料金ページ</a>で確かめてください。</p>
+<p class="fx-checked"><span class="fx-dot" aria-hidden="true"></span><span>確認 <span class="fx-mono">2026-11-13</span>　公式の料金ページと照合し、各プランで手元で試した</span></p>
+</div>
+</section>
+<div class="fx-wrap">
+<section class="fx-sec" aria-labelledby="diag-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">DIAGNOSE</span><h2 class="fx-h2" id="diag-title">3つの質問で選ぶ</h2></div><p class="fx-muted" style="font-size:13px">選ぶと、その場で答えが変わります。</p></div>
+<div class="cp-diag">
+<div>
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="3">
+<fieldset class="cp-q"><legend><span class="cp-qno" aria-hidden="true">{{q.no}}</span>{{q.label}}</legend>
+<div class="cp-opts"><sc-for list="{{q.options}}" as="o" hint-placeholder-count="3"><button type="button" onClick="{{o.pick}}" aria-pressed="{{o.pressed}}" style="{{o.style}}">{{o.name}}</button></sc-for></div>
+</fieldset>
+</sc-for>
+</div>
+<div class="cp-result" role="status">
+<p style="font-size:13px">あなたに合うのは</p>
+<span class="cp-plan">{{result}}</span>
+<p style="font-size:15px;line-height:1.8">{{reason}}</p>
+</div>
+</div>
+</section>
+<section class="fx-sec" aria-labelledby="verdict-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">VERDICT</span><h2 class="fx-h2" id="verdict-title">結論</h2></div></div>
+<div style="overflow-x:auto"><table class="cp-table" style="min-width:560px">
+<thead><tr><th scope="col">こんなとき</th><th scope="col">選ぶプラン</th><th scope="col">理由</th></tr></thead>
+<tbody><sc-for list="{{verdicts}}" as="v" hint-placeholder-count="3"><tr><td>{{v.when}}</td><th scope="row" class="cp-pick">{{v.pick}}</th><td class="fx-muted">{{v.why}}</td></tr></sc-for></tbody>
+</table></div>
+</section>
+<section class="fx-sec" aria-labelledby="table-title">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 24px"><div><span class="fx-sec-en" aria-hidden="true">MATRIX</span><h2 class="fx-h2" id="table-title">観点ごとの比較</h2></div><p class="cp-legend" aria-label="記号の意味"><span><span aria-hidden="true" style="display:inline-block;width:14px;height:14px;border-radius:50%;border:4px double #172343"></span>とても向く</span><span><span aria-hidden="true" style="display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid #172343"></span>向く</span><span><span aria-hidden="true" style="display:inline-block;width:14px;height:13px;background:#B45309;clip-path:polygon(50% 0,100% 100%,0 100%)"></span>工夫がいる</span><span><span aria-hidden="true" style="display:inline-block;width:14px;height:2px;background:#59637A"></span>使えない</span></p></div>
+<div style="overflow-x:auto"><table class="cp-table cp-matrix" style="min-width:720px">
+<thead><tr><th scope="col" style="width:28%">観点</th><th scope="col" class="cp-plan-h">FREE</th><th scope="col" class="cp-plan-h">PRO</th><th scope="col" class="cp-plan-h">MAX</th></tr></thead>
+<tbody><sc-for list="{{rows}}" as="r" hint-placeholder-count="6"><tr><th scope="row" style="font-weight:700">{{r.label}}</th><td><span style="display:inline-flex;align-items:center;gap:8px"><span aria-hidden="true" style="{{r.am}}"></span><span class="sr">{{r.al}}</span><span style="font-size:13px;color:#59637A">{{r.an}}</span></span></td><td><span style="display:inline-flex;align-items:center;gap:8px"><span aria-hidden="true" style="{{r.bm}}"></span><span class="sr">{{r.bl}}</span><span style="font-size:13px;color:#59637A">{{r.bn}}</span></span></td><td><span style="display:inline-flex;align-items:center;gap:8px"><span aria-hidden="true" style="{{r.cm}}"></span><span class="sr">{{r.cl}}</span><span style="font-size:13px;color:#59637A">{{r.cn}}</span></span></td></tr></sc-for></tbody>
+</table></div>
+</section>
+<p class="fx-end fx-muted" style="font-size:13px">下書きは AI、検証と最終稿は shizukukai。出典：<a href="#">Claude の料金ページ</a>・<a href="#">ヘルプセンター</a>　<a href="#">誤りを報告する</a></p>
+</div>
+</main>
+<dc-import name="FreshFooter" hint-size="100%,260px"></dc-import>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2400}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -108,7 +125,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     const st = this.state;
-    const style = (on) => 'min-height: 40px; border: 1px solid ' + (on ? '#12161D' : '#D9DDE3') + '; background: ' + (on ? '#12161D' : '#FFFFFF') + '; color: ' + (on ? '#FFFFFF' : '#12161D') + '; border-radius: 4px; padding: 0 16px; font: inherit; font-size: 15px; cursor: pointer';
+    const style = (on) => 'border: 1px solid ' + (on ? '#1A3CFF' : '#C9D1E3') + '; background: ' + (on ? '#1A3CFF' : '#FFFFFF') + '; color: ' + (on ? '#FFFFFF' : '#172343') + '; font-weight: ' + (on ? 700 : 400);
     const q = (key, no, label, names) => ({ no, label, options: names.map((n) => ({ name: n, pressed: st[key] === n ? 'true' : 'false', style: style(st[key] === n), pick: () => this.setState({ [key]: n }) })) });
     const questions = [
       q('freq', 1, 'どのくらい使いますか', ['ときどき', '毎日']),
@@ -131,7 +148,7 @@ class Component extends DCLogic {
       { label: '費用の読みやすさ', a: '◎', an: '無料', b: '◎', bn: '月額', c: '○', cn: '月額。段階あり' },
       { label: '共有と管理', a: '―', an: '', b: '△', bn: '個人向け', c: '△', cn: '個人向け' },
     ];
-    const MARK = {"◎": "display: inline-block; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 4px double #12161D", "○": "display: inline-block; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2px solid #12161D", "△": "display: inline-block; width: 14px; height: 13px; background: #B45309; clip-path: polygon(50% 0, 100% 100%, 0 100%)", "―": "display: inline-block; width: 14px; height: 2px; background: #4D5562; vertical-align: middle"};
+    const MARK = {"◎": "display: inline-block; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 4px double #172343", "○": "display: inline-block; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 2px solid #172343", "△": "display: inline-block; width: 14px; height: 13px; background: #B45309; clip-path: polygon(50% 0, 100% 100%, 0 100%)", "―": "display: inline-block; width: 14px; height: 2px; background: #59637A; vertical-align: middle"};
     const LABEL = {"◎": "とても向く", "○": "向く", "△": "工夫がいる", "―": "使えない"};
     const rowsShown = rows.map((r) => ({ ...r, am: MARK[r.a], al: LABEL[r.a], bm: MARK[r.b], bl: LABEL[r.b], cm: MARK[r.c], cl: LABEL[r.c] }));
     return { verdicts, rows: rowsShown, questions, result, reason };

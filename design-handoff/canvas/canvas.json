@@ -213,9 +213,97 @@
    "w": 390,
    "h": 2200,
    "title": "12 見つからないページ（404）（モバイル）"
+  },
+  "CodexMain.dc.html": {
+   "x": 0,
+   "y": -4200,
+   "w": 1280,
+   "h": 3600,
+   "title": "C1 Codex案：ホーム",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CodexArticle.dc.html": {
+   "x": 1360,
+   "y": -4200,
+   "w": 1280,
+   "h": 3600,
+   "title": "C2 Codex案：記事",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CodexHeader.dc.html": {
+   "x": 2720,
+   "y": -4200,
+   "w": 1280,
+   "h": 120,
+   "title": "C0 Codex案：ヘッダー"
+  },
+  "CodexFooter.dc.html": {
+   "x": 2720,
+   "y": -3900,
+   "w": 1280,
+   "h": 360,
+   "title": "C0 Codex案：フッター"
+  },
+  "FreshMain.dc.html": {
+   "x": 0,
+   "y": -8200,
+   "w": 1280,
+   "h": 3600,
+   "title": "F1 Fresh案：ホーム",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "FreshArticle.dc.html": {
+   "x": 1360,
+   "y": -8200,
+   "w": 1280,
+   "h": 3600,
+   "title": "F2 Fresh案：記事",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "FreshHeader.dc.html": {
+   "x": 2720,
+   "y": -8200,
+   "w": 1280,
+   "h": 120,
+   "title": "F0 Fresh案：ヘッダー"
+  },
+  "FreshFooter.dc.html": {
+   "x": 2720,
+   "y": -7900,
+   "w": 1280,
+   "h": 360,
+   "title": "F0 Fresh案：フッター"
+  },
+  "FreshMainMobile.dc.html": {
+   "x": 4080,
+   "y": -8200,
+   "w": 390,
+   "h": 5200,
+   "title": "F1 Fresh案：ホーム（モバイル）"
+  },
+  "FreshArticleMobile.dc.html": {
+   "x": 4560,
+   "y": -8200,
+   "w": 390,
+   "h": 5600,
+   "title": "F2 Fresh案：記事（モバイル）"
   }
  },
  "order": [
+  "FreshMain.dc.html",
+  "FreshArticle.dc.html",
+  "FreshMainMobile.dc.html",
+  "FreshArticleMobile.dc.html",
+  "FreshHeader.dc.html",
+  "FreshFooter.dc.html",
+  "CodexMain.dc.html",
+  "CodexFooter.dc.html",
+  "CodexHeader.dc.html",
+  "CodexArticle.dc.html",
   "Main.dc.html",
   "Style.dc.html",
   "Header.dc.html",

@@ -8,38 +8,26 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+JP:wght@400;500;600;700&amp;display=swap">
 <style>
-body{margin:0}
+body{margin:0;background:#FFFFFF}a{color:#1D4ED8;text-underline-offset:3px;text-decoration-thickness:1px;transition:color 150ms ease-out}@media (hover:hover){a:hover{color:#1E3A8A}}::selection{background:#DBE4FF;color:#111418}:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px;border-radius:4px}h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}button:active{transform:scale(0.97)}.card{transition:transform 200ms cubic-bezier(.16,1,.3,1)}@media (hover:hover){.card:hover{transform:translateY(-2px)}.card:hover .card-title{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}}@media (prefers-reduced-motion:reduce){.card{transition:none}}
+
 </style>
 </helmet>
-<header style="width: 100%; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #12161D; background: #FFFFFF">
-  <div style="background: #0B1B33; color: #FFFFFF">
-    <div style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 8px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px">
-      <a href="Main.dc.html" style="color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 20px; line-height: 40px">semantictime</a>
-      <form role="search" style="flex: 1 1 240px; max-width: 400px; margin-left: auto; display: flex; gap: 8px">
-        <label for="site-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">サイト内を検索</label>
-        <span style="flex: 1 1 auto; min-width: 0; position: relative; display: flex; color: #B4BFCF"><span style="position: absolute; left: 12px; top: 12px; display: flex; pointer-events: none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg></span><input id="site-search" type="search" placeholder="製品名・機能名・記事番号で検索" style="flex: 1 1 auto; min-width: 0; height: 40px; box-sizing: border-box; padding: 0 12px 0 36px; font: inherit; font-size: 14px; color: #FFFFFF; background: #0B1B33; border: 1px solid #3A527A; border-radius: 4px"></span>
-        <button type="button" aria-label="表示を暗い色に切り替える" style="width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; background: transparent; border: 1px solid #3A527A; border-radius: 4px; color: #FFFFFF; cursor: pointer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
-        </button>
-      </form>
+<header style="width: 100%; font-family: 'IBM Plex Sans JP', 'Hiragino Sans', 'Noto Sans JP', sans-serif; color: #111418; background: rgba(255,255,255,0.92); border-bottom: 1px solid #E6E8EC">
+  <div style="max-width: 1200px; box-sizing: border-box; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 32px">
+    <a href="Main.dc.html" style="display: inline-flex; align-items: center; gap: 10px; color: #111418; text-decoration: none; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; line-height: 64px"><svg viewBox="0 0 28 20" width="28" height="20" aria-hidden="true" style="flex: 0 0 auto"><path d="M2 15h8l6-10h10" fill="none" stroke="#111418" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="5" r="3.2" fill="#FFFFFF" stroke="#111418" stroke-width="2"></circle></svg>semantictime</a>
+    <nav aria-label="主な区分" style="flex: 1 1 320px; min-width: 0; order: 3">
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; font-size: 14px; line-height: 1.5"><li style="flex: 0 0 auto"><a href="Hub.dc.html" aria-current="page" style="display: inline-block; padding: 8px 0; color: #111418; font-weight: 500; text-decoration: none">Claude</a></li><li style="flex: 0 0 auto"><a href="Hub.dc.html" style="display: inline-block; padding: 8px 0; color: #5B616E; font-weight: 400; text-decoration: none">ChatGPT</a></li><li style="flex: 0 0 auto"><a href="Hub.dc.html" style="display: inline-block; padding: 8px 0; color: #5B616E; font-weight: 400; text-decoration: none">Gemini</a></li><li style="flex: 0 0 auto"><a href="Hub.dc.html" style="display: inline-block; padding: 8px 0; color: #5B616E; font-weight: 400; text-decoration: none">画像・動画・音声</a></li><li style="flex: 0 0 auto"><a href="Digest.dc.html" style="display: inline-block; padding: 8px 0; color: #5B616E; font-weight: 400; text-decoration: none">ニュース</a></li><li style="flex: 0 0 auto"><a href="Digest.dc.html" style="display: inline-block; padding: 8px 0; color: #5B616E; font-weight: 400; text-decoration: none">変更の記録</a></li></ul>
+    </nav>
+    <div style="margin-left: auto; order: 4; display: flex; align-items: center; gap: 16px">
+      <a href="Start.dc.html" style="font-size: 14px; color: #111418; text-decoration: none; white-space: nowrap">はじめての方へ</a>
+      <a href="Search.dc.html" role="button" aria-label="サイト内を検索" style="display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 12px; border: 1px solid #E6E8EC; border-radius: 8px; color: #5B616E; text-decoration: none; font-size: 14px; white-space: nowrap"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>検索<kbd style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; padding: 1px 6px; border: 1px solid #E6E8EC; border-radius: 4px; color: #8A909C">/</kbd></a>
     </div>
   </div>
-  <nav aria-label="主な区分" style="border-bottom: 1px solid #D9DDE3">
-    <ul style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); list-style: none; display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; white-space: nowrap; gap: 0 24px; font-size: 14px; line-height: 1.5">
-      <li style="flex: 0 0 auto"><a href="Hub.dc.html" aria-current="page" style="display: inline-block; padding: 12px 0; color: #12161D; font-weight: 700; text-decoration: none; box-shadow: inset 0 -2px 0 #12161D">Claude</a></li>
-      <li style="flex: 0 0 auto"><a href="Hub.dc.html" style="display: inline-block; padding: 12px 0; color: #12161D; text-decoration: none">ChatGPT</a></li>
-      <li style="flex: 0 0 auto"><a href="Hub.dc.html" style="display: inline-block; padding: 12px 0; color: #12161D; text-decoration: none">Gemini</a></li>
-      <li style="flex: 0 0 auto"><a href="Hub.dc.html" style="display: inline-block; padding: 12px 0; color: #12161D; text-decoration: none">画像・動画・音声</a></li>
-      <li style="flex: 0 0 auto"><a href="Digest.dc.html" style="display: inline-block; padding: 12px 0; color: #12161D; text-decoration: none">ニュース</a></li>
-      <li style="flex: 0 0 auto; margin-left: auto; padding-left: 24px"><a href="Start.dc.html" style="display: inline-block; padding: 12px 0; color: #12161D; text-decoration: none">はじめての方へ</a></li>
-      <li style="flex: 0 0 auto"><a href="Digest.dc.html" style="display: inline-block; padding: 12px 0; text-decoration: none">変更と対応の記録</a></li>
-    </ul>
-  </nav>
 </header>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":110}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":80}}'>
 class Component extends DCLogic {
   renderVals() {
     return {};

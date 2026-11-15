@@ -8,44 +8,65 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700;900&amp;family=Anton&amp;display=swap">
 <style>
 body{margin:0;background:#FFFFFF}
-a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
-@media (hover:hover){a:hover{color:#1E3A8A}}
-::selection{background:#DBE4FF;color:#12161D}
-:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
-h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}
+a{color:#1A3CFF;text-underline-offset:3px;transition:color 150ms ease-out}
+@media (hover:hover){a:hover{color:#0F2BD6}}
+::selection{background:#DBE4FF;color:#172343}
+:focus-visible{outline:2px solid #1A3CFF;outline-offset:2px}
+h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li,dd{text-wrap:pretty}
+button{transition:transform 120ms ease-out,background 150ms ease-out}button:active{transform:scale(0.97)}
+@media (prefers-reduced-motion:reduce){button,a{transition:none}}
+
+.fx-root{container-type:inline-size}
+.fx-band{position:relative;isolation:isolate;overflow:hidden;background:#0B0D12;color:#fff;padding:28px 0 56px}
+.fx-wrap{max-width:1248px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);box-sizing:border-box;position:relative}
+.fx-crumbs{font-size:13px;line-height:1.5;color:#9AA3B5}.fx-crumbs a{color:#8095FF}
+.fx-en{margin:30px 0 0;font:400 clamp(56px,9cqi,120px)/.9 'Anton', 'Impact', sans-serif;letter-spacing:.005em;color:#8095FF;white-space:nowrap}
+.fx-h1{margin:16px 0 0;font:900 clamp(28px,4.2cqi,52px)/1.3 'Zen Kaku Gothic New',sans-serif;letter-spacing:-.04em;color:#fff;max-width:22em}
+.fx-lead{margin:16px 0 0;color:#C5CBD8;max-width:36em;font-size:15px;line-height:1.85}
+.fx-meta{margin:20px 0 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;color:#C5CBD8;font-size:13px;line-height:1.5}
+.fx-id{font:400 26px/1 'Anton', 'Impact', sans-serif;letter-spacing:.02em;color:#fff;white-space:nowrap}
+.fx-wm{position:absolute;right:-.02em;bottom:-.22em;font:400 clamp(150px,26cqi,340px)/1 'Anton', 'Impact', sans-serif;color:rgba(255,255,255,.04);z-index:-1;pointer-events:none;white-space:nowrap}
+.fx-counts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:#E6E9F2}
+.fx-counts li{display:flex;align-items:baseline;gap:8px}
+.fx-counts strong{font:400 36px/1 'Anton', 'Impact', sans-serif;color:#8095FF;letter-spacing:.01em}
+.fx-counts li.fx-need,.fx-counts li.fx-need strong{color:#FFB86B}
+.fx-week{margin-top:18px;font-size:14px}.fx-week a{color:#8095FF}
+.fx-anton{font-family:'Anton', 'Impact', sans-serif!important;font-weight:400!important;letter-spacing:.02em}
+.fx-root main h2{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;letter-spacing:-.03em}
+@container (max-width:600px){.fx-en{font-size:17cqi}.fx-h1{font-size:8.2cqi}.fx-wm{font-size:44cqi}.fx-band{padding:22px 0 40px}}
 </style>
 </helmet>
-<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
-  <dc-import name="Header" hint-size="100%,100px"></dc-import>
-  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
-    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562">
-      <a href="Main.dc.html">ホーム</a> › 変更と対応の記録
-    </nav>
-    <header style="display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: flex-end; justify-content: space-between; padding: 40px 0 24px; border-bottom: 1px solid #12161D">
-      <div>
-        <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">変更と対応の記録</h1>
-        <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-09 → 11-15</span>（第46週）</p>
-        <ul aria-label="今週の件数" style="list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; line-height: 1.5"><li style="display: flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg>公式の変更 <strong style="font-family: 'BIZ UDGothic', monospace">{{total}}</strong> 件</li><li style="display: flex; align-items: center; gap: 8px; color: #B45309"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg>対応が必要 <strong style="font-family: 'BIZ UDGothic', monospace">{{needCount}}</strong> 件</li></ul>
-      </div>
-      <nav aria-label="ほかの週" style="font-size: 14px"><a href="#">← 第45週</a></nav>
-    </header>
+<div class="fx-root" style="width: 100%; background: #FFFFFF; color: #172343; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="FreshHeader" hint-size="100%,80px"></dc-import>
+  <section class="fx-band" aria-labelledby="page-title">
+    <div class="fx-wm" aria-hidden="true">W46</div>
+    <div class="fx-wrap">
+      <nav aria-label="パンくずリスト" class="fx-crumbs"><a href="FreshMain.dc.html">ホーム</a> / 変更と対応の記録</nav>
+      <p class="fx-en" aria-hidden="true">CHANGELOG</p>
+      <h1 id="page-title" class="fx-h1">変更と対応の記録</h1>
+      <p class="fx-meta"><span class="fx-id">2026.11.09 – 11.15</span><span>第46週</span></p>
+      <ul aria-label="今週の件数" class="fx-counts"><li>公式の変更 <strong>{{total}}</strong> 件</li><li class="fx-need">対応が必要 <strong>{{needCount}}</strong> 件</li></ul>
+      <p class="fx-week"><a href="#">← 第45週</a></p>
+    </div>
+  </section>
+  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 48px clamp(16px, 4vw, 48px) 64px">
 
     <section aria-labelledby="breaking-title" style="margin-top: 40px">
-      <p style="margin: 0 0 8px; font-size: 13px; line-height: 1.4"><strong style="color: #B91C1C; display: inline-flex; align-items: center; gap: 4px; vertical-align: -2px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="m12 3 10 18H2L12 3Zm0 6v5m0 3v.5"></path></svg>破壊的な変更</strong><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="font-family: 'BIZ UDGothic', monospace; color: #4D5562">11-14</span><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="#">Agent SDK の変更履歴</a></p>
+      <p style="margin: 0 0 8px; font-size: 13px; line-height: 1.4"><strong style="color: #B91C1C; display: inline-flex; align-items: center; gap: 4px; vertical-align: -2px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="m12 3 10 18H2L12 3Zm0 6v5m0 3v.5"></path></svg>破壊的な変更</strong><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="font-family: 'IBM Plex Mono', monospace; color: #4D5562">11-14</span><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="#">Agent SDK の変更履歴</a></p>
       <h2 id="breaking-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">Agent SDK の旧セッション API が削除された</h2>
-      <ul style="list-style: none; margin: 16px 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px; line-height: 1.5"><li style="display: flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>影響 <span style="font-family: 'BIZ UDGothic', monospace">SD02・SD04</span>（改訂中）</li><li style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #B45309"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="m8 12 3 3 5-6"></path></svg><a href="Article.dc.html">移行の手順（SD04）</a>で直す</li></ul>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); background: #0B1B33; border-radius: 4px; color: #E7ECF4">
+      <ul style="list-style: none; margin: 16px 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px; line-height: 1.5"><li style="display: flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>影響 <span style="font-family: 'IBM Plex Mono', monospace">SD02・SD04</span>（改訂中）</li><li style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #B45309"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="m8 12 3 3 5-6"></path></svg><a href="Article.dc.html">移行の手順（SD04）</a>で直す</li></ul>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); background: #0B0D12; border-radius: 4px; color: #E7ECF4">
         <figure style="margin: 0; padding: 16px; border-right: 1px solid #22385C">
           <figcaption style="display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.4; color: #FCA5A5"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 3 2 21h20L12 3Z"></path><path d="M12 10v5m0 3h.01"></path></svg>変更前：もう動かない</figcaption>
-          <pre style="margin: 8px 0 0; font-family: 'BIZ UDGothic', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>const s = await resumeSession(id)
+          <pre style="margin: 8px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>const s = await resumeSession(id)
 await s.send(prompt)</code></pre>
         </figure>
         <figure style="margin: 0; padding: 16px">
           <figcaption style="display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.4; color: #86EFAC"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>変更後（書き方の違いを示す例）</figcaption>
-          <pre style="margin: 8px 0 0; font-family: 'BIZ UDGothic', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>const s = query({ prompt, resume: id })
+          <pre style="margin: 8px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>const s = query({ prompt, resume: id })
 for await (const m of s) { … }</code></pre>
         </figure>
       </div>
@@ -55,12 +76,12 @@ for await (const m of s) { … }</code></pre>
       <h2 id="list-title" style="margin: 0 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">すべての変更</h2>
       <div style="overflow-x: auto">
         <table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 15px; line-height: 1.6">
-          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562; border-bottom: 1px solid #12161D"><th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400; width: 40%"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg>公式の変更</span></th><th scope="col" style="padding: 8px 16px; font-weight: 400"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>影響する記事</span></th><th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg>このサイトの対応</span></th></tr></thead>
+          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562; border-bottom: 1px solid #172343"><th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400; width: 40%"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg>公式の変更</span></th><th scope="col" style="padding: 8px 16px; font-weight: 400"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>影響する記事</span></th><th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg>このサイトの対応</span></th></tr></thead>
           <tbody>
             <sc-for list="{{changes}}" as="c" hint-placeholder-count="8">
               <tr style="border-bottom: 1px solid #D9DDE3; vertical-align: top">
                 <td style="padding: 16px 16px 16px 0">
-                  <span style="display: block; font-size: 12px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{c.date}}</span>　{{c.product}}　{{c.cat}}</span>
+                  <span style="display: block; font-size: 12px; line-height: 1.4; color: #4D5562"><span class="fx-anton" style="font-size: 16px">{{c.date}}</span>　{{c.product}}　{{c.cat}}</span>
                   <span style="display: block; margin-top: 4px">{{c.title}}</span>
                   <a href="#" style="display: inline-block; margin-top: 4px; font-size: 14px">{{c.source}}</a>
                 </td>
@@ -73,7 +94,7 @@ for await (const m of s) { … }</code></pre>
       </div>
     </section>
   </main>
-  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+  <dc-import name="FreshFooter" hint-size="100%,260px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2200}}'>

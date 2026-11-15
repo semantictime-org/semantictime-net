@@ -8,50 +8,75 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700;900&amp;family=Anton&amp;display=swap">
 <style>
 body{margin:0;background:#FFFFFF}
-a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
-@media (hover:hover){a:hover{color:#1E3A8A}}
-::selection{background:#DBE4FF;color:#12161D}
-:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
+a{color:#1A3CFF;text-underline-offset:3px;transition:color 150ms ease-out}
+@media (hover:hover){a:hover{color:#0F2BD6}}
+::selection{background:#DBE4FF;color:#172343}
+:focus-visible{outline:2px solid #1A3CFF;outline-offset:2px}
 h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li,dd{text-wrap:pretty}
 button{transition:transform 120ms ease-out,background 150ms ease-out}button:active{transform:scale(0.97)}
+@media (prefers-reduced-motion:reduce){button,a{transition:none}}
+
+.fx-root{container-type:inline-size}
+.fx-band{position:relative;isolation:isolate;overflow:hidden;background:#0B0D12;color:#fff;padding:28px 0 56px}
+.fx-wrap{max-width:1248px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);box-sizing:border-box;position:relative}
+.fx-crumbs{font-size:13px;line-height:1.5;color:#9AA3B5}.fx-crumbs a{color:#8095FF}
+.fx-en{margin:30px 0 0;font:400 clamp(56px,9cqi,120px)/.9 'Anton', 'Impact', sans-serif;letter-spacing:.005em;color:#8095FF;white-space:nowrap}
+.fx-h1{margin:16px 0 0;font:900 clamp(28px,4.2cqi,52px)/1.3 'Zen Kaku Gothic New',sans-serif;letter-spacing:-.04em;color:#fff;max-width:22em}
+.fx-lead{margin:16px 0 0;color:#C5CBD8;max-width:36em;font-size:15px;line-height:1.85}
+.fx-meta{margin:20px 0 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;color:#C5CBD8;font-size:13px;line-height:1.5}
+.fx-id{font:400 26px/1 'Anton', 'Impact', sans-serif;letter-spacing:.02em;color:#fff;white-space:nowrap}
+.fx-wm{position:absolute;right:-.02em;bottom:-.22em;font:400 clamp(150px,26cqi,340px)/1 'Anton', 'Impact', sans-serif;color:rgba(255,255,255,.04);z-index:-1;pointer-events:none;white-space:nowrap}
+.fx-counts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:14px;color:#E6E9F2}
+.fx-counts li{display:flex;align-items:baseline;gap:8px}
+.fx-counts strong{font:400 36px/1 'Anton', 'Impact', sans-serif;color:#8095FF;letter-spacing:.01em}
+.fx-counts li.fx-need,.fx-counts li.fx-need strong{color:#FFB86B}
+.fx-week{margin-top:18px;font-size:14px}.fx-week a{color:#8095FF}
+.fx-anton{font-family:'Anton', 'Impact', sans-serif!important;font-weight:400!important;letter-spacing:.02em}
+.fx-root main h2{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;letter-spacing:-.03em}
+@container (max-width:600px){.fx-en{font-size:17cqi}.fx-h1{font-size:8.2cqi}.fx-wm{font-size:44cqi}.fx-band{padding:22px 0 40px}}
 </style>
 </helmet>
-<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
-  <dc-import name="Header" hint-size="100%,100px"></dc-import>
-  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
-    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562"><a href="Main.dc.html">ホーム</a> › <a href="Digest.dc.html">ニュース</a></nav>
-    <article style="padding-top: 40px; max-width: 760px">
-      <p style="margin: 0 0 8px; font-size: 13px; line-height: 1.4; color: #4D5562">ニュース<span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="font-family: 'BIZ UDGothic', monospace">2026-11-14</span><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: #C2410C; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; vertical-align: 1px">CC</span> Claude Code</p>
-      <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">Claude Code のステータス行の設定の書き方が変わった</h1>
-      <section aria-label="確認の記録" style="margin-top: 24px; padding: 16px 0; border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3; display: grid; gap: 8px">
-        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; line-height: 1.5"><li style="display: flex; align-items: center; gap: 6px; color: #15803D"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg><span>出典を確認 <span style="font-family: 'BIZ UDGothic', monospace">11-14 18:20</span></span></li><li style="display: flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14 3h7v7m0-7L11 13m-1-9H4v16h16v-6"></path></svg><a href="#">Claude Code 変更履歴（2.1.326）</a></li></ul>
+<div class="fx-root" style="width: 100%; background: #FFFFFF; color: #172343; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="FreshHeader" hint-size="100%,80px"></dc-import>
+  <section class="fx-band" aria-labelledby="page-title">
+    <div class="fx-wm" aria-hidden="true">11.14</div>
+    <div class="fx-wrap">
+      <nav aria-label="パンくずリスト" class="fx-crumbs"><a href="FreshMain.dc.html">ホーム</a> / <a href="Digest.dc.html">ニュース</a></nav>
+      <p class="fx-en" aria-hidden="true">NEWS</p>
+      <h1 id="page-title" class="fx-h1">Claude Code のステータス行の設定の書き方が変わった</h1>
+      <p class="fx-meta"><span class="fx-id">2026.11.14</span><span>Claude Code</span></p>
+    </div>
+  </section>
+  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 48px clamp(16px, 4vw, 48px) 64px">
+    <article style="max-width: 760px">
+      <section aria-label="確認の記録" style="margin-top: 24px; padding: 16px 0; border-top: 1px solid #172343; border-bottom: 1px solid #D9DDE3; display: grid; gap: 8px">
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; line-height: 1.5"><li style="display: flex; align-items: center; gap: 6px; color: #15803D"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg><span>出典を確認 <span style="font-family: 'IBM Plex Mono', monospace">11-14 18:20</span></span></li><li style="display: flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14 3h7v7m0-7L11 13m-1-9H4v16h16v-6"></path></svg><a href="#">Claude Code 変更履歴（2.1.326）</a></li></ul>
         <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #4D5562">実機ではなく、公式の発表で確かめたニュース。<a href="About.dc.html">確認のしかた</a></p>
       </section>
 
       <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">要するに</h2>
-      <dl style="margin: 0; border-top: 1px solid #12161D">
-        <div style="display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 12px; align-items: start; padding: 16px 0; border-bottom: 1px solid #D9DDE3"><dt style="display: flex; align-items: center; gap: 8px; font-weight: 700; padding-top: 2px"><span style="display: grid;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg></span>何が変わる</dt><dd style="margin: 0; font-size: 18px; line-height: 1.6"><code style="font-family: 'BIZ UDGothic', monospace; font-size: 0.85em; background: #F1F3F5; padding: 2px 4px; border-radius: 2px">statusLine</code> の書き方。古い書き方は警告が出る（例）</dd></div>
+      <dl style="margin: 0; border-top: 1px solid #172343">
+        <div style="display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 12px; align-items: start; padding: 16px 0; border-bottom: 1px solid #D9DDE3"><dt style="display: flex; align-items: center; gap: 8px; font-weight: 700; padding-top: 2px"><span style="display: grid;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg></span>何が変わる</dt><dd style="margin: 0; font-size: 18px; line-height: 1.6"><code style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; background: #F1F3F5; padding: 2px 4px; border-radius: 2px">statusLine</code> の書き方。古い書き方は警告が出る（例）</dd></div>
         <div style="display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 12px; align-items: start; padding: 16px 0; border-bottom: 1px solid #D9DDE3"><dt style="display: flex; align-items: center; gap: 8px; font-weight: 700; padding-top: 2px"><span style="display: grid;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></span>誰に影響</dt><dd style="margin: 0; font-size: 18px; line-height: 1.6">ステータス行を自分で設定している人だけ<span style="display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 14px; color: #15803D"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>ほかの人は対応は不要</span></dd></div>
         <div style="display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 12px; align-items: start; padding: 16px 0; border-bottom: 1px solid #D9DDE3"><dt style="display: flex; align-items: center; gap: 8px; font-weight: 700; padding-top: 2px"><span style="display: grid; color: #B45309;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="m8 12 3 3 5-6"></path></svg></span>やること</dt><dd style="margin: 0; font-size: 18px; line-height: 1.6">該当の行を新しい書き方に直す（下の図）</dd></div>
       </dl>
 
       <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">変更前と変更後</h2>
-      <div role="group" aria-label="statusLine の書き方の、変更前と変更後の比較" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); background: #0B1B33; border-radius: 4px; color: #E7ECF4">
-        <figure style="margin: 0; padding: 16px; border-right: 1px solid #22385C"><figcaption style="display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.4; color: #FCA5A5"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 3 2 21h20L12 3Z"></path><path d="M12 10v5m0 3h.01"></path></svg>変更前：警告が出る（例）</figcaption><pre style="margin: 8px 0 0; font-family: 'BIZ UDGothic', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>"statusLine": "~/bin/status.sh"</code></pre></figure>
-        <figure style="margin: 0; padding: 16px"><figcaption style="display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.4; color: #86EFAC"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>変更後（例）</figcaption><pre style="margin: 8px 0 0; font-family: 'BIZ UDGothic', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>"statusLine": { "type": "command", "command": "~/bin/status.sh" }</code></pre></figure>
+      <div role="group" aria-label="statusLine の書き方の、変更前と変更後の比較" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); background: #0B0D12; border-radius: 4px; color: #E7ECF4">
+        <figure style="margin: 0; padding: 16px; border-right: 1px solid #22385C"><figcaption style="display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.4; color: #FCA5A5"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M12 3 2 21h20L12 3Z"></path><path d="M12 10v5m0 3h.01"></path></svg>変更前：警告が出る（例）</figcaption><pre style="margin: 8px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>"statusLine": "~/bin/status.sh"</code></pre></figure>
+        <figure style="margin: 0; padding: 16px"><figcaption style="display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.4; color: #86EFAC"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>変更後（例）</figcaption><pre style="margin: 8px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere"><code>"statusLine": { "type": "command", "command": "~/bin/status.sh" }</code></pre></figure>
       </div>
 
       <h2 style="margin: 64px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">このサイトの対応</h2>
       <ul style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #D9DDE3">
-        <li style="border-bottom: 1px solid #D9DDE3"><a href="Reference.dc.html" style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px 0; color: #12161D; text-decoration: none"><span><span style="display: block; font-weight: 700">settings.json の設定項目</span><span style="display: block; font-size: 13px; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">CC12</span></span></span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #B45309"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg>見直し中（<span style="font-family: 'BIZ UDGothic', monospace">11-16</span> 再検証）</span></a></li>
+        <li style="border-bottom: 1px solid #D9DDE3"><a href="Reference.dc.html" style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px 0; color: #172343; text-decoration: none"><span><span style="display: block; font-weight: 700">settings.json の設定項目</span><span style="display: block; font-size: 13px; color: #4D5562"><span class="fx-anton" style="font-family: 'IBM Plex Mono', monospace">CC12</span></span></span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #B45309"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg>見直し中（<span style="font-family: 'IBM Plex Mono', monospace">11-16</span> 再検証）</span></a></li>
       </ul>
-      <p style="margin: 40px 0 0; font-size: 14px; line-height: 1.6; color: #4D5562">文中の（例）は、デザインの確認用の仮の内容です。</p>
     </article>
   </main>
-  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+  <dc-import name="FreshFooter" hint-size="100%,260px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1800}}'>
