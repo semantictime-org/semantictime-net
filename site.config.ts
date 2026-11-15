@@ -5,7 +5,9 @@ export const SITE = {
   url: 'https://semantictime.net',
   name: 'semantictime.net',
   description:
-    '手元で動かした日と版をつけて公開し、公式の変更を毎朝たどる、AI の使い方の非公式ガイド。Claude・ChatGPT・Gemini などを同じ扱いで載せる。',
+    '手元で動かした日と版をつけて公開する、AI の使い方の非公式ガイド。Claude・ChatGPT・Gemini などを同じ扱いで載せる。',
+  // ホームの <title> に使う。サイト名だけでは何のサイトか伝わらないため
+  tagline: 'AI の使い方を、手元で確かめて書く',
   // Cloudflare Web Analytics のトークン（公開値）。Task 4.4 で設定するまでは計測しない
   analyticsToken: undefined,
   timezone: 'Asia/Tokyo',

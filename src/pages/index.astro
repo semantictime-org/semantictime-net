@@ -7,7 +7,7 @@ import StatePill from '../components/status/StatePill.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { articleHref, ROUTES } from '../lib/article-view';
 import { toJstDate } from '../lib/dates';
-import { buildVendorSections } from '../lib/home';
+import { buildVendorSections, EMPTY_VENDOR } from '../lib/home';
 import { loadCatalog } from '../queries/catalog';
 
 const RECENT_COUNT = 6;
@@ -35,14 +35,19 @@ const credits = catalog.products
   .toSorted(
     (a, b) => (vendorOrder.get(a.data.vendor.id) ?? 0) - (vendorOrder.get(b.data.vendor.id) ?? 0),
   )
-  .map((p) => p.data.name.toUpperCase());
+  .map((p) => ({
+    name: p.data.name,
+    href: catalog.hubProductIds.has(p.id) ? `/${p.id}/` : undefined,
+  }));
+// 記事が 1 本もない間は、会社ごとに同じ一文を繰り返さず、1 か所で伝える
+const noArticles = vendorSections.every((s) => s.emptyMessage !== undefined);
 const news = summaries
   .filter((a) => a.entry.data.type === 'news')
   .toSorted((a, b) => b.entry.data.publishedAt.getTime() - a.entry.data.publishedAt.getTime())
   .slice(0, NEWS_COUNT);
 ---
 
-<BaseLayout title={SITE.name} description={SITE.description}>
+<BaseLayout title={SITE.tagline} description={SITE.description}>
   <section class="hero" aria-labelledby="home-title">
     <div class="inner">
       <div class="lead-col">
@@ -74,13 +79,15 @@ const news = summaries
           <span class="ticket-label">{featured.record.label}</span>
           <span class="ticket-date">{featured.record.date}</span>
           <span class="ticket-title">{featured.title}</span>
-          <span class="ticket-link">手順と検証の記録を読む ↗</span>
+          <span class="ticket-link">手順と検証の記録を読む →</span>
         </a>
       )}
     </div>
-    <p class="credits" aria-label="扱う製品">
-      {credits.join(' · ')}
-    </p>
+    <ul class="credits" aria-label="扱う製品">
+      {credits.map((c) => (
+        <li>{c.href ? <a href={c.href}>{c.name}</a> : c.name}</li>
+      ))}
+    </ul>
   </section>
 
   <div class="body">
@@ -93,7 +100,7 @@ const news = summaries
         {vendorSections.map((section) => (
           <section class="vendor" aria-label={section.vendor.name}>
             <h3>{section.vendor.name}</h3>
-            {section.emptyMessage ? (
+            {noArticles ? null : section.emptyMessage ? (
               <p class="empty">{section.emptyMessage}</p>
             ) : (
               section.products.map((p) => (
@@ -120,16 +127,17 @@ const news = summaries
           </section>
         ))}
       </div>
+      {noArticles && (
+        <p class="empty all-empty">{EMPTY_VENDOR}手元で確かめた記事から、順に公開します。</p>
+      )}
     </section>
 
-    <section aria-labelledby="recent-title">
-      <p class="en" aria-hidden="true">
-        VERIFIED
-      </p>
-      <h2 id="recent-title">最近確かめた記事</h2>
-      {handsOn.length === 0 ? (
-        <p class="empty">公開済みの記事はまだありません。</p>
-      ) : (
+    {handsOn.length > 0 && (
+      <section aria-labelledby="recent-title">
+        <p class="en" aria-hidden="true">
+          VERIFIED
+        </p>
+        <h2 id="recent-title">最近確かめた記事</h2>
         <ol class="rows">
           {handsOn.slice(0, RECENT_COUNT).map((a) => (
             <li>
@@ -137,17 +145,15 @@ const news = summaries
             </li>
           ))}
         </ol>
-      )}
-    </section>
+      </section>
+    )}
 
-    <section aria-labelledby="news-title">
-      <p class="en" aria-hidden="true">
-        NEWS
-      </p>
-      <h2 id="news-title">知っておきたい変更</h2>
-      {news.length === 0 ? (
-        <p class="empty">掲載できる変更情報はまだありません。</p>
-      ) : (
+    {news.length > 0 && (
+      <section aria-labelledby="news-title">
+        <p class="en" aria-hidden="true">
+          NEWS
+        </p>
+        <h2 id="news-title">知っておきたい変更</h2>
         <ol class="news">
           {news.map((n) => (
             <li>
@@ -160,11 +166,11 @@ const news = summaries
             </li>
           ))}
         </ol>
-      )}
-      <p>
-        <a href={ROUTES.news}>ニュースをすべて見る →</a>
-      </p>
-    </section>
+        <p>
+          <a href={ROUTES.news}>ニュースをすべて見る →</a>
+        </p>
+      </section>
+    )}
   </div>
 </BaseLayout>
 
@@ -313,12 +319,23 @@ const news = summaries
   }
 
   .credits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
     margin-block: var(--space-section) 0;
-    padding-block-start: var(--space-4);
+    padding: var(--space-4) 0 0;
     border-block-start: 1px solid var(--color-band-rule);
-    color: var(--color-on-band-faint);
-    font: var(--text-small) var(--font-data);
-    letter-spacing: 0.08em;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-nav);
+    list-style: none;
+  }
+
+  .credits a {
+    color: var(--color-on-band);
+  }
+
+  .credits a:hover {
+    color: var(--color-key-on-band);
   }
 
   .body {
@@ -390,6 +407,10 @@ const news = summaries
     margin: 0;
     color: var(--color-ink-muted);
     font-size: var(--text-nav);
+  }
+
+  .all-empty {
+    margin-block-start: var(--space-6);
   }
 
   .rows,

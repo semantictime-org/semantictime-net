@@ -62,8 +62,12 @@ export const loadCatalog = async () => {
     ...(a.data.stationNo !== undefined ? { stationNo: a.data.stationNo } : {}),
   }));
 
+  // ハブ（/<product>/）を作る製品。記事が 1 本もない製品のハブは作らない（中身のないページを出さない）
+  const hubProductIds = new Set(catalogArticles.flatMap((a) => a.products.slice(0, 1)));
+
   return {
     articles,
+    hubProductIds,
     catalogArticles,
     products,
     vendors,
