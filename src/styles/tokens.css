@@ -31,6 +31,11 @@
   --color-status-stale: #9b3d17;
   --color-status-stale-bg: #f8e8e1;
   --color-live: #3ddc84;
+  /* コードの色付け（Prism。黒い地の上） */
+  --color-code-comment: #9aa3b5;
+  --color-code-keyword: #8095ff;
+  --color-code-string: #3ddc84;
+  --color-code-punctuation: #c5cbd8;
   --shadow-ticket: 0 40px 80px -24px rgba(0, 0, 0, 0.7);
 
   /* 書体（--font-*-face と代替の書体は astro.config.ts の fonts が /fonts.css で定義する） */
@@ -46,6 +51,15 @@
   --text-small: 11px;
   --text-tiny: 10px;
   --text-ticket-date: clamp(40px, 4.2cqi, 56px);
+  --text-hero-en: clamp(56px, 9cqi, 120px);
+  --text-hero-en-narrow: 17cqi;
+  --text-hero-title: clamp(28px, 4.2cqi, 52px);
+  --text-hero-title-narrow: 8.2cqi;
+  --text-watermark: clamp(150px, 26cqi, 340px);
+  --text-watermark-narrow: 44cqi;
+  --text-station: 30px;
+  --text-step: 26px;
+  --text-lead: 15px;
   --text-nav: 12px;
   --text-brand: 25px;
   --text-brand-narrow: 21px;
@@ -64,6 +78,8 @@
   /* 余白と幅 */
   --page-max: 1184px;
   --header-height: 80px;
+  --toc-width: 185px;
+  --ticket-width: 290px;
   --header-height-narrow: 72px;
   --gutter-narrow: 20px;
   --gutter-wide: 48px;

@@ -1,0 +1,22 @@
+---
+// チュートリアル・ハウツー・解説・トラブル対処のテンプレート：目次＋本文
+import ArticleFrame from '../components/page/ArticleFrame.astro';
+import Toc from '../components/nav/Toc.astro';
+import type { ArticlePage } from '../lib/article-page';
+
+interface Props {
+  page: ArticlePage;
+}
+
+const { page } = Astro.props;
+---
+
+<ArticleFrame page={page} variant="article">
+  <Toc
+    slot="aside"
+    headings={page.headings}
+    title="このページでやること"
+    numbered={page.numbered}
+  />
+  <slot />
+</ArticleFrame>

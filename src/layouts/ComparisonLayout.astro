@@ -1,0 +1,15 @@
+---
+// 比較のテンプレート：1段で表を広く見せる
+import ArticleFrame from '../components/page/ArticleFrame.astro';
+import type { ArticlePage } from '../lib/article-page';
+
+interface Props {
+  page: ArticlePage;
+}
+
+const { page } = Astro.props;
+---
+
+<ArticleFrame page={page} variant="comparison">
+  <slot />
+</ArticleFrame>

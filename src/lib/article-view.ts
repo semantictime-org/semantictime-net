@@ -1,0 +1,77 @@
+// 記事ページの表示に使う値（型の名前、パンくず、検証の履歴）を決める（純粋関数）。
+import { toJstDate } from './dates.ts';
+import type { ContentType, Level, Verification } from './taxonomy.ts';
+
+export const TYPE_LABEL: Readonly<Record<ContentType, string>> = {
+  tutorial: 'チュートリアル',
+  'how-to': 'ハウツー',
+  explanation: '解説',
+  reference: '現行仕様',
+  troubleshooting: 'トラブル対処',
+  comparison: '比較',
+  news: 'ニュース',
+  landing: 'まとめ',
+};
+
+/** 冒頭の帯に大きく出す英字（読み上げからは隠す） */
+export const TYPE_EN: Readonly<Record<ContentType, string>> = {
+  tutorial: 'TUTORIAL',
+  'how-to': 'HOW-TO',
+  explanation: 'EXPLAIN',
+  reference: 'SPEC',
+  troubleshooting: 'FIX',
+  comparison: 'COMPARE',
+  news: 'NEWS',
+  landing: 'GUIDE',
+};
+
+export const LEVEL_LABEL: Readonly<Record<Level, string>> = {
+  beginner: '初級',
+  intermediate: '中級',
+  advanced: '上級',
+};
+
+export const articleHref = (id: string): string => `/${id}/`;
+
+export interface Crumb {
+  readonly label: string;
+  readonly href?: string;
+}
+
+/** ホーム → 製品（ハブ）→ 現在のページ */
+export const breadcrumbsOf = (
+  product: { readonly id: string; readonly name: string } | undefined,
+  current: string,
+): readonly Crumb[] => [
+  { label: 'ホーム', href: '/' },
+  ...(product ? [{ label: product.name, href: `/${product.id}/` }] : []),
+  { label: current },
+];
+
+export interface HistoryRow {
+  readonly date: string;
+  readonly text: string;
+}
+
+/** 検証の履歴（新しい順）。フェーズ1は frontmatter の公開日と検証日から作る */
+export const historyOf = (
+  verification: Verification,
+  publishedAt: Date,
+  verifiedAt: Date,
+): readonly HistoryRow[] => {
+  const published = toJstDate(publishedAt);
+  const verified = toJstDate(verifiedAt);
+  if (verification === 'sources') {
+    return [{ date: published, text: '一次情報の出典を確かめて公開した。' }];
+  }
+  if (published === verified) return [{ date: published, text: '手元で検証して公開した。' }];
+  return verified > published
+    ? [
+        { date: verified, text: '手元で再検証した。' },
+        { date: published, text: '公開した。' },
+      ]
+    : [
+        { date: published, text: '公開した。' },
+        { date: verified, text: '手元で検証した。' },
+      ];
+};

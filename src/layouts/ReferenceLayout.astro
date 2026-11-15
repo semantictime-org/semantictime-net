@@ -1,0 +1,22 @@
+---
+// 現行仕様のテンプレート：同じ製品の現行仕様の一覧と目次＋本文
+import ArticleFrame from '../components/page/ArticleFrame.astro';
+import Sidebar from '../components/nav/Sidebar.astro';
+import Toc from '../components/nav/Toc.astro';
+import type { ArticlePage } from '../lib/article-page';
+
+interface Props {
+  page: ArticlePage;
+  siblings: readonly { label: string; title: string; href: string; current: boolean }[];
+}
+
+const { page, siblings } = Astro.props;
+---
+
+<ArticleFrame page={page} variant="reference">
+  <Fragment slot="aside">
+    <Sidebar title={`${page.productName ?? ''} の現行仕様`} items={siblings} />
+    <Toc headings={page.headings} title="このページの項目" numbered={false} />
+  </Fragment>
+  <slot />
+</ArticleFrame>

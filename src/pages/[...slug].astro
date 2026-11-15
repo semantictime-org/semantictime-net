@@ -1,0 +1,134 @@
+---
+// 記事のページ。型に応じてテンプレートを切り替える（LAYOUT_BY_TYPE）。
+// 下書きは PUBLIC_DEPLOY_ENV=preview のときだけ作る（設計書 2.3「下書きと .md 版」）。
+// ニュース（digest）とまとめ（hub）のテンプレートは Task 3.6 で足す。
+import type { GetStaticPaths } from 'astro';
+import { getEntries, getEntry, render, type CollectionEntry } from 'astro:content';
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import ComparisonLayout from '../layouts/ComparisonLayout.astro';
+import ReferenceLayout from '../layouts/ReferenceLayout.astro';
+import ScrollPre from '../components/mdx/ScrollPre.astro';
+import ScrollTable from '../components/mdx/ScrollTable.astro';
+import {
+  disclosureOf,
+  strongestFeatureStatus,
+  verificationRecordOf,
+  verifiedWithLines,
+} from '../lib/article-meta';
+import type { ArticlePage } from '../lib/article-page';
+import {
+  articleHref,
+  breadcrumbsOf,
+  historyOf,
+  LEVEL_LABEL,
+  TYPE_EN,
+  TYPE_LABEL,
+} from '../lib/article-view';
+import { stationLabel } from '../lib/catalog';
+import { toJstDate } from '../lib/dates';
+import { LAYOUT_BY_TYPE } from '../lib/taxonomy';
+import { publishedArticles } from '../queries/articles';
+
+export const getStaticPaths = (async () => {
+  const templates: readonly string[] = ['article', 'reference', 'comparison'];
+  const articles = await publishedArticles();
+  return articles
+    .filter((entry) => templates.includes(LAYOUT_BY_TYPE[entry.data.type]))
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}) satisfies GetStaticPaths;
+
+const NUMBERED_TYPES: readonly string[] = ['tutorial', 'how-to'];
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const productRef = data.products[0];
+const product = productRef ? await getEntry(productRef) : undefined;
+const features = await getEntries(data.features);
+const author = await getEntry(data.owner);
+const station =
+  product && data.stationNo !== undefined
+    ? stationLabel(product.data.code, data.stationNo)
+    : undefined;
+const versions = verifiedWithLines(data.verifiedWith);
+const banner = strongestFeatureStatus(features.map((f) => f.data.status));
+const { Content, headings } = await render(entry);
+// 本文の表とコードを、キーボードで届くスクロール領域に差し替える
+const components = { table: ScrollTable, pre: ScrollPre };
+
+const page: ArticlePage = {
+  id: entry.id,
+  title: data.title,
+  description: data.description,
+  typeLabel: TYPE_LABEL[data.type],
+  typeEn: TYPE_EN[data.type],
+  numbered: NUMBERED_TYPES.includes(data.type),
+  productName: product?.data.name,
+  stationLabel: station,
+  levelLabel: LEVEL_LABEL[data.level],
+  publishedDate: toJstDate(data.publishedAt),
+  crumbs: breadcrumbsOf(
+    product && { id: product.id, name: product.data.name },
+    station ?? data.title,
+  ),
+  record: verificationRecordOf(
+    {
+      verification: data.verification,
+      verifiedAt: data.verifiedAt,
+      type: data.type,
+      categories: product?.data.categories ?? [],
+    },
+    new Date(),
+  ),
+  versions,
+  disclosure: disclosureOf({
+    aiAssisted: data.aiAssisted,
+    author: author.data.name,
+    verifiedAt: data.verifiedAt,
+    versions,
+  }),
+  banner: banner && {
+    status: banner,
+    features: features.filter((f) => f.data.status === banner).map((f) => f.data.name),
+  },
+  history: historyOf(data.verification, data.publishedAt, data.verifiedAt),
+  sources: data.sources,
+  headings,
+  seo: {
+    author: author.data.name,
+    publishedAt: data.publishedAt,
+    modifiedAt: data.verifiedAt > data.publishedAt ? data.verifiedAt : data.publishedAt,
+  },
+};
+
+const template = LAYOUT_BY_TYPE[data.type];
+const siblings =
+  template === 'reference' && product
+    ? (await publishedArticles())
+        .filter((a) => a.data.type === 'reference' && a.data.products[0]?.id === product.id)
+        .toSorted((a, b) => (a.data.stationNo ?? 0) - (b.data.stationNo ?? 0))
+        .map((a) => ({
+          label: stationLabel(product.data.code, a.data.stationNo ?? 0),
+          title: a.data.title,
+          href: articleHref(a.id),
+          current: a.id === entry.id,
+        }))
+    : [];
+---
+
+{template === 'reference' ? (
+  <ReferenceLayout page={page} siblings={siblings}>
+    <Content components={components} />
+  </ReferenceLayout>
+) : template === 'comparison' ? (
+  <ComparisonLayout page={page}>
+    <Content components={components} />
+  </ComparisonLayout>
+) : (
+  <ArticleLayout page={page}>
+    <Content components={components} />
+  </ArticleLayout>
+)}

@@ -1,0 +1,67 @@
+---
+// 記事の目次。本文の h2 と、末尾の「検証の履歴・出典」へのリンクを並べる。
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: readonly MarkdownHeading[];
+  title: string;
+  /** 見出しに 01・02 と番号を付けるか（手順のある記事） */
+  numbered: boolean;
+}
+
+const { headings, title, numbered } = Astro.props;
+const items = headings.filter((h) => h.depth === 2);
+---
+
+<nav class="toc" aria-label={title}>
+  <p class="toc-title">{title}</p>
+  <ol>
+    {items.map((h, i) => (
+      <li>
+        <a href={`#${h.slug}`}>
+          {numbered && <span class="no">{String(i + 1).padStart(2, '0')}</span>}
+          {h.text}
+        </a>
+      </li>
+    ))}
+    <li>
+      <a href="#history">検証の履歴・出典</a>
+    </li>
+  </ol>
+</nav>
+
+<style>
+  .toc {
+    font-size: var(--text-small);
+  }
+
+  .toc-title {
+    margin: 0 0 var(--space-3);
+    font-weight: 700;
+  }
+
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
+    border-inline-start: 2px solid var(--color-rule);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  a:hover {
+    border-color: var(--color-key);
+    color: var(--color-key);
+  }
+
+  .no {
+    margin-inline-end: var(--space-2);
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+  }
+</style>

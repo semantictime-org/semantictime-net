@@ -1,0 +1,60 @@
+---
+title: Hooks で保存のたびに整形する
+description: Claude Code がファイルを書き換えたら Prettier を動かす Hooks の設定を、検証日つきでまとめる（テスト用の記事。本番には入らない）。
+type: how-to
+products: [claude-code]
+stationNo: 7
+verification: hands-on
+roles: [developer]
+level: intermediate
+features: [hooks]
+publishedAt: 2026-10-02
+verifiedAt: 2026-11-01
+verifiedWith:
+  claudeCode: 2.1.325
+  version: macOS 26.1
+sources:
+  - https://code.claude.com/docs/en/hooks
+owner: shizukukai
+aiAssisted: draft-and-edit
+---
+
+import Callout from '../../../../src/components/mdx/Callout.astro';
+
+## 用意する
+
+- Prettier が入ったプロジェクト
+- JSON を読み取る `jq`
+
+## 設定を書く
+
+`.claude/settings.json` に次を足す。
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$(jq -r '.tool_input.file_path')\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<Callout type="warning" title="長い識別子の折り返し">
+  `superLongIdentifierWithoutAnyBreakOpportunity_superLongIdentifierWithoutAnyBreakOpportunity`
+  のような語でも、はみ出さない。
+</Callout>
+
+## 確かめる
+
+| 操作                     | 期待する結果   |
+| ------------------------ | -------------- |
+| ファイルを書き換えさせる | 字下げがそろう |

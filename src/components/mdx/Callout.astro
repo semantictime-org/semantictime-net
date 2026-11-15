@@ -1,0 +1,38 @@
+---
+// 記事の本文で使える唯一のコンポーネント（content-lint の ALLOWED_COMPONENTS）。.md 版では blockquote になる。
+interface Props {
+  type?: 'note' | 'warning';
+  title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+---
+
+<aside class:list={['callout', type]}>
+  {title && <p class="title">{title}</p>}
+  <slot />
+</aside>
+
+<style>
+  .callout {
+    padding: var(--space-4);
+    border-inline-start: 4px solid var(--color-key);
+    border-radius: var(--radius-control);
+    background: var(--color-surface-tint);
+    overflow-wrap: anywhere;
+  }
+
+  .warning {
+    border-color: var(--color-status-review);
+    background: var(--color-status-review-bg);
+  }
+
+  .title {
+    margin: 0 0 var(--space-1);
+    font-weight: 700;
+  }
+
+  .callout :global(p) {
+    margin: 0;
+  }
+</style>

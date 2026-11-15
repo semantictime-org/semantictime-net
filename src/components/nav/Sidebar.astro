@@ -1,0 +1,69 @@
+---
+// 現行仕様の記事の横に置く、同じ製品の現行仕様の一覧。
+interface Item {
+  label: string;
+  title: string;
+  href: string;
+  current: boolean;
+}
+
+interface Props {
+  title: string;
+  items: readonly Item[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<nav class="sidebar" aria-label={title}>
+  <p class="sidebar-title">{title}</p>
+  <ul>
+    {items.map((item) => (
+      <li>
+        <a href={item.href} aria-current={item.current ? 'page' : undefined}>
+          <span class="no">{item.label}</span>
+          {item.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .sidebar {
+    font-size: var(--text-nav);
+  }
+
+  .sidebar-title {
+    margin: 0 0 var(--space-2);
+    color: var(--color-ink-muted);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    border-block-start: 1px solid var(--color-rule);
+  }
+
+  a {
+    display: block;
+    padding-block: var(--space-2);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  a[aria-current='page'] {
+    color: var(--color-key);
+    font-weight: 700;
+  }
+
+  .no {
+    margin-inline-end: var(--space-2);
+    color: var(--color-ink-muted);
+    font: var(--text-data) var(--font-data);
+  }
+</style>

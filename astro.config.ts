@@ -1,3 +1,4 @@
+import mdx from '@astrojs/mdx';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // 本番のサイト設定。コンテンツ・CSP・統合は Task 2.2 以降で足していく。
@@ -6,6 +7,9 @@ export default defineConfig({
   site: 'https://semantictime.net',
   output: 'static',
   build: { inlineStylesheets: 'never' },
+  integrations: [mdx()],
+  // コードの色付けは Prism（クラスで色を付ける。Shiki のインラインスタイルは CSP に合わないため。設計書 1.2）
+  markdown: { syntaxHighlight: 'prism' },
   fonts: [
     {
       name: 'Anton',
