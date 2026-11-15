@@ -1,0 +1,87 @@
+---
+// バックナンバー（/archive/）。月ごとの本数を新しい月から並べる。
+import PageHero from '../../components/page/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ROUTES } from '../../lib/article-view';
+import { loadArchive, monthLabel } from '../../queries/archive';
+
+const TITLE = 'バックナンバー';
+const LEAD = '公開した記事を、月ごとにまとめています。';
+
+const months = await loadArchive();
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: TITLE }];
+---
+
+<BaseLayout title={TITLE} description={LEAD}>
+  <PageHero crumbs={crumbs} en="ARCHIVE" title={TITLE} lead={LEAD} />
+  <div class="body">
+    {months.length === 0 ? (
+      <p class="empty">記事は準備中です。</p>
+    ) : (
+      <ul class="months" data-months>
+        {months.map((m) => (
+          <li>
+            <a href={`${ROUTES.archive}${m.year}/${m.month}/`}>
+              <span class="label">{monthLabel(m)}</span>
+              <span class="count">{m.items.length} 本</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .months {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .months a {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-control);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .months a:hover {
+    border-color: var(--color-key);
+    color: var(--color-key);
+  }
+
+  .label {
+    font-weight: 700;
+  }
+
+  .count {
+    color: var(--color-ink-muted);
+    font: var(--text-small) var(--font-data);
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+  }
+</style>

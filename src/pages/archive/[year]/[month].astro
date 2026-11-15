@@ -1,0 +1,60 @@
+---
+// 月ごとの記事の一覧（/archive/<年>/<月>/）。新しい順。記事のある月だけページを作る。
+import type { GetStaticPaths } from 'astro';
+import ArticleRow from '../../../components/article/ArticleRow.astro';
+import PageHero from '../../../components/page/PageHero.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { ROUTES } from '../../../lib/article-view';
+import { loadArchive, monthLabel } from '../../../queries/archive';
+
+export const getStaticPaths = (async () =>
+  (await loadArchive()).map((m) => ({
+    params: { year: m.year, month: m.month },
+    props: { month: m },
+  }))) satisfies GetStaticPaths;
+
+type Props = Awaited<ReturnType<typeof getStaticPaths>>[number]['props'];
+
+const { month } = Astro.props;
+const title = `${monthLabel(month)}の記事`;
+const lead = `${monthLabel(month)}に公開した ${month.items.length} 本の記事です。`;
+const crumbs = [
+  { label: 'ホーム', href: ROUTES.home },
+  { label: 'バックナンバー', href: ROUTES.archive },
+  { label: monthLabel(month) },
+];
+---
+
+<BaseLayout title={title} description={lead}>
+  <PageHero crumbs={crumbs} en={`${month.year}.${month.month}`} title={title} lead={lead} />
+  <div class="body">
+    <ol class="list" data-month-list>
+      {month.items.map((i) => (
+        <li>
+          <ArticleRow article={i.summary} />
+        </li>
+      ))}
+    </ol>
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+  }
+</style>
