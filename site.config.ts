@@ -13,8 +13,9 @@ export const SITE = {
   timezone: 'Asia/Tokyo',
   // 検証期限（日数）。手順が変わりやすい分野ほど短くする
   reviewIntervalDaysByCategory: {
-    coding: 30,
-    agent: 30,
+    // 2026-11-16 ユーザーの判断で 30 → 60 日（1人で全記事を 30 日ごとに見直すのは現実的でない）
+    coding: 60,
+    agent: 60,
     api: 60,
     chat: 60,
     image: 60,
