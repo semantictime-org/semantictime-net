@@ -23,10 +23,21 @@ aiAssisted: draft
 
 import Callout from '../../../components/mdx/Callout.astro';
 
-- **ゴール**：毎回説明していた決まりを、Claude Code が最初から知っている状態にする
-- **所要時間**：10分
-- **前に読む記事**：[Claude Code を入れて、最初の作業を頼む](/claude-code/install-and-first-task/)
-- **手順の全体**：1. 置き場所を決める → 2. ひな形を作る → 3. 短く整える
+## 3行でいうと
+
+1. CLAUDE.md は、Claude Code が作業の初めに毎回読む指示のファイル
+2. 置き場所で効く範囲が変わる（自分の全プロジェクト・このプロジェクト・自分だけ）
+3. `/init` で下書きを作り、200行より短く整える
+
+## たとえば
+
+```text
+書く前：作業のたびに「テストは npm test で動かして」と伝える
+書いた後：CLAUDE.md に「テスト：npm test」と1行あれば、毎回それを読んでから作業する
+```
+
+- 所要時間：10分
+- 前に読む記事：[Claude Code を入れて、最初の作業を頼む](/claude-code/install-and-first-task/)
 
 ## 1. 置き場所を決める
 
