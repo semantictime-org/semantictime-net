@@ -138,8 +138,10 @@ const hasSide = Astro.slots.has('side');
       font-size: var(--text-hero-en-narrow);
     }
 
+    /* 狭い画面の記事では、種類の英字（飾り）を出さず、題と検証票を 1 画面目に収める（T072）。
+       種類は帯のメタ（Claude Code / ハウツー）にも出ている */
     .en.compact {
-      font-size: var(--text-hero-en-compact-narrow);
+      display: none;
     }
 
     h1 {
