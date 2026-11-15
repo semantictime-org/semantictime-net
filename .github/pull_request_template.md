@@ -6,6 +6,7 @@
 
 <!-- verification:start -->
 - [ ] 実機で検証した
+- [ ] 一次情報の出典を確かめた
 <!-- verification:end -->
 
 - [ ] 雇用先の情報を含まない
