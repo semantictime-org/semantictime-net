@@ -12,6 +12,7 @@ const MAX_BUFFER = 64 * 1024 * 1024;
 const frontmatterSchema = z.object({
   publishedAt: z.coerce.date(),
   draft: z.boolean().default(false),
+  verification: z.enum(VERIFICATION),
 });
 export type ArticleFrontmatter = z.infer<typeof frontmatterSchema>;
 
