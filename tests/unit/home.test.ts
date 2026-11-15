@@ -68,10 +68,10 @@ describe('buildVendorSections（T317 全社同等のホーム）', () => {
     ]);
   });
 
-  test('記事 0 本の会社は「まだ公開した記事がありません。」', () => {
+  test('記事 0 本の会社は「記事は準備中です。」', () => {
     const mj = sections.find((s) => s.vendor.id === 'midjourney');
     expect(mj?.products).toEqual([]);
-    expect(mj?.emptyMessage).toBe('まだ公開した記事がありません。');
+    expect(mj?.emptyMessage).toBe('記事は準備中です。');
   });
 
   test('記事 0 本の製品は出さない', () => {

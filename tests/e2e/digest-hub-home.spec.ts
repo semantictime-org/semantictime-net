@@ -36,7 +36,7 @@ test('T317: ホームの会社は order の順で、記事 0 本の会社には�
     'Black Forest Labs',
   ]);
   await expect(page.getByRole('region', { name: 'Google' })).toContainText(
-    'まだ公開した記事がありません。',
+    '記事は準備中です。',
   );
   await expect(page.getByRole('region', { name: 'Anthropic' })).toContainText('すべて見る（2 本）');
 });

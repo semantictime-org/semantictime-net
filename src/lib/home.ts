@@ -3,7 +3,7 @@ import { resolveRoute, type CatalogArticle, type RouteSection } from './catalog.
 
 /** 製品ごとにホームに出す記事の本数（読む順の先頭から） */
 export const HOME_ARTICLES_PER_PRODUCT = 2;
-const EMPTY_VENDOR = 'まだ公開した記事がありません。';
+export const EMPTY_VENDOR = '記事は準備中です。';
 
 export type HomeArticle = CatalogArticle;
 
