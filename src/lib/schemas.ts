@@ -20,6 +20,11 @@ const STATION_MAX = 99;
 const SEMVER = /^\d+\.\d+\.\d+$/;
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PRODUCT_CODE = /^[A-Z]{2}$/;
+/**
+ * リンクとして描画する URL は http(s) だけを通す。z.url() は javascript: や data: も通すため、
+ * AI の下書きに紛れ込んだ危険な URL を入口で止める（本文の検査は frontmatter を見ない）。
+ */
+const httpUrl = () => z.url({ protocol: /^https?$/, error: 'URL は http(s) にする' });
 /** ニュースの置き場所（製品のディレクトリではなく、ここに置く） */
 export const NEWS_DIR = 'news';
 
@@ -71,7 +76,7 @@ export const buildArticleSchema = <F extends z.ZodType, O extends z.ZodType, P e
       publishedAt: z.coerce.date(),
       verifiedAt: z.coerce.date(),
       verifiedWith: verifiedWithSchema.optional(),
-      sources: z.array(z.url()).min(1),
+      sources: z.array(httpUrl()).min(1),
       owner: ownerRef,
       aiAssisted: z.enum(AI_ASSISTED),
       changes: z
@@ -82,7 +87,7 @@ export const buildArticleSchema = <F extends z.ZodType, O extends z.ZodType, P e
             breaking: z.boolean(),
             category: z.enum(CHANGE_CATEGORIES),
             title: z.string().min(1),
-            url: z.url(),
+            url: httpUrl(),
           }),
         )
         .optional(),
@@ -112,7 +117,7 @@ export const vendorSchema = z.object({
   // ナビとホームで並べる順（固定。会社による特別扱いはしない）
   order: z.number().int().min(1),
   // 公式の変更履歴・リリースノート（上流の追跡に使う）
-  changelogs: z.array(z.url()).default([]),
+  changelogs: z.array(httpUrl()).default([]),
 });
 
 /** 製品のスキーマを作る。vendor の参照先は、本番では reference()、単体テストでは文字列 */
@@ -145,7 +150,7 @@ export const featureSchema = z.object({
   status: z.enum(FEATURE_STATUS),
   since: z.coerce.date().optional(),
   deprecatedAt: z.coerce.date().optional(),
-  docs: z.url(),
+  docs: httpUrl(),
   // 上流の変更との照合に使う語。一般的すぎる語（hooks など）は入れない
   aliases: z.array(z.string().min(1)).default([]),
 });
@@ -154,7 +159,7 @@ export const authorSchema = z.object({
   name: z.string().min(1),
   bio: z.string().min(1),
   credentials: z.array(z.string().min(1)),
-  url: z.url().optional(),
+  url: httpUrl().optional(),
 });
 
 /**

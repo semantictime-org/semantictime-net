@@ -43,6 +43,13 @@ export const LEVEL_LABEL: Readonly<Record<Level, string>> = {
   advanced: '上級',
 };
 
+/** サイト内の固定のページ（ヘッダー・フッター・ホームから参照する） */
+export const ROUTES = {
+  home: '/',
+  news: '/news/',
+  search: '/search/',
+} as const;
+
 export const articleHref = (id: string): string => `/${id}/`;
 
 export interface Crumb {
@@ -55,7 +62,7 @@ export const breadcrumbsOf = (
   product: { readonly id: string; readonly name: string } | undefined,
   current: string,
 ): readonly Crumb[] => [
-  { label: 'ホーム', href: '/' },
+  { label: 'ホーム', href: ROUTES.home },
   ...(product ? [{ label: product.name, href: `/${product.id}/` }] : []),
   { label: current },
 ];

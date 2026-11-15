@@ -2,7 +2,7 @@
 // ニュースの一覧（/news/）。新しい順。
 import PageHero from '../../components/page/PageHero.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { articleHref } from '../../lib/article-view';
+import { articleHref, ROUTES } from '../../lib/article-view';
 import { toJstDate } from '../../lib/dates';
 import { publishedArticles } from '../../queries/articles';
 
@@ -19,7 +19,7 @@ const news = (await publishedArticles())
     count: a.data.changes?.length ?? 0,
     breaking: a.data.changes?.some((c) => c.breaking) ?? false,
   }));
-const crumbs = [{ label: 'ホーム', href: '/' }, { label: TITLE }];
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: TITLE }];
 ---
 
 <BaseLayout title={TITLE} description={LEAD}>

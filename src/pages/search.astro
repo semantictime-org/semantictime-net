@@ -3,10 +3,11 @@
 import PageHero from '../components/page/PageHero.astro';
 import SearchBox from '../components/search/SearchBox.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { ROUTES } from '../lib/article-view';
 
 const TITLE = '記事を検索';
 const LEAD = '記事の題・本文・製品名から探せます。製品・記事の種類・読む人で絞り込めます。';
-const crumbs = [{ label: 'ホーム', href: '/' }, { label: TITLE }];
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: TITLE }];
 ---
 
 <BaseLayout title={TITLE} description={LEAD}>

@@ -1,6 +1,7 @@
 ---
 // 記事の検証票（DESIGN.md の Components「検証票（記事）」）。題の右、黒い帯に重ねて置く。
 // 中身は src/lib/article-meta.ts の verificationRecordOf が決める。
+import StatePill from '../status/StatePill.astro';
 import type { VerificationRecord } from '../../lib/article-meta';
 
 interface Props {
@@ -16,7 +17,7 @@ const { record, versions, historyHref } = Astro.props;
 <aside class="ticket" aria-label="この記事の検証記録">
   <div class="head">
     <span>{record.label}</span>
-    <span class:list={['state', record.state]}>{record.stateLabel}</span>
+    <StatePill state={record.state} label={record.stateLabel} />
   </div>
   <p class="date">{record.date}</p>
   {versions.length > 0 && (
@@ -58,39 +59,6 @@ const { record, versions, historyHref } = Astro.props;
     justify-content: space-between;
     gap: var(--space-3);
     font-size: var(--text-small);
-  }
-
-  .state {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-control);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .state::before {
-    content: '';
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: var(--radius-pill);
-    background: currentColor;
-  }
-
-  .ok {
-    background: var(--color-status-ok-bg);
-    color: var(--color-status-ok);
-  }
-
-  .review {
-    background: var(--color-status-review-bg);
-    color: var(--color-status-review);
-  }
-
-  .stale {
-    background: var(--color-status-stale-bg);
-    color: var(--color-status-stale);
   }
 
   .date {

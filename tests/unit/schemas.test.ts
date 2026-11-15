@@ -138,6 +138,29 @@ describe('article schema', () => {
   test('sources は URL でなければ失敗する', () => {
     expect(parse({ sources: ['not-a-url'] }).success).toBe(false);
   });
+
+  test.each(['javascript:alert(1)', 'data:text/html,<b>x</b>', 'ftp://example.com/'])(
+    'sources が http(s) 以外の URL（%s）なら失敗する',
+    (url) => {
+      expect(parse({ sources: [url] }).success).toBe(false);
+    },
+  );
+
+  test('news の changes[].url も http(s) だけ', () => {
+    const changes = [
+      {
+        date: '2026-11-13',
+        product: 'claude-code',
+        breaking: false,
+        category: 'feature',
+        title: 'x',
+        url: 'javascript:alert(1)',
+      },
+    ];
+    expect(
+      parse({ type: 'news', verification: 'sources', stationNo: undefined, changes }).success,
+    ).toBe(false);
+  });
 });
 
 describe('feature schema', () => {
@@ -157,6 +180,12 @@ describe('feature schema', () => {
 
   test('T131: status が列挙型にないと失敗する', () => {
     expect(featureSchema.safeParse({ ...validFeature, status: 'preview' }).success).toBe(false);
+  });
+
+  test('docs が http(s) 以外の URL なら失敗する', () => {
+    expect(featureSchema.safeParse({ ...validFeature, docs: 'javascript:alert(1)' }).success).toBe(
+      false,
+    );
   });
 
   test('id に大文字や空白があると失敗する', () => {
