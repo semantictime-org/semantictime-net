@@ -90,3 +90,9 @@ test('ホームは検証日と状態を見せる（公開日ではなく）', as
   await expect(page.locator('[data-top] li').nth(1).locator('.pill')).toBeVisible();
   await expect(page.getByRole('list', { name: '検証の状況' })).toContainText('見直しが必要');
 });
+
+test('ホームの冒頭は、各社の使い方と変化をまとめるサイトだと伝える', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('h1')).toHaveText('AI の使い方と変化を、ひとつの場所で。');
+  await expect(page).toHaveTitle('AI の使い方と変化を、ひとつの場所で | semantictime.net');
+});
