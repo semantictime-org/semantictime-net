@@ -29,3 +29,19 @@ export const buildFrontPage = <T extends Dated>(
     days: [...byDate].map(([date, list]) => ({ date, items: list })),
   };
 };
+
+export interface MonthGroup<T extends Dated> {
+  readonly year: string;
+  readonly month: string;
+  readonly items: readonly T[];
+}
+
+/** 月ごとの一覧（バックナンバー）。JST の年月で分け、新しい月から。月の中も新しい順 */
+export const groupByMonth = <T extends Dated>(items: readonly T[]): readonly MonthGroup<T>[] => {
+  const { top } = buildFrontPage(items, items.length);
+  const byMonth = Map.groupBy(top, (i) => toJstDate(i.publishedAt).slice(0, 7));
+  return [...byMonth].map(([ym, list]) => {
+    const [year = '', month = ''] = ym.split('-');
+    return { year, month, items: list };
+  });
+};

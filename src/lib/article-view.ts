@@ -48,6 +48,7 @@ export const ROUTES = {
   home: '/',
   news: '/news/',
   search: '/search/',
+  archive: '/archive/',
   editorialPolicy: '/about/editorial-policy/',
   authors: '/about/authors/',
   report: '/about/report/',

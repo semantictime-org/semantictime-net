@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { isChangeVisible } from '../../src/lib/change-filter';
-import { buildFrontPage } from '../../src/lib/home';
+import { buildFrontPage, groupByMonth } from '../../src/lib/home';
 
 describe('isChangeVisible（T078 の絞り込み）', () => {
   const row = { product: 'claude-code', breaking: false } as const;
@@ -55,5 +55,26 @@ describe('buildFrontPage（ホームの新しい順の流れ）', () => {
   test('JST の日付で分ける（UTC では前日でも、JST で翌日なら翌日）', () => {
     const page = buildFrontPage([item('late', '2026-11-14T16:30:00Z')], 0);
     expect(page.days[0]?.date).toBe('2026-11-15');
+  });
+});
+
+describe('groupByMonth（月ごとの一覧）', () => {
+  const item = (id: string, publishedAt: string) => ({ id, publishedAt: new Date(publishedAt) });
+
+  test('JST の年月ごとに、新しい月から。月の中も新しい順', () => {
+    const months = groupByMonth([
+      item('a', '2026-10-31'),
+      item('b', '2026-11-02'),
+      item('c', '2026-11-14'),
+      item('d', '2026-10-31T15:30:00Z'),
+    ]);
+    expect(months.map((m) => [m.year, m.month, m.items.map((i) => i.id)])).toEqual([
+      ['2026', '11', ['c', 'b', 'd']],
+      ['2026', '10', ['a']],
+    ]);
+  });
+
+  test('記事が 0 本なら空', () => {
+    expect(groupByMonth([])).toEqual([]);
   });
 });

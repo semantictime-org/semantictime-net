@@ -179,9 +179,14 @@ const credits = catalog.products
         ))}
       </section>
 
-      <p class="more">
-        <a href={ROUTES.news}>ニュースの一覧 →</a>
-      </p>
+      <ul class="more">
+        <li>
+          <a href={ROUTES.news}>ニュースの一覧 →</a>
+        </li>
+        <li>
+          <a href={ROUTES.archive}>バックナンバー →</a>
+        </li>
+      </ul>
     </aside>
   </div>
 </BaseLayout>
@@ -370,7 +375,8 @@ const credits = catalog.products
   }
 
   .more {
-    margin: 0;
+    display: grid;
+    gap: var(--space-2);
     font-size: var(--text-nav);
   }
 
