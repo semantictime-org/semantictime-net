@@ -1,0 +1,95 @@
+---
+// 記事一覧の1行：記事番号、題、製品・難易度・検証日、右に状態の札（DESIGN.md の「記事一覧の行」）。
+import type { ArticleSummary } from '../../queries/catalog';
+
+interface Props {
+  article: ArticleSummary;
+}
+
+const { article } = Astro.props;
+const meta = [article.productName, article.levelLabel, `検証 ${article.verifiedDate}`].filter(
+  (v): v is string => Boolean(v),
+);
+---
+
+<a class="row" href={article.href}>
+  <span class:list={['station', { long: (article.station?.length ?? 0) > 6 }]}>
+    {article.station ?? '—'}
+  </span>
+  <span class="body">
+    <span class="title">{article.title}</span>
+    <span class="meta">{meta.join(' · ')}</span>
+  </span>
+  <span class:list={['state', article.record.state]}>{article.record.stateLabel}</span>
+</a>
+
+<style>
+  .row {
+    container-type: inline-size;
+    display: grid;
+    grid-template-columns: 4.5em minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding-block: var(--space-4);
+    border-block-start: 1px solid var(--color-rule);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .row:hover .title {
+    color: var(--color-key);
+  }
+
+  .station {
+    color: var(--color-key);
+    font: 400 var(--text-section-ja) / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  .long {
+    font: var(--text-data) var(--font-data);
+  }
+
+  .body {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 0;
+  }
+
+  .title {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+    line-height: var(--leading-heading);
+    overflow-wrap: anywhere;
+    transition: color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .meta {
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+
+  .state {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-small);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .ok {
+    background: var(--color-status-ok-bg);
+    color: var(--color-status-ok);
+  }
+
+  .review {
+    background: var(--color-status-review-bg);
+    color: var(--color-status-review);
+  }
+
+  .stale {
+    background: var(--color-status-stale-bg);
+    color: var(--color-status-stale);
+  }
+</style>

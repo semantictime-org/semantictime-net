@@ -54,6 +54,11 @@ a:hover {
   outline-offset: var(--focus-offset);
 }
 
+/* hidden 属性は、部品の display の指定より優先して隠す */
+[hidden] {
+  display: none !important;
+}
+
 img,
 svg,
 video {

@@ -6,6 +6,10 @@ const TEMPLATES = [
   '/claude-code/hooks-format/',
   '/claude-code/settings-reference/',
   '/claude-app/plans-compare/',
+  '/news/week-46/',
+  '/news/',
+  '/claude-code/',
+  '/',
 ] as const;
 const WIDTHS = [320, 768, 1024, 1440] as const;
 

@@ -15,6 +15,8 @@ export interface ArticlePage {
   readonly productName: string | undefined;
   /** 記事番号（CC07） */
   readonly stationLabel: string | undefined;
+  /** 冒頭の帯の透かし（記事番号、ニュースは日付） */
+  readonly watermark: string | undefined;
   readonly levelLabel: string;
   readonly publishedDate: string;
   readonly crumbs: readonly Crumb[];

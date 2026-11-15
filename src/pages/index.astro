@@ -1,18 +1,458 @@
 ---
+// ホーム（DESIGN.md v11）。会社と製品は vendors.yaml の order の順に、同じ扱いで並べる（T317）。
+// 「今朝の確認時刻」と「変更の記録」の帯は、上流の取得（Phase 5）ができてから足す。
 import { SITE } from '../../site.config';
+import ArticleRow from '../components/article/ArticleRow.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { articleHref } from '../lib/article-view';
+import { toJstDate } from '../lib/dates';
+import { buildVendorSections } from '../lib/home';
+import { loadCatalog } from '../queries/catalog';
+
+const RECENT_COUNT = 6;
+const NEWS_COUNT = 5;
+
+const catalog = await loadCatalog();
+const summaries = [...catalog.summaryById.values()];
+const handsOn = summaries
+  .filter((a) => a.entry.data.verification === 'hands-on')
+  .toSorted((a, b) => b.entry.data.verifiedAt.getTime() - a.entry.data.verifiedAt.getTime());
+const featured = handsOn[0];
+const vendorSections = buildVendorSections(
+  catalog.vendors.map((v) => ({ id: v.id, name: v.data.name, order: v.data.order })),
+  catalog.products.map((p) => ({
+    id: p.id,
+    name: p.data.name,
+    vendor: p.data.vendor.id,
+    code: p.data.code,
+    route: p.data.route,
+  })),
+  catalog.catalogArticles.filter((a) => a.type !== 'news' && a.type !== 'landing'),
+);
+const vendorOrder = new Map(catalog.vendors.map((v) => [v.id, v.data.order]));
+const credits = catalog.products
+  .toSorted(
+    (a, b) => (vendorOrder.get(a.data.vendor.id) ?? 0) - (vendorOrder.get(b.data.vendor.id) ?? 0),
+  )
+  .map((p) => p.data.name.toUpperCase());
+const news = summaries
+  .filter((a) => a.entry.data.type === 'news')
+  .toSorted((a, b) => b.entry.data.publishedAt.getTime() - a.entry.data.publishedAt.getTime())
+  .slice(0, NEWS_COUNT);
 ---
 
 <BaseLayout title={SITE.name} description={SITE.description}>
-  <div class="prose placeholder">
-    <h1>{SITE.name}</h1>
-    <p>準備中です。</p>
+  <section class="hero" aria-labelledby="home-title">
+    <div class="inner">
+      <div class="lead-col">
+        {featured && (
+          <p class="stamp">
+            <span class="dot" aria-hidden="true" />
+            最新の検証 <span class="mono">{featured.record.date}</span>
+          </p>
+        )}
+        <h1 id="home-title">その手順、いま動きますか。</h1>
+        <p class="lead">
+          手元で動かした日と版をつけて公開しています。公式が変われば、確かめ直します。
+        </p>
+        <p class="actions">
+          <a class="primary" href="#vendors">
+            使い方を探す ↘
+          </a>
+          <a class="secondary" href="/news/">
+            変更を追う →
+          </a>
+        </p>
+      </div>
+      {featured && (
+        <a class="ticket" href={featured.href}>
+          <span class="ticket-head">
+            <span class="mono">{featured.station ?? ''} / 検証票</span>
+            <span class:list={['state', featured.record.state]}>{featured.record.stateLabel}</span>
+          </span>
+          <span class="ticket-label">{featured.record.label}</span>
+          <span class="ticket-date">{featured.record.date}</span>
+          <span class="ticket-title">{featured.title}</span>
+          <span class="ticket-link">手順と検証の記録を読む ↗</span>
+        </a>
+      )}
+    </div>
+    <p class="credits" aria-label="扱う製品">
+      {credits.join(' · ')}
+    </p>
+  </section>
+
+  <div class="body">
+    <section id="vendors" aria-labelledby="vendors-title">
+      <p class="en" aria-hidden="true">
+        LINES
+      </p>
+      <h2 id="vendors-title">会社と製品から探す</h2>
+      <div class="vendors">
+        {vendorSections.map((section) => (
+          <section class="vendor" aria-label={section.vendor.name}>
+            <h3>{section.vendor.name}</h3>
+            {section.emptyMessage ? (
+              <p class="empty">{section.emptyMessage}</p>
+            ) : (
+              section.products.map((p) => (
+                <div class="product">
+                  <p class="product-name">
+                    <span class="code">{p.code}</span>
+                    {p.name}
+                  </p>
+                  <ul>
+                    {p.top.map((a) => (
+                      <li>
+                        <a href={articleHref(a.id)}>
+                          {catalog.summaryById.get(a.id)?.title ?? a.id}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <a class="more" href={`/${p.id}/`}>
+                    すべて見る（{p.count} 本）
+                  </a>
+                </div>
+              ))
+            )}
+          </section>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="recent-title">
+      <p class="en" aria-hidden="true">
+        VERIFIED
+      </p>
+      <h2 id="recent-title">最近確かめた記事</h2>
+      {handsOn.length === 0 ? (
+        <p class="empty">公開済みの記事はまだありません。</p>
+      ) : (
+        <ol class="rows">
+          {handsOn.slice(0, RECENT_COUNT).map((a) => (
+            <li>
+              <ArticleRow article={a} />
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
+
+    <section aria-labelledby="news-title">
+      <p class="en" aria-hidden="true">
+        NEWS
+      </p>
+      <h2 id="news-title">知っておきたい変更</h2>
+      {news.length === 0 ? (
+        <p class="empty">掲載できる変更情報はまだありません。</p>
+      ) : (
+        <ol class="news">
+          {news.map((n) => (
+            <li>
+              <a href={n.href}>
+                <time datetime={toJstDate(n.entry.data.publishedAt)}>
+                  {toJstDate(n.entry.data.publishedAt)}
+                </time>
+                <span>{n.title}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      )}
+      <p>
+        <a href="/news/">ニュースをすべて見る →</a>
+      </p>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
-  .placeholder {
+  .hero {
+    container-type: inline-size;
+    padding-block: var(--space-section) var(--space-8);
+    background: var(--color-band);
+    color: var(--color-on-band);
+  }
+
+  .inner,
+  .credits {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
     margin-inline: auto;
-    padding: var(--space-section) var(--gutter-narrow);
+  }
+
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--ticket-width);
+    gap: var(--space-section);
+    align-items: center;
+  }
+
+  .stamp {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-nav);
+  }
+
+  .dot {
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: var(--radius-pill);
+    background: var(--color-live);
+    animation: pulse 2.4s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  .mono {
+    font-family: var(--font-data);
+  }
+
+  h1 {
+    margin: var(--space-4) 0 0;
+    color: var(--color-on-band);
+    font-size: var(--text-hero-title);
+  }
+
+  .lead {
+    max-width: 32em;
+    margin: var(--space-4) 0 0;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-lead);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: var(--space-6) 0 0;
+  }
+
+  .actions a {
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-control);
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .primary {
+    background: var(--color-key);
+    color: var(--color-on-band);
+  }
+
+  .primary:hover {
+    background: var(--color-key-hover);
+    color: var(--color-on-band);
+  }
+
+  .secondary {
+    border: 1px solid var(--color-band-rule);
+    color: var(--color-on-band);
+  }
+
+  .secondary:hover {
+    color: var(--color-key-on-band);
+  }
+
+  .ticket {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    border-radius: var(--radius-ticket);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    text-decoration: none;
+    box-shadow: var(--shadow-ticket);
+    transform: rotate(3deg);
+    transition: transform var(--duration-normal) var(--ease-spring);
+  }
+
+  .ticket:hover,
+  .ticket:focus-visible {
+    transform: none;
+  }
+
+  .ticket-head {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-size: var(--text-small);
+  }
+
+  .state {
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+  }
+
+  .ok {
+    background: var(--color-status-ok-bg);
+    color: var(--color-status-ok);
+  }
+
+  .review {
+    background: var(--color-status-review-bg);
+    color: var(--color-status-review);
+  }
+
+  .stale {
+    background: var(--color-status-stale-bg);
+    color: var(--color-status-stale);
+  }
+
+  .ticket-label {
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+
+  .ticket-date {
+    color: var(--color-key);
+    font: 400 var(--text-ticket-date) / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  .ticket-title {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+  }
+
+  .ticket-link {
+    color: var(--color-key);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .credits {
+    margin-block: var(--space-section) 0;
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-band-rule);
+    color: var(--color-on-band-faint);
+    font: var(--text-small) var(--font-data);
+    letter-spacing: 0.08em;
+  }
+
+  .body {
+    container-type: inline-size;
+    display: grid;
+    gap: var(--space-section);
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-section);
+  }
+
+  .en {
+    margin: 0;
+    color: var(--color-key);
+    font: 400 var(--text-section-en) / 0.9 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  h2 {
+    margin: var(--space-2) 0 var(--space-6);
+    font-size: var(--text-section-ja);
+  }
+
+  .vendors {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-6);
+  }
+
+  .vendor {
+    padding-block-start: var(--space-3);
+    border-block-start: 2px solid var(--color-ink);
+  }
+
+  .vendor h3 {
+    margin: 0 0 var(--space-3);
+    font-size: 1.05em;
+  }
+
+  .product + .product {
+    margin-block-start: var(--space-4);
+  }
+
+  .product-name {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .code {
+    margin-inline-end: var(--space-2);
+    color: var(--color-key);
+    font: 400 1.1em / 1 var(--font-display);
+  }
+
+  .product ul {
+    margin: var(--space-1) 0;
+    padding-inline-start: 1.2em;
+    font-size: var(--text-nav);
+  }
+
+  .more {
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .empty {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: var(--text-nav);
+  }
+
+  .rows,
+  .news {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .news a {
+    display: grid;
+    grid-template-columns: 7.5em minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: var(--space-3);
+    border-block-start: 1px solid var(--color-rule);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .news time {
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+  }
+
+  @container (max-width: 860px) {
+    .inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ticket {
+      transform: rotate(1.5deg);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .inner,
+    .credits,
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+
+    h1 {
+      font-size: var(--text-hero-title-narrow);
+    }
   }
 </style>

@@ -1,0 +1,23 @@
+---
+// 製品のハブ（/claude-code/ など）。公開記事が1本以上ある製品だけ作る。
+import type { GetStaticPaths } from 'astro';
+import HubLayout from '../../layouts/HubLayout.astro';
+import { loadCatalog } from '../../queries/catalog';
+import { buildHub } from '../../queries/hub';
+
+export const getStaticPaths = (async () => {
+  const catalog = await loadCatalog();
+  const used = new Set(catalog.catalogArticles.flatMap((a) => a.products.slice(0, 1)));
+  return catalog.products
+    .filter((p) => used.has(p.id))
+    .map((p) => ({ params: { product: p.id }, props: { productId: p.id } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  productId: string;
+}
+
+const hub = buildHub(Astro.props.productId, await loadCatalog());
+---
+
+<HubLayout {...hub} />

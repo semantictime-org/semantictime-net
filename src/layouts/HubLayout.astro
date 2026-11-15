@@ -1,0 +1,255 @@
+---
+// 製品のハブ（と landing 型の記事）のテンプレート：冒頭の帯、読む順の記事一覧、機能の状態。
+import ArticleRow from '../components/article/ArticleRow.astro';
+import PageHero from '../components/page/PageHero.astro';
+import BaseLayout from './BaseLayout.astro';
+import type { Crumb } from '../lib/article-view';
+import type { SeoArticle } from '../lib/seo';
+import type { ArticleSummary } from '../queries/catalog';
+
+interface Props {
+  crumbs: readonly Crumb[];
+  en: string;
+  title: string;
+  lead: string;
+  watermark: string;
+  stats: readonly { label: string; value: string }[];
+  sections: readonly { name: string; articles: readonly ArticleSummary[] }[];
+  routeUpdated?: string | undefined;
+  features: readonly { name: string; statusLabel: string }[];
+  gaFeatureCount: number;
+  article?: SeoArticle | undefined;
+}
+
+const {
+  crumbs,
+  en,
+  title,
+  lead,
+  watermark,
+  stats,
+  sections,
+  routeUpdated,
+  features,
+  gaFeatureCount,
+  article,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={lead} article={article}>
+  <PageHero crumbs={crumbs} en={en} title={title} lead={lead} watermark={watermark}>
+    <ul class="stats" slot="facts">
+      {stats.map((s) => (
+        <li>
+          <span>{s.label}</span>
+          <strong>{s.value}</strong>
+        </li>
+      ))}
+    </ul>
+  </PageHero>
+
+  <div class="body">
+    <div class="grid">
+      <div class="main">
+        {Astro.slots.has('default') && (
+          <div class="prose intro">
+            <slot />
+          </div>
+        )}
+        <section aria-labelledby="route-title">
+          <p class="en" aria-hidden="true">
+            ROUTE
+          </p>
+          <h2 id="route-title">読む順</h2>
+          <ul class="notes">
+            <li>記事番号は固定。読む順を入れ替えても番号は変わらない</li>
+            {routeUpdated && <li>読む順を見直した日 {routeUpdated}</li>}
+          </ul>
+          {sections.length === 0 ? (
+            <p class="empty">公開済みの記事はまだありません。</p>
+          ) : (
+            sections.map((section) => (
+              <section class="route-section" aria-label={section.name}>
+                <h3>{section.name}</h3>
+                <ol>
+                  {section.articles.map((a) => (
+                    <li>
+                      <ArticleRow article={a} />
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ))
+          )}
+        </section>
+      </div>
+      {features.length + gaFeatureCount > 0 && (
+        <aside class="features" aria-labelledby="features-title">
+          <h2 id="features-title">機能の状態</h2>
+          {features.length > 0 && (
+            <table>
+              <tbody>
+                {features.map((f) => (
+                  <tr>
+                    <th scope="row">{f.name}</th>
+                    <td class="attention">{f.statusLabel}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          <p class="note">
+            {features.length > 0
+              ? `ほか ${gaFeatureCount} 件は提供中。`
+              : `${gaFeatureCount} 件すべて提供中。`}
+            公式ドキュメントの記載をもとに管理している。
+          </p>
+        </aside>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-8);
+    margin: var(--space-6) 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-on-band-muted);
+    font-size: var(--text-nav);
+  }
+
+  .stats li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+
+  .stats strong {
+    color: var(--color-key-on-band);
+    font: 400 var(--text-station) / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .body {
+    container-type: inline-size;
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--ticket-width);
+    gap: var(--space-section);
+    align-items: start;
+  }
+
+  .main {
+    display: grid;
+    gap: var(--space-8);
+    min-width: 0;
+  }
+
+  .en {
+    margin: 0;
+    color: var(--color-key);
+    font: 400 var(--text-section-en) / 0.9 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  h2 {
+    margin: var(--space-2) 0 var(--space-3);
+    font-size: var(--text-section-ja);
+  }
+
+  .notes {
+    margin: 0 0 var(--space-6);
+    padding-inline-start: 1.2em;
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+
+  .route-section + .route-section {
+    margin-block-start: var(--space-8);
+  }
+
+  h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.05em;
+  }
+
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .empty {
+    color: var(--color-ink-muted);
+  }
+
+  .features {
+    padding: var(--space-6);
+    background: var(--color-surface-soft);
+    border-radius: var(--radius-card);
+  }
+
+  .features h2 {
+    margin-block-start: 0;
+    font-size: 1.05em;
+  }
+
+  .features table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+  }
+
+  .features th,
+  .features td {
+    padding: var(--space-2) 0;
+    border-block-end: 1px solid var(--color-rule);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .features th {
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  .features td {
+    padding-inline-start: var(--space-3);
+    white-space: nowrap;
+  }
+
+  .attention {
+    color: var(--color-status-review);
+    font-weight: 700;
+  }
+
+  .note {
+    margin: var(--space-3) 0 0;
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+      padding-block-start: var(--space-6);
+    }
+  }
+
+  @container (max-width: 860px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
