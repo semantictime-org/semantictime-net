@@ -1,6 +1,7 @@
 // 製品と連載の一覧（/products/・/series/・ホームの右の列）に出す値を組み立てる。
 import { getCollection } from 'astro:content';
 import { seriesHref } from '../lib/article-view';
+import { CATEGORIES } from '../lib/taxonomy';
 import type { loadCatalog } from './catalog';
 
 type Catalog = Awaited<ReturnType<typeof loadCatalog>>;
@@ -24,6 +25,9 @@ export interface VendorGroup {
   readonly products: readonly ProductEntry[];
 }
 
+const categoryRank = (categories: readonly (typeof CATEGORIES)[number][]): number =>
+  CATEGORIES.indexOf(categories[0] ?? 'audio');
+
 /** 会社ごとの全製品（vendors.yaml の order の順）。製品のない会社の欄は出さない */
 export const productDirectory = (catalog: Catalog): readonly VendorGroup[] => {
   const countByProduct = Map.groupBy(
@@ -38,8 +42,10 @@ export const productDirectory = (catalog: Catalog): readonly VendorGroup[] => {
     .map((v) => ({
       id: v.id,
       name: v.name,
+      // 会社の中は分野の順（チャット → コーディング → API → 画像・動画）。どの会社もアプリ → ツール → API になる
       products: catalog.products
         .filter((p) => p.data.vendor?.id === v.id)
+        .toSorted((a, b) => categoryRank(a.data.categories) - categoryRank(b.data.categories))
         .map((p) => ({
           id: p.id,
           name: p.data.name,

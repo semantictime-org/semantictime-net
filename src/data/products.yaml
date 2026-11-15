@@ -1,4 +1,6 @@
 # 製品（路線）。id は記事の置き場所（src/content/articles/<id>/）と URL（/<id>/<slug>/）になる。
+# 製品は「読者が使い始めるときに選ぶ単位」（アプリ・コーディングツール・API など）。1 社 4 つまで。
+# それより細かいもの（Cowork・Skills・Artifacts など）は features.yaml の機能として持つ（2026-11-16 決定）。
 # code は記事番号の記号（CC07 の CC）。全製品で重複させない（重複するとビルドが失敗する）。
 # categories は検証期限と絞り込みに使う分野（chat / coding / agent / api / image / video / audio）。
 # route は読む順。記事を書いたら slug を足す。載せ忘れた記事は「そのほか」に番号順で並ぶ。
@@ -21,41 +23,11 @@
   vendor: anthropic
   code: CC
   categories: [coding, agent]
-- id: cowork
-  name: Cowork
-  vendor: anthropic
-  code: CW
-  categories: [agent]
 - id: claude-api
   name: Claude API
   vendor: anthropic
   code: AP
   categories: [api]
-- id: agent-sdk
-  name: Agent SDK
-  vendor: anthropic
-  code: SD
-  categories: [agent, api]
-- id: mcp
-  name: MCP
-  vendor: anthropic
-  code: MC
-  categories: [agent]
-- id: skills
-  name: Skills
-  vendor: anthropic
-  code: SK
-  categories: [agent]
-- id: artifacts-design
-  name: Artifacts と Design
-  vendor: anthropic
-  code: AD
-  categories: [chat]
-- id: claude-models
-  name: Claude のモデル
-  vendor: anthropic
-  code: CM
-  categories: [api, chat]
 
 # --- OpenAI ---
 - id: chatgpt
@@ -68,6 +40,11 @@
   vendor: openai
   code: CX
   categories: [coding, agent]
+- id: openai-api
+  name: OpenAI API
+  vendor: openai
+  code: OA
+  categories: [api]
 - id: sora
   name: Sora
   vendor: openai
@@ -76,7 +53,7 @@
 
 # --- Google ---
 - id: gemini
-  name: Gemini
+  name: Gemini アプリ
   vendor: google
   code: GM
   categories: [chat]
@@ -85,6 +62,11 @@
   vendor: google
   code: GC
   categories: [coding, agent]
+- id: gemini-api
+  name: Gemini API
+  vendor: google
+  code: GA
+  categories: [api]
 
 # --- 画像・動画・音声 ---
 - id: midjourney
