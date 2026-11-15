@@ -42,3 +42,7 @@ jobs:
           title="$(git log -1 --format=%s)"
           gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
             --title "$title" --body-file .github/pull_request_template.md
+          case "$BRANCH" in
+            */trial-*) echo "試験用のブランチなので auto-merge しない" ;;
+            *) gh pr merge --repo "$GITHUB_REPOSITORY" "$BRANCH" --auto --squash ;;
+          esac
