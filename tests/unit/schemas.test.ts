@@ -76,8 +76,8 @@ describe('article schema', () => {
     expect(parse({ verifiedWith: {} }).success).toBe(false);
   });
 
-  test('T125: 検証日が公開日より前なら失敗する', () => {
-    expect(parse({ verifiedAt: '2026-11-01' }).success).toBe(false);
+  test('T125: 公開前に検証した記事（検証日が公開日より前）も通る', () => {
+    expect(parse({ verifiedAt: '2026-11-01' }).success).toBe(true);
   });
 
   const newsChanges = [
