@@ -1,8 +1,9 @@
 name: ci
 
 # 必須チェックは ci-required の1つだけ（ruleset で指定）。
-# - build-checks  : PR のコードで lint / typecheck / test / build を行う。秘密情報は使わない。
-# - trusted-checks: main 側のスクリプトで公開上限と検証ゲートを判定する（Task 2.4・2.5 で実装。今は仮）。
+# - build-checks  : PR のコードで lint / content lint / typecheck / test / build を行う。秘密情報は使わない。
+# - trusted-checks: main のコードだけを実行し、PR の内容はデータとして読んで、公開上限と検証ゲートを判定する。
+#                   PR の中でスクリプトや設定を書き換えても、判定は変わらない。
 # - ci-required   : 上の2つの結果を集約する。
 on:
   pull_request:
@@ -34,8 +35,59 @@ jobs:
 
   trusted-checks:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      BASE_REF: ${{ github.event.pull_request.base.ref }}
     steps:
-      - run: echo "trusted-checks placeholder (event=${{ github.event.action }}). Task 2.4/2.5 で公開上限と検証ゲートを実装する。"
+      # main（PR の base ブランチ）のコードだけを取り出す。PR のコードは checkout しない。
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          persist-credentials: false
+          fetch-depth: 0
+          path: trusted
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: trusted/package-lock.json
+      - name: Install dependencies (main の lockfile)
+        working-directory: trusted
+        run: npm ci --ignore-scripts
+      - name: Fetch PR head as data
+        working-directory: trusted
+        run: git fetch --no-tags origin "pull/${PR_NUMBER}/head:refs/remotes/pr/head"
+
+      # push があったら、PR 本文の「実機で検証した」の印を外す（印を、人が確かめた版に結び付けるため）
+      - name: Create GitHub App token
+        if: github.event.action == 'synchronize'
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+      - name: Reset verification checkbox
+        if: github.event.action == 'synchronize'
+        working-directory: trusted
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: node scripts/reset-verification.ts --repo "$GITHUB_REPOSITORY" --pr "$PR_NUMBER"
+
+      - name: Publish cap
+        working-directory: trusted
+        run: node scripts/check-publish-cap.ts --base "origin/${BASE_REF}" --head refs/remotes/pr/head --mode pull-request
+
+      - name: Verification gate
+        working-directory: trusted
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          node scripts/check-verification-gate.ts
+          --base "origin/${BASE_REF}" --head refs/remotes/pr/head
+          --repo "$GITHUB_REPOSITORY" --pr "$PR_NUMBER"
 
   ci-required:
     runs-on: ubuntu-latest
