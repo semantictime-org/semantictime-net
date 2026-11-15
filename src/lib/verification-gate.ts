@@ -1,10 +1,13 @@
 // 検証ゲートの判定。副作用を持たない純粋関数だけを置く。
 // PR 本文の取得・更新は scripts/check-verification-gate.ts と scripts/reset-verification.ts で行う。
+import { VERIFICATION, type Verification } from './taxonomy.ts';
 
 export interface ChangedArticle {
   readonly id: string;
   /** head の版で下書きか（削除された記事は false として扱う） */
   readonly headDraft: boolean;
+  /** どの印が要るかを決める（実機で検証した記事か、出典で確かめた記事か） */
+  readonly verification: Verification;
 }
 
 export interface GateInput {
@@ -23,8 +26,17 @@ export interface GateResult {
 }
 
 const SECTION = /<!-- verification:start -->([\s\S]*?)<!-- verification:end -->/;
-const CHECKED = /^\s*- \[[xX]\] 実機で検証した\s*$/m;
-const CHECKED_GLOBAL = /^(\s*- \[)[xX](\] 実機で検証した\s*)$/gm;
+/** 記事の検証の種類ごとに、PR 本文で印を付ける行 */
+const MARK_LABEL: Readonly<Record<Verification, string>> = {
+  'hands-on': '実機で検証した',
+  sources: '一次情報の出典を確かめた',
+};
+const isChecked = (section: string, label: string): boolean =>
+  new RegExp(`^\\s*- \\[[xX]\\] ${label}\\s*$`, 'm').test(section);
+const CHECKED_GLOBAL = new RegExp(
+  `^(\\s*- \\[)[xX](\\] (?:${Object.values(MARK_LABEL).join('|')})\\s*)$`,
+  'gm',
+);
 
 const verificationSection = (body: string): string | undefined => SECTION.exec(body)?.[1];
 
@@ -47,11 +59,15 @@ export const evaluateGate = (input: GateInput): GateResult => {
       reason: 'PR 本文に検証の節（verification:start〜end）がない',
     };
   }
-  if (!CHECKED.test(section)) {
+  const needed = VERIFICATION.filter((kind) =>
+    changedArticles.some((a) => !a.headDraft && a.verification === kind),
+  );
+  const missing = needed.map((kind) => MARK_LABEL[kind]).filter((l) => !isChecked(section, l));
+  if (missing.length > 0) {
     return {
       required: true,
       passed: false,
-      reason: '「実機で検証した」に印が付いていない',
+      reason: `${missing.map((l) => `「${l}」`).join('と')}に印が付いていない`,
     };
   }
   if (editorLogin !== codeOwner) {
@@ -61,7 +77,11 @@ export const evaluateGate = (input: GateInput): GateResult => {
       reason: `印を付けたのがコードオーナー（${codeOwner}）ではない（最終編集者: ${editorLogin ?? 'なし'}）`,
     };
   }
-  return { required: true, passed: true, reason: 'コードオーナーが実機での検証を確認済み' };
+  return {
+    required: true,
+    passed: true,
+    reason: `コードオーナーが確認済み（${needed.map((k) => MARK_LABEL[k]).join('・')}）`,
+  };
 };
 
 /** 検証の節の中の印だけを外す（push があったときに使う）。ほかのチェックボックスは変えない。 */

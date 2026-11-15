@@ -26,12 +26,17 @@ const args = z
     }).values,
   );
 
-// 削除された記事は head に存在しないので、下書きではない（公開記事の変更）として扱う
+// 削除された記事は head に存在しないので、base の版を読み、下書きではない（公開記事の変更）として扱う
 const changedArticles: readonly ChangedArticle[] = diffArticles(args.base, args.head).map(
-  (change) => ({
-    id: toId(change.path),
-    headDraft: change.status === 'D' ? false : readFrontmatter(args.head, change.path).draft,
-  }),
+  (change) => {
+    const deleted = change.status === 'D';
+    const meta = readFrontmatter(deleted ? args.base : args.head, change.path);
+    return {
+      id: toId(change.path),
+      headDraft: deleted ? false : meta.draft,
+      verification: meta.verification,
+    };
+  },
 );
 
 const result = changedArticles.every((a) => a.headDraft)
@@ -46,7 +51,7 @@ console.log(`変更された記事: ${changedArticles.map((a) => a.id).join(', '
 console.log(`検証ゲート: ${result.passed ? '合格' : '不合格'}（${result.reason}）`);
 if (!result.passed) {
   console.error(
-    'PR テンプレートの「実機で検証した」に、コードオーナーが印を付けてください（push すると印は外れます）。',
+    'PR テンプレートの検証の節で、必要な印（実機で検証した／一次情報の出典を確かめた）をコードオーナーが付けてください（push すると印は外れます）。',
   );
   process.exit(1);
 }

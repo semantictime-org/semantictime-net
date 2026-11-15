@@ -11,7 +11,9 @@ import { SITE } from '../../site.config';
 const OWNER = 'semantictime';
 const BOT = 'semantictime-bot';
 
-const body = (mark: ' ' | 'x' | 'X'): string =>
+type Mark = ' ' | 'x' | 'X';
+
+const body = (mark: Mark, sourcesMark: Mark = ' '): string =>
   [
     '## 変更内容',
     '',
@@ -19,13 +21,19 @@ const body = (mark: ' ' | 'x' | 'X'): string =>
     '',
     '<!-- verification:start -->',
     `- [${mark}] 実機で検証した`,
+    `- [${sourcesMark}] 一次情報の出典を確かめた`,
     '<!-- verification:end -->',
     '',
     '- [x] 雇用先の情報を含まない',
   ].join('\n');
 
-const published = (id: string): ChangedArticle => ({ id, headDraft: false });
-const draft = (id: string): ChangedArticle => ({ id, headDraft: true });
+const published = (id: string): ChangedArticle => ({
+  id,
+  headDraft: false,
+  verification: 'hands-on',
+});
+const draft = (id: string): ChangedArticle => ({ id, headDraft: true, verification: 'hands-on' });
+const news = (id: string): ChangedArticle => ({ id, headDraft: false, verification: 'sources' });
 
 const gate = (changed: readonly ChangedArticle[], prBody: string, editorLogin: string | null) =>
   evaluateGate({ changedArticles: changed, body: prBody, editorLogin, codeOwner: OWNER });
@@ -99,11 +107,54 @@ describe('異常系', () => {
   });
 });
 
+describe('2 種類の印（T307〜T310）', () => {
+  test('T307: 実機で検証した記事だけなら、実機の印で合格', () => {
+    expect(gate([published('claude-code/a')], body('x'), OWNER).passed).toBe(true);
+  });
+
+  test('T308: ニュースだけなら、出典の印がなければ不合格（実機の印では代わらない）', () => {
+    expect(gate([news('news/a')], body('x'), OWNER).passed).toBe(false);
+  });
+
+  test('T308b: ニュースだけなら、出典の印で合格', () => {
+    expect(gate([news('news/a')], body(' ', 'x'), OWNER).passed).toBe(true);
+  });
+
+  test('T309: 両方の種類を含む PR は、実機の印だけでは不合格', () => {
+    const r = gate([published('claude-code/a'), news('news/a')], body('x'), OWNER);
+    expect(r.passed).toBe(false);
+    expect(r.reason).toContain('一次情報の出典を確かめた');
+  });
+
+  test('T309b: 両方の種類を含む PR は、両方の印で合格', () => {
+    const r = gate([published('claude-code/a'), news('news/a')], body('x', 'x'), OWNER);
+    expect(r.passed).toBe(true);
+  });
+
+  test('下書きのニュースは出典の印を求めない', () => {
+    const r = gate(
+      [published('claude-code/a'), { ...news('news/a'), headDraft: true }],
+      body('x'),
+      OWNER,
+    );
+    expect(r.passed).toBe(true);
+  });
+
+  test('T310: 両方の印があっても、付けたのがボットなら不合格', () => {
+    const r = gate([published('claude-code/a'), news('news/a')], body('x', 'x'), BOT);
+    expect(r.passed).toBe(false);
+  });
+});
+
 describe('uncheckVerification（push があったら印を外す）', () => {
   test('T120: 節の中の印だけを外し、ほかのチェックは残す', () => {
     const result = uncheckVerification(body('x'));
     expect(result).toBe(body(' '));
     expect(result).toContain('- [x] 雇用先の情報を含まない');
+  });
+
+  test('T311: 2 種類の印を両方外す', () => {
+    expect(uncheckVerification(body('x', 'X'))).toBe(body(' ', ' '));
   });
 
   test('印がなければ本文を変えない', () => {

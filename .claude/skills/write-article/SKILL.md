@@ -72,7 +72,7 @@ aiAssisted: draft # Claude が下書きしたら draft。人が大きく書き�
 1. Claude：`draft: true` で下書きし、push する。
 2. 人：手元で手順を動かして確かめる。結果（確かめた日、版、直すべき点）を Claude に伝える。
 3. Claude：結果を反映し、`verifiedAt`・`verifiedWith` を更新し、公開するときは `draft: false` にして push する。
-4. 人：PR 本文の「実機で検証した」に印を付け、Squash でマージする。push のたびに印は自動で外れる。
+4. 人：PR 本文の検証の節で、記事の verification に合う印（hands-on は「実機で検証した」、sources は「一次情報の出典を確かめた」）を付け、Squash でマージする。push のたびに印は自動で外れる。
 
 ## 6. 終える前に
 
