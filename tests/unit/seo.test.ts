@@ -16,6 +16,7 @@ const article: SeoInput = {
     author: 'shizukukai',
     publishedAt: new Date('2026-11-15T00:00:00Z'),
     modifiedAt: new Date('2026-11-20T00:00:00Z'),
+    image: '/og/claude-code/hooks.png',
   },
 };
 
@@ -34,6 +35,24 @@ describe('parseDeployEnv', () => {
 });
 
 describe('buildSeo', () => {
+  test('OGP 画像は絶対 URL。記事は記事ごとの画像、記事以外はサイト共通の画像', () => {
+    expect(buildSeo({ ...article, env: 'production' }).og.image).toBe(
+      'https://semantictime.net/og/claude-code/hooks.png',
+    );
+    const { siteUrl, siteName, description, analyticsToken } = article;
+    const page = {
+      siteUrl,
+      siteName,
+      description,
+      analyticsToken,
+      title: 'ニュース',
+      path: '/news/',
+    };
+    expect(buildSeo({ ...page, env: 'production' }).og.image).toBe(
+      'https://semantictime.net/og/site.png',
+    );
+  });
+
   test('T055: 本番は canonical・OGP・JSON-LD（Article、著者 shizukukai）・計測があり、noindex はない', () => {
     const seo = buildSeo({ ...article, env: 'production' });
     expect(seo.canonical).toBe('https://semantictime.net/claude-code/hooks/');
