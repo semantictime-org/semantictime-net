@@ -48,9 +48,9 @@
   --weight-headline: 900;
   --tracking-display: 0.01em;
   --tracking-headline: -0.04em;
-  --text-body: 15px;
-  --text-data: 12px;
-  --text-small: 11px;
+  --text-body: 16px;
+  --text-data: 13px;
+  --text-small: 12px;
   --text-tiny: 10px;
   --text-ticket-date: clamp(40px, 4.2cqi, 56px);
   --text-hero-en: clamp(56px, 9cqi, 120px);
@@ -61,8 +61,8 @@
   --text-watermark-narrow: 44cqi;
   --text-station: 30px;
   --text-step: 26px;
-  --text-lead: 15px;
-  --text-nav: 12px;
+  --text-lead: 16px;
+  --text-nav: 13px;
   --text-brand: 25px;
   --text-brand-narrow: 21px;
   --tracking-brand: -0.06em;
