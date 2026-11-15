@@ -31,6 +31,7 @@
   --color-status-stale: #9b3d17;
   --color-status-stale-bg: #f8e8e1;
   --color-live: #3ddc84;
+  --shadow-ticket: 0 40px 80px -24px rgba(0, 0, 0, 0.7);
 
   /* 書体（--font-*-face と代替の書体は astro.config.ts の fonts が /fonts.css で定義する） */
   --font-display: var(--font-anton-face);
@@ -43,6 +44,8 @@
   --text-body: 15px;
   --text-data: 12px;
   --text-small: 11px;
+  --text-tiny: 10px;
+  --text-ticket-date: clamp(40px, 4.2cqi, 56px);
   --text-nav: 12px;
   --text-brand: 25px;
   --text-brand-narrow: 21px;

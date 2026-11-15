@@ -1,0 +1,57 @@
+---
+// 機能の状態のバナー（beta / deprecated / removed）。最も重い状態を1つだけ出す（T077）。
+// どれを出すかは src/lib/article-meta.ts の strongestFeatureStatus が決める。
+import type { BannerStatus } from '../../lib/article-meta';
+
+interface Props {
+  status: BannerStatus;
+  /** その状態にある機能の名前 */
+  features: readonly string[];
+}
+
+const MESSAGE: Record<BannerStatus, { title: string; body: string }> = {
+  beta: { title: 'ベータ版の機能', body: '提供元の仕様が変わることがあります。' },
+  deprecated: {
+    title: '非推奨の機能',
+    body: '今後なくなる予定です。代わりの方法を確かめてください。',
+  },
+  removed: { title: '提供が終わった機能', body: 'この手順は、いまはそのままでは動きません。' },
+};
+
+const { status, features } = Astro.props;
+const message = MESSAGE[status];
+---
+
+<aside class:list={['banner', status]} aria-label="機能の状態">
+  <strong>
+    {message.title}：{features.join('、')}
+  </strong>
+  <span>{message.body}</span>
+</aside>
+
+<style>
+  .banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-inline-start: 4px solid currentColor;
+    border-radius: var(--radius-control);
+    font-size: var(--text-nav);
+  }
+
+  .banner span {
+    color: var(--color-ink);
+  }
+
+  .beta {
+    background: var(--color-status-review-bg);
+    color: var(--color-status-review);
+  }
+
+  .deprecated,
+  .removed {
+    background: var(--color-status-stale-bg);
+    color: var(--color-status-stale);
+  }
+</style>

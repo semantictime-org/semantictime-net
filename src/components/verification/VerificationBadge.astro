@@ -1,0 +1,125 @@
+---
+// 記事の検証票（DESIGN.md の Components「検証票（記事）」）。題の右、黒い帯に重ねて置く。
+// 中身は src/lib/article-meta.ts の verificationRecordOf が決める。
+import type { VerificationRecord } from '../../lib/article-meta';
+
+interface Props {
+  record: VerificationRecord;
+  /** 製品の版・モデルなど（verifiedWithLines の結果） */
+  versions: readonly string[];
+  historyHref?: string | undefined;
+}
+
+const { record, versions, historyHref } = Astro.props;
+---
+
+<aside class="ticket" aria-label="この記事の検証記録">
+  <div class="head">
+    <span>{record.label}</span>
+    <span class:list={['state', record.state]}>{record.stateLabel}</span>
+  </div>
+  <p class="date">{record.date}</p>
+  {versions.length > 0 && (
+    <p class="versions">
+      {versions.map((line, i) => (
+        <>
+          {i > 0 && <br />}
+          {line}
+        </>
+      ))}
+    </p>
+  )}
+  {(record.nextReview || historyHref) && (
+    <p class="details">
+      {record.nextReview && (
+        <>
+          次回の見直し <span class="mono">{record.nextReview}</span>
+        </>
+      )}
+      {record.nextReview && historyHref && <br />}
+      {historyHref && <a href={historyHref}>検証の履歴を読む ↓</a>}
+    </p>
+  )}
+</aside>
+
+<style>
+  .ticket {
+    container-type: inline-size;
+    padding: var(--space-6);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-ticket);
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-size: var(--text-small);
+  }
+
+  .state {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-control);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .state::before {
+    content: '';
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: var(--radius-pill);
+    background: currentColor;
+  }
+
+  .ok {
+    background: var(--color-status-ok-bg);
+    color: var(--color-status-ok);
+  }
+
+  .review {
+    background: var(--color-status-review-bg);
+    color: var(--color-status-review);
+  }
+
+  .stale {
+    background: var(--color-status-stale-bg);
+    color: var(--color-status-stale);
+  }
+
+  .date {
+    margin: var(--space-3) 0 var(--space-2);
+    color: var(--color-key);
+    font: 400 var(--text-ticket-date) / 1 var(--font-display);
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  .versions {
+    margin: 0;
+    font: var(--text-data) / 1.8 var(--font-data);
+    overflow-wrap: anywhere;
+  }
+
+  .details {
+    margin: var(--space-4) 0 0;
+    padding-block-start: var(--space-3);
+    border-block-start: 1px dashed var(--color-rule);
+    font-size: var(--text-small);
+    line-height: 2;
+  }
+
+  .mono {
+    font-family: var(--font-data);
+  }
+
+  .details a {
+    font-weight: 700;
+  }
+</style>

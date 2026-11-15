@@ -1,6 +1,8 @@
-import { defineConfig } from 'vitest/config';
+/// <reference types="vitest/config" />
+import { getViteConfig } from 'astro/config';
 
-export default defineConfig({
+// Astro の設定を読み込む（コンポーネントを Container API で描画してテストするため）
+export default getViteConfig({
   test: {
     include: ['tests/unit/**/*.test.ts'],
     coverage: {
