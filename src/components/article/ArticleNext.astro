@@ -16,7 +16,7 @@ const isEmpty = steps.length === 0 && nav.related.length === 0;
 ---
 
 {!isEmpty && (
-  <nav class="next" aria-label="次に読む" data-pagefind-ignore>
+  <nav class="read-next" aria-label="次に読む" data-pagefind-ignore>
     {steps.length > 0 && (
       <div class="series">
         {series && (
@@ -55,7 +55,7 @@ const isEmpty = steps.length === 0 && nav.related.length === 0;
 )}
 
 <style>
-  .next {
+  .read-next {
     display: grid;
     gap: var(--space-8);
     margin-block-start: var(--space-10);
@@ -89,10 +89,15 @@ const isEmpty = steps.length === 0 && nav.related.length === 0;
     text-align: end;
   }
 
+  /* 前後のカードは同じ高さにそろえ、中身は上に詰める */
+  .steps li {
+    display: grid;
+  }
+
   .steps a {
     display: grid;
+    align-content: start;
     gap: var(--space-1);
-    height: 100%;
     padding: var(--space-4);
     border: 1px solid var(--color-rule);
     border-radius: var(--radius-control);
