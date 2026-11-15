@@ -1,0 +1,113 @@
+---
+// 固定ページ（編集方針・著者・誤りの報告・プライバシーポリシー・免責と商標）のテンプレート。
+import PageHero from '../components/page/PageHero.astro';
+import { ABOUT_PAGES, ROUTES } from '../lib/article-view';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  en: string;
+  title: string;
+  lead: string;
+  /** 最終改定日（YYYY-MM-DD） */
+  updated: string;
+}
+
+const { en, title, lead, updated } = Astro.props;
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: title }];
+const current = Astro.url.pathname;
+---
+
+<BaseLayout title={title} description={lead}>
+  <PageHero crumbs={crumbs} en={en} title={title} lead={lead} />
+  <div class="body">
+    <div class="prose">
+      <slot />
+      <p class="updated">
+        最終改定 <span class="mono">{updated}</span>
+      </p>
+    </div>
+    <nav class="about" aria-label="このサイトについてのページ一覧">
+      <p class="about-title">このサイトについて</p>
+      <ul>
+        {ABOUT_PAGES.map((p) => (
+          <li>
+            <a href={p.href} aria-current={p.href === current ? 'page' : undefined}>
+              {p.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--toc-width);
+    gap: var(--space-section);
+    align-items: start;
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .updated {
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+
+  .mono {
+    font-family: var(--font-data);
+  }
+
+  .about {
+    position: sticky;
+    inset-block-start: var(--space-6);
+    font-size: var(--text-nav);
+  }
+
+  .about-title {
+    margin: 0 0 var(--space-2);
+    font-weight: 700;
+  }
+
+  .about ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about a {
+    display: block;
+    padding: var(--space-2) 0 var(--space-2) var(--space-4);
+    border-inline-start: 2px solid var(--color-rule);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .about a:hover,
+  .about a[aria-current='page'] {
+    border-color: var(--color-key);
+    color: var(--color-key);
+  }
+
+  @media (max-width: 860px) {
+    .body {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+    }
+
+    .about {
+      position: static;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+      padding-block-start: var(--space-6);
+    }
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+// 著者（ペンネーム shizukukai）
+import { getEntry } from 'astro:content';
+import Unconfirmed from '../../components/page/Unconfirmed.astro';
+import StaticLayout from '../../layouts/StaticLayout.astro';
+import { ROUTES } from '../../lib/article-view';
+
+const author = await getEntry('authors', 'shizukukai');
+if (!author) throw new Error('著者 shizukukai が src/content/authors にない');
+---
+
+<StaticLayout
+  en="AUTHOR"
+  title="著者"
+  lead="このサイトの記事は、ひとりが手元で確かめて書いています。"
+  updated="2026-11-15"
+>
+  <h2>{author.data.name}</h2>
+  <p>
+    <Unconfirmed note="経歴を一文で（各社の製品を扱う形に）" />
+  </p>
+  <table>
+    <tbody>
+      <tr>
+        <th scope="row">資格</th>
+        <td>
+          Claude の認定資格（
+          <Unconfirmed note="正式な名称" />）
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">利害関係</th>
+        <td>
+          <Unconfirmed note="各社からの報酬・製品の提供の有無" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>検証に使う環境</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th scope="row">パソコン</th>
+        <td>
+          <Unconfirmed note="機種と OS" />
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Claude のプラン</th>
+        <td>Claude Max</td>
+      </tr>
+      <tr>
+        <th scope="row">ほかの製品</th>
+        <td>使ったプランと版を、記事ごとの検証票に書く</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    確かめ方は<a href={ROUTES.editorialPolicy}>編集方針</a>にまとめています。
+  </p>
+</StaticLayout>

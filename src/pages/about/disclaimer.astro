@@ -1,0 +1,58 @@
+---
+// 免責と商標（要件 G7：各社の商標、どの会社とも関係のない非公式サイト）
+import { getCollection } from 'astro:content';
+import { SITE } from '../../../site.config';
+import StaticLayout from '../../layouts/StaticLayout.astro';
+
+const [vendors, products] = await Promise.all([
+  getCollection('vendors'),
+  getCollection('products'),
+]);
+const marks = vendors
+  .toSorted((a, b) => a.data.order - b.data.order)
+  .map((v) => ({
+    vendor: v.data.name,
+    products: products.filter((p) => p.data.vendor.id === v.id).map((p) => p.data.name),
+  }));
+---
+
+<StaticLayout
+  en="DISCLAIMER"
+  title="免責と商標"
+  lead={`${SITE.name} は、どの会社とも関係のない個人の非公式サイトです。`}
+  updated="2026-11-15"
+>
+  <h2>非公式のサイトです</h2>
+  <ul>
+    <li>Anthropic・OpenAI・Google ほか、どの会社の公式サイトでもありません</li>
+    <li>各社から、記事の内容について承認や支援を受けていません</li>
+    <li>各社のロゴは使いません</li>
+  </ul>
+
+  <h2>商標</h2>
+  <p>次の名前は、それぞれの会社の商標または登録商標です。</p>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">会社</th>
+        <th scope="col">製品・サービスの名前</th>
+      </tr>
+    </thead>
+    <tbody>
+      {marks.map((m) => (
+        <tr>
+          <td>{m.vendor}</td>
+          <td>{m.products.join('、')}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>内容について</h2>
+  <ul>
+    <li>記事は、検証票に書いた日・版・環境で確かめた内容です</li>
+    <li>その後の公式の変更で、手順や仕様が変わることがあります</li>
+    <li>料金・上限・提供範囲は、必ず各社の公式のページで確かめてください</li>
+    <li>記事の内容を使って生じた損害について、責任を負いかねます</li>
+  </ul>
+</StaticLayout>

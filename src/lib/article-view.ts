@@ -48,7 +48,21 @@ export const ROUTES = {
   home: '/',
   news: '/news/',
   search: '/search/',
+  editorialPolicy: '/about/editorial-policy/',
+  authors: '/about/authors/',
+  report: '/about/report/',
+  privacy: '/about/privacy/',
+  disclaimer: '/about/disclaimer/',
 } as const;
+
+/** このサイトについてのページ（フッターと各ページの末尾に並べる） */
+export const ABOUT_PAGES = [
+  { href: ROUTES.editorialPolicy, label: '編集方針' },
+  { href: ROUTES.authors, label: '著者' },
+  { href: ROUTES.report, label: '誤りの報告' },
+  { href: ROUTES.privacy, label: 'プライバシーポリシー' },
+  { href: ROUTES.disclaimer, label: '免責と商標' },
+] as const;
 
 export const articleHref = (id: string): string => `/${id}/`;
 
