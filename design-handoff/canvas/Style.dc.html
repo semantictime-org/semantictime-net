@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>スタイル</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p{text-wrap:pretty}
+</style>
+</helmet>
+<div style="width: 1280px; height: 1500px; box-sizing: border-box; padding: 64px; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75; display: flex; flex-direction: column; gap: 64px">
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; padding-bottom: 24px; border-bottom: 1px solid #12161D">
+    <h1 style="margin: 0; font-weight: 700; font-size: 48px; line-height: 1.3">書体・余白・色 v5</h1>
+    <p style="margin: 0; max-width: 34em; font-size: 14px; line-height: 1.5; color: #4D5562">主役は「公式の変更 → 影響 → 対応」の記録。路線の色は所属だけを示し、状態は文字で示す。読む段は静かに組む。</p>
+  </header>
+
+  <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px">
+    <div>
+      <h2 style="margin: 0 0 24px; font-size: 14px; line-height: 1.5; font-weight: 700">文字の役割（字間はすべて 0）</h2>
+      <table style="width: 100%; border-collapse: collapse; line-height: 1.3">
+        <tbody>
+          <tr style="border-top: 1px solid #D9DDE3"><td style="padding: 16px 16px 16px 0; font-size: 40px; font-weight: 700">ページの題</td><td style="padding: 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; text-align: right">40 / 1.35</td></tr>
+          <tr style="border-top: 1px solid #D9DDE3"><td style="padding: 16px 16px 16px 0; font-size: 28px; font-weight: 700">節の見出し</td><td style="padding: 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; text-align: right">28 / 1.4</td></tr>
+          <tr style="border-top: 1px solid #D9DDE3"><td style="padding: 16px 16px 16px 0; font-size: 20px; font-weight: 700">小見出し</td><td style="padding: 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; text-align: right">20 / 1.6</td></tr>
+          <tr style="border-top: 1px solid #D9DDE3"><td style="padding: 16px 16px 16px 0; font-size: 18px; line-height: 1.85">本文。読み間違えにくい字形で、長い手順も疲れにくい。</td><td style="padding: 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; text-align: right">18 / 1.85</td></tr>
+          <tr style="border-top: 1px solid #D9DDE3"><td style="padding: 16px 16px 16px 0; font-size: 14px">操作・一覧の補足</td><td style="padding: 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; text-align: right">14 / 1.5</td></tr>
+          <tr style="border-top: 1px solid #D9DDE3; border-bottom: 1px solid #D9DDE3"><td style="padding: 16px 16px 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 13px">2026-11-15　CC07　2.1.325</td><td style="padding: 16px 0; font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; text-align: right">13 / 1.4 等幅</td></tr>
+        </tbody>
+      </table>
+      <p style="margin: 16px 0 0; font-size: 14px; line-height: 1.5; color: #4D5562">余白は 8・16・24・40・64 の5段。角は、面 0・操作部品 4・製品の記号 2・駅は円。</p>
+    </div>
+    <div>
+      <h2 style="margin: 0 0 24px; font-size: 14px; line-height: 1.5; font-weight: 700">検証と追跡の記録（このサイトの主役）</h2>
+      <div style="border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3; padding: 16px 0">
+        <dl style="margin: 0; display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 8px 16px; font-size: 14px; line-height: 1.5">
+          <dt style="color: #4D5562">手元で検証</dt><dd style="margin: 0"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-01</span>　Claude Code <span style="font-family: 'BIZ UDGothic', monospace">2.1.325</span></dd>
+          <dt style="color: #4D5562">公式の変更の確認</dt><dd style="margin: 0"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-15 06:00</span>　影響なし</dd>
+          <dt style="font-weight: 700; color: #B45309">見直し中</dt><dd style="margin: 0">影響があるときだけ、この行が加わる</dd>
+        </dl>
+      </div>
+      <h2 style="margin: 40px 0 16px; font-size: 14px; line-height: 1.5; font-weight: 700">路線（製品）の色：会社ごとに色の系統をそろえる</h2>
+      <p style="margin: 0 0 16px; font-size: 13px; line-height: 1.6; color: #4D5562">Anthropic は暖色、OpenAI は無彩色、Google は青緑、画像・動画・音声の各社は紫。系統の中で明るさを変えて製品を分ける。白文字とのコントラストはどれも 4.5:1 以上。</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{lines}}" as="l" hint-placeholder-count="9">
+          <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; line-height: 1.4"><span style="{{l.chip}}">{{l.code}}</span>{{l.name}}</span>
+        </sc-for>
+      </div>
+      <div style="margin-top: 24px; position: relative; padding-left: 28px">
+        <span style="position: absolute; left: 6px; top: 8px; bottom: 8px; width: 4px; background: #C2410C"></span>
+        <p style="margin: 0; position: relative; font-size: 16px; line-height: 2.2"><span style="position: absolute; left: -28px; top: 10px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 3px solid #C2410C; background: #FFFFFF"></span>線 4・駅 16・輪郭 3。駅に状態を詰め込まない</p>
+        <p style="margin: 0; position: relative; font-size: 16px; line-height: 2.2"><span style="position: absolute; left: -28px; top: 10px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 3px solid #C2410C; background: #FFFFFF"></span>状態は日付の横に文字で <strong style="color: #B45309">見直し中</strong></p>
+      </div>
+      <h2 style="margin: 40px 0 16px; font-size: 14px; line-height: 1.5; font-weight: 700">色（意味ごとに1つ）</h2>
+      <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 8px; font-family: 'BIZ UDGothic', monospace; font-size: 12px; line-height: 1.4">
+        <span style="padding: 8px; background: #0B1B33; color: #FFFFFF">紺 #0B1B33 枠・コード</span>
+        <span style="padding: 8px; border: 1px solid #D9DDE3">墨 #12161D 本文</span>
+        <span style="padding: 8px; border: 1px solid #D9DDE3; color: #4D5562">鼠 #4D5562 補足</span>
+        <span style="padding: 8px; border: 1px solid #D9DDE3; color: #1D4ED8">藍 #1D4ED8 リンク</span>
+        <span style="padding: 8px; border: 1px solid #D9DDE3; color: #B45309">琥珀 #B45309 要対応</span>
+        <span style="padding: 8px; border: 1px solid #D9DDE3; color: #B91C1C">赤 #B91C1C 破壊・期限切れ</span>
+      </p>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const L = [['CC', 'Claude Code', '#C2410C'], ['AP', 'Claude API', '#9D174D'], ['MC', 'MCP', '#854D0E'], ['CA', 'Claude アプリ', '#BE123C'], ['CG', 'ChatGPT', '#3F3F46'], ['CX', 'Codex', '#1E293B'], ['GM', 'Gemini', '#0369A1'], ['GC', 'Gemini CLI', '#047857'], ['MJ', 'Midjourney', '#6D28D9']];
+    const lines = L.map(([code, name, hex]) => ({ code, name, chip: "display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: " + hex + "; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1" }));
+    return { lines };
+  }
+}
+</script>
+</body>
+</html>

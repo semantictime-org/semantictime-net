@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ホーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
+@media (hover:hover){a:hover{color:#1E3A8A}}
+::selection{background:#DBE4FF;color:#12161D}
+:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
+h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}
+summary::-webkit-details-marker{display:none}
+.rm-line{stroke-dasharray:var(--len);animation:rm-draw 900ms cubic-bezier(0.16,1,0.3,1) both}
+@keyframes rm-draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.rm-station{animation:rm-in 240ms ease-out 760ms both}
+@keyframes rm-in{from{opacity:0}to{opacity:1}}
+.more-arrow{transition:transform 150ms ease-out}
+@media (hover:hover){.more:hover .more-arrow{transform:translateX(3px)}}
+details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){.rm-line,.rm-station{animation:none}.more-arrow,details .chev{transition:none}}
+</style>
+</helmet>
+<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="Header" hint-size="100%,100px"></dc-import>
+  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 64px; padding: 64px 0; border-bottom: 1px solid #12161D">
+      <div style="flex: 1 1 440px; min-width: 0">
+        <section aria-labelledby="title">
+          <h1 id="title" style="margin: 0; font-weight: 700; font-size: clamp(32px, 4.2vw, 48px); line-height: 1.3">検証した日と版で読む、AI の使い方</h1>
+          <p style="margin: 24px 0 0; max-width: 32em; font-size: 16px; line-height: 1.75; color: #4D5562">Claude を中心に、ChatGPT・Gemini・画像や動画の生成 AI まで扱います。手順の記事はすべて手元で動かして確かめ、公式に変更があれば、影響する記事を見直します。</p>
+        </section>
+        <section aria-labelledby="run-title" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #D9DDE3">
+          <h2 id="run-title" style="margin: 0 0 16px; font-size: 14px; line-height: 1.5; font-weight: 700">直近の変更と、このサイトの対応</h2>
+          <sc-if value="{{noRun}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">今週はまだ公式の変更がありません。毎朝 6 時に確かめています。</p></sc-if>
+          <ol style="list-style: none; margin: 0; padding: 0">
+            <sc-for list="{{run}}" as="r" hint-placeholder-count="3">
+              <li style="position: relative; padding: 0 0 16px 28px">
+                <span aria-hidden="true" style="{{r.line}}"></span>
+                <span aria-hidden="true" style="position: absolute; left: 0; top: 5px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #12161D; background: #FFFFFF"></span>
+                <p style="margin: 0; font-size: 12px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{r.date}}</span>　{{r.label}}</p>
+                <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.6; overflow-wrap: anywhere">{{r.text}}</p>
+              </li>
+            </sc-for>
+          </ol>
+          <a href="Digest.dc.html" class="more" style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px">変更と対応の記録をすべて見る<svg class="more-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18m-7-7 7 7-7 7"></path></svg></a>
+        </section>
+      </div>
+      <figure style="flex: 1 1 420px; min-width: 0; max-width: 600px; margin: 0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" width="560" height="360" style="width: 100%; height: auto; display: block" role="img" aria-label="各社の製品を路線、記事を駅として描いた路線図">
+<path class="rm-line" style="--len:190;animation-delay:350ms" d="M24 212L68 212Q80 212 88.49 220.49L119.51 251.51Q128 260 140 260L196 260" fill="none" stroke="#3F3F46" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:208;animation-delay:280ms" d="M438 24L438 54Q438 66 429.51 74.49L388.6 115.4Q382 122 382 131.33L382 210" fill="none" stroke="#0369A1" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:318;animation-delay:210ms" d="M240 336L240 317.33Q240 308 246.6 301.4L259.51 288.49Q268 280 280 280L520 280" fill="none" stroke="#6D28D9" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:531;animation-delay:140ms" d="M54 60L148 60Q160 60 168.49 68.49L271.51 171.51Q280 180 292 180L388 180Q400 180 408.49 188.49L473.87 253.87Q480 260 488.67 260L506 260" fill="none" stroke="#C2410C" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:606;animation-delay:70ms" d="M54 120L128 120Q140 120 148.49 128.49L191.51 171.51Q200 180 200 192L200 248Q200 260 212 260L308 260Q320 260 328.49 251.51L451.51 128.49Q460 120 472 120L506 120" fill="none" stroke="#9D174D" stroke-width="6" stroke-linecap="round"></path>
+<path class="rm-line" style="--len:663;animation-delay:0ms" d="M120 316L120 272Q120 260 128.49 251.51L271.51 108.49Q280 100 292 100L328 100Q340 100 340 112L340 228Q340 240 352 240L428 240Q440 240 448.49 248.49L506 306" fill="none" stroke="#854D0E" stroke-width="6" stroke-linecap="round"></path>
+<circle class="rm-station" cx="56" cy="212" r="5" fill="white" stroke="#3F3F46" stroke-width="3"></circle>
+<circle class="rm-station" cx="156" cy="260" r="5" fill="white" stroke="#3F3F46" stroke-width="3"></circle>
+<circle class="rm-station" cx="438" cy="48" r="5" fill="white" stroke="#0369A1" stroke-width="3"></circle>
+<circle class="rm-station" cx="408" cy="96" r="5" fill="white" stroke="#0369A1" stroke-width="3"></circle>
+<circle class="rm-station" cx="296" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="420" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="504" cy="280" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="100" cy="60" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="200" cy="100" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="300" cy="180" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="440" cy="220" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="100" cy="120" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="200" cy="220" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="272" cy="260" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="452" cy="128" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="120" cy="290" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="168" cy="212" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="300" cy="100" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="340" cy="136" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="384" cy="240" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="474" cy="274" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<circle class="rm-station" cx="382" cy="210" r="5" fill="white" stroke="#0369A1" stroke-width="3"></circle>
+<circle class="rm-station" cx="240" cy="334" r="5" fill="white" stroke="#6D28D9" stroke-width="3"></circle>
+<circle class="rm-station" cx="506" cy="260" r="5" fill="white" stroke="#C2410C" stroke-width="3"></circle>
+<circle class="rm-station" cx="54" cy="120" r="5" fill="white" stroke="#9D174D" stroke-width="3"></circle>
+<circle class="rm-station" cx="504" cy="304" r="5" fill="white" stroke="#854D0E" stroke-width="3"></circle>
+<rect x="186" y="250" width="24" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="232" y="130" width="16" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="332" y="170" width="16" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="374" y="170" width="36" height="20" rx="6" fill="white" stroke="#12161D" stroke-width="2"></rect>
+<rect x="8" y="202" width="28" height="20" rx="2" fill="#3F3F46"></rect><text x="22" y="216" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CG</text>
+<rect x="426" y="8" width="28" height="20" rx="2" fill="#0369A1"></rect><text x="440" y="22" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">GM</text>
+<rect x="522" y="270" width="28" height="20" rx="2" fill="#6D28D9"></rect><text x="536" y="284" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MJ</text>
+<rect x="24" y="50" width="28" height="20" rx="2" fill="#C2410C"></rect><text x="38" y="64" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">CC</text>
+<rect x="508" y="110" width="28" height="20" rx="2" fill="#9D174D"></rect><text x="522" y="124" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">AP</text>
+<rect x="108" y="318" width="28" height="20" rx="2" fill="#854D0E"></rect><text x="122" y="332" text-anchor="middle" font-family="'BIZ UDGothic', monospace" font-size="11" font-weight="700" fill="white">MC</text>
+</svg>
+        <figcaption style="margin-top: 16px; font-size: 13px; line-height: 1.5; color: #4D5562">路線は製品、駅は記事。黒い枠の乗り換え駅は、製品をまたいで関係する記事です。</figcaption>
+      </figure>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 40px 64px; padding-top: 64px">
+      <section aria-labelledby="claude-title" style="flex: 2 1 600px; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
+          <h2 id="claude-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">Claude</h2>
+          <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">すべて手元で検証した記事　<span style="font-family: 'BIZ UDGothic', monospace">{{claudeTotal}}</span> 本</p>
+        </div>
+        <sc-if value="{{noClaude}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">まだ公開した記事がありません。</p></sc-if>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 40px 40px; padding-top: 24px">
+          <sc-for list="{{claude}}" as="r" hint-placeholder-count="3">
+            <section>
+              <h3 style="margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font-size: 18px; line-height: 1.5; font-weight: 700">
+                <span style="{{r.code}}">{{r.id}}</span><a href="Hub.dc.html" style="color: #12161D; text-decoration: none">{{r.name}}</a>
+              </h3>
+              <ol style="list-style: none; margin: 0; padding: 0">
+                <sc-for list="{{r.stations}}" as="s" hint-placeholder-count="4">
+                  <li style="position: relative; padding-left: 28px">
+                    <span aria-hidden="true" style="{{s.track}}"></span>
+                    <span aria-hidden="true" style="{{s.dot}}"></span>
+                    <a href="Article.dc.html" style="display: block; padding: 8px 0; color: #12161D; text-decoration: none">
+                      <span style="display: block; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere">{{s.title}}</span>
+                      <span style="display: block; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{s.no}}　{{s.date}}</span><span style="{{s.flagStyle}}">{{s.flag}}</span></span>
+                    </a>
+                  </li>
+                </sc-for>
+              </ol>
+            </section>
+          </sc-for>
+        </div>
+      </section>
+
+      <aside aria-labelledby="others-title" style="flex: 1 1 300px; min-width: 0">
+        <h2 id="others-title" style="margin: 0; padding-bottom: 16px; border-bottom: 1px solid #12161D; font-size: 20px; line-height: 1.6; font-weight: 700">ほかの AI と比べる</h2>
+        <sc-if value="{{noOthers}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">比較の記事は準備中です。</p></sc-if>
+        <sc-for list="{{others}}" as="o" hint-placeholder-count="3">
+          <section style="padding: 24px 0 8px">
+            <h3 style="margin: 0 0 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 16px; line-height: 1.5; font-weight: 700"><sc-if value="{{o.isMedia}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #4D5562"><rect x="6" y="6" width="36" height="36" rx="2"></rect><circle cx="16" cy="16" r="3"></circle><path d="m6 34 12-12 8 8 6-6 10 10"></path></svg></sc-if><sc-if value="{{o.isChat}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto; color: #4D5562"><path d="M8 8h32v26H20L8 42V8Z"></path><path d="M16 17h16m-16 8h10"></path></svg></sc-if><span style="{{o.code}}">{{o.id}}</span><span style="min-width: 0; overflow-wrap: anywhere">{{o.name}}<span style="display: block; font-size: 12px; font-weight: 400; color: #4D5562">{{o.vendor}}</span></span></h3>
+            <ul style="list-style: none; margin: 0; padding: 0">
+              <sc-for list="{{o.items}}" as="it" hint-placeholder-count="2">
+                <li style="border-top: 1px solid #D9DDE3"><a href="Article.dc.html" style="display: block; padding: 8px 0; font-size: 15px; line-height: 1.6; color: #12161D; text-decoration: none; overflow-wrap: anywhere">{{it}}</a></li>
+              </sc-for>
+            </ul>
+          </section>
+        </sc-for>
+      </aside>
+    </div>
+
+    <details style="margin-top: 64px; border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3">
+      <summary style="cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding: 16px 0">
+        <span style="font-size: 20px; line-height: 1.6; font-weight: 700">各製品の状況</span>
+        <span style="font-size: 14px; line-height: 1.5; color: #4D5562"><sc-if value="{{hasNeeds}}" hint-placeholder-val="{{ true }}">対応が必要なのは <strong style="color: #B45309">{{needCount}} 製品</strong>（{{needNames}}）</sc-if><sc-if value="{{noNeeds}}" hint-placeholder-val="{{ false }}">いま対応が必要な製品はありません</sc-if><span aria-hidden="true" style="display: inline-block; width: 1em"></span><span style="color: #1D4ED8; display: inline-flex; align-items: center; gap: 4px">すべての製品を表示<span class="chev" style="display: inline-flex"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="m6 9 6 6 6-6"></path></svg></span></span></span>
+      </summary>
+      <div style="overflow-x: auto">
+        <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 1.5">
+          <thead><tr style="text-align: left; font-size: 12px; color: #4D5562"><th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400">製品</th><th scope="col" style="padding: 8px 16px; font-weight: 400">会社</th><th scope="col" style="padding: 8px 16px; font-weight: 400">状況</th><th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400">内容</th></tr></thead>
+          <tbody>
+            <sc-for list="{{status}}" as="st" hint-placeholder-count="8">
+              <tr style="border-top: 1px solid #D9DDE3"><th scope="row" style="padding: 8px 16px 8px 0; text-align: left; font-weight: 700; white-space: nowrap"><span style="{{st.code}}">{{st.id}}</span> {{st.name}}</th><td style="padding: 8px 16px; color: #4D5562">{{st.vendor}}</td><td style="{{st.stateStyle}}">{{st.state}}</td><td style="padding: 8px 0 8px 16px">{{st.detail}}</td></tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <section aria-labelledby="news-title" style="padding-top: 64px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px; padding-bottom: 16px; border-bottom: 1px solid #12161D">
+        <h2 id="news-title" style="margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700">ニュース</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4D5562">各社の公式発表を一次情報として確かめたものだけを載せています</p>
+      </div>
+      <sc-if value="{{noNews}}" hint-placeholder-val="{{ false }}"><p style="margin: 0; padding: 16px 0; font-size: 14px; line-height: 1.6; color: #4D5562">まだニュースはありません。</p></sc-if>
+      <ul style="list-style: none; margin: 0; padding: 0">
+        <sc-for list="{{news}}" as="n" hint-placeholder-count="5">
+          <li style="border-bottom: 1px solid #D9DDE3">
+            <a href="Article.dc.html" style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 4px 16px; padding: 16px 0; color: #12161D; text-decoration: none">
+              <span style="font-family: 'BIZ UDGothic', monospace; font-size: 13px; line-height: 1.75; color: #4D5562">{{n.date}}</span>
+              <span>
+                <span style="display: block; font-size: 17px; line-height: 1.6; font-weight: 700; overflow-wrap: anywhere">{{n.title}}</span>
+                <span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: #4D5562; overflow-wrap: anywhere">{{n.product}}　出典：{{n.source}}</span>
+              </span>
+            </a>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+  </main>
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+  <div role="group" aria-label="データの切り替え（検証用）" style="position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 10; display: flex; gap: 2px; padding: 3px; background: #E5E5E5; border-radius: 999px">
+    <sc-for list="{{toggle}}" as="t" hint-placeholder-count="4"><button type="button" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button></sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ds: 'demo' };
+  }
+  renderVals() {
+    const ds = this.state.ds;
+    const code = (color) => "display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: " + color + "; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; flex: 0 0 auto";
+    const RUN_DEMO = [
+      ['11-14', '公式の変更', 'Claude Code のステータス行の設定の書き方が変わった（公式の変更履歴）'],
+      ['11-14', '影響の判定', 'CC12「settings.json の設定項目」の 1 行に影響'],
+      ['11-16', '対応', '手元で再検証し、表を直す予定（いまは見直し中と表示）'],
+    ];
+    const RUN_WORST = [
+      ['11-14', '公式の変更', 'Claude Code 2.1.326-beta.3 で、mcp__claude_ai_Google_Drive__download_file_content のようなツール名の許可の書き方が変わった（公式の変更履歴）'],
+      ['11-14', '影響の判定', 'CC12・CC13・CC18・MC05・SK02・SD04 の 6 本に影響'],
+      ['11-21', '対応', '手元で再検証し、6 本を順に直す予定。それまでは各記事に見直し中と表示する'],
+    ];
+    const RUN = { demo: RUN_DEMO, worst: RUN_WORST, empty: [], one: [RUN_DEMO[0]] }[ds];
+    const run = RUN.map(([date, label, text], i) => ({
+      date, label, text,
+      line: i === RUN.length - 1 ? 'display: none' : 'position: absolute; left: 6px; top: 19px; bottom: 0; width: 2px; background: #12161D',
+    }));
+    const line = (color, i, n) => 'position: absolute; left: 6px; width: 4px; background: ' + color + '; top: ' + (i === 0 ? '19px' : '0') + '; bottom: ' + (i === n - 1 ? 'calc(100% - 19px)' : '0');
+    const dot = (color) => 'position: absolute; left: 0; top: 12px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 3px solid ' + color + '; background: #FFFFFF';
+    const FLAG = { review: '見直し中', stale: '期限切れ' };
+    const route = (id, name, color, list) => ({
+      id, name, code: code(color),
+      stations: list.map(([no, title, date, flag], i) => ({
+        no, title, date,
+        flag: flag ? '　' + FLAG[flag] : '',
+        flagStyle: flag ? 'font-weight: 700; color: ' + (flag === 'stale' ? '#B91C1C' : '#B45309') : 'display: none',
+        track: line(color, i, list.length), dot: dot(color),
+      })),
+    });
+    const CLAUDE_DEMO = [
+      route('CC', 'Claude Code', '#C2410C', [['CC01', 'インストールと最初の依頼', '11-09'], ['CC03', 'CLAUDE.md で手順を覚えさせる', '11-06'], ['CC07', 'Hooks で保存のたびに整形する', '11-01'], ['CC12', 'settings.json の設定項目', '11-03', 'review']]),
+      route('AP', 'Claude API', '#9D174D', [['AP01', 'はじめての API 呼び出し', '11-11'], ['AP03', 'ツール使用の基本', '11-02'], ['AP06', 'プロンプトキャッシュで料金を減らす', '11-15']]),
+      route('MC', 'MCP', '#854D0E', [['MC01', 'はじめての MCP サーバーをつなぐ', '10-20', 'review'], ['MC03', 'リモート MCP サーバーの認証', '11-04'], ['MC05', 'MCP の設定ファイル', '11-09']]),
+      route('CA', 'Claude アプリ', '#BE123C', [['CA01', 'プランの選び方', '11-13'], ['CA02', 'プロジェクトで資料を共有する', '11-05']]),
+    ];
+    const CLAUDE_WORST = [
+      route('CC', 'Claude Code', '#C2410C', [['CC31', 'PreToolUse と PostToolUse を組み合わせ、保存のたびに整形・型検査・テストを順に走らせて、失敗したときだけ止める', '11-15'], ['CC32', 'mcp__claude_ai_Google_Drive__download_file_content を許可リストに入れる', '10-24', 'stale'], ['CC33', 'MCP', '11-14', 'review']]),
+      route('CR', 'Claude for Chrome（ブラウザ拡張）', '#7C2D12', [['CR01', 'Claude for Chrome で、ログインが必要なページの表を読み取って要約する', '11-12']]),
+      route('AP', 'Claude API', '#9D174D', []),
+    ];
+    const claude = { demo: CLAUDE_DEMO, worst: CLAUDE_WORST, empty: [], one: [route('CC', 'Claude Code', '#C2410C', [['CC01', 'インストールと最初の依頼', '11-09']])] }[ds];
+    const OTHERS_DEMO = [
+      { id: 'CG', name: 'ChatGPT', vendor: 'OpenAI', isChat: true, isMedia: false, code: code('#3F3F46'), items: ['ChatGPT と Claude の使い分け', 'Codex と Claude Code の比較'] },
+      { id: 'GM', name: 'Gemini', vendor: 'Google', isChat: true, isMedia: false, code: code('#0369A1'), items: ['Gemini と Claude の使い分け', 'Gemini CLI と Claude Code の比較'] },
+      { id: 'MJ', name: '画像・動画・音声', vendor: '各社', isChat: false, isMedia: true, code: code('#6D28D9'), items: ['画像生成 AI の選び方', '動画生成 AI でできること、できないこと'] },
+    ];
+    const OTHERS_WORST = [
+      { id: 'FX', name: 'FLUX.1 Kontext [pro]', vendor: 'Black Forest Labs', isChat: false, isMedia: true, code: code('#6D28D9'), items: ['FLUX.1 Kontext [pro] で、商品写真の背景だけを差し替えて、影と反射を自然に残す'] },
+      { id: 'GC', name: 'Gemini Code Assist for GitHub', vendor: 'Google', isChat: true, isMedia: false, code: code('#047857'), items: [] },
+    ];
+    const others = { demo: OTHERS_DEMO, worst: OTHERS_WORST, empty: [], one: [OTHERS_DEMO[0]] }[ds];
+    const S = (id, name, color, vendor, state, detail) => ({
+      id, name, vendor, state, detail, code: code(color),
+      stateStyle: 'padding: 8px 16px; white-space: nowrap; ' + (state === '見直し中' ? 'font-weight: 700; color: #B45309' : state === '期限切れあり' ? 'font-weight: 700; color: #B91C1C' : 'color: #4D5562'),
+    });
+    const STATUS_DEMO = [
+      S('CC', 'Claude Code', '#C2410C', 'Anthropic', '見直し中', '11-14 の公式の変更で 1 本を見直し中'),
+      S('MC', 'MCP', '#854D0E', 'Anthropic', '見直し中', '登録画面の変更で 1 本を見直し中'),
+      S('CX', 'Codex', '#1E293B', 'OpenAI', '期限切れあり', '見直しの期限を過ぎた 1 本を再検証予定'),
+      S('AP', 'Claude API', '#9D174D', 'Anthropic', '期限内', '—'),
+      S('CA', 'Claude アプリ', '#BE123C', 'Anthropic', '期限内', '—'),
+      S('CG', 'ChatGPT', '#3F3F46', 'OpenAI', '期限内', '—'),
+      S('GM', 'Gemini', '#0369A1', 'Google', '期限内', '—'),
+      S('MJ', 'Midjourney', '#6D28D9', 'Midjourney', '期限内', '—'),
+    ];
+    const STATUS_WORST = [
+      S('CR', 'Claude for Chrome（ブラウザ拡張）', '#7C2D12', 'Anthropic', '期限切れあり', '11-14 の公式の変更（mcp__claude_ai_Google_Drive__download_file_content の許可の書き方）で 6 本に影響。うち 1 本は見直しの期限も過ぎている'),
+      S('GC', 'Gemini Code Assist for GitHub', '#047857', 'Google', '見直し中', '—'),
+    ];
+    const status = { demo: STATUS_DEMO, worst: STATUS_WORST, empty: [], one: [STATUS_DEMO[0]] }[ds];
+    const NEWS_DEMO = [
+      { date: '11-15', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
+      { date: '11-14', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
+      { date: '11-13', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
+      { date: '11-12', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
+    ];
+    const NEWS_WORST = [
+      { date: '11-15', title: 'Anthropic が Claude の新しいモデルを公開し、API・アプリ・Claude Code のすべてで既定のモデルが切り替わった（例）', product: 'Claude API・Claude アプリ・Claude Code', source: 'https://platform.claude.com/docs/en/release-notes/overview' },
+      { date: '11-14', title: 'AI', product: 'FLUX.1 Kontext [pro]', source: 'Black Forest Labs 公式ブログ（英語）' },
+    ];
+    const news = { demo: NEWS_DEMO, worst: NEWS_WORST, empty: [], one: [NEWS_DEMO[0]] }[ds];
+    const claudeShown = claude.filter((r) => r.stations.length > 0);
+    const othersShown = others.filter((o) => o.items.length > 0);
+    const claudeTotal = { demo: 58, worst: 4, empty: 0, one: 1 }[ds];
+    const needs = status.filter((x) => x.state !== '期限内');
+    const flags = {
+      noRun: RUN.length === 0, noClaude: claudeShown.length === 0, noOthers: othersShown.length === 0, noNews: news.length === 0,
+      hasNeeds: needs.length > 0, noNeeds: needs.length === 0, needCount: needs.length, needNames: needs.map((x) => x.name).join('・'), claudeTotal,
+    };
+    const DS = [['demo', 'デモ'], ['worst', '最悪'], ['empty', '空'], ['one', '1件']];
+    const toggle = DS.map(([key, label]) => ({ label, pick: () => this.setState({ ds: key }), style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (ds === key ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
+    return { run, claude: claudeShown, others: othersShown, status, news, toggle, ...flags };
+  }
+}
+</script>
+</body>
+</html>

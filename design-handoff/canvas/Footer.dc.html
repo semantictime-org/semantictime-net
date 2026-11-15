@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>フッター</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<footer style="width: 100%; background: #0B1B33; color: #FFFFFF; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; line-height: 1.8">
+  <div style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 40px clamp(16px, 4vw, 48px) 24px; display: flex; flex-wrap: wrap; gap: 24px 64px">
+    <div style="flex: 2 1 320px; min-width: 0">
+      <p style="margin: 0 0 8px; font-weight: 700; font-size: 18px">semantictime</p>
+      <p style="margin: 0; color: #B4BFCF; max-width: 30em">Claude を中心に、AI の使い方を手元で検証してまとめています。公式の変更は毎朝確かめ、影響する記事を見直します。</p>
+    </div>
+    <nav aria-label="このサイトについて" style="flex: 1 1 160px">
+      <p style="margin: 0 0 8px; font-size: 12px; color: #B4BFCF">このサイトについて</p>
+      <ul style="list-style: none; margin: 0; padding: 0">
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">編集方針と AI の使い方</a></li>
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">著者 shizukukai</a></li>
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">誤りを報告する</a></li>
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">プライバシーポリシー</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="購読" style="flex: 1 1 160px">
+      <p style="margin: 0 0 8px; font-size: 12px; color: #B4BFCF">購読と機械向け</p>
+      <ul style="list-style: none; margin: 0; padding: 0">
+        <li><a href="Digest.dc.html" style="color: #FFFFFF; text-underline-offset: 3px">変更と対応の記録</a></li>
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">RSS</a></li>
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">llms.txt</a></li>
+        <li><a href="#" style="color: #FFFFFF; text-underline-offset: 3px">各記事の Markdown 版</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 16px clamp(16px, 4vw, 48px) 24px; font-size: 12px; color: #B4BFCF; border-top: 1px solid #22385C">Claude、ChatGPT、Gemini などの名称は各社の商標です。本サイトはどの会社とも関係のない、個人による非公式のサイトです。© 2026 shizukukai</p>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":360}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

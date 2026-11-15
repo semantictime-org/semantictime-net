@@ -1,0 +1,175 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-15T03:40:00Z"
+  },
+  "title": "semantictime デザイン",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Style.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 1500,
+      "title": "00 書体・余白・色"
+    },
+    "Header.dc.html": {
+      "x": 1360,
+      "y": 0,
+      "w": 1280,
+      "h": 150,
+      "title": "共通：ヘッダー"
+    },
+    "Footer.dc.html": {
+      "x": 1360,
+      "y": 290,
+      "w": 1280,
+      "h": 440,
+      "title": "共通：フッター"
+    },
+    "Main.dc.html": {
+      "x": 0,
+      "y": 1900,
+      "w": 1280,
+      "h": 3600,
+      "expand": "fill",
+      "title": "01 ホーム",
+      "is_interactive": true
+    },
+    "Article.dc.html": {
+      "x": 1360,
+      "y": 1900,
+      "w": 1280,
+      "h": 3000,
+      "expand": "fill",
+      "title": "02 記事"
+    },
+    "Reference.dc.html": {
+      "x": 2720,
+      "y": 1900,
+      "w": 1280,
+      "h": 2300,
+      "expand": "fill",
+      "title": "03 現行仕様"
+    },
+    "Comparison.dc.html": {
+      "x": 4080,
+      "y": 1900,
+      "w": 1280,
+      "h": 2100,
+      "expand": "fill",
+      "title": "04 比較"
+    },
+    "Digest.dc.html": {
+      "x": 5440,
+      "y": 1900,
+      "w": 1280,
+      "h": 2200,
+      "expand": "fill",
+      "title": "05 変更と対応の記録"
+    },
+    "Hub.dc.html": {
+      "x": 6800,
+      "y": 1900,
+      "w": 1280,
+      "h": 2400,
+      "expand": "fill",
+      "title": "06 製品（Claude Code）"
+    },
+    "HomeMobile.dc.html": {
+      "x": 0,
+      "y": 6000,
+      "w": 390,
+      "h": 4800,
+      "title": "01 ホーム（モバイル）"
+    },
+    "ArticleMobile.dc.html": {
+      "x": 1360,
+      "y": 6000,
+      "w": 390,
+      "h": 5400,
+      "title": "02 記事（モバイル）"
+    },
+    "ReferenceMobile.dc.html": {
+      "x": 2720,
+      "y": 6000,
+      "w": 390,
+      "h": 4800,
+      "title": "03 現行仕様（モバイル）"
+    },
+    "ComparisonMobile.dc.html": {
+      "x": 4080,
+      "y": 6000,
+      "w": 390,
+      "h": 3800,
+      "title": "04 比較（モバイル）"
+    },
+    "DigestMobile.dc.html": {
+      "x": 5440,
+      "y": 6000,
+      "w": 390,
+      "h": 4600,
+      "title": "05 変更と対応の記録（モバイル）"
+    },
+    "HubMobile.dc.html": {
+      "x": 6800,
+      "y": 6000,
+      "w": 390,
+      "h": 5000,
+      "title": "06 製品（モバイル）"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Style.dc.html",
+    "Header.dc.html",
+    "Footer.dc.html",
+    "Article.dc.html",
+    "Reference.dc.html",
+    "Comparison.dc.html",
+    "Digest.dc.html",
+    "Hub.dc.html",
+    "HomeMobile.dc.html",
+    "ArticleMobile.dc.html",
+    "ReferenceMobile.dc.html",
+    "ComparisonMobile.dc.html",
+    "DigestMobile.dc.html",
+    "HubMobile.dc.html"
+  ],
+  "notes": {
+    "row1": {
+      "x": 0,
+      "y": -300,
+      "text": "スタイルと共通部品",
+      "kind": "title1",
+      "maxW": 2640
+    },
+    "row2": {
+      "x": 0,
+      "y": 1600,
+      "text": "デスクトップ（幅 1280）",
+      "kind": "title1",
+      "maxW": 8080
+    },
+    "row3": {
+      "x": 0,
+      "y": 5700,
+      "text": "モバイル（幅 390）",
+      "kind": "title1",
+      "maxW": 8080
+    },
+    "dummy": {
+      "x": 2720,
+      "y": 0,
+      "w": 420,
+      "text": "文章・記事番号・日付・コード例はダミーです。他社のニュースには（例）を付けています。ホームは Play で開くと、路線図の線が描かれる動きと「各製品の状況」の開閉を試せます。",
+      "color": "orange",
+      "size": "m"
+    }
+  },
+  "designSystems": []
+}

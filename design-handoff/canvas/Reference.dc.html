@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>現行仕様</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&amp;family=BIZ+UDPGothic:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#1D4ED8;text-underline-offset:3px;transition:color 150ms ease-out}
+@media (hover:hover){a:hover{color:#1E3A8A}}
+::selection{background:#DBE4FF;color:#12161D}
+:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px}
+h1,h2,h3{text-wrap:balance;word-break:auto-phrase}p,li{text-wrap:pretty}
+</style>
+</helmet>
+<div style="width: 100%; background: #FFFFFF; color: #12161D; font-family: 'BIZ UDPGothic', 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.75">
+  <dc-import name="Header" hint-size="100%,100px"></dc-import>
+  <div style="height: 6px; background: #C2410C"></div>
+  <main style="max-width: 1248px; box-sizing: border-box; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 64px">
+    <nav aria-label="パンくずリスト" style="padding: 16px 0 0; font-size: 13px; line-height: 1.4; color: #4D5562">
+      <a href="Main.dc.html">ホーム</a> › <a href="Hub.dc.html">Claude Code</a> › 現行仕様
+    </nav>
+    <div style="display: flex; flex-wrap: wrap; gap: 40px 64px; padding-top: 40px; align-items: flex-start">
+      <nav aria-labelledby="side-title" style="flex: 1 1 220px; min-width: 0">
+        <p id="side-title" style="margin: 0 0 8px; font-size: 12px; line-height: 1.4; color: #4D5562">Claude Code の現行仕様</p>
+        <ul style="list-style: none; margin: 0; padding: 0; font-size: 14px; line-height: 1.5">
+          <sc-for list="{{pages}}" as="p" hint-placeholder-count="5">
+            <li style="border-top: 1px solid #D9DDE3"><a href="Reference.dc.html" style="{{p.style}}"><span style="font-family: 'BIZ UDGothic', monospace; font-size: 12px; color: #4D5562; margin-right: 8px">{{p.no}}</span>{{p.name}}</a></li>
+          </sc-for>
+        </ul>
+      </nav>
+
+      <article style="flex: 999 1 680px; min-width: 0">
+        <p style="margin: 0 0 8px; font-size: 13px; line-height: 1.4; color: #4D5562"><span style="display: inline-grid; place-items: center; min-width: 28px; height: 20px; padding: 0 4px; box-sizing: border-box; border-radius: 2px; background: #C2410C; color: #FFFFFF; font-family: 'BIZ UDGothic', monospace; font-weight: 700; font-size: 12px; line-height: 1; vertical-align: 1px">CC</span> <span style="font-family: 'BIZ UDGothic', monospace">12</span>　Claude Code の現行仕様</p>
+        <h1 style="margin: 0; font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.35">settings.json の設定項目</h1>
+        <p style="margin: 16px 0 0; max-width: 38em; font-size: 16px; line-height: 1.75; color: #4D5562">よく使う設定項目を、型・既定値・状態つきで一覧にしました。いま手元で動くものだけを載せ、廃止されたものは表の下にまとめています。</p>
+
+        <section aria-label="検証と追跡の記録" style="margin-top: 24px; border-top: 1px solid #12161D; border-bottom: 1px solid #D9DDE3; padding: 16px 0">
+          <dl style="margin: 0; display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 8px 16px; font-size: 14px; line-height: 1.5">
+            <dt style="color: #4D5562">手元で検証</dt>
+            <dd style="margin: 0"><span style="font-family: 'BIZ UDGothic', monospace">2026-11-03</span>　Claude Code <span style="font-family: 'BIZ UDGothic', monospace">2.1.325</span>　検証：shizukukai</dd>
+            <dt style="font-weight: 700; color: #B45309; display: flex; align-items: center; gap: 4px"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M4 8a9 9 0 1 1-1 6M4 3v5h5m3-1v5l3 2"></path></svg>見直し中</dt>
+            <dd style="margin: 0"><span style="font-family: 'BIZ UDGothic', monospace">11-14</span> の公式の変更が、下の表の <code style="font-family: 'BIZ UDGothic', monospace">statusLine</code> の行に影響します。<span style="font-family: 'BIZ UDGothic', monospace">11-16</span> に手元で再検証する予定です。<a href="Digest.dc.html">変更の内容</a></dd>
+          </dl>
+        </section>
+
+        <h2 style="margin: 40px 0 16px; font-weight: 700; font-size: 28px; line-height: 1.4">主な設定項目</h2>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 680px; border-collapse: collapse; font-size: 15px; line-height: 1.6">
+            <thead>
+              <tr style="text-align: left; font-size: 12px; color: #4D5562; border-bottom: 1px solid #12161D">
+                <th scope="col" style="padding: 8px 16px 8px 0; font-weight: 400">項目</th>
+                <th scope="col" style="padding: 8px 16px; font-weight: 400">型</th>
+                <th scope="col" style="padding: 8px 16px; font-weight: 400">既定値</th>
+                <th scope="col" style="padding: 8px 16px; font-weight: 400">状態</th>
+                <th scope="col" style="padding: 8px 0 8px 16px; font-weight: 400">説明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+                <tr style="{{r.rowStyle}}">
+                  <th scope="row" style="padding: 16px 16px 16px 0; text-align: left; font-weight: 400"><code style="font-family: 'BIZ UDGothic', monospace; font-size: 14px; font-weight: 700">{{r.key}}</code></th>
+                  <td style="padding: 16px; font-family: 'BIZ UDGothic', monospace; font-size: 13px; color: #4D5562">{{r.type}}</td>
+                  <td style="padding: 16px; font-family: 'BIZ UDGothic', monospace; font-size: 13px">{{r.def}}</td>
+                  <td style="{{r.stStyle}}">{{r.status}}</td>
+                  <td style="padding: 16px 0 16px 16px">{{r.note}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 style="margin: 40px 0 8px; font-weight: 700; font-size: 20px; line-height: 1.6">廃止された項目</h2>
+        <p style="margin: 0; font-size: 15px; color: #4D5562"><code style="font-family: 'BIZ UDGothic', monospace">legacyMode</code>　2026-09 に削除。代わりの設定と移し方は<a href="Article.dc.html">移行の手順</a>へ。</p>
+
+        <p style="margin: 64px 0 0; font-size: 14px; line-height: 1.6; color: #4D5562">執筆支援：AI（下書き）。検証と最終稿：shizukukai。出典：<a href="#">Claude Code ドキュメント：Settings</a></p>
+      </article>
+    </div>
+  </main>
+  <dc-import name="Footer" hint-size="100%,360px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const row = (key, type, def, status, note, changed) => ({
+      key, type, def, status, note,
+      stStyle: 'padding: 16px; white-space: nowrap; ' + (status === 'beta' ? 'font-weight: 700; color: #B45309' : status === '廃止予定' ? 'font-weight: 700; color: #12161D' : 'color: #4D5562'),
+      rowStyle: 'border-bottom: 1px solid #D9DDE3; vertical-align: top' + (changed ? '; box-shadow: inset 0 0 0 9999px #FFF8E6' : ''),
+    });
+    const rows = [
+      row('permissions.allow', 'string[]', '[]', 'GA', '確認なしで許すツールを並べる'),
+      row('permissions.deny', 'string[]', '[]', 'GA', '必ず断るツール。allow より強い'),
+      row('hooks', 'object', '{}', 'GA', 'イベントごとにコマンドを登録する'),
+      row('env', 'object', '{}', 'GA', 'セッションに渡す環境変数'),
+      row('statusLine', 'object', 'なし', 'beta', '見直し中：11-14 の変更で書き方が変わった可能性', true),
+      row('includeCoAuthoredBy', 'boolean', 'true', '廃止予定', 'attribution に置き換え'),
+    ];
+    const names = [['CC12', 'settings.json の設定項目'], ['CC13', 'Hooks のイベント'], ['CC14', 'スラッシュコマンドの一覧'], ['CC17', '環境変数の一覧'], ['CC18', 'MCP の設定']];
+    const pages = names.map(([no, name], i) => ({
+      no, name,
+      style: 'display: block; padding: 8px 0; text-decoration: none; ' + (i === 0 ? 'color: #12161D; font-weight: 700' : 'color: #4D5562'),
+    }));
+    return { rows, pages };
+  }
+}
+</script>
+</body>
+</html>

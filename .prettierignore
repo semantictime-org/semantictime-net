@@ -11,3 +11,6 @@ package-lock.json
 .claude/skills/emil-design-eng/
 .claude/skills/break-ui/
 .claude/skills/learn-taste/
+
+# デザインの受け渡し一式（キャンバスの書き出しを原文のまま保つ）
+design-handoff/
