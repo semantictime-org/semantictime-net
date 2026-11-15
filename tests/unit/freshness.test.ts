@@ -7,8 +7,8 @@ const NOW = new Date('2026-11-15T03:00:00+09:00');
 const daysAgo = (n: number): Date => new Date(Date.UTC(2026, 10, 15 - n));
 
 describe('reviewIntervalFor（T313）', () => {
-  test('T031: 分野の期限（coding は 30 日）', () => {
-    expect(reviewIntervalFor('how-to', ['coding'])).toBe(30);
+  test('T031: 分野の期限（coding は 60 日）', () => {
+    expect(reviewIntervalFor('how-to', ['coding'])).toBe(60);
   });
   test('分野 api は 60 日', () => {
     expect(reviewIntervalFor('how-to', ['api'])).toBe(60);
@@ -17,7 +17,7 @@ describe('reviewIntervalFor（T313）', () => {
     expect(reviewIntervalFor('explanation', ['coding'])).toBe(180);
   });
   test('T033: 複数の分野では最も短い期限を使う', () => {
-    expect(reviewIntervalFor('reference', ['api', 'coding'])).toBe(30);
+    expect(reviewIntervalFor('reference', ['api', 'coding'])).toBe(60);
   });
 });
 
@@ -63,9 +63,9 @@ describe('buildStaleReport', () => {
   test('T038: 期限切れとまもなく期限の記事をまとめ、状態を区別する', () => {
     const report = buildStaleReport(
       [
-        candidate('claude-code/a', 40),
-        candidate('claude-code/b', 35),
-        candidate('claude-code/c', 25),
+        candidate('claude-code/a', 70),
+        candidate('claude-code/b', 65),
+        candidate('claude-code/c', 55),
         candidate('claude-code/d', 5),
       ],
       NOW,
@@ -82,8 +82,8 @@ describe('buildStaleReport', () => {
   });
 
   test('期限日（検証日 + 期限）を JST の日付で示す', () => {
-    const report = buildStaleReport([candidate('claude-code/a', 40)], NOW);
-    expect(report.items[0]?.dueDate).toBe('2026-11-05'); // 10-06 + 30 日（10 月は 31 日まで）
+    const report = buildStaleReport([candidate('claude-code/a', 70)], NOW);
+    expect(report.items[0]?.dueDate).toBe('2026-11-05'); // 09-06 + 60 日
   });
 
   test('T040: 該当がなければ items は空', () => {

@@ -79,13 +79,13 @@ describe('verificationRecordOf（検証票）', () => {
       date: '2026.11.01',
       state: 'ok',
       stateLabel: '検証済み',
-      nextReview: '2026.12.01',
+      nextReview: '2026.12.31', // 11-01 + 60 日（coding）
     });
   });
 
   test.each([
-    [23, 'review', 'まもなく見直し'],
-    [31, 'stale', '期限切れ'],
+    [53, 'review', 'まもなく見直し'],
+    [61, 'stale', '期限切れ'],
   ] as const)('%i 日経過は %s（%s）', (days, state, stateLabel) => {
     expect(verificationRecordOf({ ...handsOn, verifiedAt: daysAgo(days) }, NOW)).toMatchObject({
       state,
