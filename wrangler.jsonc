@@ -1,6 +1,7 @@
 // 本番の Worker（設計書 9.1）。静的なファイルだけを配る（Worker のコードはない）。
 // _headers と _redirects は dist/ にあるものを Cloudflare がそのまま使う。
-// 独自ドメインは、ゾーンが Cloudflare で有効（ネームサーバーの切り替え後）になってから使える（Task 4.3）。
+// 独自ドメイン（semantictime.net と www）はダッシュボードで付ける。CI のトークンは「この Worker 専用」で、
+// ゾーンの権限がなく wrangler からは独自ドメインを設定できないため、ここには routes を書かない（docs/runbook.md）。
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "semantictime",
@@ -11,8 +12,4 @@
     "directory": "./dist",
     "not_found_handling": "404-page",
   },
-  "routes": [
-    { "pattern": "semantictime.net", "custom_domain": true },
-    { "pattern": "www.semantictime.net", "custom_domain": true },
-  ],
 }
