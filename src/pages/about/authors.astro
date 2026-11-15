@@ -1,7 +1,7 @@
 ---
-// 著者（ペンネーム shizukukai）
+// 著者（ペンネーム shizukukai）。旧サイトのプロフィール（semantictime.net/profile/）を参考に、言い換えて書いた。
+// 実名・勤務先は書かない（CLAUDE.md）。
 import { getEntry } from 'astro:content';
-import Unconfirmed from '../../components/page/Unconfirmed.astro';
 import StaticLayout from '../../layouts/StaticLayout.astro';
 import { ROUTES } from '../../lib/article-view';
 
@@ -15,44 +15,53 @@ if (!author) throw new Error('著者 shizukukai が src/content/authors にな�
   lead="このサイトの記事は、ひとりが手元で確かめて書いています。"
   updated="2026-11-15"
 >
-  <h2>{author.data.name}</h2>
-  <p>
-    <Unconfirmed note="経歴を一文で（各社の製品を扱う形に）" />
-  </p>
+  <h2>{author.data.name}（しずくかい）</h2>
+  <p>{author.data.bio}</p>
   <table>
     <tbody>
       <tr>
-        <th scope="row">資格</th>
+        <th scope="row">仕事</th>
+        <td>新規事業の開発、フルスタックの AI エンジニア</td>
+      </tr>
+      <tr>
+        <th scope="row">経歴</th>
         <td>
-          Claude の認定資格（
-          <Unconfirmed note="正式な名称" />）
+          IT の現場で、開発と事業開発の両方に長く携わってきた。2023 年から生成 AI に軸足を移し、AI
+          開発の推進と新規事業の立ち上げを担当している
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">得意なこと</th>
+        <td>
+          <ul>
+            <li>ChatGPT・Gemini・NotebookLM・Claude Code の実務での活用</li>
+            <li>MCP と AI エージェントの設計</li>
+            <li>AWS Bedrock などを使った AI エージェントの実装</li>
+          </ul>
         </td>
       </tr>
       <tr>
         <th scope="row">利害関係</th>
-        <td>
-          <Unconfirmed note="各社からの報酬・製品の提供の有無" />
-        </td>
+        <td>なし（各社からの報酬・製品の提供を受けていない）</td>
       </tr>
     </tbody>
   </table>
+  <p>自分で手を動かした範囲のことだけを書きます。</p>
 
   <h2>検証に使う環境</h2>
   <table>
     <tbody>
       <tr>
         <th scope="row">パソコン</th>
-        <td>
-          <Unconfirmed note="機種と OS" />
-        </td>
+        <td>MacBook Pro、MSI Vector</td>
       </tr>
       <tr>
         <th scope="row">Claude のプラン</th>
         <td>Claude Max</td>
       </tr>
       <tr>
-        <th scope="row">ほかの製品</th>
-        <td>使ったプランと版を、記事ごとの検証票に書く</td>
+        <th scope="row">OS・製品の版・ほかの製品のプラン</th>
+        <td>記事ごとの検証票に書く</td>
       </tr>
     </tbody>
   </table>
