@@ -44,7 +44,7 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
       <div style="flex: 1 1 440px; min-width: 0">
         <section aria-labelledby="title">
           <h1 id="title" style="margin: 0; font-weight: 700; font-size: clamp(32px, 4.2vw, 48px); line-height: 1.3">検証した日と版で読む、AI の使い方</h1>
-          <p style="margin: 24px 0 0; max-width: 32em; font-size: 16px; line-height: 1.75; color: #4D5562">Claude・ChatGPT・Gemini から画像・動画・音声の生成 AI まで、同じ基準で扱います。手順の記事はすべて手元で動かして確かめ、公式に変更があれば、影響する記事を見直します。</p>
+          <p style="margin: 24px 0 0; max-width: 32em; font-size: 16px; line-height: 1.75; color: #4D5562">Claude・ChatGPT・Gemini から画像・動画・音声まで。手順はすべて手元で確かめ、公式の変更に合わせて直します。</p>
           <p style="margin: 16px 0 0; font-size: 15px"><a href="Start.dc.html">はじめての方へ：このサイトの読み方</a><span aria-hidden="true" style="display: inline-block; width: 1em"></span><a href="About.dc.html">検証のしかた</a></p>
         </section>
         <section aria-labelledby="run-title" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #D9DDE3">
@@ -55,7 +55,7 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
               <li style="position: relative; padding: 0 0 16px 28px">
                 <span aria-hidden="true" style="{{r.line}}"></span>
                 <span aria-hidden="true" style="position: absolute; left: 0; top: 5px; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 3px solid #12161D; background: #FFFFFF"></span>
-                <p style="margin: 0; font-size: 12px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{r.date}}</span>　{{r.label}}</p>
+                <p style="margin: 0; display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 1.4; color: #4D5562"><span style="font-family: 'BIZ UDGothic', monospace">{{r.date}}</span><sc-if value="{{r.isChange}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 8h10M7 12h10M7 16h6"></path></svg></sc-if><sc-if value="{{r.isJudge}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></sc-if><sc-if value="{{r.isFix}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"></path></svg></sc-if>{{r.label}}</p>
                 <p style="margin: 4px 0 0; font-size: 15px; line-height: 1.6; overflow-wrap: anywhere">{{r.text}}</p>
               </li>
             </sc-for>
@@ -186,8 +186,8 @@ details .chev{transition:transform 200ms ease-out}details[open] .chev{transform:
               <span style="font-family: 'BIZ UDGothic', monospace; font-size: 13px; line-height: 1.75; color: #4D5562">{{n.date}}</span>
               <span>
                 <span style="display: block; font-size: 17px; line-height: 1.6; font-weight: 700; overflow-wrap: anywhere">{{n.title}}</span>
-                <span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: #4D5562; overflow-wrap: anywhere">{{n.product}}　出典：{{n.source}}</span>
-                <span style="{{n.whoStyle}}">{{n.who}}</span>
+                <span style="display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 14px; line-height: 1.5"><sc-if value="{{n.hasWho}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>{{n.target}}</span></sc-if><sc-if value="{{n.needsAction}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: #B45309"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="m8 12 3 3 5-6"></path></svg>{{n.todo}}</span></sc-if><sc-if value="{{n.noAction}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 6px; color: #15803D"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg>対応は不要</span></sc-if></span>
+                <span style="display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; line-height: 1.4; color: #4D5562; overflow-wrap: anywhere"><span style="min-width: 0">{{n.product}}・{{n.source}}</span><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14 3h7v7m0-7L11 13m-1-9H4v16h16v-6"></path></svg></span>
               </span>
             </a>
           </li>
@@ -222,7 +222,7 @@ class Component extends DCLogic {
     ];
     const RUN = { demo: RUN_DEMO, worst: RUN_WORST, empty: [], one: [RUN_DEMO[0]] }[ds];
     const run = RUN.map(([date, label, text], i) => ({
-      date, label, text,
+      date, label, text, isChange: label === '公式の変更', isJudge: label === '影響の判定', isFix: label === '対応',
       line: i === RUN.length - 1 ? 'display: none' : 'position: absolute; left: 6px; top: 19px; bottom: 0; width: 2px; background: #12161D',
     }));
     const line = (color, i, n) => 'position: absolute; left: 6px; width: 4px; background: ' + color + '; top: ' + (i === 0 ? '19px' : '0') + '; bottom: ' + (i === n - 1 ? 'calc(100% - 19px)' : '0');
@@ -313,16 +313,16 @@ class Component extends DCLogic {
     ];
     const status = { demo: STATUS_DEMO, worst: STATUS_WORST, empty: [], one: [STATUS_DEMO[0]] }[ds];
     const NEWS_DEMO = [
-      { date: '11-15', who: '誰に影響：Gemini アプリを使っている人。やること：なし', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
-      { date: '11-14', who: '誰に影響：ステータス行を自分で設定している人。やること：設定を新しい書き方に直す', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
-      { date: '11-13', who: '誰に影響：無料プランの人。やること：なし', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
-      { date: '11-12', who: '誰に影響：日本から使いたい人。やること：提供地域を確認', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
+      { date: '11-15', target: 'Gemini アプリの利用者', todo: '', title: 'Gemini のアプリに新しいモデルが加わった（例）', product: 'Gemini', source: 'Google 公式ブログ' },
+      { date: '11-14', target: 'ステータス行を設定している人', todo: '設定を新しい書き方に直す', title: 'Claude Code のステータス行の設定が変わった', product: 'Claude Code', source: 'Claude Code 変更履歴' },
+      { date: '11-13', target: '無料プランの人', todo: '', title: 'ChatGPT の無料プランで使える機能が広がった（例）', product: 'ChatGPT', source: 'OpenAI リリースノート' },
+      { date: '11-12', target: '日本から使いたい人', todo: '提供地域を確認する', title: 'Sora の提供地域が広がった（例）', product: 'Sora', source: 'OpenAI 公式サイト' },
     ];
     const NEWS_WORST = [
       { date: '11-15', title: 'Anthropic が Claude の新しいモデルを公開し、API・アプリ・Claude Code のすべてで既定のモデルが切り替わった（例）', product: 'Claude API・Claude アプリ・Claude Code', source: 'https://platform.claude.com/docs/en/release-notes/overview' },
       { date: '11-14', title: 'AI', product: 'FLUX.1 Kontext [pro]', source: 'Black Forest Labs 公式ブログ（英語）' },
     ];
-    NEWS_WORST.forEach((n) => { n.who = n.who || ''; });
+    NEWS_WORST.forEach((n) => { n.target = n.target || ''; n.todo = n.todo || ''; });
     const news = { demo: NEWS_DEMO, worst: NEWS_WORST, empty: [], one: [NEWS_DEMO[0]] }[ds];
     const needs = status.filter((x) => x.state !== '期限内');
     const flags = {
@@ -333,7 +333,7 @@ class Component extends DCLogic {
     const opts = (key, names) => names.map((n) => ({ name: n, pressed: st[key] === n ? 'true' : 'false', pick: () => this.setState({ [key]: n }), style: optStyle(st[key] === n) }));
     const filters = [{ label: '対象', options: opts('role', ['すべて', '開発者', 'ビジネス職']) }, { label: '難易度', options: opts('level', ['すべて', '入門', '中級', '上級']) }];
     const DS = [['demo', 'デモ'], ['worst', '最悪'], ['empty', '空'], ['one', '1件']];
-    const newsShown = news.map((n) => ({ ...n, whoStyle: n.who ? 'display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #12161D' : 'display: none' }));
+    const newsShown = news.map((n) => ({ ...n, hasWho: !!n.target, needsAction: !!n.todo, noAction: !!n.target && !n.todo }));
     const toggle = DS.map(([key, label]) => ({ label, pick: () => this.setState({ ds: key }), style: 'border: 0; border-radius: 999px; padding: 6px 14px; font: 13px system-ui, sans-serif; cursor: pointer; ' + (ds === key ? 'background: #FFFFFF; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,0.2)' : 'background: transparent; color: #444') }));
     return { filters, showSince: st.since, hideSince: () => this.setState({ since: false }), run, companies, status, news: newsShown, toggle, ...flags };
   }
