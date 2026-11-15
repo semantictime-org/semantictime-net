@@ -2,11 +2,13 @@ import { describe, expect, test } from 'vitest';
 import {
   articleHref,
   breadcrumbsOf,
+  CHANGE_LABEL,
+  FEATURE_STATUS_LABEL,
   historyOf,
   TYPE_EN,
   TYPE_LABEL,
 } from '../../src/lib/article-view';
-import { CONTENT_TYPES } from '../../src/lib/taxonomy';
+import { CHANGE_CATEGORIES, CONTENT_TYPES, FEATURE_STATUS } from '../../src/lib/taxonomy';
 
 describe('記事の型の表示名', () => {
   test('すべての型に日本語の名前と英字の見出しがある', () => {
@@ -67,5 +69,12 @@ describe('historyOf（検証の履歴）', () => {
     expect(historyOf('sources', published, published)).toEqual([
       { date: '2026-10-02', text: '一次情報の出典を確かめて公開した。' },
     ]);
+  });
+});
+
+describe('変更の種類と機能の状態の表示名', () => {
+  test('すべての値に日本語の名前がある', () => {
+    for (const c of CHANGE_CATEGORIES) expect(CHANGE_LABEL[c]).toBeTruthy();
+    for (const s of FEATURE_STATUS) expect(FEATURE_STATUS_LABEL[s]).toBeTruthy();
   });
 });

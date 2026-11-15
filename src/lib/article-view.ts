@@ -1,6 +1,12 @@
 // 記事ページの表示に使う値（型の名前、パンくず、検証の履歴）を決める（純粋関数）。
 import { toJstDate } from './dates.ts';
-import type { ContentType, Level, Verification } from './taxonomy.ts';
+import type {
+  ChangeCategory,
+  ContentType,
+  FeatureStatus,
+  Level,
+  Verification,
+} from './taxonomy.ts';
 
 export const TYPE_LABEL: Readonly<Record<ContentType, string>> = {
   tutorial: 'チュートリアル',
@@ -74,4 +80,19 @@ export const historyOf = (
         { date: published, text: '公開した。' },
         { date: verified, text: '手元で検証した。' },
       ];
+};
+
+export const CHANGE_LABEL: Readonly<Record<ChangeCategory, string>> = {
+  feature: '新機能',
+  change: '変更',
+  deprecation: '非推奨',
+  removal: '削除',
+  fix: '修正',
+};
+
+export const FEATURE_STATUS_LABEL: Readonly<Record<FeatureStatus, string>> = {
+  beta: 'ベータ版',
+  ga: '提供中',
+  deprecated: '非推奨',
+  removed: '提供終了',
 };

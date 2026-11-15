@@ -1,0 +1,26 @@
+---
+// ニュース（週次のダイジェストを含む）のテンプレート：1段。本文の前に変更表を置く。
+import ChangeTable from '../components/changes/ChangeTable.astro';
+import ArticleFrame from '../components/page/ArticleFrame.astro';
+import type { ArticlePage } from '../lib/article-page';
+
+interface Props {
+  page: ArticlePage;
+  changes: readonly {
+    date: Date;
+    product: string;
+    productName: string;
+    breaking: boolean;
+    categoryLabel: string;
+    title: string;
+    url: string;
+  }[];
+}
+
+const { page, changes } = Astro.props;
+---
+
+<ArticleFrame page={page} variant="digest">
+  <ChangeTable slot="before-body" changes={changes} />
+  <slot />
+</ArticleFrame>

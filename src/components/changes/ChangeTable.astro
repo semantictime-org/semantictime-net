@@ -1,0 +1,168 @@
+---
+// ニュースの変更表（T078）。製品と破壊的な変更で絞り込める。
+// 絞り込みの欄は JS が動いたときだけ出すので、JS がなければ全件がそのまま見える。
+import { toJstDate } from '../../lib/dates';
+
+interface Change {
+  date: Date;
+  product: string;
+  productName: string;
+  breaking: boolean;
+  categoryLabel: string;
+  title: string;
+  url: string;
+}
+
+interface Props {
+  changes: readonly Change[];
+}
+
+const { changes } = Astro.props;
+const products = [...new Map(changes.map((c) => [c.product, c.productName]))];
+const filterable = changes.length > 1;
+---
+
+<section class="changes" aria-labelledby="changes-title" data-change-table>
+  <h2 id="changes-title">公式の変更</h2>
+  {filterable && (
+    <fieldset class="filter" hidden data-change-filter>
+      <legend>絞り込み</legend>
+      {products.map(([id, name]) => (
+        <label>
+          <input type="checkbox" name="product" value={id} />
+          {name}
+        </label>
+      ))}
+      <label>
+        <input type="checkbox" name="breaking" />
+        破壊的な変更だけ
+      </label>
+    </fieldset>
+  )}
+  <div class="table-scroll" tabindex="0" role="group" aria-label="公式の変更の表">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">日付</th>
+          <th scope="col">製品</th>
+          <th scope="col">種類</th>
+          <th scope="col">変更</th>
+        </tr>
+      </thead>
+      <tbody>
+        {changes.map((c) => (
+          <tr data-product={c.product} data-breaking={String(c.breaking)}>
+            <td class="mono">{toJstDate(c.date)}</td>
+            <td>{c.productName}</td>
+            <td>
+              {c.categoryLabel}
+              {c.breaking && <strong class="breaking">破壊的</strong>}
+            </td>
+            <td>
+              <a href={c.url} rel="noopener noreferrer">
+                {c.title}
+              </a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="count" aria-live="polite" data-change-count></p>
+</section>
+
+<script>
+  import { isChangeVisible } from '../../lib/change-filter';
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-change-table]')) {
+    const filter = root.querySelector<HTMLFieldSetElement>('[data-change-filter]');
+    const count = root.querySelector<HTMLElement>('[data-change-count]');
+    const rows = [...root.querySelectorAll<HTMLTableRowElement>('tbody tr')];
+    if (!filter) continue;
+    filter.hidden = false;
+    const apply = () => {
+      const products = [
+        ...filter.querySelectorAll<HTMLInputElement>('input[name="product"]:checked'),
+      ].map((i) => i.value);
+      const breakingOnly =
+        filter.querySelector<HTMLInputElement>('input[name="breaking"]')?.checked ?? false;
+      const visible = rows.filter((row) => {
+        const show = isChangeVisible(
+          { product: row.dataset['product'] ?? '', breaking: row.dataset['breaking'] === 'true' },
+          { products, breakingOnly },
+        );
+        row.hidden = !show;
+        return show;
+      });
+      if (count) count.textContent = `${rows.length} 件中 ${visible.length} 件を表示`;
+    };
+    filter.addEventListener('change', apply);
+  }
+</script>
+
+<style>
+  .changes h2 {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-section-ja);
+  }
+
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    margin: 0 0 var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+    font-size: var(--text-nav);
+  }
+
+  .filter legend {
+    padding-inline: var(--space-1);
+    color: var(--color-ink-muted);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-nav);
+  }
+
+  th,
+  td {
+    padding: var(--space-2) var(--space-3);
+    border-block-end: 1px solid var(--color-rule);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  th {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+    white-space: nowrap;
+  }
+
+  .mono {
+    font-family: var(--font-data);
+    white-space: nowrap;
+  }
+
+  .breaking {
+    display: inline-block;
+    margin-inline-start: var(--space-2);
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-pill);
+    background: var(--color-status-stale-bg);
+    color: var(--color-status-stale);
+  }
+
+  .count {
+    margin: var(--space-2) 0 0;
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+</style>

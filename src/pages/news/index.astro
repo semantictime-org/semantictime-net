@@ -1,0 +1,114 @@
+---
+// ニュースの一覧（/news/）。新しい順。
+import PageHero from '../../components/page/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articleHref } from '../../lib/article-view';
+import { toJstDate } from '../../lib/dates';
+import { publishedArticles } from '../../queries/articles';
+
+const TITLE = 'ニュース';
+const LEAD = '各社の公式の変更のうち、知っておきたいものを一次情報で確かめて載せています。';
+
+const news = (await publishedArticles())
+  .filter((a) => a.data.type === 'news')
+  .toSorted((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .map((a) => ({
+    href: articleHref(a.id),
+    title: a.data.title,
+    date: toJstDate(a.data.publishedAt),
+    count: a.data.changes?.length ?? 0,
+    breaking: a.data.changes?.some((c) => c.breaking) ?? false,
+  }));
+const crumbs = [{ label: 'ホーム', href: '/' }, { label: TITLE }];
+---
+
+<BaseLayout title={TITLE} description={LEAD}>
+  <PageHero crumbs={crumbs} en="NEWS" title={TITLE} lead={LEAD} />
+  <div class="body">
+    {news.length === 0 ? (
+      <p class="empty">公開済みのニュースはまだありません。</p>
+    ) : (
+      <ol class="list">
+        {news.map((n) => (
+          <li>
+            <a href={n.href}>
+              <time datetime={n.date}>{n.date}</time>
+              <span class="title">{n.title}</span>
+              <span class="meta">
+                変更 {n.count} 件
+                {n.breaking && <strong class="breaking">破壊的な変更を含む</strong>}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list a {
+    display: grid;
+    grid-template-columns: 7.5em minmax(0, 1fr) auto;
+    gap: var(--space-4);
+    align-items: baseline;
+    padding-block: var(--space-4);
+    border-block-start: 1px solid var(--color-rule);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .list a:hover .title {
+    color: var(--color-key);
+  }
+
+  time {
+    color: var(--color-ink-muted);
+    font-family: var(--font-data);
+  }
+
+  .title {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+    overflow-wrap: anywhere;
+  }
+
+  .meta {
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+    white-space: nowrap;
+  }
+
+  .breaking {
+    margin-inline-start: var(--space-2);
+    color: var(--color-status-stale);
+  }
+
+  .empty {
+    color: var(--color-ink-muted);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+
+    .list a {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-1);
+    }
+  }
+</style>

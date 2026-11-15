@@ -16,10 +16,12 @@ const { items } = Astro.props;
   <ol>
     {items.map((item, i) => (
       <li>
-        {item.href && i < items.length - 1 ? (
+        {i === items.length - 1 ? (
+          <span aria-current="page">{item.label}</span>
+        ) : item.href ? (
           <a href={item.href}>{item.label}</a>
         ) : (
-          <span aria-current="page">{item.label}</span>
+          <span>{item.label}</span>
         )}
       </li>
     ))}

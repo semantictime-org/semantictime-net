@@ -1,11 +1,12 @@
 ---
 // 記事のページ。型に応じてテンプレートを切り替える（LAYOUT_BY_TYPE）。
 // 下書きは PUBLIC_DEPLOY_ENV=preview のときだけ作る（設計書 2.3「下書きと .md 版」）。
-// ニュース（digest）とまとめ（hub）のテンプレートは Task 3.6 で足す。
 import type { GetStaticPaths } from 'astro';
 import { getEntries, getEntry, render, type CollectionEntry } from 'astro:content';
 import ArticleLayout from '../layouts/ArticleLayout.astro';
 import ComparisonLayout from '../layouts/ComparisonLayout.astro';
+import DigestLayout from '../layouts/DigestLayout.astro';
+import HubLayout from '../layouts/HubLayout.astro';
 import ReferenceLayout from '../layouts/ReferenceLayout.astro';
 import ScrollPre from '../components/mdx/ScrollPre.astro';
 import ScrollTable from '../components/mdx/ScrollTable.astro';
@@ -19,6 +20,7 @@ import type { ArticlePage } from '../lib/article-page';
 import {
   articleHref,
   breadcrumbsOf,
+  CHANGE_LABEL,
   historyOf,
   LEVEL_LABEL,
   TYPE_EN,
@@ -28,13 +30,12 @@ import { stationLabel } from '../lib/catalog';
 import { toJstDate } from '../lib/dates';
 import { LAYOUT_BY_TYPE } from '../lib/taxonomy';
 import { publishedArticles } from '../queries/articles';
+import { loadCatalog } from '../queries/catalog';
+import { buildHub } from '../queries/hub';
 
 export const getStaticPaths = (async () => {
-  const templates: readonly string[] = ['article', 'reference', 'comparison'];
   const articles = await publishedArticles();
-  return articles
-    .filter((entry) => templates.includes(LAYOUT_BY_TYPE[entry.data.type]))
-    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return articles.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }) satisfies GetStaticPaths;
 
 const NUMBERED_TYPES: readonly string[] = ['tutorial', 'how-to'];
@@ -54,6 +55,9 @@ const station =
     ? stationLabel(product.data.code, data.stationNo)
     : undefined;
 const versions = verifiedWithLines(data.verifiedWith);
+const isNews = data.type === 'news';
+// ニュースの透かしとパンくずには、公開日（11.14）を使う
+const newsDate = toJstDate(data.publishedAt).slice(5).replace('-', '.');
 const banner = strongestFeatureStatus(features.map((f) => f.data.status));
 const { Content, headings } = await render(entry);
 // 本文の表とコードを、キーボードで届くスクロール領域に差し替える
@@ -68,12 +72,12 @@ const page: ArticlePage = {
   numbered: NUMBERED_TYPES.includes(data.type),
   productName: product?.data.name,
   stationLabel: station,
+  watermark: isNews ? newsDate : station,
   levelLabel: LEVEL_LABEL[data.level],
   publishedDate: toJstDate(data.publishedAt),
-  crumbs: breadcrumbsOf(
-    product && { id: product.id, name: product.data.name },
-    station ?? data.title,
-  ),
+  crumbs: isNews
+    ? [{ label: 'ホーム', href: '/' }, { label: 'ニュース', href: '/news/' }, { label: newsDate }]
+    : breadcrumbsOf(product && { id: product.id, name: product.data.name }, station ?? data.title),
   record: verificationRecordOf(
     {
       verification: data.verification,
@@ -117,9 +121,31 @@ const siblings =
           current: a.id === entry.id,
         }))
     : [];
+
+const productNames = new Map(
+  (await getEntries((data.changes ?? []).map((c) => c.product))).map((p) => [p.id, p.data.name]),
+);
+const changes = (data.changes ?? []).map((c) => ({
+  date: c.date,
+  product: c.product.id,
+  productName: productNames.get(c.product.id) ?? c.product.id,
+  breaking: c.breaking,
+  categoryLabel: CHANGE_LABEL[c.category],
+  title: c.title,
+  url: c.url,
+}));
+const hub = template === 'hub' && product ? buildHub(product.id, await loadCatalog()) : undefined;
 ---
 
-{template === 'reference' ? (
+{hub ? (
+  <HubLayout {...hub} title={data.title} lead={data.description} article={page.seo}>
+    <Content components={components} />
+  </HubLayout>
+) : template === 'digest' ? (
+  <DigestLayout page={page} changes={changes}>
+    <Content components={components} />
+  </DigestLayout>
+) : template === 'reference' ? (
   <ReferenceLayout page={page} siblings={siblings}>
     <Content components={components} />
   </ReferenceLayout>
