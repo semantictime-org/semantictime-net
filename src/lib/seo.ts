@@ -80,6 +80,7 @@ export const buildSeo = (input: SeoInput & { readonly env: DeployEnv }): Seo => 
         author: { '@type': 'Person', name: article.author },
         datePublished: article.publishedAt.toISOString(),
         dateModified: article.modifiedAt.toISOString(),
+        image: `${siteUrl}${article.image}`,
       }
     : {
         '@context': 'https://schema.org',

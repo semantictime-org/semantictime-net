@@ -71,6 +71,7 @@ describe('buildSeo', () => {
       author: { '@type': 'Person', name: 'shizukukai' },
       datePublished: '2026-11-15T00:00:00.000Z',
       dateModified: '2026-11-20T00:00:00.000Z',
+      image: 'https://semantictime.net/og/claude-code/hooks.png',
     });
   });
 
