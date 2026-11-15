@@ -7,6 +7,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # 毎日 JST 6:00 に作り直す（検証の期限切れの札は、ビルドの時点で決まるため）
+  schedule:
+    - cron: '0 21 * * *'
 
 permissions:
   contents: read
