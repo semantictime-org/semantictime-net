@@ -24,10 +24,22 @@ aiAssisted: draft
 
 import Callout from '../../../components/mdx/Callout.astro';
 
-- **ゴール**：Claude Code の書き換えたファイルを、毎回自動で整形する
-- **所要時間**：10分
-- **用意するもの**：Prettier が入ったプロジェクト、`jq` コマンド
-- **手順の全体**：1. 設定を書く → 2. 試す → 3. 動いたか確かめる
+## 3行でいうと
+
+1. Hooks は、Claude Code の決まった場面で、自分のコマンドを必ず動かす仕組み
+2. 「ファイルを書き換えたあと」に Prettier を動かせば、整形の頼み忘れがなくなる
+3. 設定は `.claude/settings.json` に書き、`jq` で書き換えたファイルの名前を取り出す
+
+## たとえば
+
+```text
+あなた      > src/sample.js に1行足して
+Claude Code → ファイルを書き換える
+Hooks       → 書き換えたファイルに Prettier を動かす（毎回、自動で）
+```
+
+- 所要時間：10分
+- 用意するもの：Prettier が入ったプロジェクト、`jq` コマンド
 
 ## 1. 設定を書く
 

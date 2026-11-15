@@ -23,10 +23,23 @@ aiAssisted: draft
 
 import Callout from '../../../components/mdx/Callout.astro';
 
-- **ゴール**：ターミナルで `claude` を動かし、作業を1つ頼める
-- **所要時間**：10分
-- **必要なプラン**：Pro・Max・Ultra・Team・Enterprise のどれか、または Console のアカウント（無料プランでは使えない）
-- **手順の全体**：1. 入れる → 2. 確かめる → 3. ログインする → 4. 頼む
+## 3行でいうと
+
+1. ターミナルでコマンドを1つ実行すれば入る（macOS は curl、Windows は PowerShell）
+2. `claude` で起動し、ブラウザーで Claude のアカウントにログインする
+3. 使うには Pro・Max・Ultra・Team・Enterprise のどれか、または Console のアカウントが要る（無料プランでは使えない）
+
+## たとえば（できあがり）
+
+```text
+$ claude --version
+2.1.325 (Claude Code)
+$ claude
+> このフォルダーに何があるか、ざっと説明して
+```
+
+- 所要時間：10分
+- 手順：1. 入れる → 2. 確かめる → 3. ログインする → 4. 頼む
 
 ## 1. 入れる
 
