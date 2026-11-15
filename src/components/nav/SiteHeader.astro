@@ -2,10 +2,12 @@
 // サイトのヘッダー（DESIGN.md v11、キャンバスの FreshHeader）。黒い帯に記号・名前・ナビを置く。
 import { ROUTES } from '../../lib/article-view';
 
+// 狭い画面でも項目は隠さず、帯の中で横に送る（検索だけは 1 段目に残す）
 const NAV = [
-  { label: '使い方を探す', href: `${ROUTES.home}#vendors`, narrow: false },
-  { label: '変更を追う', href: ROUTES.news, narrow: false },
-  { label: '記事検索', href: ROUTES.search, narrow: true },
+  { label: '製品', href: `${ROUTES.home}#vendors` },
+  { label: '連載', href: `${ROUTES.home}#series` },
+  { label: 'ニュース', href: ROUTES.news },
+  { label: 'バックナンバー', href: ROUTES.archive },
 ] as const;
 ---
 
@@ -18,11 +20,18 @@ const NAV = [
       </span>
     </a>
     <nav class="nav" aria-label="メイン">
-      {NAV.map((item) => (
-        <a class:list={['link', { wide: !item.narrow, search: item.narrow }]} href={item.href}>
-          {item.label}
-        </a>
-      ))}
+      <ul class="links">
+        {NAV.map((item) => (
+          <li>
+            <a class="link" href={item.href}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="link search" href={ROUTES.search}>
+        記事検索
+      </a>
     </nav>
   </div>
 </header>
@@ -85,6 +94,14 @@ const NAV = [
     gap: var(--space-6);
   }
 
+  .links {
+    display: flex;
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   .link {
     padding-block: var(--space-2);
     color: var(--color-on-band);
@@ -111,18 +128,35 @@ const NAV = [
 
   @container (max-width: 700px) {
     .inner {
+      flex-wrap: wrap;
       width: calc(100% - 2 * var(--gutter-narrow));
-      height: var(--header-height-narrow);
-      gap: var(--space-3);
+      height: auto;
+      min-height: var(--header-height-narrow);
+      gap: 0 var(--space-3);
     }
 
     .brand {
       gap: var(--space-2);
+      height: var(--header-height-narrow);
       font-size: var(--text-brand-narrow);
     }
 
-    .wide {
-      display: none;
+    /* 2 段目：ロゴの下に全幅で置き、はみ出す分は横に送る */
+    .nav {
+      display: contents;
+    }
+
+    .search {
+      margin-inline-start: auto;
+    }
+
+    .links {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+      padding-block: var(--space-2) var(--space-3);
+      border-block-start: 1px solid var(--color-band-rule);
+      scrollbar-width: none;
     }
   }
 </style>

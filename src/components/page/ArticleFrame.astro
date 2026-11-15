@@ -28,6 +28,7 @@ const hasAside = Astro.slots.has('aside');
     lead={page.description}
     watermark={page.watermark}
     indexed
+    compact
   >
     <p class="meta" slot="meta">
       {page.stationLabel && <span class="station">{page.stationLabel}</span>}
