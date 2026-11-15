@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { freshnessOf, reviewIntervalFor } from '../../src/lib/freshness';
+import { freshnessOf, reviewIntervalFor, tracksFreshness } from '../../src/lib/freshness';
 import { buildStaleReport, type StaleCandidate } from '../../src/lib/stale-report';
 
 const NOW = new Date('2026-11-15T03:00:00+09:00');
@@ -18,6 +18,15 @@ describe('reviewIntervalFor（T313）', () => {
   });
   test('T033: 複数の分野では最も短い期限を使う', () => {
     expect(reviewIntervalFor('reference', ['api', 'coding'])).toBe(30);
+  });
+});
+
+describe('tracksFreshness（T312）', () => {
+  test('実機で検証した記事は鮮度を判定する', () => {
+    expect(tracksFreshness('hands-on')).toBe(true);
+  });
+  test('出典で確かめた記事（ニュース）は判定しない（日付つきの記録として残す）', () => {
+    expect(tracksFreshness('sources')).toBe(false);
   });
 });
 
