@@ -1,0 +1,126 @@
+---
+// 見つからないページ（T082）。JS がなくても使えるよう、検索は通常のフォームで /search/?q= に送る。
+import PageHero from '../components/page/PageHero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ROUTES } from '../lib/article-view';
+
+const TITLE = 'お探しのページは見つかりませんでした';
+const LEAD = '記事番号（例：CC07）や題の一部が分かれば、検索で探せます。';
+const crumbs = [{ label: 'ホーム', href: ROUTES.home }, { label: '見つからないページ' }];
+const LINKS = [
+  { href: ROUTES.home, title: 'ホーム', note: '会社と製品から探す' },
+  { href: ROUTES.news, title: 'ニュース', note: '最近の公式の変更' },
+  { href: ROUTES.search, title: '記事を検索', note: '題・本文・製品名から探す' },
+] as const;
+---
+
+<BaseLayout title={TITLE} description={LEAD}>
+  <PageHero crumbs={crumbs} en="404" title={TITLE} lead={LEAD} watermark="LOST" />
+  <div class="body">
+    <form class="search" action={ROUTES.search} method="get" role="search">
+      <label for="q">サイト内を検索</label>
+      <div class="field">
+        <input id="q" name="q" type="search" placeholder="例：CC07、Hooks" />
+        <button type="submit">検索</button>
+      </div>
+    </form>
+    <ul class="links">
+      {LINKS.map((l) => (
+        <li>
+          <a href={l.href}>
+            <span class="title">{l.title}</span>
+            <span class="note">{l.note}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .body {
+    display: grid;
+    gap: var(--space-8);
+    width: calc(100% - 2 * var(--gutter-wide));
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-block: var(--space-10) var(--space-section);
+  }
+
+  label {
+    display: block;
+    margin-block-end: var(--space-2);
+    font-weight: 700;
+  }
+
+  .field {
+    display: flex;
+    gap: var(--space-2);
+    max-width: 32rem;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-control);
+    font: inherit;
+    font-size: 1rem;
+  }
+
+  button {
+    padding: var(--space-2) var(--space-6);
+    border: 0;
+    border-radius: var(--radius-control);
+    background: var(--color-key);
+    color: var(--color-on-band);
+    font: inherit;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: var(--color-key-hover);
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .links a {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .links a:hover {
+    border-color: var(--color-key);
+  }
+
+  .title {
+    font-family: var(--font-headline);
+    font-weight: var(--weight-headline);
+  }
+
+  .note {
+    color: var(--color-ink-muted);
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 700px) {
+    .body {
+      width: calc(100% - 2 * var(--gutter-narrow));
+    }
+  }
+</style>

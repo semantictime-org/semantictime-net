@@ -1,6 +1,6 @@
 ---
 // サイトのフッター（DESIGN.md v11、キャンバスの FreshFooter）
-import { ROUTES } from '../../lib/article-view';
+import { ABOUT_PAGES, ROUTES } from '../../lib/article-view';
 
 const YEAR = new Date().getFullYear();
 ---
@@ -24,6 +24,15 @@ const YEAR = new Date().getFullYear();
         </a>
       </p>
     </div>
+    <nav class="about" aria-label="このサイトについて">
+      <ul>
+        {ABOUT_PAGES.map((p) => (
+          <li>
+            <a href={p.href}>{p.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
     <div class="bottom">
       <span>© {YEAR} shizukukai</span>
       <span>昨日の手順を、今日も使える手順に。</span>
@@ -71,6 +80,24 @@ const YEAR = new Date().getFullYear();
 
   .link {
     text-decoration: none;
+  }
+
+  .about ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin: var(--space-8) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about a {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  .about a:hover {
+    color: var(--color-key);
   }
 
   .bottom {

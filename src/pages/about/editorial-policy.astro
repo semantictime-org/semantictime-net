@@ -1,0 +1,132 @@
+---
+// 編集方針と AI の使い方
+import { SITE } from '../../../site.config';
+import StaticLayout from '../../layouts/StaticLayout.astro';
+import { ROUTES, TYPE_LABEL } from '../../lib/article-view';
+import type { Category } from '../../lib/taxonomy';
+
+const CATEGORY_LABEL: Record<Category, string> = {
+  chat: 'チャット',
+  coding: 'コーディング',
+  agent: 'エージェント',
+  api: 'API',
+  image: '画像',
+  video: '動画',
+  audio: '音声',
+};
+
+// 見直しの期限（日数）ごとに分野をまとめる。値は site.config.ts から読む
+const byDays = Map.groupBy(
+  Object.entries(SITE.reviewIntervalDaysByCategory) as [Category, number][],
+  ([, days]) => days,
+);
+const intervals = [
+  ...[...byDays].map(([days, list]) => ({
+    days,
+    target: `分野が${list.map(([c]) => CATEGORY_LABEL[c]).join('・')}の製品の記事`,
+  })),
+  ...Object.entries(SITE.reviewIntervalDaysByType).map(([type, days]) => ({
+    days,
+    target: `${TYPE_LABEL[type as keyof typeof TYPE_LABEL]}の記事（分野によらない）`,
+  })),
+].toSorted((a, b) => a.days - b.days);
+---
+
+<StaticLayout
+  en="POLICY"
+  title="編集方針"
+  lead="手元で動かして確かめたことだけを、確かめた日と版をつけて書きます。そのやり方と決まりを公開します。"
+  updated="2026-11-15"
+>
+  <h2>このサイトがすること</h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">すること</th>
+        <th scope="col">中身</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>手元で動かす</td>
+        <td>記事の手順を、自分の環境で最初から実行する</td>
+      </tr>
+      <tr>
+        <td>日付と版を書く</td>
+        <td>確かめた日・製品の版・環境を、記事の冒頭の検証票に書く</td>
+      </tr>
+      <tr>
+        <td>公式の変更をたどる</td>
+        <td>各社の公式の変更履歴を自動で取得し、記事への影響を調べる</td>
+      </tr>
+      <tr>
+        <td>直したら記録する</td>
+        <td>確かめ直した日と直した内容を、記事の末尾の履歴に残す</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>記事を確かめる手順</h2>
+  <ol>
+    <li>環境を記録する（OS・製品の版・プラン）</li>
+    <li>新しい環境で、記事の順に最初から一度通す</li>
+    <li>結果が分かる出力や画面で確かめる</li>
+    <li>公式のドキュメントと照らし合わせる</li>
+  </ol>
+  <p>
+    ニュースは実機で試せないことが多いので、一次情報の出典を確かめてから載せます。検証票には「出典を確認」と出ます。
+  </p>
+
+  <h2>見直しの期限</h2>
+  <p>
+    手元で確かめた記事は、期限が来たら確かめ直します。期限を過ぎた記事には「期限切れ」の札が付きます。
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">期限</th>
+        <th scope="col">対象</th>
+      </tr>
+    </thead>
+    <tbody>
+      {intervals.map((i) => (
+        <tr>
+          <td>{i.days} 日</td>
+          <td>{i.target}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>AI の使い方</h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">役割</th>
+        <th scope="col">担当</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>下書き</td>
+        <td>AI（Claude など）</td>
+      </tr>
+      <tr>
+        <td>手元での検証・公式との照合・最終稿</td>
+        <td>人（shizukukai）</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>記事ごとに、AI を使ったかどうかを末尾の欄に書きます。人が確かめていない記事は公開しません。</p>
+
+  <h2>書き方の決まり</h2>
+  <ul>
+    <li>公式の文章を転載・翻訳せず、自分の言葉で書く</li>
+    <li>引用は出典を示し、必要な範囲にとどめる</li>
+    <li>料金・上限・モデル名など変わりやすい値は、公式のページへのリンクで示す</li>
+    <li>各社の製品を同じ扱いで載せ、特定の会社を優遇しない</li>
+  </ul>
+  <p>
+    誤りを見つけたら、<a href={ROUTES.report}>誤りの報告</a>から知らせてください。
+  </p>
+</StaticLayout>

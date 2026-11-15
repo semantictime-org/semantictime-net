@@ -1,0 +1,55 @@
+---
+// 誤りの報告（GitHub Issue とメールを併用。要件 B6）
+import { SITE } from '../../../site.config';
+import StaticLayout from '../../layouts/StaticLayout.astro';
+
+const ISSUE_URL = 'https://github.com/semantictime-org/semantictime-net/issues/new';
+---
+
+<StaticLayout
+  en="REPORT"
+  title="誤りの報告"
+  lead="手順が動かない、記載が公式と違う、といった誤りを見つけたら知らせてください。確かめて直し、記事の履歴に残します。"
+  updated="2026-11-15"
+>
+  <h2>知らせ方</h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">方法</th>
+        <th scope="col">向いているとき</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href={ISSUE_URL} rel="noopener noreferrer">
+            GitHub の Issue
+          </a>
+        </td>
+        <td>内容が公開されてもよいとき。だれでも読めます</td>
+      </tr>
+      <tr>
+        <td>
+          メール（<span class="mono">{SITE.reportEmail}</span>）
+        </td>
+        <td>環境の詳細など、公開したくない情報を含むとき</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>書いてほしいこと</h2>
+  <ul>
+    <li>記事の URL か記事番号（例：CC07）</li>
+    <li>どこが、どう違うか</li>
+    <li>試した環境（OS・製品の版・プラン）</li>
+  </ul>
+  <p>パスワードや API キーなどの秘密の情報は、どちらにも書かないでください。</p>
+</StaticLayout>
+
+<style>
+  .mono {
+    font-family: var(--font-data);
+    overflow-wrap: anywhere;
+  }
+</style>

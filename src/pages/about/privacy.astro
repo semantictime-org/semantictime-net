@@ -1,0 +1,67 @@
+---
+// プライバシーポリシー（Cloudflare Web Analytics の利用を明記する。要件 B6）
+import { SITE } from '../../../site.config';
+import StaticLayout from '../../layouts/StaticLayout.astro';
+import { ROUTES } from '../../lib/article-view';
+
+const CLOUDFLARE_PRIVACY = 'https://www.cloudflare.com/privacypolicy/';
+---
+
+<StaticLayout
+  en="PRIVACY"
+  title="プライバシーポリシー"
+  lead="このサイトが集める情報と、その使い方です。"
+  updated="2026-11-15"
+>
+  <h2>アクセスの計測</h2>
+  <ul>
+    <li>Cloudflare Web Analytics で、ページの表示回数などを数えています</li>
+    <li>Cookie は使わず、個人を特定する情報は集めません</li>
+    <li>計測した情報は、記事を良くするためだけに使います</li>
+  </ul>
+  <p>
+    Cloudflare による情報の扱いは、
+    <a href={CLOUDFLARE_PRIVACY} rel="noopener noreferrer">
+      Cloudflare のプライバシーポリシー
+    </a>
+    を見てください。
+  </p>
+
+  <h2>知らせてもらった情報</h2>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">経路</th>
+        <th scope="col">扱い</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          メール（<span class="mono">{SITE.reportEmail}</span>）
+        </td>
+        <td>返信と記事の修正のためだけに使い、公開しません</td>
+      </tr>
+      <tr>
+        <td>GitHub の Issue</td>
+        <td>GitHub 上で、だれでも読める状態で公開されます</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>そのほか</h2>
+  <ul>
+    <li>入力フォーム・会員登録・広告はありません</li>
+    <li>ほかのサイトへのリンク先での情報の扱いは、そのサイトの方針によります</li>
+  </ul>
+  <p>
+    知らせ方は<a href={ROUTES.report}>誤りの報告</a>にまとめています。
+  </p>
+</StaticLayout>
+
+<style>
+  .mono {
+    font-family: var(--font-data);
+    overflow-wrap: anywhere;
+  }
+</style>

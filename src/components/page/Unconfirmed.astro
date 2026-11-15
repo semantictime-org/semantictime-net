@@ -1,0 +1,22 @@
+---
+// 人が確かめていない箇所。preview・test では目立つ印で出し、本番のビルドでは止める（unconfirmedLabel）。
+import { parseDeployEnv } from '../../lib/seo';
+import { unconfirmedLabel } from '../../lib/unconfirmed';
+
+interface Props {
+  note: string;
+}
+
+const label = unconfirmedLabel(Astro.props.note, parseDeployEnv(import.meta.env.PUBLIC_DEPLOY_ENV));
+---
+
+<mark class="unconfirmed">{label}</mark>
+
+<style>
+  .unconfirmed {
+    padding: 0 var(--space-1);
+    background: var(--color-status-review-bg);
+    color: var(--color-status-review);
+    font-weight: 700;
+  }
+</style>
