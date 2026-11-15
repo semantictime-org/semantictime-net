@@ -96,3 +96,52 @@ describe('違反の情報', () => {
     expect(v).toMatchObject({ id: 'claude-code/hooks', rule: 'dangerous-html', line: 2 });
   });
 });
+
+// T318：段落の長さ（DESIGN.md「文字を減らし、図で見せる」）
+describe('段落の長さ（T318）', () => {
+  test('2文・80字までの段落は通る', () => {
+    expect(rules('保存のたびに整形する。設定は1か所だけ。')).toEqual([]);
+  });
+
+  test('3文の段落は違反', () => {
+    expect(rules('一つ目。二つ目。三つ目。')).toContain('long-paragraph');
+  });
+
+  test('80字を超える段落は違反', () => {
+    expect(rules('あ'.repeat(81))).toContain('long-paragraph');
+  });
+
+  test('改行で続く行は1つの段落として数える', () => {
+    expect(rules('一つ目。\n二つ目。\n三つ目。')).toContain('long-paragraph');
+  });
+
+  test('空行で分かれた段落は別々に数える', () => {
+    expect(rules('一つ目。二つ目。\n\n三つ目。四つ目。')).toEqual([]);
+  });
+
+  test('見出し・箇条書き・表・引用は段落として数えない', () => {
+    const body = [
+      `## ${'見'.repeat(90)}`,
+      `- ${'項'.repeat(90)}。二。三。`,
+      `| ${'表'.repeat(90)} |`,
+      `> ${'引'.repeat(90)}`,
+    ].join('\n');
+    expect(rules(body)).toEqual([]);
+  });
+
+  test('リンクの URL とインラインコードは字数に入れない', () => {
+    const body = `[公式の説明](/about/editorial-policy/)を読む。\`${'x'.repeat(90)}\` を使う。`;
+    expect(rules(body)).toEqual([]);
+  });
+
+  test('コードブロックは数えない', () => {
+    expect(rules(`\`\`\`text\n${'あ'.repeat(200)}\n\`\`\``)).toEqual([]);
+  });
+
+  test('違反には段落の始まりの行を付ける', () => {
+    const violation = lintArticle(target('短い。\n\n一つ目。二つ目。三つ目。'), ROUTES).find(
+      (v) => v.rule === 'long-paragraph',
+    );
+    expect(violation?.line).toBe(3);
+  });
+});

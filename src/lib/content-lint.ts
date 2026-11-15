@@ -3,6 +3,7 @@
 // - 内部リンク切れ
 // - .md 版で扱えない JSX コンポーネント
 // - 置き場所と slug の規則
+// - 段落の長さ（文字を減らし、図で見せる。DESIGN.md）
 import { checkArticlePath } from './schemas.ts';
 import type { Surface } from './taxonomy.ts';
 
@@ -15,7 +16,12 @@ export interface LintTarget {
   readonly body: string;
 }
 
-export type LintRule = 'dangerous-html' | 'broken-link' | 'unsupported-jsx' | 'article-path';
+export type LintRule =
+  'dangerous-html' | 'broken-link' | 'unsupported-jsx' | 'article-path' | 'long-paragraph';
+
+/** 段落の上限（DESIGN.md「文字を減らし、図で見せる」） */
+export const MAX_PARAGRAPH_SENTENCES = 2;
+export const MAX_PARAGRAPH_CHARS = 80;
 
 export interface LintViolation {
   readonly id: string;
@@ -81,6 +87,53 @@ const lintLine = (
   return [...dangerous, ...links, ...components];
 };
 
+/** 段落として数えない行（見出し、箇条書き、表、引用、HTML・JSX、import/export） */
+const NOT_PROSE = /^\s*(#|[-*+]\s|\d+[.)]\s|\||>|<|import\s|export\s)/;
+const SENTENCE_ENDS = /[。！？!?]/g;
+const ENDS_WITH_SENTENCE_END = /[。！？!?]$/;
+
+const visibleText = (text: string): string =>
+  text
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[*_~]/g, '')
+    .replace(/\s/g, '');
+
+interface Paragraph {
+  readonly line: number;
+  readonly text: string;
+}
+
+const paragraphsOf = (lines: readonly string[]): readonly Paragraph[] =>
+  lines.reduce<readonly Paragraph[]>((acc, text, index) => {
+    if (text.trim() === '' || NOT_PROSE.test(text)) return acc;
+    const prev = lines[index - 1];
+    const continues =
+      index > 0 && prev !== undefined && prev.trim() !== '' && !NOT_PROSE.test(prev);
+    const last = acc[acc.length - 1];
+    return continues && last
+      ? [...acc.slice(0, -1), { line: last.line, text: `${last.text}${text}` }]
+      : [...acc, { line: index + 1, text }];
+  }, []);
+
+const sentenceCount = (text: string): number => {
+  const ends = text.match(SENTENCE_ENDS)?.length ?? 0;
+  return ENDS_WITH_SENTENCE_END.test(text) || text === '' ? ends : ends + 1;
+};
+
+const lintParagraphs = (id: string, lines: readonly string[]): readonly LintViolation[] =>
+  paragraphsOf(lines)
+    .map((p) => ({ line: p.line, text: visibleText(p.text) }))
+    .filter(
+      (p) =>
+        sentenceCount(p.text) > MAX_PARAGRAPH_SENTENCES || [...p.text].length > MAX_PARAGRAPH_CHARS,
+    )
+    .map((p): LintViolation => ({
+      id,
+      rule: 'long-paragraph',
+      line: p.line,
+      message: `段落は ${MAX_PARAGRAPH_SENTENCES} 文・${MAX_PARAGRAPH_CHARS} 字まで（${sentenceCount(p.text)} 文・${[...p.text].length} 字）。図・箇条書き・表にできないか見直す`,
+    }));
+
 export const lintArticle = (
   target: LintTarget,
   routes: ReadonlySet<string>,
@@ -88,8 +141,9 @@ export const lintArticle = (
   const pathViolations = checkArticlePath(target.id, target.surfaces).map(
     (message): LintViolation => ({ id: target.id, rule: 'article-path', message }),
   );
-  const bodyViolations = maskCode(target.body)
-    .split('\n')
-    .flatMap((text, index) => lintLine(target.id, text, index + 1, routes));
-  return [...pathViolations, ...bodyViolations];
+  const lines = maskCode(target.body).split('\n');
+  const bodyViolations = lines.flatMap((text, index) =>
+    lintLine(target.id, text, index + 1, routes),
+  );
+  return [...pathViolations, ...bodyViolations, ...lintParagraphs(target.id, lines)];
 };
