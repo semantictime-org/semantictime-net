@@ -1,17 +1,32 @@
 # 会社（鉄道会社）。order はナビとホームで並べる固定の順。会社による特別扱いはしない。
-# changelogs（公式の変更履歴）は、上流の追跡（Task 2.11）で一次情報を確かめてから書く。
+# changelogs（公式の変更履歴）は、一次情報で取得できることを確かめたものだけを書く（.tmp/sources-results.md、2026-11-15）。
 - id: anthropic
   name: Anthropic
   order: 1
+  changelogs:
+    - https://code.claude.com/docs/en/changelog/rss.xml
+    - https://platform.claude.com/docs/en/release-notes/overview.md
+    - https://claude.com/docs/cowork/changelog.md
 - id: openai
   name: OpenAI
   order: 2
+  changelogs:
+    - https://developers.openai.com/api/docs/changelog.md
+    - https://learn.chatgpt.com/docs/whats-new.md
+    - https://github.com/openai/codex/releases.atom
 - id: google
   name: Google
   order: 3
+  changelogs:
+    - https://aistudio.google.com/docs/changelog.md
+    - https://gemini.google/release-notes/
+    - https://github.com/google-gemini/gemini-cli/releases.atom
 - id: midjourney
   name: Midjourney
   order: 4
+  # 公式の更新情報は自動で取得できない（2026-11-15 確認）。記事を書くときに手で確かめる
 - id: black-forest-labs
   name: Black Forest Labs
   order: 5
+  changelogs:
+    - https://docs.bfl.ml/release-notes.md
