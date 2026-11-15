@@ -256,7 +256,7 @@
 # --- Skills ---
 - id: skills
   name: Agent Skills
-  product: skills
+  product: claude-api
   status: ga
   docs: https://code.claude.com/docs/en/skills
   aliases: [SKILL.md, Agent Skills]
@@ -264,25 +264,25 @@
 # --- MCP とコネクタ ---
 - id: mcp-claude-code
   name: Claude Code の MCP 接続
-  product: mcp
+  product: claude-code
   status: ga
   docs: https://code.claude.com/docs/en/mcp
   aliases: [.mcp.json, claude mcp add]
 - id: connectors
   name: コネクタ（Connectors directory）
-  product: mcp
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/connectors/getting-started
   aliases: [Connectors directory, custom connector]
 - id: mcp-tunnels
   name: MCP tunnels
-  product: mcp
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/connectors/mcp-tunnels/overview
   aliases: [MCP tunnel]
 - id: mcp-apps
   name: MCP Apps
-  product: mcp
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/connectors/building/mcp-apps/getting-started
   aliases: [MCP Apps]
@@ -290,25 +290,25 @@
 # --- Cowork ---
 - id: cowork
   name: Cowork
-  product: cowork
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/cowork/overview
   aliases: [Cowork]
 - id: dispatch
   name: Dispatch（バックグラウンドでのタスク実行）
-  product: cowork
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/cowork/guide/dispatch
   aliases: [Dispatch]
 - id: cowork-projects
   name: Cowork のプロジェクト
-  product: cowork
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/cowork/guide/projects
   aliases: []
 - id: cowork-plugins
   name: Cowork のプラグイン
-  product: cowork
+  product: claude-app
   status: ga
   docs: https://claude.com/docs/cowork/guide/plugins
   aliases: []
@@ -316,7 +316,7 @@
 # --- Artifacts / Design ---
 - id: artifacts-claude-code
   name: Claude Code のアーティファクト共有
-  product: artifacts-design
+  product: claude-app
   status: ga
   docs: https://code.claude.com/docs/en/artifacts
   aliases: []
@@ -324,13 +324,13 @@
 # --- Agent SDK ---
 - id: agent-sdk
   name: Claude Agent SDK
-  product: agent-sdk
+  product: claude-api
   status: ga
   docs: https://code.claude.com/docs/en/agent-sdk/overview
   aliases: [Claude Agent SDK]
 - id: agent-sdk-ts-v2-session
   name: TypeScript SDK V2 session API
-  product: agent-sdk
+  product: claude-api
   status: removed
   docs: https://code.claude.com/docs/en/agent-sdk/typescript-v2-preview
   aliases: [V2 session API]
