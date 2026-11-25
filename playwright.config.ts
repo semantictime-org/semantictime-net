@@ -12,7 +12,8 @@ export default defineConfig({
   webServer: {
     // CONTENT_FIXTURES=1: テスト用の記事（tests/fixtures/articles）でビルドする
     // --ignore-lock: Astro は AI エージェントの中だと preview を自動で常駐させるので、それを止めて前面で動かす
-    command: `CONTENT_FIXTURES=1 npm run build && npx astro preview --port ${PORT} --ignore-lock`,
+    command: `npm run build && npx astro preview --port ${PORT} --ignore-lock`,
+    env: { CONTENT_FIXTURES: '1' },
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env['CI'],
   },
