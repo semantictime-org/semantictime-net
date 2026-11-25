@@ -2,7 +2,7 @@
 // 記事番号・連載の回の重複、読む順の誤り）。
 // 使い方: node scripts/lint-content.ts。違反があれば内容を出力して exit 1。
 import { readdirSync, readFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { join, posix, sep } from 'node:path';
 import { z } from 'astro/zod';
 import { parse } from 'yaml';
 import { lintArticle, routeOf, type LintTarget } from '../src/lib/content-lint.ts';
@@ -17,7 +17,7 @@ const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
 const listFiles = (dir: string, pattern: RegExp): readonly string[] =>
   readdirSync(dir, { recursive: true, encoding: 'utf8' })
     .filter((path) => pattern.test(path))
-    .map((path) => join(dir, path));
+    .map((path) => join(dir, path).split(sep).join('/'));
 
 const frontmatterSchema = z.object({
   type: z.enum(CONTENT_TYPES),
@@ -41,7 +41,7 @@ const articles: readonly ArticleFile[] = listFiles(ARTICLES_DIR, /\.(md|mdx)$/)
     if (!match?.[1]) throw new Error(`${path}: frontmatter が見つからない`);
     const meta = frontmatterSchema.parse(parse(match[1]));
     return {
-      id: relative(ARTICLES_DIR, path).replace(/\.(md|mdx)$/, ''),
+      id: posix.relative(ARTICLES_DIR, path).replace(/\.(md|mdx)$/, ''),
       type: meta.type,
       products: meta.products,
       ...(meta.stationNo === undefined ? {} : { stationNo: meta.stationNo }),
@@ -53,7 +53,7 @@ const articles: readonly ArticleFile[] = listFiles(ARTICLES_DIR, /\.(md|mdx)$/)
 
 // 静的なページ（動的ルート [..] とエンドポイント .ts は除く）の URL
 const staticPageRoutes = listFiles(PAGES_DIR, /\.(astro|md|mdx)$/)
-  .map((path) => relative(PAGES_DIR, path).replace(/\.(astro|md|mdx)$/, ''))
+  .map((path) => posix.relative(PAGES_DIR, path).replace(/\.(astro|md|mdx)$/, ''))
   .filter((route) => !route.includes('['))
   .map((route) => (route === 'index' ? '/' : `/${route.replace(/\/index$/, '')}/`));
 
