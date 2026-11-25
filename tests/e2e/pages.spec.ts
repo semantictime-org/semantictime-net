@@ -13,6 +13,8 @@ for (const path of PAGES) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(path);
       await expect(page.locator('h1')).toBeVisible();
+      // 書体の読み込み中は文字の幅が定まらず、狭い幅で一時的にはみ出すことがあるので待つ
+      await page.evaluate(() => document.fonts.ready);
 
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
