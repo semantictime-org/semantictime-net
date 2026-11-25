@@ -20,7 +20,7 @@
     "reset-verification": "node scripts/reset-verification.ts",
     "lint:content": "node scripts/lint-content.ts",
     "stale-report": "node scripts/stale-report.ts",
-    "lint:text": "files=$(find src/content/articles -type f \\( -name '*.md' -o -name '*.mdx' \\)); if [ -z \"$files\" ]; then echo '文章の検査: 対象の記事なし'; else textlint $files; fi",
+    "lint:text": "node scripts/lint-text.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {
