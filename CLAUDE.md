@@ -9,6 +9,26 @@
 - 記事の公開は1日1本を目標にする（上限は設けない）。実機で検証していない記事は公開しない。
 - 各タスクの終わりに `npm run check`（lint → typecheck → test → build）を実行する。
 
+### PR とマージ（auto-merge）
+
+- push すると App が PR を作り、CI が通るとすぐ Squash でマージされる。1つの変更は1つのブランチにまとめ、push は1回にする。
+- マージ済みのブランチへ追加で push しない（同じブランチ名で新しい PR が自動で作られる）。直すときは新しいブランチを作る。
+- 試験用の PR は `fix/trial-…` にする（auto-merge の対象外）。
+- 必須チェックは strict（main に追いついている必要がある）。PR が main より遅れたら `gh pr update-branch <番号>` で追いつかせる。
+- 記事の公開には、人が PR 本文に検証の印（「実機で検証した」か「一次情報の出典を確かめた」）を付ける。push のたびに印は外れる。Claude は印を付けない。
+
+### 確かめ方
+
+- push の前に `npm run check` と `npm run test:e2e` の両方を通す（CI でも e2e を動かす）。
+- 終了コードは `npm run check > .tmp/check.log 2>&1; echo "exit=$?"` のように確かめる。`| grep` や `| tail` につなぐと失敗を見落とす。
+- Astro 7 の preview は AI エージェントの中だと常駐するので `--ignore-lock` を付ける。
+
+### Claude が扱わないもの
+
+- トークンや PAT の値、`REAL_NAME_PATTERNS` とパターンファイルの中身。作成と貼り付けは人が行う。
+- `.github/` のワークフローの変更は、push 用の PAT ではできない。人のログインした Chrome で、GitHub の Web エディタから変える（Claude in Chrome を使ってよい）。
+- Cloudflare の Worker の新規作成と独自ドメインの設定は、ダッシュボードで行う（`docs/runbook.md`）。
+
 ## コード
 
 - TypeScript は strict。`any`・`unknown`・`class` は使わない（ESLint で禁止）。
@@ -33,3 +53,13 @@ git config user.email "<semantictime の noreply アドレス>"
 ```
 
 `gh` は `mise.toml` の `GH_CONFIG_DIR` で、push 専用の PAT（semantictime）を使う。Claude Code の Bash では `.claude/settings.local.json` の `env` で同じ値を渡す。
+
+パターンファイルは `~/.config/semantictime/real-name-patterns`（1行1パターン）に、マシンごとに人が置く。
+
+### Windows で使うとき
+
+- Git for Windows を入れ、Git Bash で上の手順を行う（pre-push のフックは bash で動く）。改行は `.gitattributes` で LF にそろえている。
+- push 用の PAT はマシンごとに別に作る（片方をなくしても、その1本だけ取り消せばよい）。保存先は `%USERPROFILE%\.config\gh-semantictime`。
+- `.claude/settings.local.json` は Windows で作り直し、`env.GH_CONFIG_DIR` に上の保存先を絶対パスで書く。
+- e2e の前に `npx playwright install chromium` を実行する。
+- `.tmp/` と Claude のメモリーはマシンの中にだけある。運用の決まりはこのファイルと `docs/` に書く。

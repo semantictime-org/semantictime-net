@@ -1,0 +1,5 @@
+# Windows でも改行を LF にそろえる（pre-push の bash と Prettier の検査が CRLF で失敗するため）
+* text=auto eol=lf
+*.png binary
+*.woff binary
+*.woff2 binary
